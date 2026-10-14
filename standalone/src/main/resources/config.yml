@@ -1,0 +1,34 @@
+legendary-weapons:
+  friendly-fire: false
+  max-active-effects: 32
+  max-targets-per-pulse: 12
+  particles-per-ring: 24
+  bloodlust:
+    damage-multiplier: 1.6
+    heal-per-hit: 1.5
+  shadow-blade:
+    range: 16
+    bonus-damage: 8
+  hyperion:
+    impact-damage: 12
+  earthbreaker:
+    damage: 12
+  void-katana:
+    damage-per-cut: 5
+  spear:
+    flight-speed: 1.8
+    max-flight-ticks: 80
+    storm-radius: 7
+    lightning-damage: 7
+    # on-respawn o on-join; nunca se arroja al suelo.
+    death-return: on-respawn
+  altars:
+    generate: true
+    chance-denominator: 128
+    max-per-weapon-per-world: 1
+
+resource-pack:
+  enabled: true
+  bind-address: 127.0.0.1
+  port: 8124
+  url: http://127.0.0.1:8124/legendary-pack.zip

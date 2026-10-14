@@ -1,0 +1,27 @@
+plugins { id 'java' }
+group = 'dev.linqfy'
+version = '1.0.0'
+repositories {
+    mavenCentral()
+    maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+}
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:26.3.build.183-stable'
+    testImplementation 'org.spigotmc:spigot-api:26.3-R0.1-SNAPSHOT'
+    testImplementation platform('org.junit:junit-bom:5.11.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+java { sourceCompatibility = JavaVersion.VERSION_25; targetCompatibility = JavaVersion.VERSION_25 }
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8'; options.release = 25 }
+test { useJUnitPlatform() }
+tasks.register('legendaryPack', Zip) {
+    archiveFileName = 'legendary-weapons-java.zip'
+    destinationDirectory = layout.buildDirectory.dir('packs')
+    from('pack')
+}
+processResources {
+    dependsOn legendaryPack
+    from(tasks.named('legendaryPack')) { rename { 'legendary-pack.zip' } }
+}

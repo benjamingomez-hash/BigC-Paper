@@ -1,0 +1,14 @@
+{
+  "pack": {
+    "pack_format": 97,
+    "description": "BigCasares resource pack",
+    "min_format": [
+      97,
+      0
+    ],
+    "max_format": [
+      97,
+      1
+    ]
+  }
+}

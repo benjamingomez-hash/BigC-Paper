@@ -48,3 +48,5 @@ del servidor. Los generadores Python son pasos manuales, separados del build.
 
 Los planes fechados describen decisiones históricas; para el comportamiento
 actual, verificá el código y la configuración versionada.
+
+Para probar únicamente las armas, hay una [distribución independiente](standalone/README.md) sin los otros módulos ni dependencias de BigCasares.
