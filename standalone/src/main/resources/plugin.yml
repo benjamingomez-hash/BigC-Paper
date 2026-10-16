@@ -6,7 +6,7 @@ authors: [linqfy]
 softdepend: [WorldGuard]
 commands:
   weapons:
-    description: Armas legendarias y altares
+    description: Armas legendarias y eventos de fabricación PvP
     usage: /weapons help
 permissions:
   bigcasares.weapons.admin:

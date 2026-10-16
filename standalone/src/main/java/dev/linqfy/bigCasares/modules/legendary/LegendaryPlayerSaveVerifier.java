@@ -33,9 +33,7 @@ final class LegendaryPlayerSaveVerifier {
         try (FileChannel channel = FileChannel.open(file, StandardOpenOption.WRITE)) {
             channel.force(true);
         }
-        try (FileChannel directory = FileChannel.open(file.getParent(), StandardOpenOption.READ)) {
-            directory.force(true);
-        }
+        LegendaryDurability.forceDirectory(file.getParent());
     }
 
     static java.nio.file.Path playerFile(java.nio.file.Path worldFolder, UUID player) throws IOException {

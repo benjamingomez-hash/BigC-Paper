@@ -98,9 +98,7 @@ public final class LegendaryStateStore {
             // subsequent write may erase an uncertain ownership transition.
             values.clear();
             values.putAll(next);
-            try (FileChannel directory = FileChannel.open(path.toAbsolutePath().getParent(), StandardOpenOption.READ)) {
-                directory.force(true);
-            }
+            LegendaryDurability.forceDirectory(path.toAbsolutePath().getParent());
         } finally {
             Files.deleteIfExists(temporary);
         }

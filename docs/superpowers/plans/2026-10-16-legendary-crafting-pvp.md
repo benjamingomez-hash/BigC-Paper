@@ -9,3 +9,11 @@ Consumir ingredientes en una transacción recuperable de inventario; recuperar c
 No cargar chunks para los indicadores: persistir el estado y reconstruir al cargar. Proteger únicamente mesa y bloque superior; no proteger jugadores durante el evento. Aislar toda entidad visual y ciclo de vida. Mantener los ataques y cooldowns anteriores.
 
 Validación prevista: pruebas de reloj/zonas/estados/reinicio/concurrencia/consumo y reclamo; build completo; servidor Paper 26.2 real. Publicar rama feat/legendary-crafting-pvp y PR si la autenticación lo permite.
+
+## Resultado
+
+Plugin independiente 2.0.0 para Paper 26.2 en standalone/. La rama se basa en origin/main y solo añade esta distribución, sus assets y documentación; las fuentes y dependencias originales de BigCasares se conservan. Eliminada la generación de altares de la distribución independiente.
+
+Build independiente: 46 pruebas. Build original: 1.014 pruebas. Cliente oficial/Paper 26.2: receta, consumo sin premio temprano, contador, mesa protegida, muerte/desconexión, reinicios, zonas estables, aparición diferida al cargar chunk, inventario lleno, reclamo por otra identidad, anonimato y retorno de lanza. Los tiempos manuales se simularon editando el diario únicamente con Paper detenido; las fronteras exactas del reloj tienen pruebas automatizadas. Detalles y límites: standalone/VERIFY.md.
+
+La escritura a GitHub por API respondió 403 Resource not accessible by integration. No se publicó una rama ni un PR mediante esa llamada.

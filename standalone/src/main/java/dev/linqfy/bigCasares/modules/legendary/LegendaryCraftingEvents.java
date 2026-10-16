@@ -270,6 +270,7 @@ final class LegendaryCraftingEvents implements Listener, Runnable {
         if (failed) return;
         try {
             for (var notice : ledger.advance(System.currentTimeMillis())) {
+                if (notice.index() == 4) render(notice.session());
                 for (String message : LegendaryCraftingMessages.notice(notice, notice.session().dimension())) plugin.getServer().broadcastMessage(message);
             }
             if (++ticks % 10 == 0) for (var session : ledger.all()) render(session);

@@ -61,4 +61,6 @@ Los avisos se confirman antes de publicarse para evitar duplicarlos al reiniciar
 
 Desde `standalone/` con Java 25: `bash gradlew --no-daemon --max-workers=4 clean build` (Windows: `gradlew.bat build`). Artefacto: `build/libs/LegendaryWeapons-2.0.0.jar`.
 
+Consulta [los resultados y capturas](VERIFY.md).
+
 Las pruebas automatizadas cubren reloj, límites negativos, zonas inclusivas anidadas y persistentes, reserva global, concurrencia de reclamos, independencia entre armas, anonimato, espacio protegido, consumo de ingredientes y recuperación de inventarios ante fallos. La validación de servidor real se documenta en el plan de implementación; no equivale a validar todas las integraciones externas.
