@@ -1,21 +1,103 @@
 {
+  "gui_light": "front",
+  "ambientocclusion": false,
   "textures": {
-    "metal": "bigcasares:item/thunder_spear",
-    "particle": "bigcasares:item/thunder_spear",
-    "grip": "bigcasares:item/legendary_grip"
+    "outline": "bigcasares:item/legendary/thunder_spear/outline",
+    "shade": "bigcasares:item/legendary/thunder_spear/shade",
+    "metal": "bigcasares:item/legendary/thunder_spear/metal",
+    "edge": "bigcasares:item/legendary/thunder_spear/edge",
+    "highlight": "bigcasares:item/legendary/thunder_spear/highlight",
+    "gem": "bigcasares:item/legendary/thunder_spear/gem",
+    "grip": "bigcasares:item/legendary/thunder_spear/grip",
+    "gold": "bigcasares:item/legendary/thunder_spear/gold",
+    "particle": "#metal"
   },
   "elements": [
     {
+      "name": "long_haft",
       "from": [
-        7.25,
+        7.05,
         -14,
-        7.25
+        7.05
       ],
       "to": [
-        8.75,
+        8.95,
+        25,
+        8.95
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        }
+      }
+    },
+    {
+      "name": "haft_inlay",
+      "from": [
+        7.5,
+        -12,
+        6.9
+      ],
+      "to": [
+        8.5,
         22,
-        8.75
+        7.05
       ],
+      "shade": true,
+      "light_emission": 0,
       "faces": {
         "north": {
           "uv": [
@@ -24,7 +106,7 @@
             16,
             16
           ],
-          "texture": "#grip"
+          "texture": "#metal"
         },
         "south": {
           "uv": [
@@ -33,7 +115,7 @@
             16,
             16
           ],
-          "texture": "#grip"
+          "texture": "#metal"
         },
         "east": {
           "uv": [
@@ -42,7 +124,7 @@
             16,
             16
           ],
-          "texture": "#grip"
+          "texture": "#metal"
         },
         "west": {
           "uv": [
@@ -51,7 +133,7 @@
             16,
             16
           ],
-          "texture": "#grip"
+          "texture": "#metal"
         },
         "up": {
           "uv": [
@@ -60,7 +142,7 @@
             16,
             16
           ],
-          "texture": "#grip"
+          "texture": "#metal"
         },
         "down": {
           "uv": [
@@ -69,21 +151,24 @@
             16,
             16
           ],
-          "texture": "#grip"
+          "texture": "#metal"
         }
       }
     },
     {
+      "name": "lower_grip",
       "from": [
-        6,
-        21,
-        6.5
+        6.7,
+        -13,
+        6.7
       ],
       "to": [
-        10,
-        28,
-        9.5
+        9.3,
+        1,
+        9.3
       ],
+      "shade": true,
+      "light_emission": 0,
       "faces": {
         "north": {
           "uv": [
@@ -92,7 +177,7 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#grip"
         },
         "south": {
           "uv": [
@@ -101,7 +186,7 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#grip"
         },
         "east": {
           "uv": [
@@ -110,7 +195,7 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#grip"
         },
         "west": {
           "uv": [
@@ -119,7 +204,7 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#grip"
         },
         "up": {
           "uv": [
@@ -128,7 +213,7 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#grip"
         },
         "down": {
           "uv": [
@@ -137,147 +222,12 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#grip"
         }
       }
     },
     {
-      "from": [
-        7,
-        28,
-        7
-      ],
-      "to": [
-        9,
-        32,
-        9
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        }
-      }
-    },
-    {
-      "from": [
-        3,
-        20,
-        7
-      ],
-      "to": [
-        13,
-        22,
-        9
-      ],
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        }
-      }
-    },
-    {
+      "name": "haft_endcap",
       "from": [
         6.5,
         -16,
@@ -288,6 +238,647 @@
         -13,
         9.5
       ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        }
+      }
+    },
+    {
+      "name": "haft_ring_0",
+      "from": [
+        6.8,
+        -10,
+        6.8
+      ],
+      "to": [
+        9.2,
+        -9.35,
+        9.2
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        }
+      }
+    },
+    {
+      "name": "haft_ring_1",
+      "from": [
+        6.8,
+        -6,
+        6.8
+      ],
+      "to": [
+        9.2,
+        -5.35,
+        9.2
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        }
+      }
+    },
+    {
+      "name": "haft_ring_2",
+      "from": [
+        6.8,
+        -2,
+        6.8
+      ],
+      "to": [
+        9.2,
+        -1.35,
+        9.2
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        }
+      }
+    },
+    {
+      "name": "haft_ring_3",
+      "from": [
+        6.8,
+        4,
+        6.8
+      ],
+      "to": [
+        9.2,
+        4.65,
+        9.2
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        }
+      }
+    },
+    {
+      "name": "haft_ring_4",
+      "from": [
+        6.8,
+        9,
+        6.8
+      ],
+      "to": [
+        9.2,
+        9.65,
+        9.2
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        }
+      }
+    },
+    {
+      "name": "haft_ring_5",
+      "from": [
+        6.8,
+        14,
+        6.8
+      ],
+      "to": [
+        9.2,
+        14.65,
+        9.2
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        }
+      }
+    },
+    {
+      "name": "haft_ring_6",
+      "from": [
+        6.8,
+        18,
+        6.8
+      ],
+      "to": [
+        9.2,
+        18.65,
+        9.2
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_0_silhouette",
+      "from": [
+        5,
+        20,
+        6.7
+      ],
+      "to": [
+        11,
+        24,
+        9.3
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_0_steel_front",
+      "from": [
+        5.35,
+        20.1,
+        6.45
+      ],
+      "to": [
+        10.65,
+        23.9,
+        6.7
+      ],
+      "shade": true,
+      "light_emission": 0,
       "faces": {
         "north": {
           "uv": [
@@ -344,9 +935,3397 @@
           "texture": "#metal"
         }
       }
+    },
+    {
+      "name": "single_spear_point_0_steel_back",
+      "from": [
+        5.35,
+        20.1,
+        9.3
+      ],
+      "to": [
+        10.65,
+        23.9,
+        9.55
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_0_edge_front",
+      "from": [
+        10.1,
+        20.15,
+        6.15
+      ],
+      "to": [
+        10.8,
+        23.85,
+        6.4
+      ],
+      "shade": false,
+      "light_emission": 3,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_0_edge_back",
+      "from": [
+        10.1,
+        20.15,
+        9.600000000000001
+      ],
+      "to": [
+        10.8,
+        23.85,
+        9.850000000000001
+      ],
+      "shade": false,
+      "light_emission": 3,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_0_glint_front",
+      "from": [
+        10.6,
+        20.25,
+        5.8500000000000005
+      ],
+      "to": [
+        10.85,
+        23.75,
+        6.1000000000000005
+      ],
+      "shade": false,
+      "light_emission": 5,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_0_glint_back",
+      "from": [
+        10.6,
+        20.25,
+        9.9
+      ],
+      "to": [
+        10.85,
+        23.75,
+        10.15
+      ],
+      "shade": false,
+      "light_emission": 5,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_1_silhouette",
+      "from": [
+        5.8,
+        24,
+        6.7
+      ],
+      "to": [
+        10.2,
+        28,
+        9.3
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_1_steel_front",
+      "from": [
+        6.1499999999999995,
+        24.1,
+        6.45
+      ],
+      "to": [
+        9.85,
+        27.9,
+        6.7
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_1_steel_back",
+      "from": [
+        6.1499999999999995,
+        24.1,
+        9.3
+      ],
+      "to": [
+        9.85,
+        27.9,
+        9.55
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_1_edge_front",
+      "from": [
+        9.299999999999999,
+        24.15,
+        6.15
+      ],
+      "to": [
+        10.0,
+        27.85,
+        6.4
+      ],
+      "shade": false,
+      "light_emission": 3,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_1_edge_back",
+      "from": [
+        9.299999999999999,
+        24.15,
+        9.600000000000001
+      ],
+      "to": [
+        10.0,
+        27.85,
+        9.850000000000001
+      ],
+      "shade": false,
+      "light_emission": 3,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_1_glint_front",
+      "from": [
+        9.799999999999999,
+        24.25,
+        5.8500000000000005
+      ],
+      "to": [
+        10.049999999999999,
+        27.75,
+        6.1000000000000005
+      ],
+      "shade": false,
+      "light_emission": 5,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_1_glint_back",
+      "from": [
+        9.799999999999999,
+        24.25,
+        9.9
+      ],
+      "to": [
+        10.049999999999999,
+        27.75,
+        10.15
+      ],
+      "shade": false,
+      "light_emission": 5,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_2_silhouette",
+      "from": [
+        7,
+        28,
+        6.7
+      ],
+      "to": [
+        9,
+        31,
+        9.3
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_2_steel_front",
+      "from": [
+        7.35,
+        28.1,
+        6.45
+      ],
+      "to": [
+        8.65,
+        30.9,
+        6.7
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_2_steel_back",
+      "from": [
+        7.35,
+        28.1,
+        9.3
+      ],
+      "to": [
+        8.65,
+        30.9,
+        9.55
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_2_edge_front",
+      "from": [
+        8.1,
+        28.15,
+        6.15
+      ],
+      "to": [
+        8.8,
+        30.85,
+        6.4
+      ],
+      "shade": false,
+      "light_emission": 3,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_2_edge_back",
+      "from": [
+        8.1,
+        28.15,
+        9.600000000000001
+      ],
+      "to": [
+        8.8,
+        30.85,
+        9.850000000000001
+      ],
+      "shade": false,
+      "light_emission": 3,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_2_glint_front",
+      "from": [
+        8.6,
+        28.25,
+        5.8500000000000005
+      ],
+      "to": [
+        8.85,
+        30.75,
+        6.1000000000000005
+      ],
+      "shade": false,
+      "light_emission": 5,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_2_glint_back",
+      "from": [
+        8.6,
+        28.25,
+        9.9
+      ],
+      "to": [
+        8.85,
+        30.75,
+        10.15
+      ],
+      "shade": false,
+      "light_emission": 5,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        }
+      }
+    },
+    {
+      "name": "single_spear_point_3_silhouette",
+      "from": [
+        7.5,
+        31,
+        6.7
+      ],
+      "to": [
+        8.5,
+        32,
+        9.3
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        }
+      }
+    },
+    {
+      "name": "lightning_guard_0",
+      "from": [
+        1,
+        18,
+        6.7
+      ],
+      "to": [
+        6,
+        20,
+        9.3
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        }
+      }
+    },
+    {
+      "name": "electric_inlay_0_front",
+      "from": [
+        1.2,
+        18.4,
+        6.45
+      ],
+      "to": [
+        5.8,
+        19.6,
+        6.7
+      ],
+      "shade": false,
+      "light_emission": 12,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        }
+      }
+    },
+    {
+      "name": "electric_inlay_0_back",
+      "from": [
+        1.2,
+        18.4,
+        9.3
+      ],
+      "to": [
+        5.8,
+        19.6,
+        9.55
+      ],
+      "shade": false,
+      "light_emission": 12,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        }
+      }
+    },
+    {
+      "name": "lightning_guard_1",
+      "from": [
+        -1,
+        20,
+        6.7
+      ],
+      "to": [
+        3,
+        22,
+        9.3
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        }
+      }
+    },
+    {
+      "name": "electric_inlay_1_front",
+      "from": [
+        -0.8,
+        20.4,
+        6.45
+      ],
+      "to": [
+        2.8,
+        21.6,
+        6.7
+      ],
+      "shade": false,
+      "light_emission": 12,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        }
+      }
+    },
+    {
+      "name": "electric_inlay_1_back",
+      "from": [
+        -0.8,
+        20.4,
+        9.3
+      ],
+      "to": [
+        2.8,
+        21.6,
+        9.55
+      ],
+      "shade": false,
+      "light_emission": 12,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        }
+      }
+    },
+    {
+      "name": "lightning_guard_2",
+      "from": [
+        10,
+        18,
+        6.7
+      ],
+      "to": [
+        15,
+        20,
+        9.3
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        }
+      }
+    },
+    {
+      "name": "electric_inlay_2_front",
+      "from": [
+        10.2,
+        18.4,
+        6.45
+      ],
+      "to": [
+        14.8,
+        19.6,
+        6.7
+      ],
+      "shade": false,
+      "light_emission": 12,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        }
+      }
+    },
+    {
+      "name": "electric_inlay_2_back",
+      "from": [
+        10.2,
+        18.4,
+        9.3
+      ],
+      "to": [
+        14.8,
+        19.6,
+        9.55
+      ],
+      "shade": false,
+      "light_emission": 12,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        }
+      }
+    },
+    {
+      "name": "lightning_guard_3",
+      "from": [
+        13,
+        16,
+        6.7
+      ],
+      "to": [
+        17,
+        18,
+        9.3
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#outline"
+        }
+      }
+    },
+    {
+      "name": "electric_inlay_3_front",
+      "from": [
+        13.2,
+        16.4,
+        6.45
+      ],
+      "to": [
+        16.8,
+        17.6,
+        6.7
+      ],
+      "shade": false,
+      "light_emission": 12,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        }
+      }
+    },
+    {
+      "name": "electric_inlay_3_back",
+      "from": [
+        13.2,
+        16.4,
+        9.3
+      ],
+      "to": [
+        16.8,
+        17.6,
+        9.55
+      ],
+      "shade": false,
+      "light_emission": 12,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        }
+      }
+    },
+    {
+      "name": "haft_spark_0_front",
+      "from": [
+        7.7,
+        3,
+        6.75
+      ],
+      "to": [
+        8.3,
+        4.3,
+        7.0
+      ],
+      "shade": false,
+      "light_emission": 12,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        }
+      }
+    },
+    {
+      "name": "haft_spark_0_back",
+      "from": [
+        7.7,
+        3,
+        9.0
+      ],
+      "to": [
+        8.3,
+        4.3,
+        9.25
+      ],
+      "shade": false,
+      "light_emission": 12,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        }
+      }
+    },
+    {
+      "name": "haft_spark_1_front",
+      "from": [
+        7.7,
+        7,
+        6.75
+      ],
+      "to": [
+        8.3,
+        8.3,
+        7.0
+      ],
+      "shade": false,
+      "light_emission": 12,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        }
+      }
+    },
+    {
+      "name": "haft_spark_1_back",
+      "from": [
+        7.7,
+        7,
+        9.0
+      ],
+      "to": [
+        8.3,
+        8.3,
+        9.25
+      ],
+      "shade": false,
+      "light_emission": 12,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        }
+      }
+    },
+    {
+      "name": "haft_spark_2_front",
+      "from": [
+        7.7,
+        11,
+        6.75
+      ],
+      "to": [
+        8.3,
+        12.3,
+        7.0
+      ],
+      "shade": false,
+      "light_emission": 12,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        }
+      }
+    },
+    {
+      "name": "haft_spark_2_back",
+      "from": [
+        7.7,
+        11,
+        9.0
+      ],
+      "to": [
+        8.3,
+        12.3,
+        9.25
+      ],
+      "shade": false,
+      "light_emission": 12,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        }
+      }
+    },
+    {
+      "name": "haft_spark_3_front",
+      "from": [
+        7.7,
+        15,
+        6.75
+      ],
+      "to": [
+        8.3,
+        16.3,
+        7.0
+      ],
+      "shade": false,
+      "light_emission": 12,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        }
+      }
+    },
+    {
+      "name": "haft_spark_3_back",
+      "from": [
+        7.7,
+        15,
+        9.0
+      ],
+      "to": [
+        8.3,
+        16.3,
+        9.25
+      ],
+      "shade": false,
+      "light_emission": 12,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        }
+      }
+    },
+    {
+      "name": "storm_core_bezel",
+      "from": [
+        5.85,
+        18.6,
+        5.9
+      ],
+      "to": [
+        10.15,
+        23.4,
+        10.1
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        }
+      }
+    },
+    {
+      "name": "storm_core_crystal_front",
+      "from": [
+        6.25,
+        19.666666666666668,
+        5.45
+      ],
+      "to": [
+        9.75,
+        22.333333333333332,
+        5.7
+      ],
+      "shade": false,
+      "light_emission": 13,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        }
+      }
+    },
+    {
+      "name": "storm_core_crystal_back",
+      "from": [
+        6.25,
+        19.666666666666668,
+        10.3
+      ],
+      "to": [
+        9.75,
+        22.333333333333332,
+        10.55
+      ],
+      "shade": false,
+      "light_emission": 13,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        }
+      }
+    },
+    {
+      "name": "storm_core_tips_front",
+      "from": [
+        7.125,
+        19.0,
+        5.300000000000001
+      ],
+      "to": [
+        8.875,
+        23.0,
+        5.550000000000001
+      ],
+      "shade": false,
+      "light_emission": 13,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        }
+      }
+    },
+    {
+      "name": "storm_core_tips_back",
+      "from": [
+        7.125,
+        19.0,
+        10.450000000000001
+      ],
+      "to": [
+        8.875,
+        23.0,
+        10.700000000000001
+      ],
+      "shade": false,
+      "light_emission": 13,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gem"
+        }
+      }
+    },
+    {
+      "name": "storm_core_facet_front",
+      "from": [
+        7.125,
+        21,
+        5.0
+      ],
+      "to": [
+        7.5625,
+        22.333333333333332,
+        5.25
+      ],
+      "shade": false,
+      "light_emission": 14,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        }
+      }
+    },
+    {
+      "name": "storm_core_facet_back",
+      "from": [
+        7.125,
+        21,
+        10.75
+      ],
+      "to": [
+        7.5625,
+        22.333333333333332,
+        11.0
+      ],
+      "shade": false,
+      "light_emission": 14,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#highlight"
+        }
+      }
     }
   ],
   "display": {
+    "gui": {
+      "rotation": [
+        12,
+        -22,
+        -38
+      ],
+      "translation": [
+        0.149,
+        0.13,
+        0.0
+      ],
+      "scale": [
+        0.3692,
+        0.3692,
+        0.3692
+      ]
+    },
+    "firstperson_righthand": {
+      "rotation": [
+        0,
+        -85,
+        22
+      ],
+      "translation": [
+        1,
+        1.5,
+        -1.5
+      ],
+      "scale": [
+        0.46,
+        0.46,
+        0.46
+      ]
+    },
+    "firstperson_lefthand": {
+      "rotation": [
+        0,
+        85,
+        -22
+      ],
+      "translation": [
+        1,
+        1.5,
+        -1.5
+      ],
+      "scale": [
+        0.46,
+        0.46,
+        0.46
+      ]
+    },
     "thirdperson_righthand": {
       "rotation": [
         0,
@@ -355,13 +4334,13 @@
       ],
       "translation": [
         0,
-        1,
-        -2
+        2,
+        0
       ],
       "scale": [
-        0.65,
-        0.65,
-        0.65
+        0.42,
+        0.42,
+        0.42
       ]
     },
     "thirdperson_lefthand": {
@@ -372,83 +4351,32 @@
       ],
       "translation": [
         0,
-        1,
-        -2
-      ],
-      "scale": [
-        0.65,
-        0.65,
-        0.65
-      ]
-    },
-    "firstperson_righthand": {
-      "rotation": [
-        0,
-        -90,
-        15
-      ],
-      "translation": [
-        1,
-        -1,
-        -2
-      ],
-      "scale": [
-        0.6,
-        0.6,
-        0.6
-      ]
-    },
-    "firstperson_lefthand": {
-      "rotation": [
-        0,
-        90,
-        -15
-      ],
-      "translation": [
-        1,
-        -1,
-        -2
-      ],
-      "scale": [
-        0.6,
-        0.6,
-        0.6
-      ]
-    },
-    "gui": {
-      "rotation": [
-        0,
-        0,
-        -40
-      ],
-      "translation": [
-        0,
-        -2,
+        2,
         0
       ],
       "scale": [
-        0.35,
-        0.35,
-        0.35
+        0.42,
+        0.42,
+        0.42
       ]
     },
     "ground": {
       "translation": [
         0,
-        3,
+        5,
         0
       ],
       "scale": [
-        0.4,
-        0.4,
-        0.4
+        0.3,
+        0.3,
+        0.3
       ]
     },
     "fixed": {
       "scale": [
-        0.65,
-        0.65,
-        0.65
+        0.48,
+        0.48,
+        0.48
       ]
     }
   }

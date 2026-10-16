@@ -35,7 +35,7 @@ Cada arma conserva una habilidad de clic derecho y cooldown persistente de **40 
 1. Instala Java 25 y descarga Paper 26.2 desde https://papermc.io/downloads/paper (versiones anteriores).
 2. En una carpeta nueva, guarda Paper como `paper.jar`. Ejecuta `java -Xms1G -Xmx2G -jar paper.jar --nogui`.
 3. Lee el EULA en `eula.txt` y, si lo aceptas, cambia `eula=false` por `eula=true`.
-4. Copia **`LegendaryWeapons-2.0.0.jar`** en `plugins` y vuelve a iniciar Paper.
+4. Copia **`LegendaryWeapons-2.0.1.jar`** en `plugins` y vuelve a iniciar Paper.
 5. En la consola escribe `op TuNombre`. En Minecraft Java **26.2**, entra a Multijugador → Conexión directa → `localhost`; acepta el paquete de recursos.
 6. Consulta `/weapons info thunder_spear`, consigue los materiales y fabrica en una mesa. `/weapons events` muestra disponibilidad y tiempo sin filtrar coordenadas anticipadas.
 
@@ -44,6 +44,8 @@ El plugin va en `plugins`, no en `mods`. Lunar puede conectarse si ofrece esa ve
 `/weapons give` y `/weapons altar` no forman parte de este modo: no hay entrega manual ni un comando para volver a habilitar una fabricación. `/weapons reload` y `/weapons cooldown reset <jugador>` requieren `bigcasares.weapons.admin` (operadores por defecto). Recargar no reinicia eventos, zonas ni cooldowns. Los cambios de puerto/URL del pack necesitan reiniciar.
 
 ## Modelos
+
+La versión **2.0.1** rediseña las ocho armas con metal oscuro, bordes de color, gemas y siluetas distintas, inspiradas en la referencia de inventario del usuario. Consulta [la galería y el detalle de los modelos](MODELS.md). No modifica los modelos de cobre.
 
 El JAR incluye el pack Java de las ocho armas y lo sirve por defecto en `http://127.0.0.1:8124/legendary-pack.zip`. Esto sirve para jugar en la misma PC. También se genera `build/packs/legendary-weapons-java.zip` para instalación manual en `resourcepacks`.
 
@@ -59,7 +61,7 @@ Los avisos se confirman antes de publicarse para evitar duplicarlos al reiniciar
 
 ## Desarrollo
 
-Desde `standalone/` con Java 25: `bash gradlew --no-daemon --max-workers=4 clean build` (Windows: `gradlew.bat build`). Artefacto: `build/libs/LegendaryWeapons-2.0.0.jar`.
+Desde `standalone/` con Java 25: `bash gradlew --no-daemon --max-workers=4 clean build` (Windows: `gradlew.bat build`). Artefacto: `build/libs/LegendaryWeapons-2.0.1.jar`.
 
 Consulta [los resultados y capturas](VERIFY.md).
 

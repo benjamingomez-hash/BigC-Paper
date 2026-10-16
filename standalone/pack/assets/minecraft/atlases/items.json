@@ -1,0 +1,460 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:unstitch",
+      "resource": "bigcasares:legendary/material_atlas",
+      "divisor_x": 1254,
+      "divisor_y": 1254,
+      "regions": [
+        {
+          "sprite": "bigcasares:item/legendary/bloodlust/outline",
+          "x": 14,
+          "y": 14,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/bloodlust/shade",
+          "x": 171,
+          "y": 14,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/bloodlust/metal",
+          "x": 328,
+          "y": 14,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/bloodlust/edge",
+          "x": 485,
+          "y": 14,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/bloodlust/highlight",
+          "x": 641,
+          "y": 14,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/bloodlust/gem",
+          "x": 798,
+          "y": 14,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/bloodlust/grip",
+          "x": 955,
+          "y": 14,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/bloodlust/gold",
+          "x": 1112,
+          "y": 14,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/frost_scythe/outline",
+          "x": 14,
+          "y": 171,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/frost_scythe/shade",
+          "x": 171,
+          "y": 171,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/frost_scythe/metal",
+          "x": 328,
+          "y": 171,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/frost_scythe/edge",
+          "x": 485,
+          "y": 171,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/frost_scythe/highlight",
+          "x": 641,
+          "y": 171,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/frost_scythe/gem",
+          "x": 798,
+          "y": 171,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/frost_scythe/grip",
+          "x": 955,
+          "y": 171,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/frost_scythe/gold",
+          "x": 1112,
+          "y": 171,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/shadow_blade/outline",
+          "x": 14,
+          "y": 328,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/shadow_blade/shade",
+          "x": 171,
+          "y": 328,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/shadow_blade/metal",
+          "x": 328,
+          "y": 328,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/shadow_blade/edge",
+          "x": 485,
+          "y": 328,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/shadow_blade/highlight",
+          "x": 641,
+          "y": 328,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/shadow_blade/gem",
+          "x": 798,
+          "y": 328,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/shadow_blade/grip",
+          "x": 955,
+          "y": 328,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/shadow_blade/gold",
+          "x": 1112,
+          "y": 328,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/hyperion/outline",
+          "x": 14,
+          "y": 485,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/hyperion/shade",
+          "x": 171,
+          "y": 485,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/hyperion/metal",
+          "x": 328,
+          "y": 485,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/hyperion/edge",
+          "x": 485,
+          "y": 485,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/hyperion/highlight",
+          "x": 641,
+          "y": 485,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/hyperion/gem",
+          "x": 798,
+          "y": 485,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/hyperion/grip",
+          "x": 955,
+          "y": 485,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/hyperion/gold",
+          "x": 1112,
+          "y": 485,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/windweaver/outline",
+          "x": 14,
+          "y": 641,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/windweaver/shade",
+          "x": 171,
+          "y": 641,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/windweaver/metal",
+          "x": 328,
+          "y": 641,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/windweaver/edge",
+          "x": 485,
+          "y": 641,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/windweaver/highlight",
+          "x": 641,
+          "y": 641,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/windweaver/gem",
+          "x": 798,
+          "y": 641,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/windweaver/grip",
+          "x": 955,
+          "y": 641,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/windweaver/gold",
+          "x": 1112,
+          "y": 641,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/earthbreaker/outline",
+          "x": 14,
+          "y": 798,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/earthbreaker/shade",
+          "x": 171,
+          "y": 798,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/earthbreaker/metal",
+          "x": 328,
+          "y": 798,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/earthbreaker/edge",
+          "x": 485,
+          "y": 798,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/earthbreaker/highlight",
+          "x": 641,
+          "y": 798,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/earthbreaker/gem",
+          "x": 798,
+          "y": 798,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/earthbreaker/grip",
+          "x": 955,
+          "y": 798,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/earthbreaker/gold",
+          "x": 1112,
+          "y": 798,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/void_katana/outline",
+          "x": 14,
+          "y": 955,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/void_katana/shade",
+          "x": 171,
+          "y": 955,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/void_katana/metal",
+          "x": 328,
+          "y": 955,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/void_katana/edge",
+          "x": 485,
+          "y": 955,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/void_katana/highlight",
+          "x": 641,
+          "y": 955,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/void_katana/gem",
+          "x": 798,
+          "y": 955,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/void_katana/grip",
+          "x": 955,
+          "y": 955,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/void_katana/gold",
+          "x": 1112,
+          "y": 955,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/thunder_spear/outline",
+          "x": 14,
+          "y": 1112,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/thunder_spear/shade",
+          "x": 171,
+          "y": 1112,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/thunder_spear/metal",
+          "x": 328,
+          "y": 1112,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/thunder_spear/edge",
+          "x": 485,
+          "y": 1112,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/thunder_spear/highlight",
+          "x": 641,
+          "y": 1112,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/thunder_spear/gem",
+          "x": 798,
+          "y": 1112,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/thunder_spear/grip",
+          "x": 955,
+          "y": 1112,
+          "width": 128,
+          "height": 128
+        },
+        {
+          "sprite": "bigcasares:item/legendary/thunder_spear/gold",
+          "x": 1112,
+          "y": 1112,
+          "width": 128,
+          "height": 128
+        }
+      ]
+    }
+  ]
+}
