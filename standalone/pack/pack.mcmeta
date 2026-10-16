@@ -1,14 +1,14 @@
 {
   "pack": {
-    "pack_format": 97,
-    "description": "BigCasares resource pack",
+    "pack_format": 88,
     "min_format": [
-      97,
+      88,
       0
     ],
     "max_format": [
-      97,
-      1
-    ]
+      88,
+      0
+    ],
+    "description": "Legendary Weapons \u2014 Crafting PvP"
   }
 }

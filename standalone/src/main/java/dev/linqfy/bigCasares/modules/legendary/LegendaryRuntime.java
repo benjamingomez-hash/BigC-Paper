@@ -56,13 +56,15 @@ final class LegendaryRuntime implements Listener, Runnable {
     private final Map<SessionKey, Session> sessions = new HashMap<>();
     private final Map<UUID, Long> fallProtection = new HashMap<>();
     private final NamespacedKey temporary = new NamespacedKey("bigcasares", "legendary_temporary");
+    private final java.util.function.Predicate<UUID> eventTransaction;
     private int tick;
     private boolean stopped;
     private LivingEntity damageTarget;
     private boolean damageAccepted;
 
-    LegendaryRuntime(LegendaryWeaponsPlugin plugin, LegendaryStateStore store, BukkitRuntimeRegistrations registrations) {
+    LegendaryRuntime(LegendaryWeaponsPlugin plugin, LegendaryStateStore store, BukkitRuntimeRegistrations registrations, java.util.function.Predicate<UUID> eventTransaction) {
         this.plugin = plugin;
+        this.eventTransaction = eventTransaction;
         this.store = store;
         this.escrow = new LegendarySpearEscrow(store);
         this.policy = new LegendaryCombatPolicy(plugin);
@@ -658,7 +660,7 @@ final class LegendaryRuntime implements Listener, Runnable {
         return Math.max(minimum, Math.min(maximum, plugin.getConfig().getInt("legendary-weapons." + path, fallback)));
     }
     private boolean crafting(Player player) {
-        return store.get("craft." + player.getUniqueId()) != null;
+        return eventTransaction.test(player.getUniqueId()) || store.get("craft." + player.getUniqueId()) != null;
     }
 
     private void reportRecovery(Exception failure) {

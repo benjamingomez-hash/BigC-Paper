@@ -5,97 +5,67 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.Player;
-
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 final class LegendaryWeaponsCommand implements CommandExecutor, TabCompleter {
     private final LegendaryWeaponsPlugin plugin;
     private final LegendaryStateStore store;
-    private final LegendaryAltars altars;
-    LegendaryWeaponsCommand(LegendaryWeaponsPlugin plugin, LegendaryStateStore store, LegendaryAltars altars) {
-        this.plugin = plugin;
-        this.store = store;
-        this.altars = altars;
+    private final LegendaryCraftingEvents events;
+    LegendaryWeaponsCommand(LegendaryWeaponsPlugin plugin, LegendaryStateStore store, LegendaryCraftingEvents events) {
+        this.plugin = plugin; this.store = store; this.events = events;
     }
-
     @Override public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         try {
-            String action = args.length == 0 ? "help" : args[0].toLowerCase(java.util.Locale.ROOT);
-            if (action.equals("help")) {
-                sender.sendMessage("§6Armas legendarias: §e/weapons list §7| §einfo <arma> §7| §egive <jugador> <arma>");
-                sender.sendMessage("§e/weapons altar <create|remove|locate|teleport> [arma]");
-                sender.sendMessage("§e/weapons cooldown reset <jugador> §7| §e/weapons reload");
-            } else if (action.equals("list")) {
-                for (var weapon : LegendaryWeapon.values()) sender.sendMessage("§b" + weapon.id + " §7— " + weapon.abilityName + " (40 s)");
-            } else if (action.equals("info")) {
-                var weapon = weapon(args, 1);
-                sender.sendMessage("§6" + weapon.displayName + " §7— " + weapon.abilityName + " · cooldown: 40 s");
-                sender.sendMessage("§e" + weapon.altarName + " §7— " + weapon.environment + " / " + weapon.biome);
-                weapon.ingredients.forEach((material, amount) -> sender.sendMessage("§7" + amount + " × " + material));
-            } else {
-                if (!sender.hasPermission("bigcasares.weapons.admin")) throw new IllegalArgumentException("No tienes permiso para administrar armas legendarias.");
-                switch (action) {
-                    case "give" -> {
-                        if (args.length != 3) throw new IllegalArgumentException("Uso: /weapons give <jugador> <arma>");
-                        Player target = plugin.getServer().getPlayerExact(args[1]);
-                        if (target == null) throw new IllegalArgumentException("El jugador debe estar conectado.");
-                        var weapon = weapon(args, 2);
-                        if (target.getInventory().firstEmpty() < 0) throw new IllegalArgumentException("El inventario del jugador está lleno.");
-                        target.getInventory().addItem(plugin.getCustomItemRegistry().createItemStack(weapon.id, 1));
-                        sender.sendMessage("§aEntregaste " + weapon.displayName + " a " + target.getName() + ".");
+            String action = args.length == 0 ? "help" : args[0].toLowerCase(Locale.ROOT);
+            switch (action) {
+                case "help" -> {
+                    sender.sendMessage("§6/weapons list | info <arma> | events");
+                    sender.sendMessage("§eColoca los nueve ingredientes en una mesa vanilla: comenzará un evento PvP de 20 minutos.");
+                    sender.sendMessage("§eZonas a los 5/10 minutos; coordenadas a los 15. El primer clic a los 20 gana.");
+                    sender.sendMessage("§7Administración: /weapons cooldown reset <jugador> | reload");
+                }
+                case "list", "events" -> {
+                    for (var weapon : LegendaryWeapon.values()) {
+                        var session = events.ledger().find(weapon);
+                        String status = session.map(s -> s.stage().name()).orElse("AVAILABLE");
+                        long seconds = session.map(s -> (s.remaining(System.currentTimeMillis()) + 999) / 1000).orElse(0L);
+                        sender.sendMessage("§b" + weapon.id + " §7— " + status + (status.equals("CRAFTING") ? " · " + seconds + " s" : ""));
                     }
-                    case "altar" -> {
-                        if (!(sender instanceof Player player)) throw new IllegalArgumentException("Este comando requiere un jugador.");
-                        if (args.length < 2) throw new IllegalArgumentException("Uso: /weapons altar <create|remove|locate|teleport> [arma]");
-                        String sub = args[1].toLowerCase(java.util.Locale.ROOT);
-                        if (sub.equals("create")) {
-                            var altar = altars.create(player, weapon(args, 2), player.getLocation());
-                            sender.sendMessage("§aCreaste " + altar.weapon().altarName + ".");
-                        } else if (sub.equals("remove")) {
-                            var altar = altars.nearest(player, null).orElseThrow(() -> new IllegalArgumentException("No hay altares en esta dimensión."));
-                            if (altar.location(plugin).distanceSquared(player.getLocation()) > 100) throw new IllegalArgumentException("Acércate al altar para retirarlo.");
-                            altars.remove(player, altar);
-                            sender.sendMessage("§aAltar retirado. La estructura se conserva.");
-                        } else if (sub.equals("locate") || sub.equals("teleport")) {
-                            var altar = altars.locate(player, weapon(args, 2)).orElseThrow(() -> new IllegalArgumentException("No hay un altar registrado de esa arma."));
-                            var location = altar.location(plugin);
-                            sender.sendMessage("§e" + altar.weapon().altarName + " (" + location.getWorld().getName() + "): " + altar.x() + ", " + altar.y() + ", " + altar.z());
-                            if (sub.equals("teleport") && !player.teleport(location.clone().add(0, 2, 1),
-                                org.bukkit.event.player.PlayerTeleportEvent.TeleportCause.COMMAND)) sender.sendMessage("§cEl teletransporte fue cancelado.");
-                        } else throw new IllegalArgumentException("Acción de altar desconocida.");
-                    }
-                    case "cooldown" -> {
+                }
+                case "info" -> {
+                    if (args.length != 2) throw new IllegalArgumentException("Uso: /weapons info <arma>");
+                    var weapon = LegendaryWeapon.find(args[1]).orElseThrow(() -> new IllegalArgumentException("Arma desconocida."));
+                    sender.sendMessage("§6" + weapon.displayName + " — " + weapon.abilityName + " · cooldown: 40 s");
+                    sender.sendMessage("§eReceta sin forma en mesa vanilla; una unidad de ingrediente por casilla:");
+                    weapon.ingredients.forEach((material, amount) -> sender.sendMessage("§7" + amount + " × " + material));
+                }
+                case "reload", "cooldown" -> {
+                    if (!sender.hasPermission("bigcasares.weapons.admin")) throw new IllegalArgumentException("No tienes permiso.");
+                    if (action.equals("reload")) {
+                        plugin.reloadConfig();
+                        sender.sendMessage("§aConfiguración recargada; eventos, zonas y cooldowns conservados. Los cambios de HTTP requieren reiniciar.");
+                    } else {
                         if (args.length != 3 || !args[1].equalsIgnoreCase("reset")) throw new IllegalArgumentException("Uso: /weapons cooldown reset <jugador>");
-                        var target = plugin.getServer().getOfflinePlayer(args[2]);
-                        if (!target.hasPlayedBefore() && !target.isOnline()) throw new IllegalArgumentException("No se conoce a ese jugador.");
-                        store.resetCooldowns(target.getUniqueId());
+                        var player = plugin.getServer().getOfflinePlayer(args[2]);
+                        if (!player.hasPlayedBefore() && !player.isOnline()) throw new IllegalArgumentException("Jugador desconocido.");
+                        store.resetCooldowns(player.getUniqueId());
                         sender.sendMessage("§aCooldowns reiniciados.");
                     }
-                    case "reload" -> {
-                        plugin.reloadConfig();
-                        sender.sendMessage("§aConfiguración recargada. Los cooldowns y devoluciones pendientes se conservan.");
-                    }
-                    default -> throw new IllegalArgumentException("Comando desconocido. Usa /weapons help.");
                 }
+                default -> throw new IllegalArgumentException("Usa /weapons help. Las armas se obtienen mediante el evento de mesa, sin altares ni entrega manual.");
             }
         } catch (IllegalArgumentException | java.io.IOException failure) {
-            sender.sendMessage("§c" + (failure instanceof java.io.IOException ? "No se pudo guardar el cambio; inténtalo más tarde." : failure.getMessage()));
+            sender.sendMessage("§c" + (failure instanceof java.io.IOException ? "No se pudo guardar el cambio." : failure.getMessage()));
         }
         return true;
     }
-
-    private static LegendaryWeapon weapon(String[] args, int index) {
-        if (index >= args.length) throw new IllegalArgumentException("Indica el ID del arma; usa /weapons list.");
-        return LegendaryWeapon.find(args[index]).orElseThrow(() -> new IllegalArgumentException("Arma desconocida."));
-    }
-
     @Override public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        List<String> candidates = args.length == 1 ? List.of("help", "list", "info", "give", "altar", "cooldown", "reload")
-            : args.length == 2 && args[0].equalsIgnoreCase("altar") ? List.of("create", "remove", "locate", "teleport")
-            : Arrays.stream(LegendaryWeapon.values()).map(weapon -> weapon.id).toList();
-        String prefix = args.length == 0 ? "" : args[args.length - 1].toLowerCase(java.util.Locale.ROOT);
-        return candidates.stream().filter(value -> value.startsWith(prefix)).toList();
+        List<String> options = args.length == 1 ? List.of("help", "list", "info", "events", "reload", "cooldown")
+            : args.length == 2 && args[0].equalsIgnoreCase("info") ? Arrays.stream(LegendaryWeapon.values()).map(w -> w.id).toList()
+            : List.of();
+        String prefix = args.length == 0 ? "" : args[args.length - 1].toLowerCase(Locale.ROOT);
+        return options.stream().filter(o -> o.startsWith(prefix)).toList();
     }
 }

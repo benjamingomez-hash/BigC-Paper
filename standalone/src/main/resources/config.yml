@@ -22,10 +22,6 @@ legendary-weapons:
     lightning-damage: 7
     # on-respawn o on-join; nunca se arroja al suelo.
     death-return: on-respawn
-  altars:
-    generate: true
-    chance-denominator: 128
-    max-per-weapon-per-world: 1
 
 resource-pack:
   enabled: true

@@ -40,24 +40,6 @@ class LegendaryRecoveryTest {
     }
 
     @Test
-    void craftedInventoryAndAltarLocationSurviveRestartWithoutDuplicateRecords() throws Exception {
-        Path file = directory.resolve("state.properties");
-        UUID owner = UUID.randomUUID();
-        UUID altarId = UUID.randomUUID();
-        UUID world = UUID.randomUUID();
-        var store = new LegendaryStateStore(file);
-        var altar = new LegendaryAltars.Altar(altarId, LegendaryWeapon.THUNDER_SPEAR, world, -32, 154, 19);
-        store.put("altar." + altarId, altar.encode());
-        store.put("craft." + owner, "post-consumption-inventory");
-        var restarted = new LegendaryStateStore(file);
-        assertEquals(altar, LegendaryAltars.Altar.decode("altar." + altarId, restarted.get("altar." + altarId)));
-        assertEquals(1, restarted.snapshot().keySet().stream().filter(key -> key.startsWith("altar.")).count());
-        assertEquals("post-consumption-inventory", restarted.get("craft." + owner));
-        restarted.put("craft." + owner, null);
-        assertNull(new LegendaryStateStore(file).get("craft." + owner));
-    }
-
-    @Test
     void persistenceFailureDoesNotMutateLiveCooldownState() throws Exception {
         Path invalid = directory.resolve("directory");
         var store = new LegendaryStateStore(invalid);

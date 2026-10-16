@@ -1,7 +1,7 @@
 name: LegendaryWeapons
-version: 1.0.0
+version: 2.0.0
 main: dev.linqfy.legendary.LegendaryWeaponsPlugin
-api-version: '26.3'
+api-version: '26.2'
 authors: [linqfy]
 softdepend: [WorldGuard]
 commands:
