@@ -70,4 +70,16 @@ class LegendaryControlsAndFlightTest {
         assertThrows(IllegalArgumentException.class, () -> LegendaryProjectileSweep.advance(start, new Vector(), (d, r) -> null));
         assertThrows(IllegalArgumentException.class, () -> LegendaryProjectileSweep.advance(start, new Vector(Double.NaN, 0, 0), (d, r) -> null));
     }
+
+    @Test
+    void sweptImpactKeepsTheDirectVictimAndBlockImpactHasNoVictim() {
+        var victim = (org.bukkit.entity.Entity) java.lang.reflect.Proxy.newProxyInstance(
+            getClass().getClassLoader(), new Class<?>[]{org.bukkit.entity.Entity.class}, (proxy, method, args) -> null);
+        var entityHit = LegendaryProjectileSweep.advance(new Location(null, 0, 10, 0), new Vector(0, 0, 2),
+            (direction, distance) -> new RayTraceResult(new Vector(0, 10, 1), victim));
+        assertSame(victim, entityHit.hitEntity());
+        var blockHit = LegendaryProjectileSweep.advance(new Location(null, 0, 10, 0), new Vector(0, 0, 2),
+            (direction, distance) -> new RayTraceResult(new Vector(0, 10, 1)));
+        assertNull(blockHit.hitEntity());
+    }
 }

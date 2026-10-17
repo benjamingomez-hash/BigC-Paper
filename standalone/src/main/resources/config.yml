@@ -22,6 +22,8 @@ legendary-weapons:
     flight-speed: 1.8
     max-flight-ticks: 80
     storm-radius: 7
+    max-paralyzed-targets: 64
+    # Solo el objetivo golpeado directamente recibe daño eléctrico.
     lightning-damage: 7
     # on-respawn o on-join; nunca se arroja al suelo.
     death-return: on-respawn

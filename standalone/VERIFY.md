@@ -102,3 +102,22 @@ Se usó el cliente oficial Java 26.2 conectado a Paper 26.2-133. Una herramienta
 La captura es del cliente sin editar; la plataforma elevada permite medir todos los niveles sin alcanzar bedrock. El mundo, la mesa y los objetivos son fixtures de prueba. El diario original de esa instancia se restaura después de detener el servidor; no se altera ningún servidor de jugadores.
 
 Se conservan los modelos y la implementación de Bloodlust, Windweaver, Shadow Blade, Void Katana y Thunder Spear. No se repitió la fabricación completa de veinte minutos ni una partida entre varios clientes. Se verificaron cancelaciones mediante eventos nativos y el evento público de protección; WorldGuard instalado no se probó en vivo.
+
+## Parálisis de Thunder Spear 2.0.4 — 17 de octubre de 2026
+
+Compilación completa desde `standalone/`: `bash gradlew --no-daemon --max-workers=4 clean build`, Java 25, **66 pruebas correctas, sin fallos, errores ni exclusiones**. Las nuevas regresiones verifican anclas que no siguen los intentos de escapar, lanzador y rival retenidos juntos, campos solapados, liberación, límites horizontales/verticales y conservación de la víctima directa del barrido.
+
+Se conectaron **dos clientes oficiales Java 26.2** a **Paper 26.2-133 estable**. Una herramienta externa crea la lanza mediante la factoría de producción y activa el listener real dos veces seguidas para comprobar la exclusión de activaciones duplicadas. Los jugadores mantienen **W y Espacio** desde los 2,5 segundos y reciben movimiento real de ratón. Se usa una plataforma aislada, jugadores en supervivencia sin armadura y con 200 puntos de salud, y una vaca con IA y gravedad habilitadas. La herramienta no se distribuye.
+
+| Caso | Resultado observado |
+| --- | --- |
+| Impacto en suelo | Lanzador, rival y vaca paralizados durante **200 ticks**; desplazamiento máximo **0 bloques** mientras estaban retenidos. Ambos jugadores pudieron mirar y caminar/saltar después de expirar el campo. Cinco rayos visuales y **cero daño** para los tres. |
+| Impacto directo sobre el rival | Los tres retenidos durante 200 ticks con desplazamiento cero. **Solo el rival recibió cinco golpes de 7 puntos**, a intervalos de 40 ticks. Cinco rayos sobre el punto de impacto y cinco sobre la víctima; lanzador y vaca sin daño eléctrico. |
+| Rival protegido | El veto de `LegendaryProtectionEvent` impidió la colisión y parálisis del rival. El lanzador y la vaca sí quedaron retenidos. Ningún golpe eléctrico; el rival pudo moverse. |
+| Cancelación anticipada | La limpieza de sesión liberó inmediatamente a los tres tras 69 ticks de retención. No quedaron sesiones ni anclas activas. |
+
+En los tres casos sin veto se rechazaron teletransportes nativos con causas PLUGIN, ENDER_PEARL y CHORUS_FRUIT, además del teletransporte de la vaca. Aplicar velocidad no produjo desplazamiento mientras estaban retenidos. Las comprobaciones de movimiento conservaron los giros de cámara. En **los cuatro casos** volvió exactamente **una lanza** y no quedó devolución pendiente. No se modificaron IA ni gravedad de la vaca.
+
+Resultados y condiciones: [spear-verification-2.0.4.json](docs/spear-verification-2.0.4.json). El daño FALL registrado en los casos protegido/cancelado corresponde a salir saltando de la plataforma después de recuperar el movimiento; no es daño eléctrico. Los teletransportes usan la API nativa sin consumir perlas o chorus reales. La cancelación invoca la misma limpieza usada por desconexión/muerte; esta ronda no induce un reinicio ni desconexión a mitad de tormenta. WorldGuard instalado y la fabricación completa de veinte minutos no se repitieron.
+
+Los modelos del pack coinciden con 2.0.3 y los 24 archivos fuente de cobre conservan su SHA-256. Se mantienen las otras siete habilidades, sus IDs, recetas, cooldowns y datos de fabricación.

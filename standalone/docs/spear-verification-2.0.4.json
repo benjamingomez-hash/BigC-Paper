@@ -1,0 +1,272 @@
+{
+  "release": "2.0.4",
+  "server": "Paper 26.2-133-58e6e45 stable",
+  "compileApi": "26.2.build.56-alpha",
+  "java": 25,
+  "automatedTests": {
+    "tests": 66,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "jarSha256": "1323fea72cd5ba99a3e8e231da40287ff5ed24c7882b2e4e7a3f82c1c5836f04",
+  "zipSha256": "fa789ababf4a84d0cbcdc5834e1216f0c37fa684956cf9b95d6810e360f62734",
+  "method": "Two official Java 26.2 clients, W and Space held from 2.5 s onward; native mouse input; private raised platform, unarmored survival players with 200 health and a cow with AI/gravity enabled. Real production-factory spear and double right-click event. No test helper ships in the release.",
+  "limits": [
+    "Protection veto is exercised through LegendaryProtectionEvent; WorldGuard is not installed.",
+    "Teleport causes are tested through the native Bukkit API, without consuming real pearls/chorus.",
+    "Early cleanup invokes the same production session cleanup used for quit/death; no actual disconnect/restart is induced mid-storm in these cases.",
+    "FALL damage in protected/cleanup cases occurs after unrestrained movement/jumping off the raised platform and is not electric damage.",
+    "No full 20-minute crafting event is repeated in this round."
+  ],
+  "cases": [
+    {
+      "case": "ground",
+      "version": "2.0.4",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ticks": 260,
+      "directHit": "none",
+      "lockTicks": {
+        "caster": 200,
+        "opponent": 200,
+        "cow": 200
+      },
+      "maxMovementWhileLocked": {
+        "caster": 0.0,
+        "opponent": 0.0,
+        "cow": 0.0
+      },
+      "movementAfterRelease": {
+        "caster": 9.746911443029164,
+        "opponent": 9.442430091447353,
+        "cow": 2.344823071421679
+      },
+      "nativeCameraInputWhileLocked": [
+        "LegendaryRaider",
+        "LegendaryRival"
+      ],
+      "damage": [],
+      "lightningEffects": 5,
+      "protectionVetoes": 0,
+      "checks": {
+        "activeSessions": 1,
+        "lockedAt40": {
+          "cow": true,
+          "opponent": true,
+          "caster": true
+        },
+        "AIUntouched": true,
+        "gravityUntouched": true,
+        "pluginTeleportBlocked": true,
+        "pearlTeleportBlocked": true,
+        "chorusTeleportBlocked": true,
+        "mobTeleportBlocked": true,
+        "casterMoveAnchored": true,
+        "casterCanLook": true,
+        "opponentMoveAnchored": true,
+        "opponentCanLook": true,
+        "allReleased": true,
+        "remainingSessions": 0,
+        "returnedSpears": 1,
+        "escrowPending": false
+      }
+    },
+    {
+      "case": "direct",
+      "version": "2.0.4",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ticks": 260,
+      "directHit": "opponent",
+      "lockTicks": {
+        "caster": 200,
+        "opponent": 200,
+        "cow": 200
+      },
+      "maxMovementWhileLocked": {
+        "caster": 0.0,
+        "opponent": 0.0,
+        "cow": 0.0
+      },
+      "movementAfterRelease": {
+        "caster": 9.51414302154629,
+        "opponent": 9.65753515366101,
+        "cow": 0.0
+      },
+      "nativeCameraInputWhileLocked": [
+        "LegendaryRaider",
+        "LegendaryRival"
+      ],
+      "damage": [
+        {
+          "tick": 6,
+          "amount": 7.0,
+          "target": "opponent",
+          "cause": "ENTITY_ATTACK"
+        },
+        {
+          "tick": 46,
+          "amount": 7.0,
+          "target": "opponent",
+          "cause": "ENTITY_ATTACK"
+        },
+        {
+          "tick": 86,
+          "amount": 7.0,
+          "target": "opponent",
+          "cause": "ENTITY_ATTACK"
+        },
+        {
+          "tick": 126,
+          "amount": 7.0,
+          "target": "opponent",
+          "cause": "ENTITY_ATTACK"
+        },
+        {
+          "tick": 166,
+          "amount": 7.0,
+          "target": "opponent",
+          "cause": "ENTITY_ATTACK"
+        }
+      ],
+      "lightningEffects": 10,
+      "protectionVetoes": 0,
+      "checks": {
+        "activeSessions": 1,
+        "lockedAt40": {
+          "cow": true,
+          "opponent": true,
+          "caster": true
+        },
+        "AIUntouched": true,
+        "gravityUntouched": true,
+        "pluginTeleportBlocked": true,
+        "pearlTeleportBlocked": true,
+        "chorusTeleportBlocked": true,
+        "mobTeleportBlocked": true,
+        "casterMoveAnchored": true,
+        "casterCanLook": true,
+        "opponentMoveAnchored": true,
+        "opponentCanLook": true,
+        "allReleased": true,
+        "remainingSessions": 0,
+        "returnedSpears": 1,
+        "escrowPending": false
+      }
+    },
+    {
+      "case": "protected",
+      "version": "2.0.4",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ticks": 260,
+      "directHit": "none",
+      "lockTicks": {
+        "caster": 200,
+        "cow": 200
+      },
+      "maxMovementWhileLocked": {
+        "caster": 0.0,
+        "cow": 0.0
+      },
+      "movementAfterRelease": {
+        "caster": 5.348645911010086,
+        "cow": 0.0
+      },
+      "nativeCameraInputWhileLocked": [
+        "LegendaryRaider"
+      ],
+      "damage": [
+        {
+          "tick": 65,
+          "amount": 2.0,
+          "target": "opponent",
+          "cause": "FALL"
+        },
+        {
+          "tick": 245,
+          "amount": 79.0,
+          "target": "opponent",
+          "cause": "FALL"
+        }
+      ],
+      "lightningEffects": 5,
+      "protectionVetoes": 73,
+      "checks": {
+        "activeSessions": 1,
+        "lockedAt40": {
+          "cow": true,
+          "opponent": false,
+          "caster": true
+        },
+        "AIUntouched": true,
+        "gravityUntouched": true,
+        "casterMoveAnchored": true,
+        "casterCanLook": true,
+        "opponentMoveAnchored": false,
+        "opponentCanLook": true,
+        "allReleased": true,
+        "remainingSessions": 0,
+        "returnedSpears": 1,
+        "escrowPending": false
+      }
+    },
+    {
+      "case": "cleanup",
+      "version": "2.0.4",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ticks": 260,
+      "directHit": "none",
+      "lockTicks": {
+        "caster": 69,
+        "opponent": 69,
+        "cow": 69
+      },
+      "maxMovementWhileLocked": {
+        "caster": 0.0,
+        "opponent": 0.0,
+        "cow": 0.0
+      },
+      "movementAfterRelease": {
+        "caster": 88.09151707016144,
+        "opponent": 85.64211282511636,
+        "cow": 0.8633395754266909
+      },
+      "nativeCameraInputWhileLocked": [
+        "LegendaryRaider",
+        "LegendaryRival"
+      ],
+      "damage": [
+        {
+          "tick": 240,
+          "amount": 79.0,
+          "target": "caster",
+          "cause": "FALL"
+        }
+      ],
+      "lightningEffects": 2,
+      "protectionVetoes": 0,
+      "checks": {
+        "activeSessions": 1,
+        "lockedAt40": {
+          "cow": true,
+          "opponent": true,
+          "caster": true
+        },
+        "AIUntouched": true,
+        "gravityUntouched": true,
+        "pluginTeleportBlocked": true,
+        "pearlTeleportBlocked": true,
+        "chorusTeleportBlocked": true,
+        "mobTeleportBlocked": true,
+        "casterMoveAnchored": true,
+        "casterCanLook": true,
+        "opponentMoveAnchored": true,
+        "opponentCanLook": true,
+        "cleanupReleasedBoth": true,
+        "allReleased": true,
+        "remainingSessions": 0,
+        "returnedSpears": 1,
+        "escrowPending": false
+      }
+    }
+  ]
+}

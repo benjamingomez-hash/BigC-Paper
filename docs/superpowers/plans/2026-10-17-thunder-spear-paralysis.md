@@ -1,0 +1,11 @@
+# Thunder Spear: campo de parálisis y rayos por impacto directo
+
+El usuario solicita sustituir el daño indiscriminado del círculo por inmovilización real de quienes estén dentro, incluido el lanzador. Los rayos siguen cayendo visualmente sobre la lanza; solo quien reciba el impacto directo de su vuelo recibe los golpes eléctricos. Conservar duración de diez segundos, radio por defecto siete, Lunge III, cooldown, modelo y devolución.
+
+La zona usa distancia horizontal y cuatro bloques de tolerancia vertical. Captura entidades vivas permitidas por las reglas de combate y al propio lanzador en supervivencia; respeta equipos, modos de juego y vetos de protección. Bloquea desplazamiento XYZ, saltos, empujones, monturas y teletransportes de juego, conservando cámara y ataques. Los teletransportes administrativos permiten rescatar a un jugador.
+
+Las anclas son temporales y compartidas por referencia si se solapan campos. No se modifican IA, gravedad, velocidad base ni datos persistentes de las víctimas. Se liberan al acabar la tormenta, cancelar la sesión, morir/desconectar/cambiar de mundo o apagar el plugin. El barrido conserva la identidad de la víctima directa; los pulsos eléctricos solo la dañan a ella si sigue siendo un objetivo permitido dentro del campo.
+
+Validar anclas, solapamiento, geometría, liberación y colisión directa mediante pruebas; compilar el plugin completo. En Paper 26.2 y clientes reales, verificar movimiento de lanzador y rival, cámara, escapes, entidades sin daño por presencia, golpes solo al impacto directo, finalización y retorno único. Publicar 2.0.4 y ZIP nuevo en la misma rama conservando modelos y las otras siete habilidades.
+
+Implementación terminada: compilación completa con 66 pruebas correctas y cuatro casos en Paper 26.2-133 con dos clientes oficiales. Retención real durante 200 ticks sin desplazamiento, giros de cámara permitidos, teletransportes de juego rechazados, cinco pulsos únicamente al impacto directo, veto de protección y liberación por expiración/cancelación. Retorno único sin escrow pendiente en los cuatro casos. Evidencias y límites: `standalone/VERIFY.md` y `standalone/docs/spear-verification-2.0.4.json`. ZIP independiente 2.0.4 preparado conservando el pack y los modelos.
