@@ -2,7 +2,7 @@
 
 Plugin **independiente** para **Paper 26.2 / Java 25 / Gradle 9.2.1**. Incluye únicamente las ocho armas y su evento de fabricación. Usa modelos Java nativos y no requiere BigCasares, Vault, EssentialsX ni BetterModel. Si se usa BetterModel para otros plugins del servidor, la versión solicitada para 26.2 es 3.2.0; esta distribución no llama a su API. WorldGuard es opcional. Los equipos usan el scoreboard vanilla. No incluye integración Bedrock/Geyser.
 
-[Descargar Armas-Legendarias-2.0.4.zip](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-crafting-pvp/standalone/downloads/Armas-Legendarias-2.0.4.zip): JAR independiente, pack, captura e instrucciones con scripts de inicio. Requiere descargar Paper 26.2 y Java 25 por separado.
+**Aviso de seguridad — 17/10/2026:** se recibió una detección de Microsoft Defender, `Trojan:Script/Ulthar.A!ml`, para `Armas-Legendarias-2.0.4.zip`. La recomendación de descarga queda suspendida mientras se investiga. Mantener el bloqueo de Defender y conservar la protección del equipo activada. Los detalles y límites de la revisión están en [el informe de revisión](SECURITY-REVIEW-2.0.4.md). Las instrucciones de instalación siguientes quedan pendientes de resolver esta detección.
 
 ## Evento
 

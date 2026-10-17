@@ -1,0 +1,91 @@
+{
+  "artifact": "Armas-Legendarias-2.0.4.zip",
+  "publishedCommit": "28e31ef45529e14ee11985ab91db344c897e895d",
+  "zipSha256": "fa789ababf4a84d0cbcdc5834e1216f0c37fa684956cf9b95d6810e360f62734",
+  "jarSha256": "1323fea72cd5ba99a3e8e231da40287ff5ed24c7882b2e4e7a3f82c1c5836f04",
+  "status": "Defender detection unresolved; installation not recommended",
+  "reportedDetection": {
+    "engine": "Microsoft Defender",
+    "threat": "Trojan:Script/Ulthar.A!ml",
+    "actionShown": "Removed",
+    "source": "User-supplied screenshot",
+    "affectedItem": "ZIP container; individual archive member not identified"
+  },
+  "staticReview": {
+    "publishedZipMatchesLocal": true,
+    "classesMatchingBuildOutput": 75,
+    "sourcePresentForEachClass": true,
+    "scripts": "Only check local paper.jar presence and start Java",
+    "bytecodeNetworkOrExecutionFindings": [
+      {
+        "class": "dev/linqfy/legendary/LegendaryWeaponsPlugin.class",
+        "value": "http://127.0.0.1:8124/legendary-pack.zip"
+      }
+    ],
+    "archiveEntries": [
+      {
+        "name": "Armas-Legendarias-2.0.4/plugins/LegendaryWeapons-2.0.4.jar",
+        "bytes": 1709001,
+        "sha256": "1323fea72cd5ba99a3e8e231da40287ff5ed24c7882b2e4e7a3f82c1c5836f04"
+      },
+      {
+        "name": "Armas-Legendarias-2.0.4/legendary-weapons-java.zip",
+        "bytes": 1556039,
+        "sha256": "a98dadd54f9d281f345addb5d8babfe618568b6f44caacf6751e2718d1078f23"
+      },
+      {
+        "name": "Armas-Legendarias-2.0.4/iniciar.bat",
+        "bytes": 202,
+        "sha256": "cffc631081d61ee096640ddb6cc454c747a19f5bdf4f9fb1680a1f2875efcee9"
+      },
+      {
+        "name": "Armas-Legendarias-2.0.4/iniciar.sh",
+        "bytes": 221,
+        "sha256": "63d256f77f2e1875efa21e048d4837cb61428908489e06200c04d962d3f3ce42"
+      },
+      {
+        "name": "Armas-Legendarias-2.0.4/modelos.png",
+        "bytes": 504364,
+        "sha256": "3eba13583ba5bef90aa0d906ba9adf25d8f102d2f66045a15fe291ded6a72292"
+      },
+      {
+        "name": "Armas-Legendarias-2.0.4/LEEME.txt",
+        "bytes": 3152,
+        "sha256": "8d1632bdb246ff72345d9d83ab4071820cb99d261c286b8faa28615e1e4dd139"
+      },
+      {
+        "name": "Armas-Legendarias-2.0.4/server.properties",
+        "bytes": 78,
+        "sha256": "c3805af580e044d2524b56d10c6aea8d3175050559840454c6673ecfe6c457fc"
+      },
+      {
+        "name": "Armas-Legendarias-2.0.4/crater.png",
+        "bytes": 536329,
+        "sha256": "05b1a3907d2d787e47336de2db8b2643e11a77bbd65b640646105aff72aa0f64"
+      }
+    ],
+    "limitations": "Integrity and static source/bytecode checks do not establish that an artifact is free of malware."
+  },
+  "independentScan": {
+    "engine": "ClamAV",
+    "version": "1.4.6",
+    "exitCode": 0,
+    "scope": "Exact published ZIP plus its eight extracted files; recursive archive inspection; 100 MB maximum file size and 300 MB maximum scan size; alerts enabled on limits exceeded",
+    "signatures": {
+      "daily": {
+        "version": 28156,
+        "built": "2026-10-17T06:25:00Z"
+      },
+      "main": {
+        "version": 63
+      },
+      "bytecode": {
+        "version": 339
+      }
+    },
+    "scanSummary": "-------------------------------------------------------------------------------\n\n\n----------- SCAN SUMMARY -----------\nKnown viruses: 3628169\nEngine version: 1.4.6\nScanned directories: 1\nScanned files: 9\nInfected files: 0\nData scanned: 11.46 MB\nData read: 8.19 MB (ratio 1.40:1)\nTime: 12.051 sec (0 m 12 s)\nStart Date: 2026:10:17 23:40:04\nEnd Date:   2026:10:17 23:40:16",
+    "limitations": "Another antivirus returning zero detections does not override Microsoft Defender or establish a false positive. Microsoft Defender is unavailable in this environment; no Microsoft adjudication or Defender reproduction has occurred."
+  },
+  "distribution": "README download recommendation suspended; original bytes preserved for investigation; no repackaged replacement published",
+  "nextStep": "Identify the precise Defender trigger and obtain Microsoft analysis before recommending installation."
+}
