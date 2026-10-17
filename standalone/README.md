@@ -2,6 +2,8 @@
 
 Plugin **independiente** para **Paper 26.2 / Java 25 / Gradle 9.2.1**. Incluye únicamente las ocho armas y su evento de fabricación. Usa modelos Java nativos y no requiere BigCasares, Vault, EssentialsX ni BetterModel. Si se usa BetterModel para otros plugins del servidor, la versión solicitada para 26.2 es 3.2.0; esta distribución no llama a su API. WorldGuard es opcional. Los equipos usan el scoreboard vanilla. No incluye integración Bedrock/Geyser.
 
+[Descargar Armas-Legendarias-2.0.1.zip](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-crafting-pvp/standalone/downloads/Armas-Legendarias-2.0.1.zip): JAR independiente, pack, captura e instrucciones con scripts de inicio. Requiere descargar Paper 26.2 y Java 25 por separado.
+
 ## Evento
 
 1. Coloca los nueve ingredientes de una receta en una mesa de crafteo vanilla. Es una receta sin forma: cada casilla lleva un ingrediente (no acumules los cuatro del mismo tipo en una sola casilla).
