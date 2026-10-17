@@ -59,3 +59,38 @@ Identificar el archivo o patrón exacto que activa Defender y contrastar el caso
 con Microsoft. La [descripción oficial de la amenaza](https://www.microsoft.com/en-us/wdsi/threats/malware-encyclopedia-description?Name=Trojan%3AScript%2FUlthar.A!ml)
 ofrece información genérica y no publica detalles técnicos que permitan atribuir
 el comportamiento de este ZIP a partir del nombre de la detección.
+
+## Comprobación preparada en Windows
+
+El workflow [LegendaryWeapons - Windows Defender verification](../.github/workflows/legendary-defender.yml)
+compila y prueba únicamente `standalone/` en un runner Windows con Java 25.
+El script [Test-LegendaryDefender.ps1](tools/Test-LegendaryDefender.ps1) actualiza
+las firmas y examina el ZIP original, los miembros disponibles y el JAR nuevo.
+Registra hashes, versiones del motor, resultados y errores sin ejecutar las muestras.
+Mantiene las exclusiones y la protección en tiempo real del runner intactas.
+
+El JAR solo se sube como artefacto si su análisis personalizado termina con
+resultado limpio y el archivo conserva su hash. Si Defender está inactivo,
+no puede actualizarse, detecta algo o el análisis falla, no se publica un JAR
+verificado. El informe de diagnóstico se conserva también cuando falla la prueba.
+Los resultados del ZIP original se documentan por separado de los del JAR nuevo.
+
+Los archivos ZIP/JAR compilados usan entradas ordenadas y fechas fijas para
+permitir comparar compilaciones con las mismas fuentes y JDK. Esto no elimina
+la detección de Defender ni constituye por sí solo una solución de seguridad.
+
+Validación local de esta preparación: dos compilaciones completas con Java 25
+y 66 pruebas correctas produjeron hashes idénticos de JAR y pack. Las clases y
+recursos del JAR conservan los bytes de la versión publicada; el contenido de
+los modelos también coincide. ClamAV 1.4.6 no detectó amenazas en el JAR nuevo.
+`actionlint` valida el workflow, PowerShell analiza el script sin errores y las
+comprobaciones locales verifican que ausencia de Defender, archivo ausente y
+salidas nativas distintas de cero impiden marcar un archivo como validado.
+Esas comprobaciones locales no sustituyen la ejecución pendiente en Windows.
+
+Estado de ejecución: **pendiente**. Este repositorio es un fork y la conexión
+actual no tiene acceso a la configuración de Actions (HTTP 403). Si Actions está
+deshabilitado, el propietario debe abrir la [pestaña Actions del repositorio](https://github.com/benjamingomez-hash/BigC-Paper/actions)
+y habilitar los workflows. Después se ejecuta esta comprobación en la rama
+`feat/legendary-crafting-pvp`. Solo se recomendará un archivo cuyo resultado
+se haya podido verificar; la recomendación del ZIP original sigue suspendida.

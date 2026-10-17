@@ -4,6 +4,8 @@ Plugin **independiente** para **Paper 26.2 / Java 25 / Gradle 9.2.1**. Incluye �
 
 **Aviso de seguridad — 17/10/2026:** se recibió una detección de Microsoft Defender, `Trojan:Script/Ulthar.A!ml`, para `Armas-Legendarias-2.0.4.zip`. La recomendación de descarga queda suspendida mientras se investiga. Mantener el bloqueo de Defender y conservar la protección del equipo activada. Los detalles y límites de la revisión están en [el informe de revisión](SECURITY-REVIEW-2.0.4.md). Las instrucciones de instalación siguientes quedan pendientes de resolver esta detección.
 
+Se preparó una [comprobación con Defender en Windows](SECURITY-REVIEW-2.0.4.md#comprobación-preparada-en-windows) para compilar el plugin desde el código y publicar el JAR únicamente si supera su análisis. Su ejecución está pendiente; todavía no hay un JAR validado por ese workflow.
+
 ## Evento
 
 1. Coloca los nueve ingredientes de una receta en una mesa de crafteo vanilla. Es una receta sin forma: cada casilla lleva un ingrediente (no acumules los cuatro del mismo tipo en una sola casilla).

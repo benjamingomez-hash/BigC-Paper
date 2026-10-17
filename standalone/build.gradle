@@ -15,6 +15,10 @@ dependencies {
 }
 java { sourceCompatibility = JavaVersion.VERSION_25; targetCompatibility = JavaVersion.VERSION_25 }
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8'; options.release = 25 }
+tasks.withType(AbstractArchiveTask).configureEach {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
 test { useJUnitPlatform() }
 tasks.register('legendaryPack', Zip) {
     archiveFileName = 'legendary-weapons-java.zip'
