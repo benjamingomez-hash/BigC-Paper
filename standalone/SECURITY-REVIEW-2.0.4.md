@@ -69,7 +69,9 @@ las firmas y examina el ZIP original, los miembros disponibles y el JAR nuevo.
 Registra hashes, versiones del motor, resultados y errores sin ejecutar las muestras.
 Activa la protección en tiempo real en el runner desechable si estaba apagada y
 marca las muestras con zona de Internet. Mantiene las exclusiones intactas y
-exige que la protección siga activa al terminar de examinar el JAR.
+exige que la protección siga activa al terminar de examinar el JAR. Activa también
+la protección en la nube, el envío de muestras seguras del repositorio público y
+Block at First Sight; exige conexión correcta a la nube de Defender.
 
 El JAR solo se sube como artefacto si su análisis personalizado termina con
 resultado limpio y el archivo conserva su hash. Si Defender está inactivo,
@@ -95,5 +97,10 @@ correcta, con diez análisis personalizados sin detecciones, Defender
 `1.1.26090.9` y firmas `1.461.77.0`. La protección en tiempo real del runner
 estaba desactivada por su configuración inicial; no se reprodujo la alerta del
 equipo del usuario. Se prepara otra ejecución que exige protección en tiempo
-real y marca de Internet. Su resultado sigue pendiente. La recomendación del
+real y marca de Internet. La segunda ejecución,
+[39080803550](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39080803550),
+también finalizó sin detecciones con la protección en tiempo real activa; se
+observó que MAPS y Block at First Sight estaban desactivados en el runner.
+Se prepara una tercera ejecución con ambas funciones habilitadas y validación
+de conectividad a la nube. Su resultado sigue pendiente. La recomendación del
 ZIP original permanece suspendida.
