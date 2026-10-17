@@ -1,4 +1,4 @@
-# Diagnostic only: never executes the downloaded distribution or changes antivirus exclusions.
+# Diagnostic only: enables protection on the disposable runner; never executes samples or adds exclusions.
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)][string]$JarPath,
@@ -29,11 +29,14 @@ function Invoke-FileScan([string]$Path, [string]$Label) {
         return [pscustomobject]$result
     }
     $Path = (Resolve-Path -LiteralPath $Path).Path
+    # Preserve the Internet origin boundary of a downloaded file rather than
+    # treating it as a trusted local build. This does not change its content hash.
+    Set-Content -LiteralPath $Path -Stream Zone.Identifier -Value "[ZoneTransfer]`r`nZoneId=3" -Encoding ASCII
     $result.sha256 = (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant()
     $prefix = Join-Path $OutputDirectory ('scan-{0:d2}' -f $script:scanIndex)
     # DisableRemediation applies only to this diagnostic custom scan, so a detection
     # is reported as nonzero instead of being mistaken for a clean, remediated scan.
-    # Real-time protection, signatures, exclusions and sample contents are untouched.
+    # Real-time protection stays enabled; exclusions and sample contents are untouched.
     $arguments = '-Scan -ScanType 3 -File "{0}" -DisableRemediation' -f $Path
     $process = Start-Process -FilePath $script:scanner -ArgumentList $arguments `
         -RedirectStandardOutput "$prefix.stdout.txt" -RedirectStandardError "$prefix.stderr.txt" `
@@ -57,22 +60,35 @@ function Invoke-FileScan([string]$Path, [string]$Label) {
 }
 
 try {
-    Get-Command Get-MpComputerStatus, Update-MpSignature -ErrorAction Stop | Out-Null
+    Get-Command Get-MpComputerStatus, Set-MpPreference, Get-MpPreference, Update-MpSignature -ErrorAction Stop | Out-Null
     $status = Get-MpComputerStatus
     if (-not $status.AMServiceEnabled -or -not $status.AntivirusEnabled) {
         throw 'Microsoft Defender is not active on this runner; no verified artifact can be produced.'
     }
+    $report.realTimeProtectionInitiallyEnabled = $status.RealTimeProtectionEnabled
+    if (-not $status.RealTimeProtectionEnabled) {
+        Set-MpPreference -DisableRealtimeMonitoring $false -ErrorAction Stop
+        for ($attempt = 0; $attempt -lt 15; $attempt++) {
+            $status = Get-MpComputerStatus
+            if ($status.RealTimeProtectionEnabled) { break }
+            Start-Sleep -Seconds 1
+        }
+    }
+    if (-not $status.RealTimeProtectionEnabled) { throw 'Real-time protection could not be enabled on the runner.' }
     Update-MpSignature -ErrorAction Stop
     $status = Get-MpComputerStatus
-    if (-not $status.AMServiceEnabled -or -not $status.AntivirusEnabled -or $status.AntivirusSignatureAge -gt 2) {
+    if (-not $status.AMServiceEnabled -or -not $status.AntivirusEnabled -or -not $status.RealTimeProtectionEnabled -or $status.AntivirusSignatureAge -gt 2) {
         throw 'Defender is unavailable or its signatures are stale.'
     }
+    $preferences = Get-MpPreference
     $report.engine = [ordered]@{
         productVersion = $status.AMProductVersion
         engineVersion = $status.AMEngineVersion
         signatureVersion = $status.AntivirusSignatureVersion
         signatureUpdatedUtc = $status.AntivirusSignatureLastUpdated.ToUniversalTime().ToString('o')
         realTimeProtectionEnabled = $status.RealTimeProtectionEnabled
+        mapsReporting = [string]$preferences.MAPSReporting
+        disableBlockAtFirstSeen = $preferences.DisableBlockAtFirstSeen
     }
     $platform = Join-Path $env:ProgramData 'Microsoft/Windows Defender/Platform'
     $script:scanner = Get-ChildItem "$platform/*/MpCmdRun.exe" -ErrorAction SilentlyContinue |
@@ -108,7 +124,7 @@ try {
     $candidate = Invoke-FileScan $JarPath 'Newly built production JAR'
     $report.scans += $candidate
     $report.completed = $true
-    $report.cleanJar = $candidate.result -eq 'Clean'
+    $report.cleanJar = $candidate.result -eq 'Clean' -and (Get-MpComputerStatus).RealTimeProtectionEnabled
     if (-not $report.cleanJar) { throw 'The newly built JAR did not pass a completed clean Defender scan.' }
     "$($candidate.sha256)  $([IO.Path]::GetFileName($JarPath))" |
         Set-Content (Join-Path $OutputDirectory 'SHA256SUMS.txt') -Encoding ASCII

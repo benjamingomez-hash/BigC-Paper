@@ -67,7 +67,9 @@ compila y prueba únicamente `standalone/` en un runner Windows con Java 25.
 El script [Test-LegendaryDefender.ps1](tools/Test-LegendaryDefender.ps1) actualiza
 las firmas y examina el ZIP original, los miembros disponibles y el JAR nuevo.
 Registra hashes, versiones del motor, resultados y errores sin ejecutar las muestras.
-Mantiene las exclusiones y la protección en tiempo real del runner intactas.
+Activa la protección en tiempo real en el runner desechable si estaba apagada y
+marca las muestras con zona de Internet. Mantiene las exclusiones intactas y
+exige que la protección siga activa al terminar de examinar el JAR.
 
 El JAR solo se sube como artefacto si su análisis personalizado termina con
 resultado limpio y el archivo conserva su hash. Si Defender está inactivo,
@@ -88,9 +90,10 @@ comprobaciones locales verifican que ausencia de Defender, archivo ausente y
 salidas nativas distintas de cero impiden marcar un archivo como validado.
 Esas comprobaciones locales no sustituyen la ejecución pendiente en Windows.
 
-Estado de ejecución: **pendiente**. Este repositorio es un fork y la conexión
-actual no tiene acceso a la configuración de Actions (HTTP 403). Si Actions está
-deshabilitado, el propietario debe abrir la [pestaña Actions del repositorio](https://github.com/benjamingomez-hash/BigC-Paper/actions)
-y habilitar los workflows. Después se ejecuta esta comprobación en la rama
-`feat/legendary-crafting-pvp`. Solo se recomendará un archivo cuyo resultado
-se haya podido verificar; la recomendación del ZIP original sigue suspendida.
+Primera ejecución: [39080593114](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39080593114),
+correcta, con diez análisis personalizados sin detecciones, Defender
+`1.1.26090.9` y firmas `1.461.77.0`. La protección en tiempo real del runner
+estaba desactivada por su configuración inicial; no se reprodujo la alerta del
+equipo del usuario. Se prepara otra ejecución que exige protección en tiempo
+real y marca de Internet. Su resultado sigue pendiente. La recomendación del
+ZIP original permanece suspendida.
