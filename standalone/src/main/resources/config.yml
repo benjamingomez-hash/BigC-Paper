@@ -3,16 +3,21 @@ legendary-weapons:
   max-active-effects: 32
   max-targets-per-pulse: 12
   particles-per-ring: 24
-  bloodlust:
-    damage-multiplier: 1.6
-    heal-per-hit: 1.5
+  # Bloodlust siempre aplica Fuerza III durante 200 ticks (10 segundos).
+  # Los daños mágicos se expresan en puntos (2 = 1 corazón); Protección y
+  # Resistencia siguen reduciéndolos. Katana y spear conservan su daño anterior.
+  frost-scythe:
+    damage-per-pulse: 4
   shadow-blade:
     range: 16
-    bonus-damage: 8
+    strike-damage: 10
   hyperion:
     impact-damage: 12
+    field-damage: 4
+  windweaver:
+    upward-velocity: 1.3
   earthbreaker:
-    damage: 12
+    damage-per-wave: 8
   void-katana:
     damage-per-cut: 5
   spear:

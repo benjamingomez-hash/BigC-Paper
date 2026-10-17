@@ -13,7 +13,7 @@ public enum LegendaryWeapon {
         Map.of("NETHERITE_SWORD", 1, "ENDER_PEARL", 4, "PHANTOM_MEMBRANE", 2, "CRYING_OBSIDIAN", 2)),
     HYPERION("hyperion", "Hyperion", "BLAZE_ROD", "arcane-destruction", "Destrucción Arcana", "Santuario Arcano", "THE_END", "END_HIGHLANDS",
         Map.of("BLAZE_ROD", 1, "AMETHYST_BLOCK", 4, "NETHER_STAR", 2, "GOLD_BLOCK", 2)),
-    WINDWEAVER("windweaver", "Windweaver", "MACE", "divine-tornado", "Tornado Divino", "Santuario del Viento", "NORMAL", "JAGGED_PEAKS",
+    WINDWEAVER("windweaver", "Windweaver", "MACE", "divine-tornado", "Impulso Divino", "Santuario del Viento", "NORMAL", "JAGGED_PEAKS",
         Map.of("MACE", 1, "WIND_CHARGE", 4, "FEATHER", 2, "IRON_BLOCK", 2)),
     EARTHBREAKER("earthbreaker", "Earthbreaker", "NETHERITE_AXE", "titan-earthquake", "Terremoto Titán", "Santuario de la Tierra", "NORMAL", "DRIPSTONE_CAVES",
         Map.of("NETHERITE_AXE", 1, "DEEPSLATE", 4, "EMERALD_BLOCK", 2, "NETHERITE_INGOT", 2)),
@@ -54,5 +54,18 @@ public enum LegendaryWeapon {
 
     public boolean canCraft(Map<String, Integer> inventory) {
         return ingredients.entrySet().stream().allMatch(entry -> inventory.getOrDefault(entry.getKey(), 0) >= entry.getValue());
+    }
+
+    public String abilityDescription() {
+        return switch (this) {
+            case BLOODLUST -> "Fuerza III durante 10 segundos.";
+            case FROST_SCYTHE -> "Tormenta de hielo de 8 s: daño mágico cada segundo, Lentitud III y congelación, radio 5.";
+            case SHADOW_BLADE -> "Teletransporte tras el objetivo, golpe mágico inmediato y Oscuridad; alcance 16.";
+            case HYPERION -> "Proyectil arcano: explosión mágica y campo de daño durante 5 segundos.";
+            case WINDWEAVER -> "Impulso vertical para atacar con la maza; protege la primera caída del salto durante un máximo de 10 s.";
+            case EARTHBREAKER -> "Tres ondas terrestres en 3 s, radio 9: daño mágico, elevación y Lentitud II.";
+            case VOID_KATANA -> "Tres cortes con desplazamiento y Oscuridad.";
+            case THUNDER_SPEAR -> "Lanzamiento inmediato, tormenta de 10 s y retorno; Lunge III nativo al atacar.";
+        };
     }
 }

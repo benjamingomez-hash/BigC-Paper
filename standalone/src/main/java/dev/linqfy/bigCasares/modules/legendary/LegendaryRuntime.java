@@ -10,6 +10,8 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.damage.DamageSource;
+import org.bukkit.damage.DamageType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.LivingEntity;
@@ -144,10 +146,15 @@ final class LegendaryRuntime implements Listener, Runnable {
             } else if (weapon == LegendaryWeapon.HYPERION) {
                 session.center = player.getEyeLocation();
                 session.velocity = session.center.getDirection().multiply(1.2);
-            } else if (weapon == LegendaryWeapon.BLOODLUST || weapon == LegendaryWeapon.WINDWEAVER) {
-                if (weapon == LegendaryWeapon.WINDWEAVER) {
-                    potion(session, player, PotionEffectType.SPEED, 140, 1);
-                }
+            } else if (weapon == LegendaryWeapon.BLOODLUST) {
+                potion(session, player, PotionEffectType.STRENGTH, 200, 2);
+            } else if (weapon == LegendaryWeapon.WINDWEAVER) {
+                player.setFallDistance(0);
+                player.setVelocity(LegendaryWindLaunch.velocity(player.getVelocity(),
+                    number("windweaver.upward-velocity", 1.3, 1, 2.5)));
+                fallProtection.put(player.getUniqueId(), now + 10_000);
+                player.getWorld().spawnParticle(Particle.GUST, player.getLocation().add(0, .2, 0), 2, .4, .1, .4, 0);
+                player.getWorld().playSound(player.getLocation(), Sound.ENTITY_WIND_CHARGE_WIND_BURST, 1.2f, .8f);
             }
             player.sendActionBar(Component.text(weapon.abilityName + " — activada (40 s)"));
             player.getWorld().playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1, 0.7f);
@@ -178,12 +185,11 @@ final class LegendaryRuntime implements Listener, Runnable {
                         session.center = owner.getLocation();
                         if (session.age % 4 == 0) ring(session.center, 1.1, Color.RED, session.age);
                         if (session.age >= 200) {
-                            burst(owner, session.center, 5, Color.RED, 0, 1.1);
                             finish(session, true);
                         }
                     }
-                    case FROST_SCYTHE -> storm(owner, session, 160, Color.fromRGB(170, 235, 255), 5, 2.5);
-                    case WINDWEAVER -> storm(owner, session, 140, Color.WHITE, 5, 2);
+                    case FROST_SCYTHE -> frost(owner, session);
+                    case WINDWEAVER -> wind(owner, session);
                     case SHADOW_BLADE -> { if (session.age >= 60) finish(session, true); }
                     case EARTHBREAKER -> earthquake(owner, session);
                     case VOID_KATANA -> katana(owner, session);
@@ -214,49 +220,71 @@ final class LegendaryRuntime implements Listener, Runnable {
         }
     }
 
-    private void storm(Player owner, Session session, int duration, Color color, double radius, double damage) throws IOException {
+    private void frost(Player owner, Session session) throws IOException {
         session.center = owner.getLocation();
+        Color color = Color.fromRGB(170, 235, 255);
+        double radius = 5;
         if (session.age % 3 == 0) {
             for (int layer = 0; layer < 3; layer++) ring(session.center.clone().add(0, layer * 0.8, 0), radius - layer * 0.6, color, session.age);
         }
-        if (session.age % 20 == 0) {
+        if ((session.age - 1) % 20 == 0) {
             for (LivingEntity target : enemies(owner, session.center, radius)) {
-                if (!damage(owner, target, damage)) continue;
-                if (session.weapon == LegendaryWeapon.FROST_SCYTHE) {
-                    potion(session, target, PotionEffectType.SLOWNESS, 35, 2);
-                    FreezeLease prior = session.freezes.get(target.getUniqueId());
-                    int frozen = Math.max(target.getFreezeTicks(), target.getMaxFreezeTicks() + 20);
-                    session.freezes.put(target.getUniqueId(), new FreezeLease(target,
-                        prior == null ? target.getFreezeTicks() : prior.previous(),
-                        prior == null ? session.age : prior.previousAt(), frozen));
-                    target.setFreezeTicks(frozen);
-                    owner.getWorld().spawnParticle(Particle.SNOWFLAKE, target.getLocation().add(0, 1, 0), 8, 0.4, 0.4, 0.4, 0.03);
-                } else {
-                    knockback(session.center, target, 0.4, 0.2);
-                    fallProtection.put(target.getUniqueId(), System.currentTimeMillis() + 8_000);
-                }
+                if (!spellDamage(owner, target, number("frost-scythe.damage-per-pulse", 4, 0, 20))) continue;
+                potion(session, target, PotionEffectType.SLOWNESS, 35, 2);
+                FreezeLease prior = session.freezes.get(target.getUniqueId());
+                int frozen = Math.max(target.getFreezeTicks(), target.getMaxFreezeTicks() + 20);
+                session.freezes.put(target.getUniqueId(), new FreezeLease(target,
+                    prior == null ? target.getFreezeTicks() : prior.previous(),
+                    prior == null ? session.age : prior.previousAt(), frozen));
+                target.setFreezeTicks(frozen);
+                owner.getWorld().spawnParticle(Particle.SNOWFLAKE, target.getLocation().add(0, 1, 0), 8, 0.4, 0.4, 0.4, 0.03);
             }
         }
-        if (session.age >= duration) {
-            burst(owner, session.center, radius, color, 0, 1.1);
-            finish(session, true);
-        }
+        if (session.age >= 160) finish(session, true);
+    }
+
+    private void wind(Player owner, Session session) throws IOException {
+        session.center = owner.getLocation();
+        if (session.age % 3 == 0) ring(session.center, .8, Color.WHITE, session.age);
+        if (session.age >= 200 || (session.age > 5 && owner.isOnGround())) finish(session, true);
     }
 
     private void earthquake(Player owner, Session session) throws IOException {
-        double radius = Math.min(9, session.age * 0.45);
+        if (session.age > LegendaryEarthquakePulse.DURATION) {
+            if (session.age >= LegendaryEarthquakePulse.DURATION + LegendaryEarthquakePulse.SLOWNESS_TICKS) {
+                finish(session, true);
+            }
+            return;
+        }
+        double radius = LegendaryEarthquakePulse.radius(session.age);
         ring(session.center, radius, Color.fromRGB(120, 95, 75), session.age);
-        for (LivingEntity target : enemies(owner, session.center, radius)) {
-            if (!session.hit.add(target.getUniqueId())) continue;
-            if (damage(owner, target, number("earthbreaker.damage", 12, 0, 40))) {
-                knockback(session.center, target, 1.2, 0.2);
-                potion(session, target, PotionEffectType.SLOWNESS, 60, 1);
-                owner.getWorld().spawnParticle(Particle.BLOCK, target.getLocation(), 12, 0.5, 0.2, 0.5,
-                    Material.DEEPSLATE.createBlockData());
+        if (session.age % 2 == 0) {
+            int count = integer("particles-per-ring", 24, 4, 48);
+            for (int i = 0; i < count; i++) {
+                double angle = i * Math.PI * 2 / count;
+                owner.getWorld().spawnParticle(Particle.BLOCK,
+                    session.center.clone().add(Math.cos(angle) * radius, .15, Math.sin(angle) * radius),
+                    3, .15, .2, .15, Material.DEEPSLATE.createBlockData());
             }
         }
-        if (session.age == 1) owner.getWorld().playSound(session.center, Sound.ENTITY_GENERIC_EXPLODE, 1.4f, 0.5f);
-        if (session.age >= 20) finish(session, true);
+        var candidates = session.center.getWorld().getNearbyEntities(session.center, radius, 2.5, radius).stream()
+            .filter(entity -> entity instanceof LivingEntity).map(entity -> (LivingEntity) entity).toList();
+        var targets = LegendaryTargets.select(candidates, LivingEntity::getUniqueId,
+            target -> target.getLocation().distanceSquared(session.center), target -> {
+                Vector delta = target.getLocation().toVector().subtract(session.center.toVector());
+                return LegendaryEarthquakePulse.inRange(delta.getX(), delta.getY(), delta.getZ(), radius)
+                    && policy.target(owner, target);
+            }, integer("max-targets-per-pulse", 12, 1, 64));
+        for (LivingEntity target : session.earthquake.strike(session.age, targets, LivingEntity::getUniqueId,
+            enemy -> spellDamage(owner, enemy, number("earthbreaker.damage-per-wave", 8, 0, 30)))) {
+            knockback(session.center, target, .4, .6);
+            potion(session, target, PotionEffectType.SLOWNESS, LegendaryEarthquakePulse.SLOWNESS_TICKS, 1);
+            owner.getWorld().spawnParticle(Particle.BLOCK, target.getLocation(), 16, .5, .4, .5,
+                Material.DEEPSLATE.createBlockData());
+        }
+        if (LegendaryEarthquakePulse.startsWave(session.age)) {
+            owner.getWorld().playSound(session.center, Sound.ENTITY_GENERIC_EXPLODE, 1.4f, .5f);
+        }
     }
 
     private void katana(Player owner, Session session) throws IOException {
@@ -290,7 +318,10 @@ final class LegendaryRuntime implements Listener, Runnable {
         if (!move(owner, destination)) return false;
         dust(owner.getLocation(), Color.fromRGB(35, 0, 50), 20);
         potion(session, owner, PotionEffectType.SPEED, 60, 1);
-        if (target != null && damage(owner, target, 0.001)) potion(session, target, PotionEffectType.DARKNESS, 40, 0);
+        if (target != null && spellDamage(owner, target, number("shadow-blade.strike-damage", 10, 0, 30))) {
+            potion(session, target, PotionEffectType.DARKNESS, 40, 0);
+            owner.getWorld().playSound(target.getLocation(), Sound.ENTITY_PLAYER_ATTACK_CRIT, 1, .7f);
+        }
         return true;
     }
 
@@ -315,7 +346,7 @@ final class LegendaryRuntime implements Listener, Runnable {
                     session.display.teleport(stuck);
                 }
                 if (session.weapon == LegendaryWeapon.HYPERION) {
-                    burst(owner, session.center, 6, Color.PURPLE, number("hyperion.impact-damage", 12, 0, 40), 1.1);
+                    arcaneBurst(owner, session.center);
                     owner.getWorld().playSound(session.center, Sound.ENTITY_GENERIC_EXPLODE, 1.3f, 1.3f);
                 }
             } else {
@@ -371,7 +402,9 @@ final class LegendaryRuntime implements Listener, Runnable {
         } else {
             if (elapsed % 4 == 0) ring(session.center, 5, Color.PURPLE, elapsed);
             if (elapsed > 0 && elapsed % 20 == 0) {
-                for (LivingEntity target : enemies(owner, session.center, 5)) damage(owner, target, 2);
+                for (LivingEntity target : enemies(owner, session.center, 5)) {
+                    spellDamage(owner, target, number("hyperion.field-damage", 4, 0, 20));
+                }
             }
             if (elapsed >= 100) finish(session, true);
         }
@@ -387,11 +420,24 @@ final class LegendaryRuntime implements Listener, Runnable {
     }
 
     private boolean damage(Player owner, LivingEntity target, double amount) {
+        return damage(owner, target, amount, false);
+    }
+
+    private boolean spellDamage(Player owner, LivingEntity target, double amount) {
+        return damage(owner, target, amount, true);
+    }
+
+    private boolean damage(Player owner, LivingEntity target, double amount, boolean magic) {
         if (!policy.target(owner, target)) return false;
         damageTarget = target;
         damageAccepted = false;
         try {
-            target.damage(amount, owner);
+            if (magic) {
+                target.damage(amount, DamageSource.builder(DamageType.MAGIC)
+                    .withCausingEntity(owner).withDirectEntity(owner).build());
+            } else {
+                target.damage(amount, owner);
+            }
             return damageAccepted;
         } finally {
             damageTarget = null;
@@ -403,41 +449,14 @@ final class LegendaryRuntime implements Listener, Runnable {
         if (event.getEntity().equals(damageTarget)) {
             damageAccepted = !event.isCancelled() && event.getFinalDamage() > 0;
         }
-        if (event.isCancelled() || event.getFinalDamage() <= 0 || !(event.getDamager() instanceof Player player)) return;
-        Session shadow = sessions.get(new SessionKey(player.getUniqueId(), LegendaryWeapon.SHADOW_BLADE));
-        if (shadow != null && damageTarget == null) shadow.bonusUsed = true;
-        Session blood = sessions.get(new SessionKey(player.getUniqueId(), LegendaryWeapon.BLOODLUST));
-        if (blood != null && damageTarget == null) {
-            registrations.scheduleImmediate("blood-lifesteal", () -> {
-                if (!event.isCancelled() && player.isOnline() && !player.isDead()) {
-                    player.setHealth(Math.min(player.getAttribute(org.bukkit.attribute.Attribute.MAX_HEALTH).getValue(),
-                        player.getHealth() + number("bloodlust.heal-per-hit", 1.5, 0, 4)));
-                    dust(event.getEntity().getLocation().add(0, 1, 0), Color.RED, 8);
-                }
-            });
-        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void melee(EntityDamageByEntityEvent event) {
         if (!(event.getDamager() instanceof Player player) || damageTarget != null
-            || !(event.getEntity() instanceof LivingEntity target)) return;
+            || !(event.getEntity() instanceof LivingEntity)) return;
         if (escrow.locked(player, player.getInventory().getItemInMainHand()) || crafting(player)) {
             event.setCancelled(true);
-            return;
-        }
-        Session blood = sessions.get(new SessionKey(player.getUniqueId(), LegendaryWeapon.BLOODLUST));
-        Session shadow = sessions.get(new SessionKey(player.getUniqueId(), LegendaryWeapon.SHADOW_BLADE));
-        if (blood == null && shadow == null) return;
-        if (!policy.target(player, target)) {
-            event.setCancelled(true);
-            return;
-        }
-        if (blood != null) {
-            event.setDamage(event.getDamage() * number("bloodlust.damage-multiplier", 1.6, 1, 3));
-        }
-        if (shadow != null && !shadow.bonusUsed) {
-            event.setDamage(event.getDamage() + number("shadow-blade.bonus-damage", 8, 0, 30));
         }
     }
 
@@ -449,7 +468,7 @@ final class LegendaryRuntime implements Listener, Runnable {
         }
         if (event.getCause() == EntityDamageEvent.DamageCause.FALL
             && fallProtection.getOrDefault(event.getEntity().getUniqueId(), 0L) > System.currentTimeMillis()) {
-            event.setDamage(Math.min(event.getDamage(), 2));
+            event.setCancelled(true);
             fallProtection.remove(event.getEntity().getUniqueId());
         }
     }
@@ -506,6 +525,7 @@ final class LegendaryRuntime implements Listener, Runnable {
     }
 
     private void clearPlayerSessions(UUID player) {
+        fallProtection.remove(player);
         for (Session session : new ArrayList<>(sessions.values())) {
             if (!session.owner.equals(player)) continue;
             sessions.remove(session.key());
@@ -545,6 +565,7 @@ final class LegendaryRuntime implements Listener, Runnable {
 
     private void finish(Session session, boolean natural) throws IOException {
         sessions.remove(session.key());
+        if (session.weapon == LegendaryWeapon.WINDWEAVER) fallProtection.remove(session.owner);
         if (session.display != null) session.display.remove();
         session.ephemeral.forEach(Entity::remove);
         session.cleanupEffects();
@@ -612,13 +633,13 @@ final class LegendaryRuntime implements Listener, Runnable {
         return false;
     }
 
-    private void burst(Player owner, Location center, double radius, Color color, double damage, double force) {
-        ring(center, radius, color, tick);
-        ring(center.clone().add(0, 1, 0), radius * 0.7, color, tick);
-        for (LivingEntity target : enemies(owner, center, radius)) {
-            // Even a purely visual push goes through a cancellable attributed
-            // damage event; protection plugins can veto every secondary effect.
-            if (damage(owner, target, damage > 0 ? damage : 0.001)) knockback(center, target, force, 0.2);
+    private void arcaneBurst(Player owner, Location center) {
+        ring(center, 6, Color.PURPLE, tick);
+        ring(center.clone().add(0, 1, 0), 4.2, Color.PURPLE, tick);
+        for (LivingEntity target : enemies(owner, center, 6)) {
+            if (spellDamage(owner, target, number("hyperion.impact-damage", 12, 0, 40))) {
+                knockback(center, target, .6, .3);
+            }
         }
     }
 
@@ -673,7 +694,7 @@ final class LegendaryRuntime implements Listener, Runnable {
     private static final class Session {
         final UUID owner;
         final LegendaryWeapon weapon;
-        final java.util.Set<UUID> hit = new java.util.HashSet<>();
+        final LegendaryEarthquakePulse earthquake = new LegendaryEarthquakePulse();
         final List<Entity> ephemeral = new ArrayList<>();
         final Map<UUID, LivingEntity> affected = new HashMap<>();
         final Map<UUID, FreezeLease> freezes = new HashMap<>();
@@ -700,7 +721,6 @@ final class LegendaryRuntime implements Listener, Runnable {
         int impactTick;
         int returnTicks;
         boolean impacted;
-        boolean bonusUsed;
 
         SessionKey key() { return new SessionKey(owner, weapon); }
 

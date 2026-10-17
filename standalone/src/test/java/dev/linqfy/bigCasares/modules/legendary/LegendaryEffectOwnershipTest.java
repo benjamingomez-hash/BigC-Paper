@@ -80,6 +80,30 @@ class LegendaryEffectOwnershipTest {
         assertTrue(gateway.effects.isEmpty());
     }
 
+    @Test
+    void bloodlustExpiresAfterTenSecondsAndOnlyRestoresRemainingPriorStrength() {
+        String strength = "minecraft:strength";
+        Fake gateway = new Fake();
+        gateway.effects.put(strength, effect(400, 0));
+        var owned = new LegendaryEffectOwnership(gateway);
+        owned.apply(PLAYER, strength, effect(200, 2), 0);
+        gateway.effects.remove(strength);
+        owned.prune(200);
+        owned.cleanup(200);
+        assertEquals(effect(200, 0), gateway.effects.get(strength));
+    }
+
+    @Test
+    void endingBloodlustEarlyRemovesItsStrengthWithoutLeavingACombatBonus() {
+        String strength = "minecraft:strength";
+        Fake gateway = new Fake();
+        var owned = new LegendaryEffectOwnership(gateway);
+        owned.apply(PLAYER, strength, effect(200, 2), 0);
+        gateway.effects.put(strength, effect(180, 2));
+        owned.cleanup(20);
+        assertFalse(gateway.effects.containsKey(strength));
+    }
+
     private static LegendaryEffectOwnership.Effect effect(int duration, int amplifier) {
         return new LegendaryEffectOwnership.Effect(duration, amplifier, false, true, true);
     }

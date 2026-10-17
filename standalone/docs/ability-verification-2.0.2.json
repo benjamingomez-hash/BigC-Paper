@@ -1,0 +1,948 @@
+{
+  "date": "2026-10-17",
+  "minecraft": "26.2",
+  "paper": "26.2-133-58e6e45",
+  "artifact": "LegendaryWeapons-2.0.2.jar",
+  "artifact_sha256": "b2480610eef2bc8e473bda005defa5502f97fe139c48450223a5243ede6131ab",
+  "conditions": [
+    "Cliente oficial conectado a una instancia local aislada.",
+    "Objetivos zombi inmóviles con 200 puntos de salud y cuatro piezas de netherite; conservan armadura natural.",
+    "Se usa una herramienta externa para obtener ítems de la factoría, invocar el listener real, mantener objetivos dentro del área y registrar eventos.",
+    "Cada caso termina restaurando inventario, posición y efectos del jugador de prueba.",
+    "Los casos finales de Earthbreaker verifican también la expiración de Lentitud después de la tercera onda; el smash se ejecuta mediante Player.attack durante el descenso.",
+    "No equivale a una partida PvP con varios clientes."
+  ],
+  "baseline_2_0_1": [
+    {
+      "version": "2.0.1",
+      "ability": "bloodlust",
+      "mode": "armor",
+      "initialVelocity": -0.0784000015258789,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false
+    },
+    {
+      "version": "2.0.1",
+      "ability": "windcharge",
+      "mode": "armor",
+      "initialVelocity": 1.0907666945788588,
+      "maxHeight": 6.908746858380567,
+      "maxFallDistance": 6.457638263702393,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false
+    },
+    {
+      "version": "2.0.1",
+      "ability": "windweaver",
+      "mode": "armor",
+      "initialVelocity": -0.0784000015258789,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false
+    },
+    {
+      "version": "2.0.1",
+      "ability": "earthbreaker",
+      "mode": "armor",
+      "initialVelocity": -0.0784000015258789,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [
+        {
+          "final": 2.591999053955078,
+          "tick": 11,
+          "type": "minecraft:player_attack",
+          "raw": 12.0
+        }
+      ],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false,
+      "healthLost": 2.5919952392578125,
+      "slowness": false,
+      "darkness": false,
+      "freeze": 0
+    },
+    {
+      "version": "2.0.1",
+      "ability": "frost_scythe",
+      "mode": "armor",
+      "initialVelocity": -0.0784000015258789,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [
+        {
+          "final": 0.5,
+          "tick": 24,
+          "type": "minecraft:player_attack",
+          "raw": 2.5
+        },
+        {
+          "final": 0.5,
+          "tick": 44,
+          "type": "minecraft:player_attack",
+          "raw": 2.5
+        },
+        {
+          "final": 0.5,
+          "tick": 64,
+          "type": "minecraft:player_attack",
+          "raw": 2.5
+        },
+        {
+          "final": 0.5,
+          "tick": 84,
+          "type": "minecraft:player_attack",
+          "raw": 2.5
+        },
+        {
+          "final": 0.5,
+          "tick": 104,
+          "type": "minecraft:player_attack",
+          "raw": 2.5
+        },
+        {
+          "final": 0.5,
+          "tick": 124,
+          "type": "minecraft:player_attack",
+          "raw": 2.5
+        },
+        {
+          "final": 0.5,
+          "tick": 144,
+          "type": "minecraft:player_attack",
+          "raw": 2.5
+        },
+        {
+          "final": 0.5,
+          "tick": 164,
+          "type": "minecraft:player_attack",
+          "raw": 2.5
+        }
+      ],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false,
+      "healthLost": 4.0,
+      "slowness": false,
+      "darkness": false,
+      "freeze": 0
+    },
+    {
+      "version": "2.0.1",
+      "ability": "hyperion",
+      "mode": "armor",
+      "initialVelocity": -0.0784000015258789,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [
+        {
+          "final": 2.591999053955078,
+          "tick": 6,
+          "type": "minecraft:player_attack",
+          "raw": 12.0
+        },
+        {
+          "final": 0.3999999761581421,
+          "tick": 26,
+          "type": "minecraft:player_attack",
+          "raw": 2.0
+        },
+        {
+          "final": 0.3999999761581421,
+          "tick": 46,
+          "type": "minecraft:player_attack",
+          "raw": 2.0
+        },
+        {
+          "final": 0.3999999761581421,
+          "tick": 66,
+          "type": "minecraft:player_attack",
+          "raw": 2.0
+        },
+        {
+          "final": 0.3999999761581421,
+          "tick": 86,
+          "type": "minecraft:player_attack",
+          "raw": 2.0
+        },
+        {
+          "final": 0.3999999761581421,
+          "tick": 106,
+          "type": "minecraft:player_attack",
+          "raw": 2.0
+        }
+      ],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false,
+      "healthLost": 4.5919647216796875,
+      "slowness": false,
+      "darkness": false,
+      "freeze": 0
+    },
+    {
+      "version": "2.0.1",
+      "ability": "shadow_blade",
+      "mode": "armor",
+      "initialVelocity": 0.0,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [
+        {
+          "final": 0.00020000000949949026,
+          "tick": 5,
+          "type": "minecraft:player_attack",
+          "raw": 0.0010000000474974513
+        }
+      ],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false,
+      "healthLost": 0.0001983642578125,
+      "slowness": false,
+      "darkness": false,
+      "freeze": 0
+    }
+  ],
+  "verified_2_0_2": [
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "bloodlust",
+      "mode": "armor",
+      "initialVelocity": -0.0784000015258789,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 200,
+      "strengthAfter": -1,
+      "damage": [],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false
+    },
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "windcharge",
+      "mode": "armor",
+      "initialVelocity": 1.0907666945788588,
+      "maxHeight": 6.908746858380567,
+      "maxFallDistance": 6.457638263702393,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false
+    },
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "windweaver",
+      "mode": "armor",
+      "initialVelocity": 1.3,
+      "maxHeight": 9.433545436360149,
+      "maxFallDistance": 8.40481185913086,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [],
+      "fall": [
+        {
+          "final": 6.0,
+          "cancelled": true
+        }
+      ],
+      "playerHealth": 20.0,
+      "smashAttempted": false
+    },
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "earthbreaker",
+      "mode": "armor",
+      "initialVelocity": -0.0784000015258789,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [
+        {
+          "raw": 8.0,
+          "final": 8.0,
+          "tick": 11,
+          "type": "minecraft:magic"
+        },
+        {
+          "raw": 8.0,
+          "final": 8.0,
+          "tick": 31,
+          "type": "minecraft:magic"
+        },
+        {
+          "raw": 8.0,
+          "final": 8.0,
+          "tick": 51,
+          "type": "minecraft:magic"
+        }
+      ],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false,
+      "healthLost": 24.0,
+      "maxLift": 0.6,
+      "maxSlowness": 1,
+      "maxFreeze": 0,
+      "sawDarkness": false,
+      "lastSlownessTick": 131,
+      "slowness": false,
+      "darkness": false,
+      "freeze": 0
+    },
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "frost_scythe",
+      "mode": "armor",
+      "initialVelocity": -0.0784000015258789,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [
+        {
+          "tick": 5,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 4.0
+        },
+        {
+          "tick": 25,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 4.0
+        },
+        {
+          "tick": 45,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 4.0
+        },
+        {
+          "tick": 65,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 4.0
+        },
+        {
+          "tick": 85,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 4.0
+        },
+        {
+          "tick": 105,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 4.0
+        },
+        {
+          "tick": 125,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 4.0
+        },
+        {
+          "tick": 145,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 4.0
+        }
+      ],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false,
+      "healthLost": 32.0,
+      "maxLift": 0.0,
+      "maxSlowness": 2,
+      "maxFreeze": 160,
+      "sawDarkness": false,
+      "slowness": false,
+      "darkness": false,
+      "freeze": 0
+    },
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "hyperion",
+      "mode": "armor",
+      "initialVelocity": -0.0784000015258789,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [
+        {
+          "tick": 6,
+          "type": "minecraft:magic",
+          "raw": 12.0,
+          "final": 12.0
+        },
+        {
+          "tick": 26,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 4.0
+        },
+        {
+          "tick": 46,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 4.0
+        },
+        {
+          "tick": 66,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 4.0
+        },
+        {
+          "tick": 86,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 4.0
+        },
+        {
+          "tick": 106,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 4.0
+        }
+      ],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false,
+      "healthLost": 32.0,
+      "maxLift": 0.3,
+      "maxSlowness": -1,
+      "maxFreeze": 0,
+      "sawDarkness": false,
+      "slowness": false,
+      "darkness": false,
+      "freeze": 0
+    },
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "shadow_blade",
+      "mode": "armor",
+      "initialVelocity": 0.0,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [
+        {
+          "tick": 5,
+          "type": "minecraft:magic",
+          "raw": 10.0,
+          "final": 10.0
+        }
+      ],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false,
+      "healthLost": 10.0,
+      "maxLift": 0.0,
+      "maxSlowness": -1,
+      "maxFreeze": 0,
+      "sawDarkness": true,
+      "slowness": false,
+      "darkness": false,
+      "freeze": 0
+    },
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "earthbreaker",
+      "mode": "prot4",
+      "initialVelocity": -0.0784000015258789,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [
+        {
+          "raw": 8.0,
+          "final": 2.880000114440918,
+          "tick": 11,
+          "type": "minecraft:magic"
+        },
+        {
+          "raw": 8.0,
+          "final": 2.880000114440918,
+          "tick": 31,
+          "type": "minecraft:magic"
+        },
+        {
+          "raw": 8.0,
+          "final": 2.880000114440918,
+          "tick": 51,
+          "type": "minecraft:magic"
+        }
+      ],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false,
+      "healthLost": 8.6400146484375,
+      "maxLift": 0.6,
+      "maxSlowness": 1,
+      "maxFreeze": 0,
+      "sawDarkness": false,
+      "lastSlownessTick": 131,
+      "slowness": false,
+      "darkness": false,
+      "freeze": 0
+    },
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "earthbreaker",
+      "mode": "deny",
+      "initialVelocity": -0.0784000015258789,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false,
+      "healthLost": 0.0,
+      "maxLift": 0.0,
+      "maxSlowness": -1,
+      "maxFreeze": 0,
+      "sawDarkness": false,
+      "lastSlownessTick": -1,
+      "slowness": false,
+      "darkness": false,
+      "freeze": 0
+    },
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "frost_scythe",
+      "mode": "prot4",
+      "initialVelocity": -0.0784000015258789,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [
+        {
+          "tick": 5,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 1.440000057220459
+        },
+        {
+          "tick": 25,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 1.440000057220459
+        },
+        {
+          "tick": 45,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 1.440000057220459
+        },
+        {
+          "tick": 65,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 1.440000057220459
+        },
+        {
+          "tick": 85,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 1.440000057220459
+        },
+        {
+          "tick": 105,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 1.440000057220459
+        },
+        {
+          "tick": 125,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 1.440000057220459
+        },
+        {
+          "tick": 145,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 1.440000057220459
+        }
+      ],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false,
+      "healthLost": 11.52001953125,
+      "maxLift": 0.0,
+      "maxSlowness": 2,
+      "maxFreeze": 160,
+      "sawDarkness": false,
+      "slowness": false,
+      "darkness": false,
+      "freeze": 0
+    },
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "frost_scythe",
+      "mode": "deny",
+      "initialVelocity": -0.0784000015258789,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false,
+      "healthLost": 0.0,
+      "maxLift": 0.0,
+      "maxSlowness": -1,
+      "maxFreeze": 0,
+      "sawDarkness": false,
+      "slowness": false,
+      "darkness": false,
+      "freeze": 0
+    },
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "hyperion",
+      "mode": "prot4",
+      "initialVelocity": -0.0784000015258789,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [
+        {
+          "tick": 6,
+          "type": "minecraft:magic",
+          "raw": 12.0,
+          "final": 4.320000171661377
+        },
+        {
+          "tick": 26,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 1.440000057220459
+        },
+        {
+          "tick": 46,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 1.440000057220459
+        },
+        {
+          "tick": 66,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 1.440000057220459
+        },
+        {
+          "tick": 86,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 1.440000057220459
+        },
+        {
+          "tick": 106,
+          "type": "minecraft:magic",
+          "raw": 4.0,
+          "final": 1.440000057220459
+        }
+      ],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false,
+      "healthLost": 11.52001953125,
+      "maxLift": 0.3,
+      "maxSlowness": -1,
+      "maxFreeze": 0,
+      "sawDarkness": false,
+      "slowness": false,
+      "darkness": false,
+      "freeze": 0
+    },
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "hyperion",
+      "mode": "deny",
+      "initialVelocity": -0.0784000015258789,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false,
+      "healthLost": 0.0,
+      "maxLift": 0.0,
+      "maxSlowness": -1,
+      "maxFreeze": 0,
+      "sawDarkness": false,
+      "slowness": false,
+      "darkness": false,
+      "freeze": 0
+    },
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "shadow_blade",
+      "mode": "prot4",
+      "initialVelocity": 0.0,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [
+        {
+          "tick": 5,
+          "type": "minecraft:magic",
+          "raw": 10.0,
+          "final": 3.6000003814697266
+        }
+      ],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false,
+      "healthLost": 3.600006103515625,
+      "maxLift": 0.0,
+      "maxSlowness": -1,
+      "maxFreeze": 0,
+      "sawDarkness": true,
+      "slowness": false,
+      "darkness": false,
+      "freeze": 0
+    },
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "shadow_blade",
+      "mode": "deny",
+      "initialVelocity": 0.0,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false,
+      "healthLost": 0.0,
+      "maxLift": 0.0,
+      "maxSlowness": -1,
+      "maxFreeze": 0,
+      "sawDarkness": false,
+      "slowness": false,
+      "darkness": false,
+      "freeze": 0
+    },
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "earthbreaker",
+      "mode": "retry",
+      "initialVelocity": -0.0784000015258789,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [
+        {
+          "raw": 8.0,
+          "final": 8.0,
+          "tick": 14,
+          "type": "minecraft:magic"
+        },
+        {
+          "raw": 8.0,
+          "final": 8.0,
+          "tick": 31,
+          "type": "minecraft:magic"
+        },
+        {
+          "raw": 8.0,
+          "final": 8.0,
+          "tick": 51,
+          "type": "minecraft:magic"
+        }
+      ],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false,
+      "healthLost": 24.0,
+      "maxLift": 0.6,
+      "maxSlowness": 1,
+      "maxFreeze": 0,
+      "sawDarkness": false,
+      "lastSlownessTick": 131,
+      "slowness": false,
+      "darkness": false,
+      "freeze": 0
+    },
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "bloodlust",
+      "mode": "stronger",
+      "initialVelocity": -0.0784000015258789,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": 3,
+      "strengthDuration": 400,
+      "strengthAfter": 3,
+      "damage": [],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false
+    },
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "bloodlust",
+      "mode": "restore",
+      "initialVelocity": -0.0784000015258789,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 200,
+      "strengthAfter": 0,
+      "damage": [],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false
+    },
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "windweaver",
+      "mode": "protected",
+      "initialVelocity": -0.0784000015258789,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false
+    },
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "bloodlust",
+      "mode": "protected",
+      "initialVelocity": -0.0784000015258789,
+      "maxHeight": 0.0,
+      "maxFallDistance": 0.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": false
+    },
+    {
+      "version": "2.0.2",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "ability": "windweaver",
+      "mode": "smash",
+      "initialVelocity": 1.3,
+      "maxHeight": 9.433545436360149,
+      "maxFallDistance": 6.435193061828613,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "strengthAfter": -1,
+      "damage": [
+        {
+          "raw": 36.950077056884766,
+          "final": 15.356473922729492,
+          "tick": 33,
+          "type": "minecraft:mace_smash"
+        }
+      ],
+      "fall": [],
+      "playerHealth": 20.0,
+      "smashAttempted": true,
+      "healthLost": 15.356475830078125,
+      "maxLift": 0.0,
+      "maxSlowness": -1,
+      "maxFreeze": 0,
+      "sawDarkness": false,
+      "lastSlownessTick": -1,
+      "slowness": false,
+      "darkness": false,
+      "freeze": 0
+    }
+  ]
+}

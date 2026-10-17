@@ -38,6 +38,7 @@ final class LegendaryWeaponsCommand implements CommandExecutor, TabCompleter {
                     if (args.length != 2) throw new IllegalArgumentException("Uso: /weapons info <arma>");
                     var weapon = LegendaryWeapon.find(args[1]).orElseThrow(() -> new IllegalArgumentException("Arma desconocida."));
                     sender.sendMessage("§6" + weapon.displayName + " — " + weapon.abilityName + " · cooldown: 40 s");
+                    sender.sendMessage("§b" + weapon.abilityDescription());
                     sender.sendMessage("§eReceta sin forma en mesa vanilla; una unidad de ingrediente por casilla:");
                     weapon.ingredients.forEach((material, amount) -> sender.sendMessage("§7" + amount + " × " + material));
                 }

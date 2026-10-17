@@ -2,7 +2,7 @@
 
 Plugin **independiente** para **Paper 26.2 / Java 25 / Gradle 9.2.1**. Incluye únicamente las ocho armas y su evento de fabricación. Usa modelos Java nativos y no requiere BigCasares, Vault, EssentialsX ni BetterModel. Si se usa BetterModel para otros plugins del servidor, la versión solicitada para 26.2 es 3.2.0; esta distribución no llama a su API. WorldGuard es opcional. Los equipos usan el scoreboard vanilla. No incluye integración Bedrock/Geyser.
 
-[Descargar Armas-Legendarias-2.0.1.zip](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-crafting-pvp/standalone/downloads/Armas-Legendarias-2.0.1.zip): JAR independiente, pack, captura e instrucciones con scripts de inicio. Requiere descargar Paper 26.2 y Java 25 por separado.
+[Descargar Armas-Legendarias-2.0.2.zip](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-crafting-pvp/standalone/downloads/Armas-Legendarias-2.0.2.zip): JAR independiente, pack, captura e instrucciones con scripts de inicio. Requiere descargar Paper 26.2 y Java 25 por separado.
 
 ## Evento
 
@@ -25,19 +25,35 @@ La protección alcanza únicamente la mesa y la celda inmediatamente superior. I
 | frost_scythe | Diamond Hoe | Blue Ice | Heart of the Sea | Diamond Block | Tormenta Glacial |
 | shadow_blade | Netherite Sword | Ender Pearl | Phantom Membrane | Crying Obsidian | Asesino de Sombras |
 | hyperion | Blaze Rod | Amethyst Block | Nether Star | Gold Block | Destrucción Arcana |
-| windweaver | Mace | Wind Charge | Feather | Iron Block | Tornado Divino |
+| windweaver | Mace | Wind Charge | Feather | Iron Block | Impulso Divino |
 | earthbreaker | Netherite Axe | Deepslate | Emerald Block | Netherite Ingot | Terremoto Titán |
 | void_katana | Diamond Sword | Ender Eye | Chorus Fruit | Purpur Block | Dimensión del Vacío |
 | thunder_spear | Netherite Spear | Lightning Rod | Heart of the Sea | Copper Block | Jabalina del Trueno |
 
 Cada arma conserva una habilidad de clic derecho y cooldown persistente de **40 segundos** por jugador y habilidad. Thunder Spear usa `NETHERITE_SPEAR` con **Lunge III nativo** a la izquierda; a la derecha se lanza inmediatamente, genera una tormenta de 10 segundos y regresa. No se sustituye por un tridente.
 
+### Habilidades corregidas en 2.0.2
+
+| Arma | Efecto por defecto |
+| --- | --- |
+| Bloodlust | **Fuerza III durante 10 s**, mediante el efecto nativo. Sustituye el multiplicador y robo de vida anteriores. |
+| Frost Scythe | Aura de radio 5 durante 8 s: ocho pulsos de **4 puntos de daño mágico**, Lentitud III y congelación. El primer pulso es inmediato. |
+| Shadow Blade | Teletransporte detrás del objetivo a un máximo de 16 bloques y **10 puntos de daño mágico inmediato**, Oscuridad durante 2 s y Velocidad II durante 3 s. Sin enemigo, conserva el desplazamiento corto a un lugar seguro. |
+| Hyperion | Proyectil con **12 puntos de daño mágico** en radio 6 al impactar, seguido de un campo de radio 5 que da cinco pulsos de **4 puntos**, uno por segundo. |
+| Windweaver | Impulso vertical para preparar un smash de maza, conservando movimiento horizontal. Altura aproximada de 9 bloques desde suelo llano. Protege la primera caída del salto hasta aterrizar o diez segundos como máximo; no aplica levitación ni ralentiza la caída. |
+| Earthbreaker | **Tres ondas en 3 s**, cada una hasta radio 9 y con **8 puntos de daño mágico** por enemigo, elevación y Lentitud II durante 4 s. Alcanza hasta 2,5 bloques por encima o debajo; no destruye terreno. |
+| Void Katana / Thunder Spear | Habilidades conservadas. |
+
+**Dos puntos equivalen a un corazón antes de reducciones.** El daño mágico evita la reducción de armadura; Protección y Resistencia siguen reduciéndolo. Los máximos de las áreas suponen que el enemigo permanece dentro de cada pulso. Se conservan las reglas de objetivos hostiles, equipos, regiones y cancelación de daño. Los impulsos y estados negativos solo se aplican si el golpe fue aceptado. `/weapons info <arma>` explica la habilidad.
+
+Para actualizar desde 2.0.1, detén Paper, sustituye el JAR y conserva la carpeta `plugins/LegendaryWeapons`. No borres el diario ni los datos de jugadores: las armas existentes usan las habilidades nuevas y mantienen sus cooldowns. Las claves nuevas de configuración tienen valores predeterminados aunque el archivo existente no las contenga; las antiguas `bloodlust.damage-multiplier`, `bloodlust.heal-per-hit`, `shadow-blade.bonus-damage` y `earthbreaker.damage` dejan de usarse. El ID persistente de Windweaver sigue siendo `divine-tornado`.
+
 ## Instalación y prueba local en Windows
 
 1. Instala Java 25 y descarga Paper 26.2 desde https://papermc.io/downloads/paper (versiones anteriores).
 2. En una carpeta nueva, guarda Paper como `paper.jar`. Ejecuta `java -Xms1G -Xmx2G -jar paper.jar --nogui`.
 3. Lee el EULA en `eula.txt` y, si lo aceptas, cambia `eula=false` por `eula=true`.
-4. Copia **`LegendaryWeapons-2.0.1.jar`** en `plugins` y vuelve a iniciar Paper.
+4. Copia **`LegendaryWeapons-2.0.2.jar`** en `plugins` y vuelve a iniciar Paper.
 5. En la consola escribe `op TuNombre`. En Minecraft Java **26.2**, entra a Multijugador → Conexión directa → `localhost`; acepta el paquete de recursos.
 6. Consulta `/weapons info thunder_spear`, consigue los materiales y fabrica en una mesa. `/weapons events` muestra disponibilidad y tiempo sin filtrar coordenadas anticipadas.
 
@@ -63,7 +79,7 @@ Los avisos se confirman antes de publicarse para evitar duplicarlos al reiniciar
 
 ## Desarrollo
 
-Desde `standalone/` con Java 25: `bash gradlew --no-daemon --max-workers=4 clean build` (Windows: `gradlew.bat build`). Artefacto: `build/libs/LegendaryWeapons-2.0.1.jar`.
+Desde `standalone/` con Java 25: `bash gradlew --no-daemon --max-workers=4 clean build` (Windows: `gradlew.bat build`). Artefacto: `build/libs/LegendaryWeapons-2.0.2.jar`.
 
 Consulta [los resultados y capturas](VERIFY.md).
 
