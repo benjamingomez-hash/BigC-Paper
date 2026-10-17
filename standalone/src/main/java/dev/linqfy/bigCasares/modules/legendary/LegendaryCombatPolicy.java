@@ -14,9 +14,7 @@ final class LegendaryCombatPolicy {
     LegendaryCombatPolicy(LegendaryWeaponsPlugin plugin) { this.plugin = plugin; }
 
     boolean target(Player source, LivingEntity target) {
-        if (source.equals(target) || target.isDead() || !target.isValid() || target instanceof ArmorStand) {
-            return false;
-        }
+        if (target instanceof ArmorStand) return false;
         if (!(target instanceof Player) && !(target instanceof org.bukkit.entity.Enemy)
             && !(target instanceof org.bukkit.entity.Mob mob && source.equals(mob.getTarget()))) {
             return false; // Passive animals and merchant NPCs are not enemies.
@@ -24,6 +22,12 @@ final class LegendaryCombatPolicy {
         if (target instanceof Tameable tameable && tameable.getOwner() != null) {
             return false; // Do not treat pets as enemies.
         }
+        return affect(source, target);
+    }
+
+    /** Frost and native fireballs also affect passive mobs, villagers and pets. */
+    boolean affect(Player source, LivingEntity target) {
+        if (source.equals(target) || target.isDead() || !target.isValid()) return false;
         if (target instanceof Player player) {
             if (!source.getWorld().getPVP() || player.getGameMode() == GameMode.CREATIVE
                 || player.getGameMode() == GameMode.SPECTATOR || player.isInvulnerable()) {
@@ -62,7 +66,7 @@ final class LegendaryCombatPolicy {
                 Class<?> stateFlag = Class.forName("com.sk89q.worldguard.protection.flags.StateFlag");
                 String flag = action == LegendaryProtectionEvent.Action.DAMAGE ? "PVP"
                     : action == LegendaryProtectionEvent.Action.MOVE ? "ENTRY" : "BUILD";
-                boolean build = action == LegendaryProtectionEvent.Action.ALTAR;
+                boolean build = action == LegendaryProtectionEvent.Action.ALTAR || action == LegendaryProtectionEvent.Action.BREAK;
                 Object flags = java.lang.reflect.Array.newInstance(stateFlag, build ? 0 : 1);
                 if (!build) java.lang.reflect.Array.set(flags, 0,
                     Class.forName("com.sk89q.worldguard.protection.flags.Flags").getField(flag).get(null));

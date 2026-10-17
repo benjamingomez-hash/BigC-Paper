@@ -59,11 +59,11 @@ public enum LegendaryWeapon {
     public String abilityDescription() {
         return switch (this) {
             case BLOODLUST -> "Fuerza III durante 10 segundos.";
-            case FROST_SCYTHE -> "Tormenta de hielo de 8 s: daño mágico cada segundo, Lentitud III y congelación, radio 5.";
+            case FROST_SCYTHE -> "Aura de 8 s y radio 6: congelación y Lentitud IV para cualquier entidad viva enemiga.";
             case SHADOW_BLADE -> "Teletransporte tras el objetivo, golpe mágico inmediato y Oscuridad; alcance 16.";
-            case HYPERION -> "Proyectil arcano: explosión mágica y campo de daño durante 5 segundos.";
+            case HYPERION -> "Ráfaga de cinco bolas de fuego explosivas de ghast; apunta mientras disparas.";
             case WINDWEAVER -> "Impulso vertical para atacar con la maza; protege la primera caída del salto durante un máximo de 10 s.";
-            case EARTHBREAKER -> "Tres ondas terrestres en 3 s, radio 9: daño mágico, elevación y Lentitud II.";
+            case EARTHBREAKER -> "Abre un cráter de radio 8: profundidad 4 en el centro y 3/2/1 hacia el borde, sin daño directo.";
             case VOID_KATANA -> "Tres cortes con desplazamiento y Oscuridad.";
             case THUNDER_SPEAR -> "Lanzamiento inmediato, tormenta de 10 s y retorno; Lunge III nativo al atacar.";
         };

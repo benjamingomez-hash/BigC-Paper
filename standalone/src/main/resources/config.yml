@@ -4,20 +4,18 @@ legendary-weapons:
   max-targets-per-pulse: 12
   particles-per-ring: 24
   # Bloodlust siempre aplica Fuerza III durante 200 ticks (10 segundos).
-  # Los daños mágicos se expresan en puntos (2 = 1 corazón); Protección y
-  # Resistencia siguen reduciéndolos. Katana y spear conservan su daño anterior.
+  # Shadow usa daño mágico (2 puntos = 1 corazón). Frost aplica estados,
+  # Hyperion lanza Fireball vanilla y Earthbreaker talla terreno sin golpe.
   frost-scythe:
-    damage-per-pulse: 4
+    max-targets: 64
   shadow-blade:
     range: 16
     strike-damage: 10
   hyperion:
-    impact-damage: 12
-    field-damage: 4
+    explosion-power: 2
+    ignite-blocks: false
   windweaver:
     upward-velocity: 1.3
-  earthbreaker:
-    damage-per-wave: 8
   void-katana:
     damage-per-cut: 5
   spear:

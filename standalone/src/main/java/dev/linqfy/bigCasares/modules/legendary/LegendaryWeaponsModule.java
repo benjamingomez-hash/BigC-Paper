@@ -26,7 +26,7 @@ public final class LegendaryWeaponsModule implements PluginModule {
                 throw new IllegalStateException("Hay datos de altares anteriores. Conserva una copia y usa una instalación nueva para Crafting PvP.");
             }
             events = new LegendaryCraftingEvents(plugin, store, registrations);
-            runtime = new LegendaryRuntime(plugin, store, registrations, events::pending);
+            runtime = new LegendaryRuntime(plugin, store, registrations, events::pending, events::protectedCell);
             scope.register("legendary-effects", runtime::shutdown);
             scope.register("legendary-events", events::shutdown);
             registrations.registerListener("legendary-event-listener", events);

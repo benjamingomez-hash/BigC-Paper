@@ -344,7 +344,7 @@ final class LegendaryCraftingEvents implements Listener, Runnable {
         return ledger.all().stream().filter(s -> s.protectsTable() && s.world().equals(block.getWorld().getUID())
             && s.x() == block.getX() && s.y() == block.getY() && s.z() == block.getZ()).findFirst().orElse(null);
     }
-    private boolean protectedCell(Block block) {
+    boolean protectedCell(Block block) {
         return ledger.protectedCell(block.getWorld().getUID(), block.getX(), block.getY(), block.getZ());
     }
     void clean(Entity[] entities) {

@@ -10,9 +10,12 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.block.Block;
+import org.bukkit.block.TileState;
 import org.bukkit.damage.DamageSource;
 import org.bukkit.damage.DamageType;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Fireball;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -21,9 +24,15 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockIgniteEvent;
+import org.bukkit.event.entity.EntityCombustByEntityEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -58,15 +67,19 @@ final class LegendaryRuntime implements Listener, Runnable {
     private final Map<SessionKey, Session> sessions = new HashMap<>();
     private final Map<UUID, Long> fallProtection = new HashMap<>();
     private final NamespacedKey temporary = new NamespacedKey("bigcasares", "legendary_temporary");
+    private final NamespacedKey hyperionShot = new NamespacedKey("bigcasares", "legendary_hyperion");
     private final java.util.function.Predicate<UUID> eventTransaction;
+    private final java.util.function.Predicate<Block> protectedCell;
     private int tick;
     private boolean stopped;
     private LivingEntity damageTarget;
     private boolean damageAccepted;
 
-    LegendaryRuntime(LegendaryWeaponsPlugin plugin, LegendaryStateStore store, BukkitRuntimeRegistrations registrations, java.util.function.Predicate<UUID> eventTransaction) {
+    LegendaryRuntime(LegendaryWeaponsPlugin plugin, LegendaryStateStore store, BukkitRuntimeRegistrations registrations,
+                     java.util.function.Predicate<UUID> eventTransaction, java.util.function.Predicate<Block> protectedCell) {
         this.plugin = plugin;
         this.eventTransaction = eventTransaction;
+        this.protectedCell = protectedCell;
         this.store = store;
         this.escrow = new LegendarySpearEscrow(store);
         this.policy = new LegendaryCombatPolicy(plugin);
@@ -126,6 +139,20 @@ final class LegendaryRuntime implements Listener, Runnable {
             return;
         }
         Session session = new Session(player.getUniqueId(), weapon, player.getLocation());
+        if (weapon == LegendaryWeapon.EARTHBREAKER) {
+            var ground = player.getWorld().rayTraceBlocks(player.getLocation().add(0, .1, 0), new Vector(0, -1, 0),
+                4, FluidCollisionMode.NEVER, true);
+            if (ground == null || ground.getHitBlock() == null) {
+                player.sendActionBar(Component.text("Acércate al suelo para abrir el cráter."));
+                return;
+            }
+            session.center = ground.getHitBlock().getLocation();
+            if (protectedCell.test(ground.getHitBlock())
+                || !policy.allowed(player, session.center, null, LegendaryProtectionEvent.Action.BREAK)) {
+                player.sendActionBar(Component.text("No puedes abrir un cráter en esta zona."));
+                return;
+            }
+        }
         if (weapon == LegendaryWeapon.SHADOW_BLADE) {
             if (!shadow(player, session, true)) {
                 player.sendActionBar(Component.text("No hay un destino seguro."));
@@ -143,9 +170,6 @@ final class LegendaryRuntime implements Listener, Runnable {
                 session.center = player.getEyeLocation();
                 session.velocity = session.center.getDirection().multiply(number("spear.flight-speed", 1.8, 0.2, 4));
                 session.display = display(session.center, original);
-            } else if (weapon == LegendaryWeapon.HYPERION) {
-                session.center = player.getEyeLocation();
-                session.velocity = session.center.getDirection().multiply(1.2);
             } else if (weapon == LegendaryWeapon.BLOODLUST) {
                 potion(session, player, PotionEffectType.STRENGTH, 200, 2);
             } else if (weapon == LegendaryWeapon.WINDWEAVER) {
@@ -193,7 +217,8 @@ final class LegendaryRuntime implements Listener, Runnable {
                     case SHADOW_BLADE -> { if (session.age >= 60) finish(session, true); }
                     case EARTHBREAKER -> earthquake(owner, session);
                     case VOID_KATANA -> katana(owner, session);
-                    case HYPERION, THUNDER_SPEAR -> projectile(owner, session);
+                    case HYPERION -> hyperion(owner, session);
+                    case THUNDER_SPEAR -> projectile(owner, session);
                 }
             } catch (RuntimeException | IOException failure) {
                 plugin.getLogger().log(Level.SEVERE, "La habilidad se canceló de forma segura.", failure);
@@ -223,16 +248,20 @@ final class LegendaryRuntime implements Listener, Runnable {
     private void frost(Player owner, Session session) throws IOException {
         session.center = owner.getLocation();
         Color color = Color.fromRGB(170, 235, 255);
-        double radius = 5;
+        double radius = 6;
         if (session.age % 3 == 0) {
             for (int layer = 0; layer < 3; layer++) ring(session.center.clone().add(0, layer * 0.8, 0), radius - layer * 0.6, color, session.age);
         }
-        if ((session.age - 1) % 20 == 0) {
-            for (LivingEntity target : enemies(owner, session.center, radius)) {
-                if (!spellDamage(owner, target, number("frost-scythe.damage-per-pulse", 4, 0, 20))) continue;
-                potion(session, target, PotionEffectType.SLOWNESS, 35, 2);
+        if ((session.age - 1) % 10 == 0) {
+            var candidates = session.center.getWorld().getNearbyEntities(session.center, radius, radius, radius).stream()
+                .filter(entity -> entity instanceof LivingEntity).map(entity -> (LivingEntity) entity).toList();
+            for (LivingEntity target : LegendaryTargets.select(candidates, LivingEntity::getUniqueId,
+                entity -> entity.getLocation().distanceSquared(session.center),
+                entity -> entity.getLocation().distanceSquared(session.center) <= radius * radius && policy.affect(owner, entity),
+                integer("frost-scythe.max-targets", 64, 1, 128))) {
+                potion(session, target, PotionEffectType.SLOWNESS, 30, 3);
                 FreezeLease prior = session.freezes.get(target.getUniqueId());
-                int frozen = Math.max(target.getFreezeTicks(), target.getMaxFreezeTicks() + 20);
+                int frozen = Math.max(target.getFreezeTicks(), target.getMaxFreezeTicks() + 40);
                 session.freezes.put(target.getUniqueId(), new FreezeLease(target,
                     prior == null ? target.getFreezeTicks() : prior.previous(),
                     prior == null ? session.age : prior.previousAt(), frozen));
@@ -250,41 +279,116 @@ final class LegendaryRuntime implements Listener, Runnable {
     }
 
     private void earthquake(Player owner, Session session) throws IOException {
-        if (session.age > LegendaryEarthquakePulse.DURATION) {
-            if (session.age >= LegendaryEarthquakePulse.DURATION + LegendaryEarthquakePulse.SLOWNESS_TICKS) {
-                finish(session, true);
+        if (session.age == 1) owner.getWorld().playSound(session.center, Sound.ENTITY_GENERIC_EXPLODE, 1.4f, .5f);
+        session.crater.step(64, cell -> {
+            int x = session.center.getBlockX() + cell.x(), y = session.center.getBlockY() + cell.y(), z = session.center.getBlockZ() + cell.z();
+            var world = session.center.getWorld();
+            if (y < world.getMinHeight() || y >= world.getMaxHeight() || !world.isChunkLoaded(x >> 4, z >> 4)) return false;
+            Block block = world.getBlockAt(x, y, z);
+            if (!canBreakTerrain(owner, block)) return false;
+            var data = block.getBlockData();
+            block.setType(Material.AIR, true);
+            if (cell.y() == 0) world.spawnParticle(Particle.BLOCK, block.getLocation().add(.5, .5, .5), 4, .3, .3, .3, data);
+            return true;
+        });
+        if (session.crater.complete()) finish(session, true);
+    }
+
+    private boolean canBreakTerrain(Player owner, Block block) {
+        if (block.getType().isAir() || block.isLiquid() || block.getType().getHardness() < 0
+            || block.getState() instanceof TileState || protectedCell.test(block)
+            || !block.getWorld().getWorldBorder().isInside(block.getLocation())
+            || !policy.allowed(owner, block.getLocation(), null, LegendaryProtectionEvent.Action.BREAK)) return false;
+        var event = new BlockBreakEvent(block, owner);
+        event.setDropItems(false);
+        event.setExpToDrop(0);
+        plugin.getServer().getPluginManager().callEvent(event);
+        return !event.isCancelled();
+    }
+
+    private void hyperion(Player owner, Session session) throws IOException {
+        if (LegendaryHyperionSalvo.firesAt(session.age)) {
+            Vector direction = owner.getEyeLocation().getDirection();
+            Fireball fireball = owner.launchProjectile(Fireball.class, direction.clone().multiply(.85), entity -> {
+                entity.setPersistent(false);
+                entity.setYield((float) number("hyperion.explosion-power", 2, .5, 4));
+                entity.setIsIncendiary(plugin.getConfig().getBoolean("legendary-weapons.hyperion.ignite-blocks", false));
+                entity.setAcceleration(direction.clone().multiply(.06));
+                entity.getPersistentDataContainer().set(temporary, PersistentDataType.BYTE, (byte) 1);
+                entity.getPersistentDataContainer().set(hyperionShot, PersistentDataType.STRING, owner.getUniqueId().toString());
+            });
+            if (fireball.isValid()) session.ephemeral.add(fireball);
+            owner.getWorld().playSound(owner.getEyeLocation(), Sound.ENTITY_GHAST_SHOOT, .7f, 1);
+        }
+        for (Entity entity : new ArrayList<>(session.ephemeral)) {
+            if (entity.getTicksLived() > 100 || !entity.getWorld().equals(owner.getWorld())
+                || !entity.getWorld().getWorldBorder().isInside(entity.getLocation())
+                || !entity.getWorld().isChunkLoaded(entity.getLocation().getBlockX() >> 4, entity.getLocation().getBlockZ() >> 4)) {
+                entity.remove();
             }
-            return;
         }
-        double radius = LegendaryEarthquakePulse.radius(session.age);
-        ring(session.center, radius, Color.fromRGB(120, 95, 75), session.age);
-        if (session.age % 2 == 0) {
-            int count = integer("particles-per-ring", 24, 4, 48);
-            for (int i = 0; i < count; i++) {
-                double angle = i * Math.PI * 2 / count;
-                owner.getWorld().spawnParticle(Particle.BLOCK,
-                    session.center.clone().add(Math.cos(angle) * radius, .15, Math.sin(angle) * radius),
-                    3, .15, .2, .15, Material.DEEPSLATE.createBlockData());
-            }
-        }
-        var candidates = session.center.getWorld().getNearbyEntities(session.center, radius, 2.5, radius).stream()
-            .filter(entity -> entity instanceof LivingEntity).map(entity -> (LivingEntity) entity).toList();
-        var targets = LegendaryTargets.select(candidates, LivingEntity::getUniqueId,
-            target -> target.getLocation().distanceSquared(session.center), target -> {
-                Vector delta = target.getLocation().toVector().subtract(session.center.toVector());
-                return LegendaryEarthquakePulse.inRange(delta.getX(), delta.getY(), delta.getZ(), radius)
-                    && policy.target(owner, target);
-            }, integer("max-targets-per-pulse", 12, 1, 64));
-        for (LivingEntity target : session.earthquake.strike(session.age, targets, LivingEntity::getUniqueId,
-            enemy -> spellDamage(owner, enemy, number("earthbreaker.damage-per-wave", 8, 0, 30)))) {
-            knockback(session.center, target, .4, .6);
-            potion(session, target, PotionEffectType.SLOWNESS, LegendaryEarthquakePulse.SLOWNESS_TICKS, 1);
-            owner.getWorld().spawnParticle(Particle.BLOCK, target.getLocation(), 16, .5, .4, .5,
-                Material.DEEPSLATE.createBlockData());
-        }
-        if (LegendaryEarthquakePulse.startsWave(session.age)) {
-            owner.getWorld().playSound(session.center, Sound.ENTITY_GENERIC_EXPLODE, 1.4f, .5f);
-        }
+        if (session.age >= LegendaryHyperionSalvo.MAX_AGE
+            || (session.age > LegendaryHyperionSalvo.LAST_SHOT && session.ephemeral.stream().noneMatch(Entity::isValid))) finish(session, true);
+    }
+
+    private Player hyperionOwner(Entity entity) {
+        if (!(entity instanceof Fireball)) return null;
+        String value = entity.getPersistentDataContainer().get(hyperionShot, PersistentDataType.STRING);
+        return value == null ? null : plugin.getServer().getPlayer(UUID.fromString(value));
+    }
+
+    private boolean hyperionShot(Entity entity) {
+        return entity instanceof Fireball && entity.getPersistentDataContainer().has(hyperionShot, PersistentDataType.STRING);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void hyperionHit(ProjectileHitEvent event) {
+        if (!hyperionShot(event.getEntity())) return;
+        Player owner = hyperionOwner(event.getEntity());
+        Entity target = event.getHitEntity();
+        boolean denied = owner == null || (target instanceof LivingEntity living && !policy.affect(owner, living))
+            || (event.getHitBlock() != null && protectedCell.test(event.getHitBlock()));
+        if (denied) { event.setCancelled(true); event.getEntity().remove(); }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void hyperionDamage(EntityDamageByEntityEvent event) {
+        Entity source = event.getDamageSource().getDirectEntity();
+        if (!hyperionShot(source)) return;
+        Player owner = hyperionOwner(source);
+        if (owner == null || (event.getEntity() instanceof LivingEntity living && !policy.affect(owner, living))
+            || !policy.allowed(owner, event.getEntity().getLocation(), null, LegendaryProtectionEvent.Action.DAMAGE)) event.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void hyperionPrime(ExplosionPrimeEvent event) {
+        if (!hyperionShot(event.getEntity())) return;
+        Player owner = hyperionOwner(event.getEntity());
+        if (owner == null || !policy.allowed(owner, event.getEntity().getLocation(), null, LegendaryProtectionEvent.Action.DAMAGE)) event.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void hyperionExplosion(EntityExplodeEvent event) {
+        if (!hyperionShot(event.getEntity())) return;
+        Player owner = hyperionOwner(event.getEntity());
+        if (owner == null) { event.setCancelled(true); return; }
+        event.blockList().removeIf(block -> !canBreakTerrain(owner, block));
+        event.setYield(0);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void hyperionBurn(EntityCombustByEntityEvent event) {
+        if (!hyperionShot(event.getCombuster())) return;
+        Player owner = hyperionOwner(event.getCombuster());
+        if (owner == null || (event.getEntity() instanceof LivingEntity living && !policy.affect(owner, living))) event.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void hyperionIgnite(BlockIgniteEvent event) {
+        if (!hyperionShot(event.getIgnitingEntity())) return;
+        Player owner = hyperionOwner(event.getIgnitingEntity());
+        if (owner == null || protectedCell.test(event.getBlock())
+            || !policy.allowed(owner, event.getBlock().getLocation(), null, LegendaryProtectionEvent.Action.BREAK)) event.setCancelled(true);
     }
 
     private void katana(Player owner, Session session) throws IOException {
@@ -345,25 +449,10 @@ final class LegendaryRuntime implements Listener, Runnable {
                     stuck.setPitch(90);
                     session.display.teleport(stuck);
                 }
-                if (session.weapon == LegendaryWeapon.HYPERION) {
-                    arcaneBurst(owner, session.center);
-                    owner.getWorld().playSound(session.center, Sound.ENTITY_GENERIC_EXPLODE, 1.3f, 1.3f);
-                }
             } else {
                 session.center = step.destination();
                 if (session.weapon == LegendaryWeapon.THUNDER_SPEAR) session.velocity.setY(session.velocity.getY() - 0.025);
-                if (session.weapon == LegendaryWeapon.HYPERION) {
-                    int points = integer("particles-per-ring", 24, 4, 48);
-                    for (int i = 0; i < points; i++) {
-                        double y = 1 - 2 * (i + 0.5) / points;
-                        double horizontal = Math.sqrt(1 - y * y);
-                        double angle = i * 2.399963229728653;
-                        dust(session.center.clone().add(Math.cos(angle) * horizontal * 0.65, y * 0.65,
-                            Math.sin(angle) * horizontal * 0.65), Color.PURPLE, 1);
-                    }
-                } else {
-                    dust(session.center, Color.AQUA, 8);
-                }
+                dust(session.center, Color.AQUA, 8);
                 if (session.display != null) {
                     Location oriented = session.center.clone().setDirection(session.velocity);
                     session.display.teleport(oriented);
@@ -399,14 +488,6 @@ final class LegendaryRuntime implements Listener, Runnable {
                     dust(target.getLocation(), Color.WHITE, 18);
                 }
             }
-        } else {
-            if (elapsed % 4 == 0) ring(session.center, 5, Color.PURPLE, elapsed);
-            if (elapsed > 0 && elapsed % 20 == 0) {
-                for (LivingEntity target : enemies(owner, session.center, 5)) {
-                    spellDamage(owner, target, number("hyperion.field-damage", 4, 0, 20));
-                }
-            }
-            if (elapsed >= 100) finish(session, true);
         }
     }
 
@@ -633,22 +714,6 @@ final class LegendaryRuntime implements Listener, Runnable {
         return false;
     }
 
-    private void arcaneBurst(Player owner, Location center) {
-        ring(center, 6, Color.PURPLE, tick);
-        ring(center.clone().add(0, 1, 0), 4.2, Color.PURPLE, tick);
-        for (LivingEntity target : enemies(owner, center, 6)) {
-            if (spellDamage(owner, target, number("hyperion.impact-damage", 12, 0, 40))) {
-                knockback(center, target, .6, .3);
-            }
-        }
-    }
-
-    private void knockback(Location center, LivingEntity target, double horizontal, double up) {
-        Vector direction = target.getLocation().toVector().subtract(center.toVector()).setY(0);
-        if (direction.lengthSquared() < 0.001) direction = new Vector(1, 0, 0);
-        target.setVelocity(direction.normalize().multiply(horizontal).setY(up));
-    }
-
     private void ring(Location center, double radius, Color color, int phase) {
         int count = integer("particles-per-ring", 24, 4, 48);
         for (int i = 0; i < count; i++) {
@@ -694,7 +759,7 @@ final class LegendaryRuntime implements Listener, Runnable {
     private static final class Session {
         final UUID owner;
         final LegendaryWeapon weapon;
-        final LegendaryEarthquakePulse earthquake = new LegendaryEarthquakePulse();
+        final LegendaryCrater crater = new LegendaryCrater();
         final List<Entity> ephemeral = new ArrayList<>();
         final Map<UUID, LivingEntity> affected = new HashMap<>();
         final Map<UUID, FreezeLease> freezes = new HashMap<>();

@@ -9,7 +9,7 @@ import org.bukkit.event.HandlerList;
 
 /** Integrations may veto an effect, dash, or altar before any mutation occurs. */
 public final class LegendaryProtectionEvent extends Event implements Cancellable {
-    public enum Action { DAMAGE, MOVE, ALTAR }
+    public enum Action { DAMAGE, MOVE, ALTAR, BREAK }
     private static final HandlerList HANDLERS = new HandlerList();
     private final Player player;
     private final Location location;

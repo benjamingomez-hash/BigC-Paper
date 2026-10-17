@@ -1,0 +1,697 @@
+{
+  "date": "2026-10-17",
+  "minecraft": "26.2",
+  "paper": "26.2-133-58e6e45",
+  "artifact": "LegendaryWeapons-2.0.3.jar",
+  "artifact_sha256": "e8b617cf16bf8ac082601b227a4112a5bb4ff2a61a9e55ee572b7b073e690528",
+  "conditions": [
+    "Cliente oficial conectado a una instancia local aislada.",
+    "Herramienta externa: crea ítems con la factoría e invoca el listener real; registra entidades, estados y eventos vanilla.",
+    "Los objetivos no usan IA ni gravedad; la primera vaca de Frost es invulnerable.",
+    "El cráter usa plataformas macizas desechables; el diario original se conserva y restaura al terminar.",
+    "La prueba de expiración inmoviliza los proyectiles en el aire para evitar colisiones antes de su vencimiento.",
+    "No equivale a una partida PvP de varios clientes ni a validar WorldGuard instalado."
+  ],
+  "cases": [
+    {
+      "case": "frost",
+      "version": "2.0.3",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "center": [
+        400,
+        20,
+        400
+      ],
+      "targets": [
+        {
+          "health": 200.0,
+          "maxSlowness": 3,
+          "maxFreeze": 180,
+          "type": "COW"
+        },
+        {
+          "health": 197.0,
+          "maxSlowness": 3,
+          "maxFreeze": 180,
+          "type": "VILLAGER"
+        },
+        {
+          "health": 37.0,
+          "maxSlowness": 3,
+          "maxFreeze": 180,
+          "type": "WOLF"
+        },
+        {
+          "health": 197.0,
+          "maxSlowness": 3,
+          "maxFreeze": 180,
+          "type": "ZOMBIE"
+        },
+        {
+          "health": 200.0,
+          "maxSlowness": 3,
+          "maxFreeze": 180,
+          "type": "ARMOR_STAND"
+        }
+      ],
+      "casterFreeze": 0,
+      "casterSlow": false,
+      "shots": 0,
+      "shotTicks": [],
+      "shotTypes": [],
+      "remainingShots": 0,
+      "explosions": 0,
+      "explodedBlocks": 0,
+      "cancelledExplosions": 0,
+      "damage": [
+        {
+          "entity": "WOLF",
+          "type": "minecraft:freeze",
+          "cause": "FREEZE",
+          "amount": 1.0
+        },
+        {
+          "entity": "ZOMBIE",
+          "type": "minecraft:freeze",
+          "cause": "FREEZE",
+          "amount": 1.0
+        },
+        {
+          "entity": "VILLAGER",
+          "type": "minecraft:freeze",
+          "cause": "FREEZE",
+          "amount": 1.0
+        },
+        {
+          "entity": "ARMOR_STAND",
+          "type": "minecraft:freeze",
+          "cause": "FREEZE",
+          "amount": 1.0
+        },
+        {
+          "entity": "WOLF",
+          "type": "minecraft:freeze",
+          "cause": "FREEZE",
+          "amount": 1.0
+        },
+        {
+          "entity": "ZOMBIE",
+          "type": "minecraft:freeze",
+          "cause": "FREEZE",
+          "amount": 1.0
+        },
+        {
+          "entity": "VILLAGER",
+          "type": "minecraft:freeze",
+          "cause": "FREEZE",
+          "amount": 1.0
+        },
+        {
+          "entity": "ARMOR_STAND",
+          "type": "minecraft:freeze",
+          "cause": "FREEZE",
+          "amount": 1.0
+        },
+        {
+          "entity": "WOLF",
+          "type": "minecraft:freeze",
+          "cause": "FREEZE",
+          "amount": 1.0
+        },
+        {
+          "entity": "ZOMBIE",
+          "type": "minecraft:freeze",
+          "cause": "FREEZE",
+          "amount": 1.0
+        },
+        {
+          "entity": "VILLAGER",
+          "type": "minecraft:freeze",
+          "cause": "FREEZE",
+          "amount": 1.0
+        },
+        {
+          "entity": "ARMOR_STAND",
+          "type": "minecraft:freeze",
+          "cause": "FREEZE",
+          "amount": 1.0
+        }
+      ],
+      "cleaned": false
+    },
+    {
+      "case": "frost_deny",
+      "version": "2.0.3",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "center": [
+        440,
+        20,
+        400
+      ],
+      "targets": [
+        {
+          "health": 200.0,
+          "maxSlowness": -1,
+          "maxFreeze": 0,
+          "type": "COW"
+        },
+        {
+          "health": 200.0,
+          "maxSlowness": -1,
+          "maxFreeze": 0,
+          "type": "VILLAGER"
+        },
+        {
+          "health": 40.0,
+          "maxSlowness": -1,
+          "maxFreeze": 0,
+          "type": "WOLF"
+        },
+        {
+          "health": 200.0,
+          "maxSlowness": -1,
+          "maxFreeze": 0,
+          "type": "ZOMBIE"
+        },
+        {
+          "health": 200.0,
+          "maxSlowness": -1,
+          "maxFreeze": 0,
+          "type": "ARMOR_STAND"
+        }
+      ],
+      "casterFreeze": 0,
+      "casterSlow": false,
+      "shots": 0,
+      "shotTicks": [],
+      "shotTypes": [],
+      "remainingShots": 0,
+      "explosions": 0,
+      "explodedBlocks": 0,
+      "cancelledExplosions": 0,
+      "damage": [],
+      "cleaned": false
+    },
+    {
+      "case": "hyperion_wall",
+      "version": "2.0.3",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "center": [
+        480,
+        20,
+        400
+      ],
+      "targets": [],
+      "casterFreeze": 0,
+      "casterSlow": false,
+      "shots": 5,
+      "shotTicks": [
+        5,
+        10,
+        15,
+        20,
+        25
+      ],
+      "shotTypes": [
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL"
+      ],
+      "remainingShots": 0,
+      "explosions": 5,
+      "explodedBlocks": 198,
+      "cancelledExplosions": 0,
+      "damage": [],
+      "cleaned": false
+    },
+    {
+      "case": "hyperion_mob",
+      "version": "2.0.3",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "center": [
+        520,
+        20,
+        400
+      ],
+      "targets": [
+        {
+          "health": 154.6983642578125,
+          "maxSlowness": -1,
+          "maxFreeze": 0,
+          "type": "COW"
+        }
+      ],
+      "casterFreeze": 0,
+      "casterSlow": false,
+      "shots": 5,
+      "shotTicks": [
+        5,
+        10,
+        15,
+        20,
+        25
+      ],
+      "shotTypes": [
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL"
+      ],
+      "remainingShots": 0,
+      "explosions": 5,
+      "explodedBlocks": 0,
+      "cancelledExplosions": 0,
+      "damage": [
+        {
+          "entity": "COW",
+          "type": "minecraft:fireball",
+          "cause": "PROJECTILE",
+          "amount": 6.0
+        },
+        {
+          "entity": "COW",
+          "type": "minecraft:player_explosion",
+          "cause": "ENTITY_EXPLOSION",
+          "amount": 9.757525444030762
+        },
+        {
+          "entity": "COW",
+          "type": "minecraft:fireball",
+          "cause": "PROJECTILE",
+          "amount": 6.0
+        },
+        {
+          "entity": "COW",
+          "type": "minecraft:player_explosion",
+          "cause": "ENTITY_EXPLOSION",
+          "amount": 8.79503345489502
+        },
+        {
+          "entity": "COW",
+          "type": "minecraft:fireball",
+          "cause": "PROJECTILE",
+          "amount": 6.0
+        },
+        {
+          "entity": "COW",
+          "type": "minecraft:player_explosion",
+          "cause": "ENTITY_EXPLOSION",
+          "amount": 8.749090194702148
+        }
+      ],
+      "cleaned": false
+    },
+    {
+      "case": "hyperion_deny",
+      "version": "2.0.3",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "center": [
+        560,
+        20,
+        400
+      ],
+      "targets": [
+        {
+          "health": 200.0,
+          "maxSlowness": -1,
+          "maxFreeze": 0,
+          "type": "COW"
+        }
+      ],
+      "casterFreeze": 0,
+      "casterSlow": false,
+      "shots": 5,
+      "shotTicks": [
+        5,
+        10,
+        15,
+        20,
+        25
+      ],
+      "shotTypes": [
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL"
+      ],
+      "remainingShots": 0,
+      "explosions": 0,
+      "explodedBlocks": 0,
+      "cancelledExplosions": 0,
+      "damage": [],
+      "cleaned": false
+    },
+    {
+      "case": "hyperion_ttl",
+      "version": "2.0.3",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "center": [
+        600,
+        20,
+        400
+      ],
+      "targets": [],
+      "casterFreeze": 0,
+      "casterSlow": false,
+      "shots": 5,
+      "shotTicks": [
+        5,
+        10,
+        15,
+        20,
+        25
+      ],
+      "shotTypes": [
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL"
+      ],
+      "remainingShots": 0,
+      "explosions": 4,
+      "explodedBlocks": 0,
+      "cancelledExplosions": 0,
+      "damage": [],
+      "cleaned": false
+    },
+    {
+      "case": "hyperion_cleanup",
+      "version": "2.0.3",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "center": [
+        640,
+        20,
+        400
+      ],
+      "targets": [],
+      "casterFreeze": 0,
+      "casterSlow": false,
+      "shots": 3,
+      "shotTicks": [
+        5,
+        10,
+        15
+      ],
+      "shotTypes": [
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL"
+      ],
+      "remainingShots": 0,
+      "explosions": 0,
+      "explodedBlocks": 0,
+      "cancelledExplosions": 0,
+      "damage": [],
+      "cleaned": true
+    },
+    {
+      "case": "crater",
+      "version": "2.0.3",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "center": [
+        680,
+        20,
+        400
+      ],
+      "targets": [
+        {
+          "health": 200.0,
+          "maxSlowness": -1,
+          "maxFreeze": 0,
+          "type": "COW"
+        }
+      ],
+      "casterFreeze": 0,
+      "casterSlow": false,
+      "shots": 0,
+      "shotTicks": [],
+      "shotTypes": [],
+      "remainingShots": 0,
+      "explosions": 0,
+      "explodedBlocks": 0,
+      "cancelledExplosions": 0,
+      "damage": [
+        {
+          "entity": "PLAYER",
+          "type": "minecraft:fall",
+          "cause": "FALL",
+          "amount": 1.0
+        }
+      ],
+      "cleaned": false,
+      "removedBlocks": 360,
+      "outsideRadiusRemoved": 0,
+      "depths": [
+        {
+          "distance": 0,
+          "removed": 4
+        },
+        {
+          "distance": 1,
+          "removed": 4
+        },
+        {
+          "distance": 2,
+          "removed": 3
+        },
+        {
+          "distance": 3,
+          "removed": 3
+        },
+        {
+          "distance": 4,
+          "removed": 2
+        },
+        {
+          "distance": 5,
+          "removed": 2
+        },
+        {
+          "distance": 6,
+          "removed": 1
+        },
+        {
+          "distance": 7,
+          "removed": 1
+        },
+        {
+          "distance": 8,
+          "removed": 1
+        },
+        {
+          "distance": 9,
+          "removed": 0
+        }
+      ],
+      "policyVetoes": 0,
+      "breakVetoes": 0
+    },
+    {
+      "case": "crater_protected",
+      "version": "2.0.3",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "center": [
+        720,
+        20,
+        400
+      ],
+      "targets": [
+        {
+          "health": 200.0,
+          "maxSlowness": -1,
+          "maxFreeze": 0,
+          "type": "COW"
+        }
+      ],
+      "casterFreeze": 0,
+      "casterSlow": false,
+      "shots": 0,
+      "shotTicks": [],
+      "shotTypes": [],
+      "remainingShots": 0,
+      "explosions": 0,
+      "explodedBlocks": 0,
+      "cancelledExplosions": 0,
+      "damage": [
+        {
+          "entity": "PLAYER",
+          "type": "minecraft:fall",
+          "cause": "FALL",
+          "amount": 1.0
+        }
+      ],
+      "cleaned": false,
+      "removedBlocks": 352,
+      "outsideRadiusRemoved": 0,
+      "depths": [
+        {
+          "distance": 0,
+          "removed": 4
+        },
+        {
+          "distance": 1,
+          "removed": 3
+        },
+        {
+          "distance": 2,
+          "removed": 3
+        },
+        {
+          "distance": 3,
+          "removed": 0
+        },
+        {
+          "distance": 4,
+          "removed": 0
+        },
+        {
+          "distance": 5,
+          "removed": 2
+        },
+        {
+          "distance": 6,
+          "removed": 1
+        },
+        {
+          "distance": 7,
+          "removed": 1
+        },
+        {
+          "distance": 8,
+          "removed": 1
+        },
+        {
+          "distance": 9,
+          "removed": 0
+        }
+      ],
+      "policyVetoes": 3,
+      "breakVetoes": 2,
+      "bedrock": "BEDROCK",
+      "chest": "CHEST",
+      "diamonds": 3,
+      "table": "CRAFTING_TABLE",
+      "tableProtected": true
+    },
+    {
+      "case": "hyperion_area_deny",
+      "version": "2.0.3",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "center": [
+        400,
+        20,
+        400
+      ],
+      "targets": [
+        {
+          "health": 200.0,
+          "maxSlowness": -1,
+          "maxFreeze": 0,
+          "type": "COW"
+        }
+      ],
+      "casterFreeze": 0,
+      "casterSlow": false,
+      "shots": 5,
+      "shotTicks": [
+        5,
+        10,
+        15,
+        20,
+        25
+      ],
+      "shotTypes": [
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL"
+      ],
+      "remainingShots": 0,
+      "explosions": 5,
+      "explodedBlocks": 202,
+      "cancelledExplosions": 0,
+      "damage": [],
+      "cleaned": false,
+      "aliveAt90": 0,
+      "breakVetoes": 0
+    },
+    {
+      "case": "hyperion_protected_wall",
+      "version": "2.0.3",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "center": [
+        440,
+        20,
+        400
+      ],
+      "targets": [],
+      "casterFreeze": 0,
+      "casterSlow": false,
+      "shots": 5,
+      "shotTicks": [
+        5,
+        10,
+        15,
+        20,
+        25
+      ],
+      "shotTypes": [
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL"
+      ],
+      "remainingShots": 0,
+      "explosions": 5,
+      "explodedBlocks": 0,
+      "cancelledExplosions": 0,
+      "damage": [],
+      "cleaned": false,
+      "aliveAt90": 0,
+      "breakVetoes": 91
+    },
+    {
+      "case": "hyperion_ttl_stationary",
+      "version": "2.0.3",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "center": [
+        480,
+        20,
+        400
+      ],
+      "targets": [],
+      "casterFreeze": 0,
+      "casterSlow": false,
+      "shots": 5,
+      "shotTicks": [
+        5,
+        10,
+        15,
+        20,
+        25
+      ],
+      "shotTypes": [
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL",
+        "FIREBALL"
+      ],
+      "remainingShots": 0,
+      "explosions": 0,
+      "explodedBlocks": 0,
+      "cancelledExplosions": 0,
+      "damage": [],
+      "cleaned": false,
+      "aliveAt90": 5,
+      "breakVetoes": 0
+    }
+  ]
+}
