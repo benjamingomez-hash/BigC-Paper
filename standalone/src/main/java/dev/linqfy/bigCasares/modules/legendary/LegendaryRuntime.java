@@ -69,6 +69,7 @@ final class LegendaryRuntime implements Listener, Runnable {
     private final Map<UUID, Long> fallProtection = new HashMap<>();
     private final LegendaryParalysis paralysis = new LegendaryParalysis();
     private final LegendaryMovementLock movementLock;
+    private final LegendaryFixedDamage fixedDamage;
     private final NamespacedKey temporary = new NamespacedKey("bigcasares", "legendary_temporary");
     private final NamespacedKey hyperionShot = new NamespacedKey("bigcasares", "legendary_hyperion");
     private final java.util.function.Predicate<UUID> eventTransaction;
@@ -89,6 +90,7 @@ final class LegendaryRuntime implements Listener, Runnable {
         this.registrations = registrations;
         this.movementLock = registrations.registerListener("legendary-movement-lock",
             new LegendaryMovementLock(plugin, paralysis, this::captureEntering));
+        this.fixedDamage = registrations.registerListener("legendary-fixed-damage", new LegendaryFixedDamage());
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -224,7 +226,7 @@ final class LegendaryRuntime implements Listener, Runnable {
                     }
                     case FROST_SCYTHE -> frost(owner, session);
                     case WINDWEAVER -> wind(owner, session);
-                    case SHADOW_BLADE -> { if (session.age >= 60) finish(session, true); }
+                    case SHADOW_BLADE -> { if (session.age >= 100) finish(session, true); }
                     case EARTHBREAKER -> earthquake(owner, session);
                     case VOID_KATANA -> katana(owner, session);
                     case HYPERION -> hyperion(owner, session);
@@ -293,7 +295,20 @@ final class LegendaryRuntime implements Listener, Runnable {
     }
 
     private void earthquake(Player owner, Session session) throws IOException {
-        if (session.age == 1) owner.getWorld().playSound(session.center, Sound.ENTITY_GENERIC_EXPLODE, 1.4f, .5f);
+        if (session.age == 1) {
+            owner.getWorld().playSound(session.center, Sound.ENTITY_GENERIC_EXPLODE, 1.4f, .5f);
+            Location center = session.center.clone().add(.5, 1, .5);
+            var candidates = center.getWorld().getNearbyEntities(center, 8, 4, 8).stream()
+                .filter(entity -> entity instanceof LivingEntity).map(entity -> (LivingEntity) entity).toList();
+            for (LivingEntity target : LegendaryTargets.select(candidates, LivingEntity::getUniqueId,
+                entity -> entity.getLocation().distanceSquared(center), entity -> {
+                    Location position = entity.getLocation();
+                    double x = position.getX() - center.getX(), z = position.getZ() - center.getZ();
+                    return x * x + z * z <= 64 && Math.abs(position.getY() - center.getY()) <= 4 && policy.target(owner, entity);
+                }, integer("max-targets-per-pulse", 12, 1, 64))) {
+                fixedDamage.hit(owner, target);
+            }
+        }
         session.crater.step(64, cell -> {
             int x = session.center.getBlockX() + cell.x(), y = session.center.getBlockY() + cell.y(), z = session.center.getBlockZ() + cell.z();
             var world = session.center.getWorld();
@@ -435,9 +450,11 @@ final class LegendaryRuntime implements Listener, Runnable {
         if (preview) return canMove(owner, destination);
         if (!move(owner, destination)) return false;
         dust(owner.getLocation(), Color.fromRGB(35, 0, 50), 20);
-        potion(session, owner, PotionEffectType.SPEED, 60, 1);
-        if (target != null && spellDamage(owner, target, number("shadow-blade.strike-damage", 10, 0, 30))) {
-            potion(session, target, PotionEffectType.DARKNESS, 40, 0);
+        potion(session, owner, PotionEffectType.SPEED, 100, 2);
+        potion(session, owner, PotionEffectType.INVISIBILITY, 100, 0);
+        if (target != null && spellDamage(owner, target, number("shadow-blade.ambush-damage", 14, 0, 30))) {
+            potion(session, target, PotionEffectType.DARKNESS, 60, 0);
+            potion(session, target, PotionEffectType.WEAKNESS, 80, 1);
             owner.getWorld().playSound(target.getLocation(), Sound.ENTITY_PLAYER_ATTACK_CRIT, 1, .7f);
         }
         return true;

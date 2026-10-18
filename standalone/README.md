@@ -2,9 +2,12 @@
 
 Plugin **independiente** para **Paper 26.2 / Java 25 / Gradle 9.2.1**. Incluye únicamente las ocho armas y su evento de fabricación. Usa modelos Java nativos y no requiere BigCasares, Vault, EssentialsX ni BetterModel. Si se usa BetterModel para otros plugins del servidor, la versión solicitada para 26.2 es 3.2.0; esta distribución no llama a su API. WorldGuard es opcional. Los equipos usan el scoreboard vanilla. No incluye integración Bedrock/Geyser.
 
-**Reconstrucción 2.0.5**, desde las fuentes de 2.0.3 y con la parálisis de Thunder Spear reimplementada. Las detecciones locales de Defender de 2.0.4 siguen sin diagnóstico confirmado; reconstruir no garantiza que desaparezcan. [Estado y alcance de la revisión](SECURITY-REBUILD-2.0.5.md).
+**Actualización 2.0.6 en validación**: Earthbreaker añade un golpe fijo de dos corazones y Shadow Blade recibe una emboscada más potente. Conserva la reconstrucción de Thunder Spear de 2.0.5. Los modelos, recetas y datos persistentes no cambian. La revisión anterior de antivirus no equivale a un diagnóstico de la alerta local; se repetirá el análisis para los archivos nuevos.
 
-[Descargar ZIP 2.0.5](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-rebuild-2.0.3/standalone/downloads/Armas-Legendarias-2.0.5.zip) · [JAR independiente](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-rebuild-2.0.3/standalone/downloads/LegendaryWeapons-2.0.5.jar) · [SHA-256](downloads/SHA256SUMS-2.0.5.txt). El ZIP contiene JAR, pack y LEEME. Son los archivos exactos analizados por Defender en el runner Windows, sin detecciones allí; no se ha probado su instalación en la PC del usuario.
+### Poderes actualizados en 2.0.6
+
+- **Earthbreaker:** conserva el cráter de radio 8 y profundidad 4/3/2/1. Aplica un único golpe de **4 puntos de salud (dos corazones)** a enemigos dentro de radio 8 y altura ±4, al activar el poder. Ignora armadura, Protección, Resistencia, bloqueo y absorción; los corazones amarillos no sustituyen esa pérdida de salud. Respeta equipos, regiones, invulnerabilidad y eventos de daño cancelados. Las caídas posteriores son daño vanilla aparte. La selección usa el límite existente `max-targets-per-pulse` (12 por defecto).
+- **Shadow Blade:** conserva el alcance de 16 y el teletransporte seguro detrás del rival. Golpe de **14 puntos mágicos (7 corazones antes de reducciones)**, **Debilidad II por 4 s** y **Oscuridad por 3 s** si el golpe es aceptado. El lanzador recibe **Invisibilidad y Velocidad III por 5 s**; sin rival, mantiene el desplazamiento corto seguro y esos beneficios. No atraviesa destinos inseguros ni regiones protegidas. La invisibilidad es vanilla: el equipo sigue siendo visible. El daño usa ahora `shadow-blade.ambush-damage` (14 por defecto), por lo que se aplica también con un archivo de configuración anterior; `strike-damage` deja de usarse. Cooldowns de 40 s y las demás habilidades conservados.
 
 ## Evento
 
@@ -64,7 +67,7 @@ Para actualizar desde 2.0.1 o 2.0.2, detén Paper, sustituye el JAR y conserva l
 1. Instala Java 25 y descarga Paper 26.2 desde https://papermc.io/downloads/paper (versiones anteriores).
 2. En una carpeta nueva, guarda Paper como `paper.jar`. Ejecuta `java -Xms1G -Xmx2G -jar paper.jar --nogui`.
 3. Lee el EULA en `eula.txt` y, si lo aceptas, cambia `eula=false` por `eula=true`.
-4. Copia **`LegendaryWeapons-2.0.5.jar`** en `plugins` y vuelve a iniciar Paper.
+4. Copia **`LegendaryWeapons-2.0.6.jar`** en `plugins` y vuelve a iniciar Paper.
 5. En la consola escribe `op TuNombre`. En Minecraft Java **26.2**, entra a Multijugador → Conexión directa → `localhost`; acepta el paquete de recursos.
 6. Consulta `/weapons info thunder_spear`, consigue los materiales y fabrica en una mesa. `/weapons events` muestra disponibilidad y tiempo sin filtrar coordenadas anticipadas.
 
@@ -90,7 +93,7 @@ Los avisos se confirman antes de publicarse para evitar duplicarlos al reiniciar
 
 ## Desarrollo
 
-Desde `standalone/` con Java 25: `bash gradlew --no-daemon --max-workers=4 clean build` (Windows: `gradlew.bat build`). Artefacto: `build/libs/LegendaryWeapons-2.0.5.jar`.
+Desde `standalone/` con Java 25: `bash gradlew --no-daemon --max-workers=4 clean build` (Windows: `gradlew.bat build`). Artefacto: `build/libs/LegendaryWeapons-2.0.6.jar`.
 
 Consulta [los resultados y capturas](VERIFY.md).
 
