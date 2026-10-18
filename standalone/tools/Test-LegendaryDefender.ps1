@@ -3,7 +3,8 @@
 param(
     [Parameter(Mandatory = $true)][string]$JarPath,
     [Parameter(Mandatory = $true)][string]$DistributionZip,
-    [Parameter(Mandatory = $true)][string]$OutputDirectory
+    [Parameter(Mandatory = $true)][string]$OutputDirectory,
+    [string]$ReferenceManifest
 )
 
 $ErrorActionPreference = 'Stop'
@@ -17,9 +18,27 @@ $report = [ordered]@{
     cleanDistribution = $false
     engine = $null
     scans = @()
+    references = @()
+    jarEntries = @()
     error = $null
 }
 $scanIndex = 0
+
+function Get-ArchiveManifest([string]$Path) {
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    $archive = [IO.Compression.ZipFile]::OpenRead((Resolve-Path -LiteralPath $Path).Path)
+    try {
+        foreach ($entry in $archive.Entries) {
+            if ($entry.FullName.EndsWith('/')) { continue }
+            $stream = $entry.Open()
+            $hasher = [Security.Cryptography.SHA256]::Create()
+            try {
+                $digest = [BitConverter]::ToString($hasher.ComputeHash($stream)).Replace('-', '').ToLowerInvariant()
+                [pscustomobject]@{ name = $entry.FullName; size = $entry.Length; sha256 = $digest }
+            } finally { $hasher.Dispose(); $stream.Dispose() }
+        }
+    } finally { $archive.Dispose() }
+}
 
 function Invoke-DefenderCommand([string]$Arguments, [string]$LogName) {
     $prefix = Join-Path $OutputDirectory $LogName
@@ -137,6 +156,41 @@ try {
     $report.cloudConnectionExitCode = Invoke-DefenderCommand '-ValidateMapsConnection' 'cloud-connection'
     if ($report.cloudConnectionExitCode -ne 0) { throw 'Defender cloud connectivity validation failed.' }
 
+    if ($ReferenceManifest) {
+        $referenceIndex = 0
+        foreach ($reference in (Get-Content -LiteralPath $ReferenceManifest -Raw | ConvertFrom-Json)) {
+            $referenceIndex++
+            $comparison = [ordered]@{ label = $reference.label; url = $reference.url; expectedSha256 = $reference.sha256; scans = @(); jarEntries = @(); error = $null }
+            try {
+                $uri = [Uri]$reference.url
+                if ($uri.Scheme -ne 'https' -or $uri.Host -ne 'raw.githubusercontent.com') { throw 'Unexpected reference origin.' }
+                $referenceRoot = Join-Path ([IO.Path]::GetTempPath()) ([Guid]::NewGuid().ToString('N'))
+                New-Item -ItemType Directory -Path $referenceRoot | Out-Null
+                $referencePath = Join-Path $referenceRoot 'reference.zip'
+                Invoke-WebRequest -Uri $uri -OutFile $referencePath -UseBasicParsing
+                if ((Get-FileHash -LiteralPath $referencePath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $reference.sha256) {
+                    throw 'Downloaded reference does not match the pinned hash.'
+                }
+                $archiveScan = Invoke-FileScan $referencePath $reference.label
+                $comparison.scans += $archiveScan
+                if ($archiveScan.result -ne 'Clean') { throw 'Reference archive blocked or scan failed; it is not cleared for use.' }
+                Add-Type -AssemblyName System.IO.Compression.FileSystem
+                $referenceMembers = Join-Path $referenceRoot 'members'
+                [IO.Compression.ZipFile]::ExtractToDirectory($referencePath, $referenceMembers)
+                foreach ($member in (Get-ChildItem $referenceMembers -Recurse -File | Sort-Object FullName)) {
+                    $comparison.scans += Invoke-FileScan $member.FullName ($reference.label + ': ' + $member.Name)
+                    if ($member.Extension -eq '.jar' -and (Test-Path -LiteralPath $member.FullName)) {
+                        $comparison.jarEntries = @(Get-ArchiveManifest $member.FullName)
+                    }
+                }
+            } catch {
+                # Reference diagnostics must not be mistaken for a local-user verdict.
+                $comparison.error = $_.Exception.Message
+            }
+            $report.references += [pscustomobject]$comparison
+        }
+    }
+
     $report.scans += Invoke-FileScan $DistributionZip 'Rebuilt distribution ZIP'
     if ($report.scans[-1].result -ne 'Clean') { throw 'Distribution ZIP was blocked or its scan failed.' }
     $samples = Join-Path ([IO.Path]::GetTempPath()) ([Guid]::NewGuid().ToString('N'))
@@ -161,6 +215,7 @@ try {
         -and -not $finalPreferences.DisableArchiveScanning -and -not $finalPreferences.DisableBehaviorMonitoring `
         -and -not $finalPreferences.DisableIOAVProtection -and -not $finalPreferences.DisableScriptScanning
     if (-not $report.cleanJar) { throw 'The newly built JAR did not pass a completed clean Defender scan.' }
+    $report.jarEntries = @(Get-ArchiveManifest $JarPath)
     @("$($candidate.sha256)  $([IO.Path]::GetFileName($JarPath))",
       "$($report.scans[0].sha256)  $([IO.Path]::GetFileName($DistributionZip))") |
         Set-Content (Join-Path $OutputDirectory 'SHA256SUMS.txt') -Encoding ASCII
