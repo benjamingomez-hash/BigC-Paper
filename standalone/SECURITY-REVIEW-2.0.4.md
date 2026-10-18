@@ -4,22 +4,45 @@ Estado: **instalación suspendida para ZIP y JAR 2.0.4 mientras se investiga un 
 
 ## Nuevo aviso durante la implementación
 
-Tras descargar el JAR independiente, el usuario informa que el antivirus volvió
-a activarse cuando Codex intentó implementarlo en el servidor. Todavía no se
-dispone del nombre de la nueva detección, sus elementos afectados ni la fase
-exacta (copia, comando de instalación o arranque de Paper). No se ha confirmado
-que el nuevo recurso afectado sea el JAR.
+La nueva captura directa del historial de Microsoft Defender confirma:
 
-El usuario aclara que este segundo aviso se mostró a Codex. No se ha confirmado
-una nueva entrada en Defender del equipo; falta el mensaje exacto de Codex para
-distinguir una detección de antivirus de un bloqueo de una herramienta.
+- Detección: `Trojan:Script/Ulthar.A!ml`, gravedad Grave.
+- Elemento afectado: `LegendaryWeapons-2.0.4.jar` en Descargas.
+- Estado: **En cuarentena**.
+- Hora mostrada: **17/10/2026, 21:11**.
+
+El usuario recibió el aviso cuando Codex intentó implementar el plugin. La fase
+exacta (copia o arranque de Paper) sigue sin determinarse. La captura no incluye
+el SHA-256 del ejemplar en cuarentena; no se ha confirmado que sus bytes coincidan
+con el artefacto de referencia, y no debe restaurarse solo para comprobarlo.
 
 Se retira también la recomendación de instalación del JAR. Los análisis de
 archivos registrados abajo siguen siendo evidencia de esas comprobaciones;
 no reprodujeron el flujo de instalación de Codex ni el arranque de Paper en
-Windows. Identificar la entrada más reciente del historial de protección es
-necesario antes de atribuir el aviso al plugin, a Paper o a una herramienta.
+Windows. La captura nueva confirma la detección del archivo JAR en el equipo;
+la causa técnica y una eventual clasificación incorrecta siguen sin resolverse.
 No se publica otro binario como sustitución mientras falta ese diagnóstico.
+
+## Borrador para revisión de Microsoft
+
+Se preparó [el texto del caso en inglés](docs/microsoft-review-request-2.0.4.txt),
+con nombre de amenaza, referencia del archivo, hashes, código público y registros
+de las comprobaciones anteriores. No incluye el nombre de usuario ni la ruta
+personal de la captura. El texto distingue el hash del artefacto publicado del
+hash todavía desconocido de la copia en cuarentena.
+
+Portal oficial: https://www.microsoft.com/en-us/wdsi/filesubmission.
+Producto correspondiente a la captura del equipo: **Microsoft Defender Antivirus
+(Windows 11)**. Nombre de detección: `Trojan:Script/Ulthar.A!ml`. La versión de
+firmas del equipo afectado no se obtuvo; no debe confundirse con la del runner.
+
+**Estado: borrador preparado, sin enviar.** El portal incluye una verificación
+humana; la consulta de hashes y el seguimiento redirigen al inicio de sesión de
+Microsoft. No se ha completado esa verificación ni se ha enviado una muestra o
+creado un caso. No hay número de solicitud ni dictamen de Microsoft. La copia
+local del artefacto de referencia se conserva para la revisión, sin requerir
+restaurar el archivo en cuarentena del usuario. Los hashes y el informe previo
+están disponibles abajo; la instalación continúa suspendida.
 
 El 17/10/2026 se recibió una captura de Microsoft Defender que identifica
 `Trojan:Script/Ulthar.A!ml` en `Armas-Legendarias-2.0.4.zip`, descargado desde
@@ -164,4 +187,4 @@ ZIP original en estas condiciones. Eso no permite afirmar que Microsoft haya
 confirmado un falso positivo. El ZIP original sigue sin recomendarse. Para usar
 el JAR independiente se había recomendado un análisis local previo a la instalación.
 El nuevo aviso deja esa recomendación suspendida: no se debe continuar la
-implementación ni restaurar archivos bloqueados hasta identificar lo detectado.
+implementación ni restaurar archivos bloqueados hasta resolver esta detección.

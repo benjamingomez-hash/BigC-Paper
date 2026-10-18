@@ -1,0 +1,19 @@
+Please review a possible misclassification or identify the malicious content.
+
+Product: Microsoft Defender Antivirus (Windows 11).
+Detection: Trojan:Script/Ulthar.A!ml. Severity: Severe.
+An affected user supplied a Defender Protection History screenshot showing LegendaryWeapons-2.0.4.jar in Downloads quarantined at 17 Oct 2026 21:11 local time, during an attempted installation by Codex. Whether Paper started is unknown. The affected device's signature version and the quarantined copy's hash have not been obtained. The user has been told to keep the file quarantined.
+
+Reference artifact SHA-256 (not independently confirmed for the quarantined copy):
+ea0c9201e93f1f6937fdbddef6e7bba59eb5df18a83eba0c29e45e7504c4b0fe
+Reference file:
+https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/0c9afbaf42d27d9448ea79c43df295a472fc1697/standalone/downloads/LegendaryWeapons-2.0.4.jar
+
+This is a Java 25 Minecraft Paper 26.2 plugin with eight weapons, crafting events and an embedded JSON/PNG resource pack served on localhost:8124 by default. Its intended behavior does not include running shell commands or downloading executable code.
+
+The reference was rebuilt from public source in GitHub Actions. Its 75 compiled classes match the previous build. Updated Defender custom scans on a Windows runner, with real-time/cloud/IOAV/script/archive/behavior protection enabled and file exclusions removed, reported no threats. These file scans did not reproduce the affected user's installation or server startup. No false-positive determination is claimed.
+
+Source, build, hashes and scan evidence:
+https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39081168660
+
+Distribution recommendations have been suspended pending investigation. Please assess the detection and advise whether this artifact or an embedded member is malicious or incorrectly classified.
