@@ -2,7 +2,7 @@ name: LegendaryWeapons - Windows Defender verification
 
 on:
   push:
-    branches: [feat/legendary-rebuild-2.0.3]
+    branches: [feat/legendary-rewrite-from-2.0.5]
     paths:
       - .github/workflows/legendary-defender.yml
       - standalone/src/**
@@ -50,7 +50,7 @@ jobs:
           if ($jars.Count -ne 1) { throw 'Expected exactly one production plugin JAR.' }
           & ./standalone/tools/Test-LegendaryDefender.ps1 `
             -JarPath $jars[0].FullName `
-            -DistributionZip standalone/build/distributions/Armas-Legendarias-2.0.5.zip `
+            -DistributionZip standalone/build/distributions/Armas-Legendarias-2.0.11.zip `
             -OutputDirectory "$env:RUNNER_TEMP/legendary-defender-report"
 
       - name: Preserve scan results

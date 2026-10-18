@@ -69,6 +69,7 @@ final class LegendaryRuntime implements Listener, Runnable {
     private final Map<UUID, Long> fallProtection = new HashMap<>();
     private final LegendaryParalysis paralysis = new LegendaryParalysis();
     private final LegendaryMovementLock movementLock;
+    private final LegendaryEarthShock earthShock;
     private final NamespacedKey temporary = new NamespacedKey("bigcasares", "legendary_temporary");
     private final NamespacedKey hyperionShot = new NamespacedKey("bigcasares", "legendary_hyperion");
     private final java.util.function.Predicate<UUID> eventTransaction;
@@ -89,6 +90,8 @@ final class LegendaryRuntime implements Listener, Runnable {
         this.registrations = registrations;
         this.movementLock = registrations.registerListener("legendary-movement-lock",
             new LegendaryMovementLock(plugin, paralysis, this::captureEntering));
+        this.earthShock = registrations.registerListener("legendary-earth-shock", new LegendaryEarthShock());
+        registrations.registerListener("legendary-life-steal", new LegendaryLifeSteal(this::bloodlustAge, policy::affect));
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -224,7 +227,7 @@ final class LegendaryRuntime implements Listener, Runnable {
                     }
                     case FROST_SCYTHE -> frost(owner, session);
                     case WINDWEAVER -> wind(owner, session);
-                    case SHADOW_BLADE -> { if (session.age >= 60) finish(session, true); }
+                    case SHADOW_BLADE -> { if (session.age >= LegendaryShadowAmbush.DURATION) finish(session, true); }
                     case EARTHBREAKER -> earthquake(owner, session);
                     case VOID_KATANA -> katana(owner, session);
                     case HYPERION -> hyperion(owner, session);
@@ -293,7 +296,11 @@ final class LegendaryRuntime implements Listener, Runnable {
     }
 
     private void earthquake(Player owner, Session session) throws IOException {
-        if (session.age == 1) owner.getWorld().playSound(session.center, Sound.ENTITY_GENERIC_EXPLODE, 1.4f, .5f);
+        if (session.age == 1) {
+            owner.getWorld().playSound(session.center, Sound.ENTITY_GENERIC_EXPLODE, 1.4f, .5f);
+            earthShock.pulse(owner, session.center.clone().add(.5, 1, .5),
+                integer("max-targets-per-pulse", 12, 1, 64), target -> policy.target(owner, target));
+        }
         session.crater.step(64, cell -> {
             int x = session.center.getBlockX() + cell.x(), y = session.center.getBlockY() + cell.y(), z = session.center.getBlockZ() + cell.z();
             var world = session.center.getWorld();
@@ -424,20 +431,22 @@ final class LegendaryRuntime implements Listener, Runnable {
     }
 
     private boolean shadow(Player owner, Session session, boolean preview) {
-        double range = number("shadow-blade.range", 16, 2, 32);
-        var hit = owner.getWorld().rayTrace(owner.getEyeLocation(), owner.getEyeLocation().getDirection(),
-            range, FluidCollisionMode.NEVER, true, 0.4,
-            entity -> entity instanceof LivingEntity living && policy.target(owner, living));
-        LivingEntity target = hit != null && hit.getHitEntity() instanceof LivingEntity living ? living : null;
-        Location destination = target == null
-            ? owner.getLocation().add(owner.getLocation().getDirection().setY(0).normalize().multiply(4))
-            : target.getLocation().subtract(target.getLocation().getDirection().setY(0).normalize().multiply(1.5));
-        if (preview) return canMove(owner, destination);
-        if (!move(owner, destination)) return false;
+        if (preview) {
+            session.ambush = LegendaryShadowAmbush.prepare(owner, number("shadow-blade.range", 16, 2, 32),
+                target -> policy.target(owner, target));
+            return canMove(owner, session.ambush.destination());
+        }
+        if (session.ambush == null || !move(owner, session.ambush.destination())) return false;
         dust(owner.getLocation(), Color.fromRGB(35, 0, 50), 20);
-        potion(session, owner, PotionEffectType.SPEED, 60, 1);
-        if (target != null && spellDamage(owner, target, number("shadow-blade.strike-damage", 10, 0, 30))) {
-            potion(session, target, PotionEffectType.DARKNESS, 40, 0);
+        for (var benefit : LegendaryShadowAmbush.casterBenefits()) {
+            potion(session, owner, benefit.type(), benefit.duration(), benefit.amplifier());
+        }
+        LivingEntity target = session.ambush.victim();
+        double damage = LegendaryShadowAmbush.damage(plugin.getConfig().getDouble("legendary-weapons.shadow-blade.ambush-damage", 6));
+        if (target != null && target.getWorld().equals(owner.getWorld()) && spellDamage(owner, target, damage)) {
+            for (var penalty : LegendaryShadowAmbush.victimPenalties()) {
+                potion(session, target, penalty.type(), penalty.duration(), penalty.amplifier());
+            }
             owner.getWorld().playSound(target.getLocation(), Sound.ENTITY_PLAYER_ATTACK_CRIT, 1, .7f);
         }
         return true;
@@ -605,6 +614,13 @@ final class LegendaryRuntime implements Listener, Runnable {
         if (event.getEntity().equals(damageTarget)) {
             damageAccepted = !event.isCancelled() && event.getFinalDamage() > 0;
         }
+    }
+
+    private int bloodlustAge(Player player) {
+        if (stopped || damageTarget != null || plugin.getCustomItemRegistry()
+            .resolveItemId(player.getInventory().getItemInMainHand()).filter(LegendaryWeapon.BLOODLUST.id::equals).isEmpty()) return -1;
+        Session session = sessions.get(new SessionKey(player.getUniqueId(), LegendaryWeapon.BLOODLUST));
+        return session == null ? -1 : session.age;
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -867,6 +883,7 @@ final class LegendaryRuntime implements Listener, Runnable {
         int returnTicks;
         boolean impacted;
         UUID directHit;
+        LegendaryShadowAmbush.Plan ambush;
 
         SessionKey key() { return new SessionKey(owner, weapon); }
 

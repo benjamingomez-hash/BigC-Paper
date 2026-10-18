@@ -2,9 +2,16 @@
 
 Plugin **independiente** para **Paper 26.2 / Java 25 / Gradle 9.2.1**. Incluye únicamente las ocho armas y su evento de fabricación. Usa modelos Java nativos y no requiere BigCasares, Vault, EssentialsX ni BetterModel. Si se usa BetterModel para otros plugins del servidor, la versión solicitada para 26.2 es 3.2.0; esta distribución no llama a su API. WorldGuard es opcional. Los equipos usan el scoreboard vanilla. No incluye integración Bedrock/Geyser.
 
-**Reconstrucción 2.0.5**, desde las fuentes de 2.0.3 y con la parálisis de Thunder Spear reimplementada. Las detecciones locales de Defender de 2.0.4 siguen sin diagnóstico confirmado; reconstruir no garantiza que desaparezcan. [Estado y alcance de la revisión](SECURITY-REBUILD-2.0.5.md).
+**2.0.11: reescritura desde la 2.0.5**, base `a1ca1655e082173cde24f1493da91152a4b01d92`. El robo de vida tiene un listener propio, el pulso del hacha gestiona cada golpe por objetivo y Sombras prepara un plan de emboscada que conserva el destino entre validación y ejecución. Se mantienen los cambios de jugabilidad pedidos. La parálisis de la lanza y las otras cuatro habilidades se conservan de 2.0.5.
 
-[Descargar ZIP 2.0.5](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-rebuild-2.0.3/standalone/downloads/Armas-Legendarias-2.0.5.zip) · [JAR independiente](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-rebuild-2.0.3/standalone/downloads/LegendaryWeapons-2.0.5.jar) · [SHA-256](downloads/SHA256SUMS-2.0.5.txt). El ZIP contiene JAR, pack y LEEME. Son los archivos exactos analizados por Defender en el runner Windows, sin detecciones allí; no se ha probado su instalación en la PC del usuario.
+[Descargar ZIP 2.0.11](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-rewrite-from-2.0.5/standalone/downloads/Armas-Legendarias-2.0.11.zip) · [JAR independiente](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-rewrite-from-2.0.5/standalone/downloads/LegendaryWeapons-2.0.11.jar) · [SHA-256](downloads/SHA256SUMS-2.0.11.txt). El ZIP contiene únicamente JAR, pack y LEEME. Windows detectó `Trojan:Script/Ulthar.A!ml` en versiones anteriores; reescribir desde 2.0.5 no demuestra corregir esa detección. Si vuelve a bloquearlo, dejalo en cuarentena. La clasificación del aviso local continúa pendiente.
+
+- **Thunder Spear:** campo fijo de radio 7 durante diez segundos que paraliza al lanzador y a los enemigos permitidos. Los cinco pulsos eléctricos solo dañan al rival alcanzado directamente; permite mirar y atacar, libera al terminar y devuelve una única lanza.
+- **Earthbreaker:** conserva el cráter de radio 8 y profundidad 4/3/2/1. Agrega un único golpe inicial de cuatro puntos de salud (dos corazones), independiente de armadura, encantamientos, Resistencia, escudo y absorción. Respeta equipos, regiones, invulnerabilidad y cancelaciones. Las caídas posteriores causan daño vanilla aparte.
+- **Bloodlust:** Fuerza III durante diez segundos y un punto de curación (medio corazón) por golpe directo válido mientras la habilidad está activa y se sostiene la espada. Sin curación con proyectiles, barridos secundarios, golpes cancelados o sin daño real; respeta la salud máxima y los vetos de curación.
+- **Sombras:** teletransporte seguro detrás del rival, máximo seis puntos de daño mágico (tres corazones antes de reducciones), Debilidad II durante cuatro segundos y Oscuridad durante tres. Invisibilidad y Velocidad III durante cinco segundos al lanzador. El valor antiguo `ambush-damage: 14` queda limitado a seis sin borrar la configuración.
+
+Se conservan las ocho armas y modelos, los ingredientes, el evento, el diario, los identificadores persistentes y los cooldowns de cuarenta segundos.
 
 ## Evento
 
@@ -34,26 +41,26 @@ La protección alcanza únicamente la mesa y la celda inmediatamente superior. I
 
 Cada arma conserva una habilidad de clic derecho y cooldown persistente de **40 segundos** por jugador y habilidad. Thunder Spear usa `NETHERITE_SPEAR` con **Lunge III nativo** a la izquierda; a la derecha se lanza inmediatamente, genera una tormenta de 10 segundos y regresa. No se sustituye por un tridente.
 
-### Thunder Spear reconstruida en 2.0.5
+### Thunder Spear: parálisis
 
 Al impactar crea un campo fijo de radio 7 durante 10 s, hasta 4 bloques arriba/abajo. Paraliza a los rivales y al lanzador dentro del área: bloquea caminar, saltar, empujones y escapes de juego mediante teletransporte. Permite mirar y atacar; conserva protecciones, equipos y escape mediante comandos administrativos.
 
 Siguen cayendo rayos visuales donde quedó clavada. **Solo la entidad alcanzada directamente por la lanza recibe los cinco pulsos eléctricos** de 7 puntos antes de reducciones. Estar dentro del círculo sin ese impacto paraliza sin daño eléctrico. Al finalizar o cancelar se libera a todos y la lanza regresa sin duplicarse. Lunge III y el cooldown de 40 s se conservan. La selección por tick está limitada a 64 entidades más el lanzador, configurable.
 
-La base es el commit `d75fa8bc19002f362df5732a430ec83e7bd84c1f`; las otras siete armas, recetas, modelos y datos son los de 2.0.3. Las concesiones de inmovilidad y su adaptador Bukkit se han escrito de nuevo; no se ha renombrado el JAR 2.0.4.
+La parálisis de la lanza se conserva de 2.0.5; el hacha, Sombras y Bloodlust usan los componentes reimplementados descritos arriba.
 
-### Habilidades actualizadas en 2.0.3
+### Habilidades actuales
 
 | Arma | Efecto por defecto |
 | --- | --- |
-| Bloodlust | **Fuerza III durante 10 s**, mediante el efecto nativo. Sustituye el multiplicador y robo de vida anteriores. |
+| Bloodlust | **Fuerza III durante 10 s** y curación de medio corazón por golpe directo válido con la espada durante la habilidad. |
 | Frost Scythe | Aura de **radio 6 durante 8 s**: aplica **Lentitud IV y congelación nativa** directamente, sin requerir un golpe. Incluye jugadores y cualquier tipo de entidad viva: animales, aldeanos, mascotas y mobs hostiles. Excluye al lanzador y respeta equipos y protecciones. Hasta 64 objetivos por actualización, configurable. |
-| Shadow Blade | Teletransporte detrás del objetivo a un máximo de 16 bloques y **10 puntos de daño mágico inmediato**, Oscuridad durante 2 s y Velocidad II durante 3 s. Sin enemigo, conserva el desplazamiento corto a un lugar seguro. |
+| Shadow Blade | Teletransporte detrás del objetivo a un máximo de 16 bloques y **hasta 6 puntos de daño mágico**, Debilidad II durante 4 s y Oscuridad durante 3 s. Invisibilidad y Velocidad III durante 5 s. Sin enemigo, conserva el desplazamiento corto a un lugar seguro y los beneficios del lanzador. |
 | Hyperion | Dispara **cinco bolas de fuego grandes de ghast**, separadas por 0,25 s, hacia donde apuntas en cada disparo. Son proyectiles vanilla con colisión y explosión reales; potencia de explosión 2 por defecto. Se eliminan al finalizar, morir o desconectar. Las explosiones respetan protección de entidades, regiones, bloques y mesas activas. `ignite-blocks` permite fuego en bloques, desactivado por defecto. |
 | Windweaver | Impulso vertical para preparar un smash de maza, conservando movimiento horizontal. Altura aproximada de 9 bloques desde suelo llano. Protege la primera caída del salto hasta aterrizar o diez segundos como máximo; no aplica levitación ni ralentiza la caída. |
-| Earthbreaker | Abre un **cráter circular de radio 8 bajo el jugador**, sin daño directo. Profundidad 4 a menos de 2 bloques del centro; 3 entre 2 y 4; 2 entre 4 y 6; 1 entre 6 y 8 inclusive. Elimina terreno permanentemente por lotes, sin drops; conserva bloques irrompibles, contenedores, datos de bloques y celdas protegidas. Retirar el suelo puede causar caídas normales. Requiere suelo a un máximo de cuatro bloques bajo los pies. |
+| Earthbreaker | Abre un **cráter circular de radio 8 bajo el jugador** y aplica una vez **4 puntos de salud** a enemigos en radio 8 y altura ±4. Profundidad 4 a menos de 2 bloques del centro; 3 entre 2 y 4; 2 entre 4 y 6; 1 entre 6 y 8 inclusive. Elimina terreno permanentemente por lotes, sin drops; conserva bloques irrompibles, contenedores, datos de bloques y celdas protegidas. Retirar el suelo puede causar caídas normales. Requiere suelo a un máximo de cuatro bloques bajo los pies. |
 | Void Katana | Habilidad conservada. |
-| Thunder Spear | Base anterior; sustituida por el campo descrito arriba en 2.0.5. |
+| Thunder Spear | Campo de parálisis de ambos descrito arriba; solo el impacto directo recibe los cinco pulsos eléctricos. |
 
 **Dos puntos equivalen a un corazón antes de reducciones.** Shadow Blade conserva daño mágico; Protección y Resistencia siguen reduciéndolo. Frost aplica estados directamente y usa la congelación vanilla, que puede producir daño nativo de frío. Hyperion usa el daño de impactos y explosiones vanilla. Las habilidades de las otras cinco armas conservan su funcionamiento. `/weapons info <arma>` explica cada poder.
 
@@ -64,7 +71,7 @@ Para actualizar desde 2.0.1 o 2.0.2, detén Paper, sustituye el JAR y conserva l
 1. Instala Java 25 y descarga Paper 26.2 desde https://papermc.io/downloads/paper (versiones anteriores).
 2. En una carpeta nueva, guarda Paper como `paper.jar`. Ejecuta `java -Xms1G -Xmx2G -jar paper.jar --nogui`.
 3. Lee el EULA en `eula.txt` y, si lo aceptas, cambia `eula=false` por `eula=true`.
-4. Copia **`LegendaryWeapons-2.0.5.jar`** en `plugins` y vuelve a iniciar Paper.
+4. Copia **`LegendaryWeapons-2.0.11.jar`** en `plugins` y vuelve a iniciar Paper. Guarda cualquier JAR anterior fuera de `plugins`; conserva el diario y los datos de jugadores al actualizar desde 2.0.x.
 5. En la consola escribe `op TuNombre`. En Minecraft Java **26.2**, entra a Multijugador → Conexión directa → `localhost`; acepta el paquete de recursos.
 6. Consulta `/weapons info thunder_spear`, consigue los materiales y fabrica en una mesa. `/weapons events` muestra disponibilidad y tiempo sin filtrar coordenadas anticipadas.
 
@@ -90,7 +97,7 @@ Los avisos se confirman antes de publicarse para evitar duplicarlos al reiniciar
 
 ## Desarrollo
 
-Desde `standalone/` con Java 25: `bash gradlew --no-daemon --max-workers=4 clean build` (Windows: `gradlew.bat build`). Artefacto: `build/libs/LegendaryWeapons-2.0.5.jar`.
+Desde `standalone/` con Java 25: `bash gradlew --no-daemon --max-workers=4 clean build` (Windows: `gradlew.bat build`). Artefacto: `build/libs/LegendaryWeapons-2.0.11.jar`.
 
 Consulta [los resultados y capturas](VERIFY.md).
 
