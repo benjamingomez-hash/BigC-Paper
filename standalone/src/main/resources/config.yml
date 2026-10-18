@@ -12,8 +12,8 @@ legendary-weapons:
     max-targets: 64
   shadow-blade:
     range: 16
-    # Sustituye la clave strike-damage anterior; funciona también al actualizar.
-    ambush-damage: 14
+    # Sustituye strike-damage. Máximo 6 incluso con el valor 14 de 2.0.6.
+    ambush-damage: 6
   hyperion:
     explosion-power: 2
     ignite-blocks: false

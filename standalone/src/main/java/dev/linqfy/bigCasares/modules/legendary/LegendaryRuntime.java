@@ -455,7 +455,7 @@ final class LegendaryRuntime implements Listener, Runnable {
         dust(owner.getLocation(), Color.fromRGB(35, 0, 50), 20);
         potion(session, owner, PotionEffectType.SPEED, 100, 2);
         potion(session, owner, PotionEffectType.INVISIBILITY, 100, 0);
-        if (target != null && spellDamage(owner, target, number("shadow-blade.ambush-damage", 14, 0, 30))) {
+        if (target != null && spellDamage(owner, target, number("shadow-blade.ambush-damage", 6, 0, 6))) {
             potion(session, target, PotionEffectType.DARKNESS, 60, 0);
             potion(session, target, PotionEffectType.WEAKNESS, 80, 1);
             owner.getWorld().playSound(target.getLocation(), Sound.ENTITY_PLAYER_ATTACK_CRIT, 1, .7f);

@@ -14,18 +14,18 @@ CAMBIOS 2.0.7
   cancelarse mediante las protecciones normales del servidor.
   Cooldown de 40 s y duracion de 200 ticks (10 s) conservados.
 
-CAMBIOS 2.0.6 CONSERVADOS
+PODERES CONSERVADOS Y SOMBRAS REEQUILIBRADA
 - Earthbreaker conserva el crater y aplica una vez 4 puntos de salud
   (dos corazones) a enemigos dentro de radio 8 y altura +/-4.
   Ignora armadura, encantamientos, Resistencia, escudos y absorcion.
   Respeta protecciones, equipos, invulnerabilidad y cancelaciones del servidor.
   Las caidas posteriores siguen causando su dano normal aparte.
-- Shadow Blade teletransporta detras del rival y golpea con 14 de dano magico
+- Shadow Blade teletransporta detras del rival y golpea con 6 de dano magico (3 corazones)
   antes de reducciones. Aplica Debilidad II 4 s y Oscuridad 3 s al recibir dano.
   Otorga Invisibilidad y Velocidad III durante 5 s al lanzador.
   Sin rival conserva el desplazamiento seguro corto y esos beneficios.
-  La clave nueva shadow-blade.ambush-damage usa 14 por defecto aun al actualizar;
-  sustituye la clave strike-damage anterior. Alcance y cooldown siguen iguales.
+  La clave shadow-blade.ambush-damage usa 6 por defecto y como maximo;
+  el valor anterior 14 se limita a 6 tambien al actualizar. Alcance y cooldown iguales.
 
 CONTENIDO
 - LegendaryWeapons-2.0.7.jar: el plugin; incluye los ocho modelos.
