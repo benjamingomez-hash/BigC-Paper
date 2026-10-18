@@ -1,5 +1,9 @@
 # Comprobaciones de distribución 2.0.7
 
+## Nuevo aviso local
+
+El usuario volvió a informar una alerta de antivirus con esta entrega y pidió reconstruir desde 2.0.5 conservando todos los cambios de habilidades. No se recibió todavía el nombre de amenaza, archivo afectado o hash de este nuevo aviso. No se presume que coincida con los anteriores. Se suspende la recomendación de instalar 2.0.7; los archivos y registros se conservan. La copia bloqueada debe permanecer en cuarentena. Una reconstrucción de fuentes no establece la causa ni garantiza resolver la detección.
+
 Fuentes `b152deb72d016838e858d0fdd44d07d22664b526`: robo de vida de Bloodlust y Shadow Blade limitada a seis puntos mágicos (tres corazones antes de reducciones), incluso con una configuración anterior de catorce. Modelos y contratos persistentes conservados.
 
 El [workflow Windows 39089836320](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39089836320) compiló y probó el plugin. Defender completó cinco análisis (ZIP, sus tres miembros y JAR independiente), todos con código cero y sin detecciones. Motor 1.1.26090.9, firmas 1.461.79.0; protección en tiempo real, nube, comportamiento, IOAV, scripts y archivos comprimidos activas. Conexión a nube validada, origen Internet y ninguna exclusión de rutas, procesos o extensiones. No se ejecutan muestras durante el análisis. [Informe](docs/defender-verification-2.0.7.json).
