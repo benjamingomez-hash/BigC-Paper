@@ -1,4 +1,59 @@
-# Verificación — 16 de octubre de 2026
+# Verificación de LegendaryWeapons
+
+## Reescritura 2.0.11 desde 2.0.5
+
+Base directa: `a1ca1655e082173cde24f1493da91152a4b01d92`. La implementación nueva
+separa el robo de vida en `LegendaryLifeSteal`, el pulso del hacha en
+`LegendaryEarthShock` y la preparación de Sombras en `LegendaryShadowAmbush`.
+Bloodlust observa únicamente golpes directos válidos y consulta la sesión activa.
+Earthbreaker mantiene contextos por objetivo y usa daño nativo con cancelación
+y tótems. Sombras conserva un plan de destino entre la validación y la ejecución
+y calcula el desplazamiento horizontal mediante el ángulo de orientación.
+
+No se incluyen `LegendaryBloodlust` ni `LegendaryFixedDamage` de las versiones
+posteriores anteriores. Frente a 2.0.10 hay **siete clases nuevas, tres retiradas
+y siete compartidas diferentes**. Se conservan las fuentes de los 28 archivos
+del pack y la implementación de parálisis de la lanza de 2.0.5. El plugin raíz,
+las recetas y los contratos persistentes no cambian.
+
+Build Java 25 desde `standalone/`:
+`bash gradlew --no-daemon --max-workers=4 clean build`.
+**77 pruebas correctas, cero fallos, errores y exclusiones**. La suite también
+completó su ejecución en Windows.
+
+Paper 26.2-133/Linux, dos clientes oficiales Java 26.2 y herramientas privadas
+externas a la distribución: **34 casos nativos correctos**.
+
+- Bloodlust: dos golpes curaron dos puntos en total con Fuerza III; medio corazón
+  por golpe a jugadores y mobs permitidos, límite de salud máxima y barrido único.
+  Sin curación al expirar, cambiar de arma, cancelar daño/curación, proteger al
+  objetivo, absorber todo el daño, usar proyectiles u otras habilidades.
+- Hacha: cuatro puntos de salud con armadura, Protección IV, Resistencia V,
+  absorción, inmunidad temporal previa y escudo realmente bloqueando. Cancelación,
+  protección y distancia exterior impidieron el daño. El tótem funcionó ante un
+  golpe letal. El cráter conserva el algoritmo de 2.0.5.
+- Sombras: seis puntos mágicos y 2,16 con Protección IV; configuración antigua
+  de catorce y ausencia de clave resultaron en seis. Invisibilidad, Velocidad III,
+  Debilidad II y Oscuridad aplicadas; veto al daño sin perjuicios; desplazamiento
+  de cuatro bloques sin rival y limpieza de efectos al cancelar la sesión.
+
+[Actions 39093766102](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39093766102)
+analizó el ZIP, sus tres archivos y el JAR independiente: **cinco análisis Defender
+sin detecciones**, motor 1.1.26090.9, firmas 1.461.81.0. Protección en tiempo real,
+nube, comprimidos, IOAV, scripts y comportamiento activas, sin exclusiones.
+Se distribuyen esos mismos archivos, comprobados por SHA-256. Sus 84 clases
+coinciden con la compilación probada en Paper. ClamAV 1.4.6 tampoco detectó
+amenazas en los dos archivos distribuidos.
+
+Esta implementación es diferente, pero no identifica la causa del aviso local
+anterior de Defender ni garantiza que otra PC la acepte. No se ha probado su
+instalación en la PC del usuario. La fabricación completa de veinte minutos,
+WorldGuard instalado y los escenarios de lanza con clientes no se repitieron
+en esta ronda; sus fuentes y pruebas existentes se conservan.
+
+[Resultados nativos y hashes](docs/rewrite-verification-2.0.11.json) ·
+[Comparación de clases](docs/rewrite-class-comparison-2.0.11.json) ·
+[Informe Defender](docs/defender-verification-2.0.11.json).
 
 ## Reconstrucción 2.0.5 — 18 de octubre de 2026 UTC
 

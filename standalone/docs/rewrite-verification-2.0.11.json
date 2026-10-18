@@ -1,0 +1,1060 @@
+{
+  "version": "2.0.11",
+  "baseCommit": "a1ca1655e082173cde24f1493da91152a4b01d92",
+  "implementationCommit": "cf25ed115f63e2ba55629a0ad83b912bfd79aeb5",
+  "automatedTests": {
+    "tests": 77,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "nativeEnvironment": "Paper 26.2-133/Linux; two official Java 26.2 clients; private probes outside the distribution.",
+  "nativeJarSha256": "245e1dc0d9444bbd1c6e6c92c29472724fe7e79b139e52f3ee4def7a25383a30",
+  "nativeCases": [
+    {
+      "probe": "blood",
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "active",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 12.0,
+      "targetHealthAfter": 166.0,
+      "hits": [
+        {
+          "cancelled": false,
+          "cause": "ENTITY_ATTACK",
+          "damage": 17.0,
+          "tick": 30
+        },
+        {
+          "cancelled": false,
+          "cause": "ENTITY_ATTACK",
+          "damage": 17.0,
+          "tick": 55
+        }
+      ],
+      "heals": [
+        {
+          "cancelled": false,
+          "amount": 1.0,
+          "tick": 30,
+          "reason": "CUSTOM"
+        },
+        {
+          "cancelled": false,
+          "amount": 1.0,
+          "tick": 55,
+          "reason": "CUSTOM"
+        }
+      ],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "probe": "blood",
+      "healthBefore": 10.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "case": "inactive",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 192.0,
+      "hits": [
+        {
+          "cancelled": false,
+          "cause": "ENTITY_ATTACK",
+          "damage": 8.0,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 0
+    },
+    {
+      "probe": "blood",
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "expired",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 192.0,
+      "hits": [
+        {
+          "cancelled": false,
+          "cause": "ENTITY_ATTACK",
+          "damage": 8.0,
+          "tick": 220
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 0
+    },
+    {
+      "probe": "blood",
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "switched",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "cancelled": false,
+          "cause": "ENTITY_ATTACK",
+          "damage": 17.0,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "probe": "blood",
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "cancel_damage",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 200.0,
+      "hits": [
+        {
+          "cancelled": true,
+          "cause": "ENTITY_ATTACK",
+          "damage": 17.0,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 1,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "probe": "blood",
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "cancel_heal",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "cancelled": false,
+          "cause": "ENTITY_ATTACK",
+          "damage": 17.0,
+          "tick": 30
+        }
+      ],
+      "heals": [
+        {
+          "cancelled": true,
+          "amount": 1.0,
+          "tick": 30,
+          "reason": "CUSTOM"
+        }
+      ],
+      "vetoes": 1,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "probe": "blood",
+      "healthBefore": 20.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "full",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 20.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "cancelled": false,
+          "cause": "ENTITY_ATTACK",
+          "damage": 17.0,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "probe": "blood",
+      "healthBefore": 19.75,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "near_full",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 20.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "cancelled": false,
+          "cause": "ENTITY_ATTACK",
+          "damage": 17.0,
+          "tick": 30
+        }
+      ],
+      "heals": [
+        {
+          "cancelled": false,
+          "amount": 0.25,
+          "tick": 30,
+          "reason": "CUSTOM"
+        }
+      ],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "probe": "blood",
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "sweep",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 11.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "cancelled": false,
+          "cause": "ENTITY_ATTACK",
+          "damage": 17.0,
+          "tick": 30
+        },
+        {
+          "cancelled": false,
+          "cause": "ENTITY_SWEEP_ATTACK",
+          "damage": 0.9399999976158142,
+          "tick": 30
+        },
+        {
+          "cancelled": false,
+          "cause": "ENTITY_SWEEP_ATTACK",
+          "damage": 0.9399999976158142,
+          "tick": 30
+        }
+      ],
+      "heals": [
+        {
+          "cancelled": false,
+          "amount": 1.0,
+          "tick": 30,
+          "reason": "CUSTOM"
+        }
+      ],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "probe": "blood",
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "region",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "cancelled": false,
+          "cause": "ENTITY_ATTACK",
+          "damage": 17.0,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 1,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "probe": "blood",
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "ability",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 195.0,
+      "hits": [
+        {
+          "cancelled": false,
+          "cause": "ENTITY_ATTACK",
+          "damage": 5.0,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "probe": "blood",
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "cleanup",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 192.0,
+      "hits": [
+        {
+          "cancelled": false,
+          "cause": "ENTITY_ATTACK",
+          "damage": 8.0,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 0
+    },
+    {
+      "probe": "blood",
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "absorption",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 200.0,
+      "hits": [
+        {
+          "cancelled": false,
+          "cause": "ENTITY_ATTACK",
+          "damage": 0.0,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "probe": "blood",
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "passive",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 11.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "cancelled": false,
+          "cause": "ENTITY_ATTACK",
+          "damage": 17.0,
+          "tick": 30
+        }
+      ],
+      "heals": [
+        {
+          "cancelled": false,
+          "amount": 1.0,
+          "tick": 30,
+          "reason": "CUSTOM"
+        }
+      ],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "probe": "blood",
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "projectile",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 197.0,
+      "hits": [
+        {
+          "cancelled": false,
+          "cause": "PROJECTILE",
+          "damage": 3.0,
+          "tick": 31
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "probe": "blood",
+      "healthBefore": 10.0,
+      "configuredShadowDamage": 14,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "case": "shadow_balance",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 194.0,
+      "hits": [
+        {
+          "cancelled": false,
+          "cause": "MAGIC",
+          "damage": 6.0,
+          "tick": 5
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 1
+    },
+    {
+      "probe": "blood",
+      "healthBefore": 10.0,
+      "configuredShadowDamage": "absent",
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "case": "shadow_default",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 194.0,
+      "hits": [
+        {
+          "cancelled": false,
+          "cause": "MAGIC",
+          "damage": 6.0,
+          "tick": 5
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 1
+    },
+    {
+      "probe": "blood",
+      "healthBefore": 10.0,
+      "configuredShadowDamage": 14,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "case": "shadow_protection",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 197.83999633789062,
+      "hits": [
+        {
+          "cancelled": false,
+          "cause": "MAGIC",
+          "damage": 2.1600000858306885,
+          "tick": 5
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 1
+    },
+    {
+      "probe": "powers",
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 16.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 6.909414502825754,
+      "totemRemaining": "AIR",
+      "case": "earth_plain",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "cancelled": false,
+          "type": "minecraft:sonic_boom",
+          "target": "rival",
+          "amount": 4.0
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "probe": "powers",
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 16.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 6.742995896614076,
+      "totemRemaining": "AIR",
+      "case": "earth_armor",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "cancelled": false,
+          "type": "minecraft:sonic_boom",
+          "target": "rival",
+          "amount": 4.0
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "probe": "powers",
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 16.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 6.742995896614076,
+      "totemRemaining": "AIR",
+      "case": "earth_protection",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "cancelled": false,
+          "type": "minecraft:sonic_boom",
+          "target": "rival",
+          "amount": 4.0
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "probe": "powers",
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 16.0,
+      "absorptionBefore": 8.0,
+      "absorptionAfter": 8.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 6.909414502825754,
+      "totemRemaining": "AIR",
+      "case": "earth_resistance_absorption",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "cancelled": false,
+          "type": "minecraft:sonic_boom",
+          "target": "rival",
+          "amount": 4.0
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "probe": "powers",
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 20,
+      "healthBefore": 20.0,
+      "healthAfter": 16.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 6.909414502825754,
+      "totemRemaining": "AIR",
+      "case": "earth_immunity",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "cancelled": false,
+          "type": "minecraft:sonic_boom",
+          "target": "rival",
+          "amount": 4.0
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "probe": "powers",
+      "shieldBlockingAtActivation": true,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 16.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 6.909414502825754,
+      "totemRemaining": "SHIELD",
+      "case": "earth_shield",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "cancelled": false,
+          "type": "minecraft:sonic_boom",
+          "target": "rival",
+          "amount": 4.0
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "probe": "powers",
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 6.5,
+      "totemRemaining": "AIR",
+      "case": "earth_cancel",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "cancelled": true,
+          "type": "minecraft:sonic_boom",
+          "target": "rival",
+          "amount": 4.0
+        }
+      ],
+      "vetoes": 1,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "probe": "powers",
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 6.5,
+      "totemRemaining": "AIR",
+      "case": "earth_region",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [],
+      "vetoes": 1,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "probe": "powers",
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 9.12414379544733,
+      "totemRemaining": "AIR",
+      "case": "earth_outside",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "probe": "powers",
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 3.0,
+      "healthAfter": 2.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 8.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 6.909414502825754,
+      "totemRemaining": "AIR",
+      "case": "earth_totem",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "cancelled": false,
+          "type": "minecraft:sonic_boom",
+          "target": "rival",
+          "amount": 4.0
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "probe": "powers",
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 14.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {
+        "minecraft:invisibility": {
+          "amplifier": 0,
+          "duration": 97
+        },
+        "minecraft:speed": {
+          "amplifier": 2,
+          "duration": 97
+        }
+      },
+      "targetEffects": {
+        "minecraft:darkness": {
+          "amplifier": 0,
+          "duration": 57
+        },
+        "minecraft:weakness": {
+          "amplifier": 1,
+          "duration": 77
+        }
+      },
+      "teleportDistance": 6.5,
+      "distanceBehindTarget": 0.0,
+      "totemRemaining": "AIR",
+      "case": "shadow_plain",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "cancelled": false,
+          "type": "minecraft:magic",
+          "target": "rival",
+          "amount": 6.0
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "probe": "powers",
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 17.84000015258789,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {
+        "minecraft:invisibility": {
+          "amplifier": 0,
+          "duration": 97
+        },
+        "minecraft:speed": {
+          "amplifier": 2,
+          "duration": 97
+        }
+      },
+      "targetEffects": {
+        "minecraft:darkness": {
+          "amplifier": 0,
+          "duration": 57
+        },
+        "minecraft:weakness": {
+          "amplifier": 1,
+          "duration": 77
+        }
+      },
+      "teleportDistance": 6.5,
+      "distanceBehindTarget": 0.0,
+      "totemRemaining": "AIR",
+      "case": "shadow_protection",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "cancelled": false,
+          "type": "minecraft:magic",
+          "target": "rival",
+          "amount": 2.1600000858306885
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "probe": "powers",
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {
+        "minecraft:invisibility": {
+          "amplifier": 0,
+          "duration": 97
+        },
+        "minecraft:speed": {
+          "amplifier": 2,
+          "duration": 97
+        }
+      },
+      "targetEffects": {},
+      "teleportDistance": 6.5,
+      "distanceBehindTarget": 0.0,
+      "totemRemaining": "AIR",
+      "case": "shadow_cancel",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "cancelled": true,
+          "type": "minecraft:magic",
+          "target": "rival",
+          "amount": 6.0
+        }
+      ],
+      "vetoes": 1,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "probe": "powers",
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {
+        "minecraft:invisibility": {
+          "amplifier": 0,
+          "duration": 97
+        },
+        "minecraft:speed": {
+          "amplifier": 2,
+          "duration": 97
+        }
+      },
+      "targetEffects": {},
+      "teleportDistance": 4.0,
+      "distanceBehindTarget": 2.5,
+      "totemRemaining": "AIR",
+      "case": "shadow_region",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [],
+      "vetoes": 1,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "probe": "powers",
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {
+        "minecraft:invisibility": {
+          "amplifier": 0,
+          "duration": 97
+        },
+        "minecraft:speed": {
+          "amplifier": 2,
+          "duration": 97
+        }
+      },
+      "targetEffects": {},
+      "teleportDistance": 4.0,
+      "distanceBehindTarget": 11.412712210513327,
+      "totemRemaining": "AIR",
+      "case": "shadow_empty",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "probe": "powers",
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 14.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {
+        "minecraft:invisibility": {
+          "amplifier": 0,
+          "duration": 97
+        },
+        "minecraft:speed": {
+          "amplifier": 2,
+          "duration": 97
+        }
+      },
+      "targetEffects": {
+        "minecraft:darkness": {
+          "amplifier": 0,
+          "duration": 57
+        },
+        "minecraft:weakness": {
+          "amplifier": 1,
+          "duration": 77
+        }
+      },
+      "teleportDistance": 6.5,
+      "distanceBehindTarget": 0.0,
+      "totemRemaining": "AIR",
+      "casterEffectsAfterCleanup": {},
+      "targetEffectsAfterCleanup": {},
+      "case": "shadow_cleanup",
+      "version": "2.0.11",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "cancelled": false,
+          "type": "minecraft:magic",
+          "target": "rival",
+          "amount": 6.0
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    }
+  ],
+  "distributedFiles": {
+    "LegendaryWeapons-2.0.11.jar": "020ca1d05669a752c31f674c0755c719f37f41fbf1330ead46083d9eaeb7cf5d",
+    "Armas-Legendarias-2.0.11.zip": "21031340baeafc925d8d46c21521c62c02866240c4e927ae14c5b92cca3cddf1"
+  },
+  "distributionMembers": [
+    "Armas-Legendarias-2.0.11/LegendaryWeapons-2.0.11.jar",
+    "Armas-Legendarias-2.0.11/legendary-weapons-java.zip",
+    "Armas-Legendarias-2.0.11/LEEME.txt"
+  ],
+  "windowsActionRun": "https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39093766102",
+  "sameCompiledClassesNativeAndWindows": 84,
+  "classDifferencesFrom210": {
+    "added": 7,
+    "removed": 3,
+    "changed": 7
+  },
+  "unchangedPackSources": 28,
+  "spearImplementationUnchangedFrom205": true,
+  "integratedPluginAndCopperUnchanged": true,
+  "limits": [
+    "A new implementation and clean runner scans do not diagnose the prior local Defender alert.",
+    "No installation on the user PC was performed.",
+    "The full crafting event, installed WorldGuard and spear client scenarios were not repeated; their sources and existing unit tests are preserved."
+  ],
+  "originalFixturePlayerDataJournalAndPluginRestored": true,
+  "clamAvDistributedFiles": {
+    "engine": "1.4.6",
+    "daily": 28156,
+    "main": 63,
+    "bytecode": 339,
+    "scannedFiles": 2,
+    "infectedFiles": 0,
+    "scanCompletedUtc": "2026-10-18T03:32:50Z"
+  }
+}

@@ -27,3 +27,12 @@ publicación de los mismos binarios analizados con sus hashes.
 
 La reescritura busca una implementación clara y verificable. No cambia el
 comportamiento de seguridad del equipo ni demuestra resolver la detección previa.
+
+Completado: `cf25ed115f63e2ba55629a0ad83b912bfd79aeb5` implementa los tres componentes
+directamente sobre 2.0.5. Build completo con 77 pruebas correctas y 34 casos nativos
+correctos en Paper con dos clientes oficiales. Windows Actions `39093766102`
+completó cinco análisis Defender sin detecciones. Las 84 clases distribuidas
+coinciden con las probadas en Paper; frente a 2.0.10 hay siete clases nuevas,
+tres retiradas y siete compartidas diferentes. ClamAV tampoco detectó amenazas.
+Se publican los archivos exactos del runner y sus hashes; la instancia aislada
+se detiene y sus datos originales se restauran.

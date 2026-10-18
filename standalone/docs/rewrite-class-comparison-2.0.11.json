@@ -1,0 +1,27 @@
+{
+  "added": [
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryEarthShock$Impact.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryEarthShock.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryLifeSteal$Hit.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryLifeSteal.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryShadowAmbush$Buff.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryShadowAmbush$Plan.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryShadowAmbush.class"
+  ],
+  "removed": [
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryBloodlust.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryFixedDamage$Attempt.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryFixedDamage.class"
+  ],
+  "changed": [
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryRuntime$1.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryRuntime$FreezeLease.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryRuntime$Session$1.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryRuntime$Session.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryRuntime$SessionKey.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryRuntime.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryWeapon.class"
+  ],
+  "referenceCommit": "f50eaa78180de11f0dfb5c3cfd015a1962fc746b",
+  "candidateSourceCommit": "cf25ed115f63e2ba55629a0ad83b912bfd79aeb5"
+}
