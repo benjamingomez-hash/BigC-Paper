@@ -1,5 +1,18 @@
 # Verificación — 16 de octubre de 2026
 
+## Earthbreaker y Shadow Blade 2.0.6 — 17 de octubre de 2026 (UTC−3)
+
+Java 25, `bash gradlew --no-daemon --max-workers=4 clean build`: **69 pruebas, cero fallos, errores o exclusiones**. Las tres regresiones nuevas comprueban daño final de cuatro puntos con todos los modificadores, sin modificadores opcionales y con cancelación de protección. Modelos y plugin integrado sin cambios.
+
+Paper 26.2-133 en Linux con dos clientes oficiales 26.2. Una herramienta privada, no distribuida, activa dos veces el listener de interacción por caso para comprobar también el cooldown. Islas de bedrock de la instancia aíslan el daño de la habilidad de las caídas posteriores del cráter. 16 escenarios y una repetición con escudo del cliente:
+
+- Earthbreaker: salud **20 → 16** sin armadura, con netherite, con cuatro piezas Protección IV, con Resistencia V y ocho puntos de absorción, y con veinte ticks de inmunidad tras golpe. La absorción permanece en ocho; el lanzador conserva veinte de salud. Solo hay un evento de daño aceptado, de cuatro puntos.
+- Escudo: el primer intento no estaba bloqueando y se conserva como observación. La repetición mantiene clic derecho real del segundo cliente; `isBlocking()` es verdadero y la salud también pasa de veinte a dieciséis.
+- Cancelación de daño, veto de región y objetivo fuera de radio: salud veinte, sin golpe aceptado. Un impacto letal consume el tótem y conserva su supervivencia nativa.
+- Shadow Blade: teletransporte de 6,5 bloques a la posición detrás del rival, salud **20 → 6** sin armadura y **20 → 14,96** con Protección IV. El modificador del hacha no altera el daño de otras habilidades. Invisibilidad y Velocidad III duran cien ticks; Debilidad II ochenta y Oscuridad sesenta. Sin rival realiza un desplazamiento seguro de cuatro bloques. Daño cancelado no aplica debuffs al rival. Expiración y cancelación anticipada liberan los efectos propios, sin sesiones restantes.
+
+[Datos completos](docs/powers-verification-2.0.6.json). La batería nativa de la lanza de 2.0.5 no se repite; sus fuentes se conservan. Windows compiló las mismas fuentes y Defender analizó sin detecciones el ZIP y JAR exactos publicados, con protección activa y sin exclusiones. ClamAV sin detecciones. [Informes y límites](SECURITY-REVIEW-2.0.6.md).
+
 ## Reconstrucción 2.0.5 — 18 de octubre de 2026 UTC
 
 Desde las fuentes 2.0.3, con la parálisis de Thunder Spear reimplementada. Java 25: `bash gradlew --no-daemon --max-workers=4 clean build`, **66 pruebas, cero fallos, errores o exclusiones**. Gradle genera el ZIP de distribución con tres archivos (JAR, pack, LEEME). Modelos: 28 archivos idénticos a 2.0.3; plugin integrado y cobre sin cambios.

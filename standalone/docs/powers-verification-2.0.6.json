@@ -1,0 +1,577 @@
+{
+  "version": "2.0.6",
+  "sourceCommit": "1fd150c094e4f04b22f63cce271f57e18f0abb67",
+  "automatedTests": {
+    "tests": 69,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "environment": "Paper 26.2-133 on Linux, two official Java 26.2 clients. Private probe calls production interaction listener twice per activation; private bedrock islands isolate power damage from later crater falls. Probe not distributed.",
+  "nativeJarSha256": "ad5a6cfc2d91e219b34b77df2755d53dafa891884d01f058b51c759d6e5454c9",
+  "windowsClassesIdentical": 79,
+  "resourceDifferences": [
+    "config.yml",
+    "legendary-pack.zip",
+    "plugin.yml"
+  ],
+  "modelFilesUnchanged": 28,
+  "scope": [
+    "Earthbreaker: one native four-health damage pulse; armor, Protection IV, Resistance V, absorption and current hurt immunity cannot reduce it. Real client right-click shield input tested in final repeat.",
+    "Canceled damage and protection-region events veto it; target outside radius is untouched; caster excluded. Native totem survives lethal pulse.",
+    "Shadow: behind-target teleport, 14 magic damage unarmored, 5.04 with four Protection IV pieces, Speed III and invisibility 100 ticks, weakness II 80 and darkness 60; no target debuffs on canceled damage; 4-block safe dash without target; cleanup and expiry release owned effects.",
+    "First shield attempt was not blocking; retained as an observation, superseded by final real-input repeat.",
+    "Other abilities, models, crafting and persistent contracts retained; full native spear suite from 2.0.5 not repeated.",
+    "No local Windows runtime test or diagnosis of previous Defender alert."
+  ],
+  "cases": [
+    {
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 16.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 6.5,
+      "totemRemaining": "AIR",
+      "case": "earth_plain",
+      "version": "2.0.6",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "amount": 4.0,
+          "target": "rival",
+          "type": "minecraft:sonic_boom",
+          "cancelled": false
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 16.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 6.8784588182196975,
+      "totemRemaining": "AIR",
+      "case": "earth_armor",
+      "version": "2.0.6",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "amount": 4.0,
+          "target": "rival",
+          "type": "minecraft:sonic_boom",
+          "cancelled": false
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 16.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 6.742995896614076,
+      "totemRemaining": "AIR",
+      "case": "earth_protection",
+      "version": "2.0.6",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "amount": 4.0,
+          "target": "rival",
+          "type": "minecraft:sonic_boom",
+          "cancelled": false
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 16.0,
+      "absorptionBefore": 8.0,
+      "absorptionAfter": 8.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 6.909414502825754,
+      "totemRemaining": "AIR",
+      "case": "earth_resistance_absorption",
+      "version": "2.0.6",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "amount": 4.0,
+          "target": "rival",
+          "type": "minecraft:sonic_boom",
+          "cancelled": false
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 20,
+      "healthBefore": 20.0,
+      "healthAfter": 16.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 6.909414502825754,
+      "totemRemaining": "AIR",
+      "case": "earth_immunity",
+      "version": "2.0.6",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "amount": 4.0,
+          "target": "rival",
+          "type": "minecraft:sonic_boom",
+          "cancelled": false
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 16.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 7.1467354766327835,
+      "totemRemaining": "SHIELD",
+      "case": "earth_shield",
+      "version": "2.0.6",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "amount": 4.0,
+          "target": "rival",
+          "type": "minecraft:sonic_boom",
+          "cancelled": false
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 6.5,
+      "totemRemaining": "AIR",
+      "case": "earth_cancel",
+      "version": "2.0.6",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "amount": 4.0,
+          "target": "rival",
+          "type": "minecraft:sonic_boom",
+          "cancelled": true
+        }
+      ],
+      "vetoes": 1,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 6.5,
+      "totemRemaining": "AIR",
+      "case": "earth_region",
+      "version": "2.0.6",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [],
+      "vetoes": 1,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 9.12414379544733,
+      "totemRemaining": "AIR",
+      "case": "earth_outside",
+      "version": "2.0.6",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 3.0,
+      "healthAfter": 2.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 8.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 6.909414502825754,
+      "totemRemaining": "AIR",
+      "case": "earth_totem",
+      "version": "2.0.6",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "amount": 4.0,
+          "target": "rival",
+          "type": "minecraft:sonic_boom",
+          "cancelled": false
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 6.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {
+        "minecraft:invisibility": {
+          "duration": 97,
+          "amplifier": 0
+        },
+        "minecraft:speed": {
+          "duration": 97,
+          "amplifier": 2
+        }
+      },
+      "targetEffects": {
+        "minecraft:darkness": {
+          "duration": 57,
+          "amplifier": 0
+        },
+        "minecraft:weakness": {
+          "duration": 77,
+          "amplifier": 1
+        }
+      },
+      "teleportDistance": 6.5,
+      "distanceBehindTarget": 0.0,
+      "totemRemaining": "AIR",
+      "case": "shadow_plain",
+      "version": "2.0.6",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "amount": 14.0,
+          "target": "rival",
+          "type": "minecraft:magic",
+          "cancelled": false
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 14.960000038146973,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {
+        "minecraft:invisibility": {
+          "duration": 97,
+          "amplifier": 0
+        },
+        "minecraft:speed": {
+          "duration": 97,
+          "amplifier": 2
+        }
+      },
+      "targetEffects": {
+        "minecraft:darkness": {
+          "duration": 57,
+          "amplifier": 0
+        },
+        "minecraft:weakness": {
+          "duration": 77,
+          "amplifier": 1
+        }
+      },
+      "teleportDistance": 6.5,
+      "distanceBehindTarget": 0.0,
+      "totemRemaining": "AIR",
+      "case": "shadow_protection",
+      "version": "2.0.6",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "amount": 5.039999961853027,
+          "target": "rival",
+          "type": "minecraft:magic",
+          "cancelled": false
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {
+        "minecraft:invisibility": {
+          "duration": 97,
+          "amplifier": 0
+        },
+        "minecraft:speed": {
+          "duration": 97,
+          "amplifier": 2
+        }
+      },
+      "targetEffects": {},
+      "teleportDistance": 6.5,
+      "distanceBehindTarget": 0.0,
+      "totemRemaining": "AIR",
+      "case": "shadow_cancel",
+      "version": "2.0.6",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "amount": 14.0,
+          "target": "rival",
+          "type": "minecraft:magic",
+          "cancelled": true
+        }
+      ],
+      "vetoes": 1,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {
+        "minecraft:invisibility": {
+          "duration": 97,
+          "amplifier": 0
+        },
+        "minecraft:speed": {
+          "duration": 97,
+          "amplifier": 2
+        }
+      },
+      "targetEffects": {},
+      "teleportDistance": 4.0,
+      "distanceBehindTarget": 2.5,
+      "totemRemaining": "AIR",
+      "case": "shadow_region",
+      "version": "2.0.6",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [],
+      "vetoes": 2,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {
+        "minecraft:invisibility": {
+          "duration": 97,
+          "amplifier": 0
+        },
+        "minecraft:speed": {
+          "duration": 97,
+          "amplifier": 2
+        }
+      },
+      "targetEffects": {},
+      "teleportDistance": 4.0,
+      "distanceBehindTarget": 11.412712210513327,
+      "totemRemaining": "AIR",
+      "case": "shadow_empty",
+      "version": "2.0.6",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 6.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {
+        "minecraft:invisibility": {
+          "duration": 97,
+          "amplifier": 0
+        },
+        "minecraft:speed": {
+          "duration": 97,
+          "amplifier": 2
+        }
+      },
+      "targetEffects": {
+        "minecraft:darkness": {
+          "duration": 57,
+          "amplifier": 0
+        },
+        "minecraft:weakness": {
+          "duration": 77,
+          "amplifier": 1
+        }
+      },
+      "teleportDistance": 6.5,
+      "distanceBehindTarget": 0.0,
+      "totemRemaining": "AIR",
+      "casterEffectsAfterCleanup": {},
+      "targetEffectsAfterCleanup": {},
+      "case": "shadow_cleanup",
+      "version": "2.0.6",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "amount": 14.0,
+          "target": "rival",
+          "type": "minecraft:magic",
+          "cancelled": false
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "shieldBlockingAtActivation": true,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 16.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 6.909414502825754,
+      "totemRemaining": "SHIELD",
+      "case": "earth_shield",
+      "version": "2.0.6",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "amount": 4.0,
+          "target": "rival",
+          "type": "minecraft:sonic_boom",
+          "cancelled": false
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "commit": "1fd150c094e4f04b22f63cce271f57e18f0abb67",
+  "startedUtc": "2026-10-18T02:07:46.9081930Z",
+  "completed": true,
+  "cleanJar": true,
+  "cleanDistribution": true,
+  "engine": {
+    "productVersion": "4.18.26090.9",
+    "engineVersion": "1.1.26090.9",
+    "signatureVersion": "1.461.79.0",
+    "signatureUpdatedUtc": "2026-10-17T18:27:58.0000000Z",
+    "realTimeProtectionEnabled": true,
+    "mapsReporting": "2",
+    "disableBlockAtFirstSeen": false,
+    "submitSamplesConsent": "1",
+    "archiveScanningEnabled": true,
+    "behaviorMonitoringEnabled": true,
+    "ioavProtectionEnabled": true,
+    "scriptScanningEnabled": true,
+    "pathExclusions": [],
+    "extensionExclusions": [],
+    "processExclusions": []
+  },
+  "scans": [
+    {
+      "label": "Rebuilt distribution ZIP",
+      "sha256": "e3d7aed5cb42314f0dce3b087174b65df219523955bd5294b9fffdd3302e2a42",
+      "result": "Clean",
+      "exitCode": 0
+    },
+    {
+      "label": "Distribution member: LEEME.txt",
+      "sha256": "e13ddf797986542358d748c7faa6f313906ab409664733c76b43d2d97d524d03",
+      "result": "Clean",
+      "exitCode": 0
+    },
+    {
+      "label": "Distribution member: LegendaryWeapons-2.0.6.jar",
+      "sha256": "9aa977e00bf2ad86809041283ce56e901a5a201b738c42d545de2bce0db7e0c1",
+      "result": "Clean",
+      "exitCode": 0
+    },
+    {
+      "label": "Distribution member: legendary-weapons-java.zip",
+      "sha256": "e7cdcf94b3d0da272d192e817679d5067226bed6eb1786950533d46be199e1a5",
+      "result": "Clean",
+      "exitCode": 0
+    },
+    {
+      "label": "Newly built production JAR",
+      "sha256": "9aa977e00bf2ad86809041283ce56e901a5a201b738c42d545de2bce0db7e0c1",
+      "result": "Clean",
+      "exitCode": 0
+    }
+  ],
+  "error": null,
+  "realTimeProtectionInitiallyEnabled": false,
+  "initialExclusionCounts": {
+    "paths": 2,
+    "extensions": 0,
+    "processes": 0
+  },
+  "cloudConnectionExitCode": 0,
+  "finishedUtc": "2026-10-18T02:08:00.7458241Z",
+  "workflowUrl": "https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39088897056",
+  "scope": "File scans with active protection, cloud and no exclusions; does not reproduce local Windows installation or execution and does not resolve the 2.0.4 alert."
+}

@@ -2,7 +2,9 @@
 
 Plugin **independiente** para **Paper 26.2 / Java 25 / Gradle 9.2.1**. Incluye únicamente las ocho armas y su evento de fabricación. Usa modelos Java nativos y no requiere BigCasares, Vault, EssentialsX ni BetterModel. Si se usa BetterModel para otros plugins del servidor, la versión solicitada para 26.2 es 3.2.0; esta distribución no llama a su API. WorldGuard es opcional. Los equipos usan el scoreboard vanilla. No incluye integración Bedrock/Geyser.
 
-**Actualización 2.0.6 en validación**: Earthbreaker añade un golpe fijo de dos corazones y Shadow Blade recibe una emboscada más potente. Conserva la reconstrucción de Thunder Spear de 2.0.5. Los modelos, recetas y datos persistentes no cambian. La revisión anterior de antivirus no equivale a un diagnóstico de la alerta local; se repetirá el análisis para los archivos nuevos.
+**Actualización 2.0.6**: Earthbreaker añade un golpe fijo de dos corazones y Shadow Blade recibe una emboscada más potente. Conserva la reconstrucción de Thunder Spear de 2.0.5. Los modelos, recetas y datos persistentes no cambian.
+
+[Descargar ZIP 2.0.6](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-rebuild-2.0.3/standalone/downloads/Armas-Legendarias-2.0.6.zip) · [JAR independiente](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-rebuild-2.0.3/standalone/downloads/LegendaryWeapons-2.0.6.jar) · [SHA-256](downloads/SHA256SUMS-2.0.6.txt). Build, 69 pruebas y validación nativa completados. Se publican los archivos exactos analizados por Defender en Windows sin detecciones allí. [Informe y límites](SECURITY-REVIEW-2.0.6.md): esto no reproduce la instalación en la PC del usuario ni resuelve la alerta local de 2.0.4.
 
 ### Poderes actualizados en 2.0.6
 
