@@ -2,7 +2,9 @@
 
 Plugin **independiente** para **Paper 26.2 / Java 25 / Gradle 9.2.1**. Incluye únicamente las ocho armas y su evento de fabricación. Usa modelos Java nativos y no requiere BigCasares, Vault, EssentialsX ni BetterModel. Si se usa BetterModel para otros plugins del servidor, la versión solicitada para 26.2 es 3.2.0; esta distribución no llama a su API. WorldGuard es opcional. Los equipos usan el scoreboard vanilla. No incluye integración Bedrock/Geyser.
 
-**Reconstrucción 2.0.5 en validación**, desde las fuentes de 2.0.3 y con la parálisis de Thunder Spear reimplementada. Las detecciones locales de Defender de 2.0.4 siguen sin diagnóstico confirmado; reconstruir no garantiza que desaparezcan. [Estado y alcance de la revisión](SECURITY-REBUILD-2.0.5.md).
+**Reconstrucción 2.0.5**, desde las fuentes de 2.0.3 y con la parálisis de Thunder Spear reimplementada. Las detecciones locales de Defender de 2.0.4 siguen sin diagnóstico confirmado; reconstruir no garantiza que desaparezcan. [Estado y alcance de la revisión](SECURITY-REBUILD-2.0.5.md).
+
+[Descargar ZIP 2.0.5](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-rebuild-2.0.3/standalone/downloads/Armas-Legendarias-2.0.5.zip) · [JAR independiente](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-rebuild-2.0.3/standalone/downloads/LegendaryWeapons-2.0.5.jar) · [SHA-256](downloads/SHA256SUMS-2.0.5.txt). El ZIP contiene JAR, pack y LEEME. Son los archivos exactos analizados por Defender en el runner Windows, sin detecciones allí; no se ha probado su instalación en la PC del usuario.
 
 ## Evento
 

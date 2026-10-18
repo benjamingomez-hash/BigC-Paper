@@ -1,5 +1,20 @@
 # Verificación — 16 de octubre de 2026
 
+## Reconstrucción 2.0.5 — 18 de octubre de 2026 UTC
+
+Desde las fuentes 2.0.3, con la parálisis de Thunder Spear reimplementada. Java 25: `bash gradlew --no-daemon --max-workers=4 clean build`, **66 pruebas, cero fallos, errores o exclusiones**. Gradle genera el ZIP de distribución con tres archivos (JAR, pack, LEEME). Modelos: 28 archivos idénticos a 2.0.3; plugin integrado y cobre sin cambios.
+
+Paper 26.2-133 en Linux con dos clientes oficiales 26.2 y una herramienta privada de instrumentación, no distribuida. La herramienta activa el listener real; W/Space y cámara se ejercitan en ambos clientes. Cuatro casos:
+
+- Impacto contra suelo: lanzador, rival y vaca inmóviles exactamente 200 ticks, desplazamiento máximo cero y cinco rayos visuales; sin daño. Ambos jugadores pueden mirar y vuelven a moverse al terminar.
+- Impacto directo: mismos bloqueos; únicamente el rival alcanzado recibe cinco golpes de 7 puntos antes de reducciones. Teletransportes de juego, perlas, chorus y movimiento de mobs bloqueados. AI y gravedad sin cambios.
+- Protección: el rival vetado permanece libre y no recibe pulsos eléctricos; lanzador y vaca sí quedan inmóviles. Las caídas posteriores al salir de la plataforma elevada de prueba siguen siendo daño vanilla.
+- Cancelación anticipada: libera los tres objetivos y devuelve la lanza. En los cuatro casos: una sola lanza, cero sesiones restantes y ninguna devolución pendiente.
+
+Los siete poderes restantes y fabricación conservan las fuentes 2.0.3; las pruebas nativas detalladas de esas habilidades que figuran más abajo son históricas, no se repitieron en esta reconstrucción. [Datos funcionales](docs/rebuild-verification-2.0.5.json).
+
+Windows Actions compiló y probó las mismas fuentes. Los 77 archivos de clases coinciden con el JAR probado en Linux; los cambios de recursos son únicamente finales de línea del checkout. Se publican los archivos exactos del runner. Cinco análisis de Defender (ZIP, tres miembros y JAR) sin detecciones, con protección activa, nube conectada y sin exclusiones. ClamAV tampoco detectó amenazas. **Esto no reproduce la instalación en la PC del usuario ni resuelve el diagnóstico de 2.0.4.** [Revisión y límites](SECURITY-REBUILD-2.0.5.md) · [Informe Defender](docs/defender-verification-2.0.5.json).
+
 ## Automatización
 
 - `standalone/`: `bash gradlew --no-daemon --max-workers=4 clean build`, Java 25, **46 pruebas sin fallos, errores ni exclusiones**.
