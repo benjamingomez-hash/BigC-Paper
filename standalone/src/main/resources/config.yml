@@ -3,14 +3,17 @@ legendary-weapons:
   max-active-effects: 32
   max-targets-per-pulse: 12
   particles-per-ring: 24
-  # Bloodlust siempre aplica Fuerza III durante 200 ticks (10 segundos).
+  # Bloodlust: Fuerza III durante 200 ticks (10 segundos) y cura 1 punto
+  # de salud (medio corazón) por golpe directo con la espada durante la habilidad.
   # Shadow usa daño mágico (2 puntos = 1 corazón). Frost aplica estados,
-  # Hyperion lanza Fireball vanilla y Earthbreaker talla terreno sin golpe.
+  # Hyperion lanza Fireball vanilla. Earthbreaker talla terreno y aplica
+  # un único golpe fijo de 4 puntos de salud (dos corazones).
   frost-scythe:
     max-targets: 64
   shadow-blade:
     range: 16
-    strike-damage: 10
+    # Sustituye strike-damage. Máximo 6 incluso con el valor 14 de 2.0.6.
+    ambush-damage: 6
   hyperion:
     explosion-power: 2
     ignite-blocks: false
@@ -22,6 +25,8 @@ legendary-weapons:
     flight-speed: 1.8
     max-flight-ticks: 80
     storm-radius: 7
+    # El campo paraliza también al lanzador; solo un impacto directo recibe daño.
+    max-paralyzed-targets: 64
     lightning-damage: 7
     # on-respawn o on-join; nunca se arroja al suelo.
     death-return: on-respawn
