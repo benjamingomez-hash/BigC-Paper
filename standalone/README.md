@@ -2,9 +2,9 @@
 
 Plugin **independiente** para **Paper 26.2 / Java 25 / Gradle 9.2.1**. Incluye únicamente las ocho armas y su evento de fabricación. Usa modelos Java nativos y no requiere BigCasares, Vault, EssentialsX ni BetterModel. Si se usa BetterModel para otros plugins del servidor, la versión solicitada para 26.2 es 3.2.0; esta distribución no llama a su API. WorldGuard es opcional. Los equipos usan el scoreboard vanilla. No incluye integración Bedrock/Geyser.
 
-**Actualización 2.0.6**: Earthbreaker añade un golpe fijo de dos corazones y Shadow Blade recibe una emboscada más potente. Conserva la reconstrucción de Thunder Spear de 2.0.5. Los modelos, recetas y datos persistentes no cambian.
+**Actualización 2.0.7 en validación**: Bloodlust mantiene Fuerza III durante 10 s y añade **medio corazón de curación por golpe directo** con la espada mientras la habilidad está activa. Conserva los poderes de Earthbreaker, Shadow Blade y Thunder Spear de las versiones anteriores, modelos, recetas y datos persistentes.
 
-[Descargar ZIP 2.0.6](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-rebuild-2.0.3/standalone/downloads/Armas-Legendarias-2.0.6.zip) · [JAR independiente](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-rebuild-2.0.3/standalone/downloads/LegendaryWeapons-2.0.6.jar) · [SHA-256](downloads/SHA256SUMS-2.0.6.txt). Build, 69 pruebas y validación nativa completados. Se publican los archivos exactos analizados por Defender en Windows sin detecciones allí. [Informe y límites](SECURITY-REVIEW-2.0.6.md): esto no reproduce la instalación en la PC del usuario ni resuelve la alerta local de 2.0.4.
+El robo aprovecha el daño del golpe normal, sin añadir daño extra al objetivo. Funciona contra jugadores y entidades vivas permitidas, excluyendo maniquíes y objetivos protegidos. No cura si el golpe se cancela o no hace daño de salud; los objetivos secundarios del barrido no multiplican la curación. No funciona al cambiar de arma ni con proyectiles u otras habilidades. La curación nativa respeta el máximo de salud y los eventos de curación cancelados. Duración 200 ticks y cooldown 40 s, conservados.
 
 ### Poderes actualizados en 2.0.6
 
@@ -69,7 +69,7 @@ Para actualizar desde 2.0.1 o 2.0.2, detén Paper, sustituye el JAR y conserva l
 1. Instala Java 25 y descarga Paper 26.2 desde https://papermc.io/downloads/paper (versiones anteriores).
 2. En una carpeta nueva, guarda Paper como `paper.jar`. Ejecuta `java -Xms1G -Xmx2G -jar paper.jar --nogui`.
 3. Lee el EULA en `eula.txt` y, si lo aceptas, cambia `eula=false` por `eula=true`.
-4. Copia **`LegendaryWeapons-2.0.6.jar`** en `plugins` y vuelve a iniciar Paper.
+4. Copia **`LegendaryWeapons-2.0.7.jar`** en `plugins` y vuelve a iniciar Paper.
 5. En la consola escribe `op TuNombre`. En Minecraft Java **26.2**, entra a Multijugador → Conexión directa → `localhost`; acepta el paquete de recursos.
 6. Consulta `/weapons info thunder_spear`, consigue los materiales y fabrica en una mesa. `/weapons events` muestra disponibilidad y tiempo sin filtrar coordenadas anticipadas.
 
@@ -95,7 +95,7 @@ Los avisos se confirman antes de publicarse para evitar duplicarlos al reiniciar
 
 ## Desarrollo
 
-Desde `standalone/` con Java 25: `bash gradlew --no-daemon --max-workers=4 clean build` (Windows: `gradlew.bat build`). Artefacto: `build/libs/LegendaryWeapons-2.0.6.jar`.
+Desde `standalone/` con Java 25: `bash gradlew --no-daemon --max-workers=4 clean build` (Windows: `gradlew.bat build`). Artefacto: `build/libs/LegendaryWeapons-2.0.7.jar`.
 
 Consulta [los resultados y capturas](VERIFY.md).
 

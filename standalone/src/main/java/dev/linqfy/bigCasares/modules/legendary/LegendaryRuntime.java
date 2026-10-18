@@ -11,11 +11,13 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.block.TileState;
 import org.bukkit.damage.DamageSource;
 import org.bukkit.damage.DamageType;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Fireball;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.LivingEntity;
@@ -31,6 +33,7 @@ import org.bukkit.event.entity.EntityCombustByEntityEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
@@ -621,6 +624,25 @@ final class LegendaryRuntime implements Listener, Runnable {
     public void observedDamage(EntityDamageByEntityEvent event) {
         if (event.getEntity().equals(damageTarget)) {
             damageAccepted = !event.isCancelled() && event.getFinalDamage() > 0;
+        }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void bloodlustHit(EntityDamageByEntityEvent event) {
+        if (stopped || damageTarget != null || !(event.getDamager() instanceof Player player)
+            || !(event.getEntity() instanceof LivingEntity target) || target instanceof ArmorStand
+            || !player.isOnline() || player.isDead()) return;
+        Session session = sessions.get(new SessionKey(player.getUniqueId(), LegendaryWeapon.BLOODLUST));
+        if (session == null || plugin.getCustomItemRegistry().resolveItemId(player.getInventory().getItemInMainHand())
+            .filter(LegendaryWeapon.BLOODLUST.id::equals).isEmpty()) return;
+        double amount = LegendaryBloodlust.healing(session.age, event.getCause(), event.getFinalDamage(),
+            player.getHealth(), player.getAttribute(Attribute.MAX_HEALTH).getValue());
+        if (amount <= 0 || !policy.affect(player, target)) return;
+        double before = player.getHealth();
+        player.heal(amount, EntityRegainHealthEvent.RegainReason.CUSTOM);
+        if (player.getHealth() > before) {
+            dust(target.getLocation().add(0, 1, 0), Color.RED, 6);
+            player.getWorld().spawnParticle(Particle.HEART, player.getLocation().add(0, 1.2, 0), 2, .25, .2, .25, 0);
         }
     }
 

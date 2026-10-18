@@ -58,7 +58,7 @@ public enum LegendaryWeapon {
 
     public String abilityDescription() {
         return switch (this) {
-            case BLOODLUST -> "Fuerza III durante 10 segundos.";
+            case BLOODLUST -> "Fuerza III durante 10 s y robo de medio corazón por golpe cuerpo a cuerpo con Bloodlust mientras esté activa.";
             case FROST_SCYTHE -> "Aura de 8 s y radio 6: congelación y Lentitud IV para cualquier entidad viva enemiga.";
             case SHADOW_BLADE -> "Emboscada: teletransporte tras el rival, 14 de daño mágico, Debilidad II y Oscuridad; Invisibilidad y Velocidad III durante 5 s.";
             case HYPERION -> "Ráfaga de cinco bolas de fuego explosivas de ghast; apunta mientras disparas.";

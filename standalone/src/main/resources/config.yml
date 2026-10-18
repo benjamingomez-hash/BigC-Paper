@@ -3,7 +3,8 @@ legendary-weapons:
   max-active-effects: 32
   max-targets-per-pulse: 12
   particles-per-ring: 24
-  # Bloodlust siempre aplica Fuerza III durante 200 ticks (10 segundos).
+  # Bloodlust: Fuerza III durante 200 ticks (10 segundos) y cura 1 punto
+  # de salud (medio corazón) por golpe directo con la espada durante la habilidad.
   # Shadow usa daño mágico (2 puntos = 1 corazón). Frost aplica estados,
   # Hyperion lanza Fireball vanilla. Earthbreaker talla terreno y aplica
   # un único golpe fijo de 4 puntos de salud (dos corazones).
