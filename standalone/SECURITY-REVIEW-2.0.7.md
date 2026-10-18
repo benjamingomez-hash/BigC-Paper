@@ -2,7 +2,7 @@
 
 ## Nuevo aviso local
 
-El usuario volvió a informar una alerta de antivirus con esta entrega y pidió reconstruir desde 2.0.5 conservando todos los cambios de habilidades. No se recibió todavía el nombre de amenaza, archivo afectado o hash de este nuevo aviso. No se presume que coincida con los anteriores. Se suspende la recomendación de instalar 2.0.7; los archivos y registros se conservan. La copia bloqueada debe permanecer en cuarentena. Una reconstrucción de fuentes no establece la causa ni garantiza resolver la detección.
+El usuario volvió a informar una alerta y pidió reconstruir desde 2.0.5 conservando todos los cambios. Una captura confirma `Trojan:Script/Ulthar.A!ml`, estado «Quitado», para `Armas-Legendarias-2.0.7.zip`, el 17/10/2026 a las 23:29 del equipo del usuario. La URL mostrada corresponde al archivo de esta versión en el commit `f3a7828a88f9d706abb281dbfb2e877b22ab9b3a`. Esa referencia pública tiene SHA-256 `cc79aa6e8093361ee00e6a2849215df1a88ca2d889fc11035b045e9922d13ad0`; no se restauró la copia local quitada para verificar su hash. Se suspende la recomendación de instalar 2.0.7; los archivos y registros se conservan. Una reconstrucción de fuentes no establece la causa ni garantiza resolver la detección.
 
 Fuentes `b152deb72d016838e858d0fdd44d07d22664b526`: robo de vida de Bloodlust y Shadow Blade limitada a seis puntos mágicos (tres corazones antes de reducciones), incluso con una configuración anterior de catorce. Modelos y contratos persistentes conservados.
 
