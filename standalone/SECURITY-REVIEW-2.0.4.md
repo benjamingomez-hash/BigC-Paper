@@ -10,6 +10,10 @@ dispone del nombre de la nueva detección, sus elementos afectados ni la fase
 exacta (copia, comando de instalación o arranque de Paper). No se ha confirmado
 que el nuevo recurso afectado sea el JAR.
 
+El usuario aclara que este segundo aviso se mostró a Codex. No se ha confirmado
+una nueva entrada en Defender del equipo; falta el mensaje exacto de Codex para
+distinguir una detección de antivirus de un bloqueo de una herramienta.
+
 Se retira también la recomendación de instalación del JAR. Los análisis de
 archivos registrados abajo siguen siendo evidencia de esas comprobaciones;
 no reprodujeron el flujo de instalación de Codex ni el arranque de Paper en
