@@ -5,6 +5,7 @@ import dev.linqfy.bigCasares.module.runtime.BukkitRuntimeRegistrations;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Color;
 import org.bukkit.FluidCollisionMode;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -66,6 +67,8 @@ final class LegendaryRuntime implements Listener, Runnable {
     private final BukkitRuntimeRegistrations registrations;
     private final Map<SessionKey, Session> sessions = new HashMap<>();
     private final Map<UUID, Long> fallProtection = new HashMap<>();
+    private final LegendaryParalysis paralysis = new LegendaryParalysis();
+    private final LegendaryMovementLock movementLock;
     private final NamespacedKey temporary = new NamespacedKey("bigcasares", "legendary_temporary");
     private final NamespacedKey hyperionShot = new NamespacedKey("bigcasares", "legendary_hyperion");
     private final java.util.function.Predicate<UUID> eventTransaction;
@@ -84,6 +87,8 @@ final class LegendaryRuntime implements Listener, Runnable {
         this.escrow = new LegendarySpearEscrow(store);
         this.policy = new LegendaryCombatPolicy(plugin);
         this.registrations = registrations;
+        this.movementLock = registrations.registerListener("legendary-movement-lock",
+            new LegendaryMovementLock(plugin, paralysis, this::captureEntering));
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -119,6 +124,11 @@ final class LegendaryRuntime implements Listener, Runnable {
     }
 
     private void activate(Player player, LegendaryWeapon weapon) {
+        if (paralysis.anchor(player.getUniqueId()).isPresent()
+            && (weapon == LegendaryWeapon.WINDWEAVER || weapon == LegendaryWeapon.SHADOW_BLADE || weapon == LegendaryWeapon.VOID_KATANA)) {
+            player.sendActionBar(Component.text("⚡ Estás paralizado por la lanza."));
+            return;
+        }
         long now = System.currentTimeMillis();
         long remaining = store.remaining(player.getUniqueId(), weapon, now);
         if (remaining > 0) {
@@ -225,6 +235,7 @@ final class LegendaryRuntime implements Listener, Runnable {
                 try { finish(session, false); } catch (IOException ignored) { /* journal remains */ }
             }
         }
+        movementLock.enforce();
         if (tick % 20 == 0) {
             fallProtection.entrySet().removeIf(entry -> entry.getValue() < System.currentTimeMillis());
             for (Player player : plugin.getServer().getOnlinePlayers()) {
@@ -241,6 +252,9 @@ final class LegendaryRuntime implements Listener, Runnable {
                         long remaining = store.remaining(player.getUniqueId(), weapon, System.currentTimeMillis());
                         if (remaining > 0) cooldownBar(player, weapon, remaining);
                     });
+                if (paralysis.anchor(player.getUniqueId()).isPresent()) {
+                    player.sendActionBar(Component.text("⚡ Campo eléctrico — paralizado"));
+                }
             }
         }
     }
@@ -439,11 +453,12 @@ final class LegendaryRuntime implements Listener, Runnable {
             }
             var step = LegendaryProjectileSweep.advance(session.center, session.velocity, (direction, distance) ->
                 session.center.getWorld().rayTrace(session.center, direction, distance, FluidCollisionMode.NEVER, true, 0.3,
-                    entity -> entity instanceof LivingEntity living && policy.target(owner, living)));
+                    entity -> entity instanceof LivingEntity living && policy.affect(owner, living)));
             if (step.impact()) {
                 session.center = step.destination();
                 session.impacted = true;
                 session.impactTick = session.age;
+                session.directHit = step.hitEntity() instanceof LivingEntity living ? living.getUniqueId() : null;
                 if (session.display != null) {
                     Location stuck = session.center.clone();
                     stuck.setPitch(90);
@@ -466,6 +481,7 @@ final class LegendaryRuntime implements Listener, Runnable {
         int elapsed = session.age - session.impactTick;
         if (session.weapon == LegendaryWeapon.THUNDER_SPEAR) {
             if (elapsed >= LegendaryWeapon.STORM_TICKS) {
+                paralysis.release(session.owner);
                 session.returnTicks++;
                 if (session.display == null || session.returnTicks >= 10) {
                     finish(session, true);
@@ -478,15 +494,70 @@ final class LegendaryRuntime implements Listener, Runnable {
                 return;
             }
             double radius = number("spear.storm-radius", 7, 1, 16);
+            if (!session.center.getWorld().isChunkLoaded(session.center.getBlockX() >> 4, session.center.getBlockZ() >> 4)) {
+                paralysis.release(session.owner);
+                return;
+            }
+            paralyzeArea(owner, session, radius);
             if (elapsed % 4 == 0) ring(session.center, radius, Color.AQUA, elapsed);
             if (LegendaryStormTiming.pulse(elapsed)) {
                 owner.getWorld().playSound(session.center, Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 1.2f, 1);
                 lightning(session, session.center);
-                for (LivingEntity target : enemies(owner, session.center, radius)) {
-                    if (!damage(owner, target, number("spear.lightning-damage", 7, 0, 40))) continue;
+                Entity direct = session.directHit == null ? null : plugin.getServer().getEntity(session.directHit);
+                if (direct instanceof LivingEntity target && insideStorm(session, target.getLocation())
+                    && damage(owner, target, number("spear.lightning-damage", 7, 0, 40), false, true)) {
                     lightning(session, target.getLocation());
                     dust(target.getLocation(), Color.WHITE, 18);
                 }
+            }
+        }
+    }
+
+    private static LegendaryParalysis.Point point(Location location) {
+        return new LegendaryParalysis.Point(location.getWorld().getUID(), location.getX(), location.getY(), location.getZ());
+    }
+
+    private boolean insideStorm(Session session, Location location) {
+        int elapsed = session.age - session.impactTick;
+        return session.weapon == LegendaryWeapon.THUNDER_SPEAR && session.impacted && elapsed >= 0
+            && elapsed < LegendaryWeapon.STORM_TICKS
+            && LegendaryParalysis.inside(point(session.center), point(location), number("spear.storm-radius", 7, 1, 16));
+    }
+
+    private boolean canParalyze(Player owner, LivingEntity target, Location location) {
+        if (!target.isValid() || target.isDead()) return false;
+        if (owner.equals(target)) {
+            if (owner.getGameMode() == GameMode.CREATIVE || owner.getGameMode() == GameMode.SPECTATOR || owner.isInvulnerable()) return false;
+        } else if (!policy.affect(owner, target)) return false;
+        return policy.allowed(owner, location, target, LegendaryProtectionEvent.Action.DAMAGE);
+    }
+
+    private void paralyzeArea(Player owner, Session session, double radius) {
+        var candidates = session.center.getWorld().getNearbyEntities(session.center, radius, 4, radius).stream()
+            .filter(entity -> entity instanceof LivingEntity).map(entity -> (LivingEntity) entity).toList();
+        var occupants = new HashMap<UUID, LegendaryParalysis.Point>();
+        for (LivingEntity target : LegendaryTargets.select(candidates, LivingEntity::getUniqueId,
+            entity -> entity.getLocation().distanceSquared(session.center),
+            entity -> !entity.equals(owner) && insideStorm(session, entity.getLocation()) && canParalyze(owner, entity, entity.getLocation()),
+            integer("spear.max-paralyzed-targets", 64, 1, 128))) {
+            occupants.put(target.getUniqueId(), point(target.getLocation()));
+        }
+        if (insideStorm(session, owner.getLocation()) && canParalyze(owner, owner, owner.getLocation())) {
+            occupants.put(owner.getUniqueId(), point(owner.getLocation()));
+        }
+        paralysis.sync(session.owner, occupants);
+        if (session.age % 5 == 0) for (UUID id : occupants.keySet()) {
+            Entity entity = plugin.getServer().getEntity(id);
+            if (entity != null) dust(entity.getLocation().add(0, 1, 0), Color.AQUA, 3);
+        }
+    }
+
+    private void captureEntering(LivingEntity target, Location destination) {
+        for (Session session : sessions.values()) {
+            if (!insideStorm(session, destination)) continue;
+            Player owner = plugin.getServer().getPlayer(session.owner);
+            if (owner != null && canParalyze(owner, target, destination)) {
+                paralysis.acquire(session.owner, target.getUniqueId(), point(destination));
             }
         }
     }
@@ -509,7 +580,11 @@ final class LegendaryRuntime implements Listener, Runnable {
     }
 
     private boolean damage(Player owner, LivingEntity target, double amount, boolean magic) {
-        if (!policy.target(owner, target)) return false;
+        return damage(owner, target, amount, magic, false);
+    }
+
+    private boolean damage(Player owner, LivingEntity target, double amount, boolean magic, boolean anyLiving) {
+        if (!(anyLiving ? policy.affect(owner, target) : policy.target(owner, target))) return false;
         damageTarget = target;
         damageAccepted = false;
         try {
@@ -606,6 +681,8 @@ final class LegendaryRuntime implements Listener, Runnable {
     }
 
     private void clearPlayerSessions(UUID player) {
+        paralysis.release(player);
+        paralysis.forget(player);
         fallProtection.remove(player);
         for (Session session : new ArrayList<>(sessions.values())) {
             if (!session.owner.equals(player)) continue;
@@ -642,10 +719,12 @@ final class LegendaryRuntime implements Listener, Runnable {
             try { finish(session, false); } catch (IOException failure) { reportRecovery(failure); }
         }
         fallProtection.clear();
+        paralysis.clear();
     }
 
     private void finish(Session session, boolean natural) throws IOException {
         sessions.remove(session.key());
+        if (session.weapon == LegendaryWeapon.THUNDER_SPEAR) paralysis.release(session.owner);
         if (session.weapon == LegendaryWeapon.WINDWEAVER) fallProtection.remove(session.owner);
         if (session.display != null) session.display.remove();
         session.ephemeral.forEach(Entity::remove);
@@ -679,6 +758,7 @@ final class LegendaryRuntime implements Listener, Runnable {
     }
 
     private boolean canMove(Player player, Location destination) {
+        if (paralysis.anchor(player.getUniqueId()).isPresent()) return false;
         Location start = player.getLocation();
         if (!start.getWorld().equals(destination.getWorld())) return false;
         Vector delta = destination.toVector().subtract(start.toVector());
@@ -786,6 +866,7 @@ final class LegendaryRuntime implements Listener, Runnable {
         int impactTick;
         int returnTicks;
         boolean impacted;
+        UUID directHit;
 
         SessionKey key() { return new SessionKey(owner, weapon); }
 

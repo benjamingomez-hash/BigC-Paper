@@ -2,7 +2,7 @@
 
 Plugin **independiente** para **Paper 26.2 / Java 25 / Gradle 9.2.1**. Incluye únicamente las ocho armas y su evento de fabricación. Usa modelos Java nativos y no requiere BigCasares, Vault, EssentialsX ni BetterModel. Si se usa BetterModel para otros plugins del servidor, la versión solicitada para 26.2 es 3.2.0; esta distribución no llama a su API. WorldGuard es opcional. Los equipos usan el scoreboard vanilla. No incluye integración Bedrock/Geyser.
 
-[Descargar Armas-Legendarias-2.0.3.zip](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-crafting-pvp/standalone/downloads/Armas-Legendarias-2.0.3.zip): JAR independiente, pack, captura e instrucciones con scripts de inicio. Requiere descargar Paper 26.2 y Java 25 por separado.
+**Reconstrucción 2.0.5 en validación**, desde las fuentes de 2.0.3 y con la parálisis de Thunder Spear reimplementada. Las detecciones locales de Defender de 2.0.4 siguen sin diagnóstico confirmado; reconstruir no garantiza que desaparezcan. [Estado y alcance de la revisión](SECURITY-REBUILD-2.0.5.md).
 
 ## Evento
 
@@ -32,6 +32,14 @@ La protección alcanza únicamente la mesa y la celda inmediatamente superior. I
 
 Cada arma conserva una habilidad de clic derecho y cooldown persistente de **40 segundos** por jugador y habilidad. Thunder Spear usa `NETHERITE_SPEAR` con **Lunge III nativo** a la izquierda; a la derecha se lanza inmediatamente, genera una tormenta de 10 segundos y regresa. No se sustituye por un tridente.
 
+### Thunder Spear reconstruida en 2.0.5
+
+Al impactar crea un campo fijo de radio 7 durante 10 s, hasta 4 bloques arriba/abajo. Paraliza a los rivales y al lanzador dentro del área: bloquea caminar, saltar, empujones y escapes de juego mediante teletransporte. Permite mirar y atacar; conserva protecciones, equipos y escape mediante comandos administrativos.
+
+Siguen cayendo rayos visuales donde quedó clavada. **Solo la entidad alcanzada directamente por la lanza recibe los cinco pulsos eléctricos** de 7 puntos antes de reducciones. Estar dentro del círculo sin ese impacto paraliza sin daño eléctrico. Al finalizar o cancelar se libera a todos y la lanza regresa sin duplicarse. Lunge III y el cooldown de 40 s se conservan. La selección por tick está limitada a 64 entidades más el lanzador, configurable.
+
+La base es el commit `d75fa8bc19002f362df5732a430ec83e7bd84c1f`; las otras siete armas, recetas, modelos y datos son los de 2.0.3. Las concesiones de inmovilidad y su adaptador Bukkit se han escrito de nuevo; no se ha renombrado el JAR 2.0.4.
+
 ### Habilidades actualizadas en 2.0.3
 
 | Arma | Efecto por defecto |
@@ -42,7 +50,8 @@ Cada arma conserva una habilidad de clic derecho y cooldown persistente de **40 
 | Hyperion | Dispara **cinco bolas de fuego grandes de ghast**, separadas por 0,25 s, hacia donde apuntas en cada disparo. Son proyectiles vanilla con colisión y explosión reales; potencia de explosión 2 por defecto. Se eliminan al finalizar, morir o desconectar. Las explosiones respetan protección de entidades, regiones, bloques y mesas activas. `ignite-blocks` permite fuego en bloques, desactivado por defecto. |
 | Windweaver | Impulso vertical para preparar un smash de maza, conservando movimiento horizontal. Altura aproximada de 9 bloques desde suelo llano. Protege la primera caída del salto hasta aterrizar o diez segundos como máximo; no aplica levitación ni ralentiza la caída. |
 | Earthbreaker | Abre un **cráter circular de radio 8 bajo el jugador**, sin daño directo. Profundidad 4 a menos de 2 bloques del centro; 3 entre 2 y 4; 2 entre 4 y 6; 1 entre 6 y 8 inclusive. Elimina terreno permanentemente por lotes, sin drops; conserva bloques irrompibles, contenedores, datos de bloques y celdas protegidas. Retirar el suelo puede causar caídas normales. Requiere suelo a un máximo de cuatro bloques bajo los pies. |
-| Void Katana / Thunder Spear | Habilidades conservadas. |
+| Void Katana | Habilidad conservada. |
+| Thunder Spear | Base anterior; sustituida por el campo descrito arriba en 2.0.5. |
 
 **Dos puntos equivalen a un corazón antes de reducciones.** Shadow Blade conserva daño mágico; Protección y Resistencia siguen reduciéndolo. Frost aplica estados directamente y usa la congelación vanilla, que puede producir daño nativo de frío. Hyperion usa el daño de impactos y explosiones vanilla. Las habilidades de las otras cinco armas conservan su funcionamiento. `/weapons info <arma>` explica cada poder.
 
@@ -53,7 +62,7 @@ Para actualizar desde 2.0.1 o 2.0.2, detén Paper, sustituye el JAR y conserva l
 1. Instala Java 25 y descarga Paper 26.2 desde https://papermc.io/downloads/paper (versiones anteriores).
 2. En una carpeta nueva, guarda Paper como `paper.jar`. Ejecuta `java -Xms1G -Xmx2G -jar paper.jar --nogui`.
 3. Lee el EULA en `eula.txt` y, si lo aceptas, cambia `eula=false` por `eula=true`.
-4. Copia **`LegendaryWeapons-2.0.3.jar`** en `plugins` y vuelve a iniciar Paper.
+4. Copia **`LegendaryWeapons-2.0.5.jar`** en `plugins` y vuelve a iniciar Paper.
 5. En la consola escribe `op TuNombre`. En Minecraft Java **26.2**, entra a Multijugador → Conexión directa → `localhost`; acepta el paquete de recursos.
 6. Consulta `/weapons info thunder_spear`, consigue los materiales y fabrica en una mesa. `/weapons events` muestra disponibilidad y tiempo sin filtrar coordenadas anticipadas.
 
@@ -79,7 +88,7 @@ Los avisos se confirman antes de publicarse para evitar duplicarlos al reiniciar
 
 ## Desarrollo
 
-Desde `standalone/` con Java 25: `bash gradlew --no-daemon --max-workers=4 clean build` (Windows: `gradlew.bat build`). Artefacto: `build/libs/LegendaryWeapons-2.0.3.jar`.
+Desde `standalone/` con Java 25: `bash gradlew --no-daemon --max-workers=4 clean build` (Windows: `gradlew.bat build`). Artefacto: `build/libs/LegendaryWeapons-2.0.5.jar`.
 
 Consulta [los resultados y capturas](VERIFY.md).
 

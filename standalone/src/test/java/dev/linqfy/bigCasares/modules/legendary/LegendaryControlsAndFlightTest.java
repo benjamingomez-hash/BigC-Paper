@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.nio.file.Path;
+import java.lang.reflect.Proxy;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -59,6 +60,23 @@ class LegendaryControlsAndFlightTest {
         assertEquals(0.75, step.destination().getZ());
         assertEquals(0, start.getZ());
         assertEquals(new Vector(0, 0, 4), velocity);
+    }
+
+    @Test
+    void directCollisionRetainsTheHitEntityWhileGroundAndMissesHaveNoTarget() {
+        var entity = (org.bukkit.entity.Entity) Proxy.newProxyInstance(getClass().getClassLoader(),
+            new Class<?>[]{org.bukkit.entity.Entity.class}, (proxy, method, args) -> {
+                throw new UnsupportedOperationException(method.getName());
+            });
+        Location start = new Location(null, 0, 10, 0);
+        Vector velocity = new Vector(0, 0, 4);
+        var direct = LegendaryProjectileSweep.advance(start, velocity,
+            (direction, distance) -> new RayTraceResult(new Vector(0, 10, 2), entity));
+        assertSame(entity, direct.hitEntity());
+        assertTrue(direct.impact());
+        assertNull(LegendaryProjectileSweep.advance(start, velocity,
+            (direction, distance) -> new RayTraceResult(new Vector(0, 10, 2))).hitEntity());
+        assertNull(LegendaryProjectileSweep.advance(start, velocity, (direction, distance) -> null).hitEntity());
     }
 
     @Test

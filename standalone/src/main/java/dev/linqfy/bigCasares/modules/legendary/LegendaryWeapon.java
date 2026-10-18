@@ -65,7 +65,7 @@ public enum LegendaryWeapon {
             case WINDWEAVER -> "Impulso vertical para atacar con la maza; protege la primera caída del salto durante un máximo de 10 s.";
             case EARTHBREAKER -> "Abre un cráter de radio 8: profundidad 4 en el centro y 3/2/1 hacia el borde, sin daño directo.";
             case VOID_KATANA -> "Tres cortes con desplazamiento y Oscuridad.";
-            case THUNDER_SPEAR -> "Lanzamiento inmediato, tormenta de 10 s y retorno; Lunge III nativo al atacar.";
+            case THUNDER_SPEAR -> "Campo eléctrico de 10 s que paraliza a ambos; rayos dañinos solo al impacto directo. Regresa; Lunge III nativo.";
         };
     }
 }

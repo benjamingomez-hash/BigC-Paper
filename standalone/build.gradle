@@ -1,6 +1,6 @@
 plugins { id 'java' }
 group = 'dev.linqfy'
-version = '2.0.3'
+version = '2.0.5'
 repositories {
     mavenCentral()
     maven { url = 'https://repo.papermc.io/repository/maven-public/' }
@@ -16,6 +16,10 @@ dependencies {
 java { sourceCompatibility = JavaVersion.VERSION_25; targetCompatibility = JavaVersion.VERSION_25 }
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8'; options.release = 25 }
 test { useJUnitPlatform() }
+tasks.withType(AbstractArchiveTask).configureEach {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
 tasks.register('legendaryPack', Zip) {
     archiveFileName = 'legendary-weapons-java.zip'
     destinationDirectory = layout.buildDirectory.dir('packs')
@@ -25,3 +29,14 @@ processResources {
     dependsOn legendaryPack
     from(tasks.named('legendaryPack')) { rename { 'legendary-pack.zip' } }
 }
+tasks.register('legendaryDistribution', Zip) {
+    dependsOn jar, legendaryPack
+    archiveFileName = "Armas-Legendarias-${project.version}.zip"
+    destinationDirectory = layout.buildDirectory.dir('distributions')
+    into("Armas-Legendarias-${project.version}") {
+        from(tasks.named('jar'))
+        from(tasks.named('legendaryPack'))
+        from('DOWNLOAD-README.txt') { rename { 'LEEME.txt' } }
+    }
+}
+assemble.dependsOn legendaryDistribution
