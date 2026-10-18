@@ -1,6 +1,21 @@
 # Revisión de la detección de Defender en 2.0.4
 
-Estado: **ZIP original pendiente de resolver; JAR independiente recompilado y examinado en Windows disponible**. Analizar el JAR también en el equipo de destino antes de instalarlo y conservar cualquier bloqueo local.
+Estado: **instalación suspendida para ZIP y JAR 2.0.4 mientras se investiga un nuevo aviso durante la implementación**. Conservar los bloqueos locales y los archivos originales de datos del servidor.
+
+## Nuevo aviso durante la implementación
+
+Tras descargar el JAR independiente, el usuario informa que el antivirus volvió
+a activarse cuando Codex intentó implementarlo en el servidor. Todavía no se
+dispone del nombre de la nueva detección, sus elementos afectados ni la fase
+exacta (copia, comando de instalación o arranque de Paper). No se ha confirmado
+que el nuevo recurso afectado sea el JAR.
+
+Se retira también la recomendación de instalación del JAR. Los análisis de
+archivos registrados abajo siguen siendo evidencia de esas comprobaciones;
+no reprodujeron el flujo de instalación de Codex ni el arranque de Paper en
+Windows. Identificar la entrada más reciente del historial de protección es
+necesario antes de atribuir el aviso al plugin, a Paper o a una herramienta.
+No se publica otro binario como sustitución mientras falta ese diagnóstico.
 
 El 17/10/2026 se recibió una captura de Microsoft Defender que identifica
 `Trojan:Script/Ulthar.A!ml` en `Armas-Legendarias-2.0.4.zip`, descargado desde
@@ -9,7 +24,8 @@ identifica el ZIP; no identifica un archivo interior concreto.
 
 La recomendación de descarga del ZIP se ha suspendido en el README. El artefacto
 original se conserva para permitir el análisis de sus mismos bytes. Se publica
-por separado el JAR recompilado y examinado que se identifica abajo. No se ha
+por separado el JAR recompilado y examinado que se identifica abajo; su instalación
+también queda suspendida tras el nuevo aviso. No se ha
 determinado que la detección original sea un falso positivo.
 
 ## Identificación del artefacto
@@ -142,6 +158,6 @@ La publicación no contiene scripts de inicio ni precisa extraer el ZIP bloquead
 La detección del equipo del usuario **no se reprodujo**, incluso al examinar el
 ZIP original en estas condiciones. Eso no permite afirmar que Microsoft haya
 confirmado un falso positivo. El ZIP original sigue sin recomendarse. Para usar
-el JAR independiente, actualizar Defender y analizarlo en el equipo de destino;
-si lo bloquea, mantener su bloqueo. Si no detecta amenazas, instalarlo en Paper
-26.2 conservando los datos del plugin. No se necesitan excepciones de antivirus.
+el JAR independiente se había recomendado un análisis local previo a la instalación.
+El nuevo aviso deja esa recomendación suspendida: no se debe continuar la
+implementación ni restaurar archivos bloqueados hasta identificar lo detectado.
