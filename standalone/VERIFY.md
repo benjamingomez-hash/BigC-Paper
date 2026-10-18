@@ -1,4 +1,39 @@
-# Verificación — 16 de octubre de 2026
+# Verificación de LegendaryWeapons
+
+## 2.0.9: todos los cambios juntos desde 2.0.5
+
+La rama `feat/legendary-all-from-2.0.5` parte directamente de
+`a1ca1655e082173cde24f1493da91152a4b01d92`. Un único commit de implementación
+aplica todos los cambios de habilidades. Build completo con Java 25,
+`bash gradlew --no-daemon --max-workers=4 clean build`: **74 pruebas correctas,
+sin fallos, errores ni exclusiones**. También compiló y ejecutó la suite en Windows.
+
+Paper 26.2-133/Linux, dos clientes oficiales Java 26.2 y herramientas privadas
+externas al plugin: **seis casos nativos correctos**. Bloodlust curó un punto por
+cada uno de dos golpes (salud 10 → 12) y mantuvo Fuerza III. Earthbreaker quitó
+exactamente cuatro puntos de salud con Resistencia V y ocho de absorción, que
+permanecieron intactos; un golpe cancelado no quitó salud. Sombras quitó seis
+puntos mágicos y aplicó Invisibilidad, Velocidad III, Debilidad II y Oscuridad;
+tanto el valor antiguo 14 como la ausencia de configuración resultaron en seis.
+Las ochenta clases del JAR distribuido de Windows coinciden con las del JAR
+probado en Paper. Los veintiocho archivos del pack conservan las fuentes de 2.0.5.
+Se restauraron los datos de jugadores y diario de la instancia aislada tras detenerla.
+
+[Actions 39091872799](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39091872799):
+Defender analizó el ZIP, sus tres archivos y el JAR independiente: **cinco análisis,
+código cero, sin detecciones**. Motor 1.1.26090.9, firmas 1.461.81.0; protección
+en tiempo real, nube, comprimidos, comportamiento, IOAV y scripts activas,
+sin exclusiones. Se publican esos mismos archivos, comprobados por SHA-256.
+
+La lógica compilada de las ochenta clases coincide con 2.0.7: aplicar juntos los
+mismos cambios sobre 2.0.5 no identifica una corrección del aviso de Defender.
+No se ha reproducido su instalación en la PC del usuario ni se confirma un falso
+positivo. Si vuelve a bloquear un archivo, debe permanecer en cuarentena.
+Esta ronda no repite los eventos completos de fabricación, la parálisis en clientes
+ni WorldGuard instalado; conserva sus fuentes y ejecuta la suite existente.
+
+[Resultados de habilidades y hashes](docs/rebuild-verification-2.0.9.json) ·
+[Informe Defender completo](docs/defender-verification-2.0.9.json).
 
 ## Reconstrucción 2.0.5 — 18 de octubre de 2026 UTC
 

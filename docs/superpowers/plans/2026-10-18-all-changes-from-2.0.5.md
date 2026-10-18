@@ -17,3 +17,10 @@ no volver a la versión original sin cambios. La rama nueva nace directamente de
   ni confirma una solución al antivirus. No alterar código para eludir detecciones.
 
 Las versiones y ramas anteriores permanecen conservadas.
+
+Completado: commit `8e92c689f96b501fcd0b6bf739ee6e380e69c653` directamente sobre
+la base indicada, 74 pruebas correctas en el build local y suite completada en
+Windows, seis casos nativos en Paper y cinco análisis Defender sin detecciones
+en Actions `39091872799`. Se distribuyen los archivos exactos analizados por
+Windows, con hashes e informes. Las ochenta clases coinciden con 2.0.7; la causa
+de la detección previa y el comportamiento en la PC del usuario siguen sin confirmar.
