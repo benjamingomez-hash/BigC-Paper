@@ -68,8 +68,10 @@ El script [Test-LegendaryDefender.ps1](tools/Test-LegendaryDefender.ps1) actuali
 las firmas y examina el ZIP original, los miembros disponibles y el JAR nuevo.
 Registra hashes, versiones del motor, resultados y errores sin ejecutar las muestras.
 Activa la protección en tiempo real en el runner desechable si estaba apagada y
-marca las muestras con zona de Internet. Mantiene las exclusiones intactas y
-exige que la protección siga activa al terminar de examinar el JAR. Activa también
+marca las muestras con zona de Internet. Elimina las exclusiones heredadas de
+discos, extensiones y procesos del runner y activa el análisis de archivos,
+scripts, descargas y comportamiento. Exige que la protección siga activa al
+terminar de examinar el JAR. Activa también
 la protección en la nube, el envío de muestras seguras del repositorio público y
 Block at First Sight; exige conexión correcta a la nube de Defender.
 
@@ -101,6 +103,11 @@ real y marca de Internet. La segunda ejecución,
 [39080803550](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39080803550),
 también finalizó sin detecciones con la protección en tiempo real activa; se
 observó que MAPS y Block at First Sight estaban desactivados en el runner.
-Se prepara una tercera ejecución con ambas funciones habilitadas y validación
-de conectividad a la nube. Su resultado sigue pendiente. La recomendación del
-ZIP original permanece suspendida.
+La tercera ejecución,
+[39080971859](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39080971859),
+completó también la comprobación con nube y Block at First Sight habilitados.
+La configuración oficial de las imágenes hospedadas incluye exclusiones para
+`C:\` y `D:\` y desactiva otros controles. Se prepara una última ejecución que
+elimina esas exclusiones y habilita análisis de archivos, scripts, descargas y
+comportamiento. Su resultado sigue pendiente. La recomendación del ZIP original
+permanece suspendida.

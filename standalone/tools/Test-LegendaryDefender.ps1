@@ -1,4 +1,4 @@
-# Diagnostic only: enables protection on the disposable runner; never executes samples or adds exclusions.
+# Diagnostic only: restores protection on the disposable runner; never executes samples or adds exclusions.
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)][string]$JarPath,
@@ -64,12 +64,25 @@ function Invoke-FileScan([string]$Path, [string]$Label) {
 }
 
 try {
-    Get-Command Get-MpComputerStatus, Set-MpPreference, Get-MpPreference, Update-MpSignature -ErrorAction Stop | Out-Null
+    Get-Command Get-MpComputerStatus, Set-MpPreference, Get-MpPreference, Remove-MpPreference, Update-MpSignature -ErrorAction Stop | Out-Null
     $status = Get-MpComputerStatus
     if (-not $status.AMServiceEnabled -or -not $status.AntivirusEnabled) {
         throw 'Microsoft Defender is not active on this runner; no verified artifact can be produced.'
     }
     $report.realTimeProtectionInitiallyEnabled = $status.RealTimeProtectionEnabled
+    $initialPreferences = Get-MpPreference
+    $report.initialExclusionCounts = [ordered]@{
+        paths = @($initialPreferences.ExclusionPath | Where-Object { $_ }).Count
+        extensions = @($initialPreferences.ExclusionExtension | Where-Object { $_ }).Count
+        processes = @($initialPreferences.ExclusionProcess | Where-Object { $_ }).Count
+    }
+    # Hosted images exclude entire drives and disable several scanning features.
+    # Remove those omissions on this disposable runner before inspecting samples.
+    if ($initialPreferences.ExclusionPath) { Remove-MpPreference -ExclusionPath $initialPreferences.ExclusionPath }
+    if ($initialPreferences.ExclusionExtension) { Remove-MpPreference -ExclusionExtension $initialPreferences.ExclusionExtension }
+    if ($initialPreferences.ExclusionProcess) { Remove-MpPreference -ExclusionProcess $initialPreferences.ExclusionProcess }
+    Set-MpPreference -DisableArchiveScanning $false -DisableBehaviorMonitoring $false `
+        -DisableIOAVProtection $false -DisableScriptScanning $false -ErrorAction Stop
     if (-not $status.RealTimeProtectionEnabled) {
         Set-MpPreference -DisableRealtimeMonitoring $false -ErrorAction Stop
         for ($attempt = 0; $attempt -lt 15; $attempt++) {
@@ -91,6 +104,14 @@ try {
     if ([int]$preferences.MAPSReporting -eq 0 -or $preferences.DisableBlockAtFirstSeen -or [int]$preferences.SubmitSamplesConsent -ne 1) {
         throw 'Cloud protection, safe sample consent or Block at First Sight could not be enabled.'
     }
+    foreach ($name in @('DisableArchiveScanning', 'DisableBehaviorMonitoring', 'DisableIOAVProtection', 'DisableScriptScanning')) {
+        if ($preferences.$name -ne $false) { throw "Required scanning feature is still disabled: $name." }
+    }
+    if (@($preferences.ExclusionPath | Where-Object { $_ }).Count -ne 0 `
+        -or @($preferences.ExclusionExtension | Where-Object { $_ }).Count -ne 0 `
+        -or @($preferences.ExclusionProcess | Where-Object { $_ }).Count -ne 0) {
+        throw 'Inherited file scanning exclusions could not be cleared.'
+    }
     $report.engine = [ordered]@{
         productVersion = $status.AMProductVersion
         engineVersion = $status.AMEngineVersion
@@ -100,6 +121,13 @@ try {
         mapsReporting = [string]$preferences.MAPSReporting
         disableBlockAtFirstSeen = $preferences.DisableBlockAtFirstSeen
         submitSamplesConsent = [string]$preferences.SubmitSamplesConsent
+        archiveScanningEnabled = -not $preferences.DisableArchiveScanning
+        behaviorMonitoringEnabled = -not $preferences.DisableBehaviorMonitoring
+        ioavProtectionEnabled = -not $preferences.DisableIOAVProtection
+        scriptScanningEnabled = -not $preferences.DisableScriptScanning
+        pathExclusions = @($preferences.ExclusionPath | Where-Object { $_ })
+        extensionExclusions = @($preferences.ExclusionExtension | Where-Object { $_ })
+        processExclusions = @($preferences.ExclusionProcess | Where-Object { $_ })
     }
     $platform = Join-Path $env:ProgramData 'Microsoft/Windows Defender/Platform'
     $script:scanner = Get-ChildItem "$platform/*/MpCmdRun.exe" -ErrorAction SilentlyContinue |
@@ -110,36 +138,35 @@ try {
     if ($report.cloudConnectionExitCode -ne 0) { throw 'Defender cloud connectivity validation failed.' }
 
     $members = @()
-    if (Test-Path -LiteralPath $BaselineZip -PathType Leaf) {
-        $hash = (Get-FileHash -LiteralPath $BaselineZip -Algorithm SHA256).Hash.ToLowerInvariant()
-        if ($hash -ne 'fa789ababf4a84d0cbcdc5834e1216f0c37fa684956cf9b95d6810e360f62734') {
-            throw 'The baseline ZIP does not match the reported artifact.'
-        }
-        # The expected, previously audited hash fixes the exact eight archive paths.
-        # Samples stay outside the report directory and are never uploaded or executed.
-        $samples = Join-Path ([IO.Path]::GetTempPath()) ([Guid]::NewGuid().ToString('N'))
-        Add-Type -AssemblyName System.IO.Compression.FileSystem
-        try {
+    try {
+        if (Test-Path -LiteralPath $BaselineZip -PathType Leaf) {
+            $hash = (Get-FileHash -LiteralPath $BaselineZip -Algorithm SHA256).Hash.ToLowerInvariant()
+            if ($hash -ne 'fa789ababf4a84d0cbcdc5834e1216f0c37fa684956cf9b95d6810e360f62734') {
+                throw 'The baseline ZIP does not match the reported artifact.'
+            }
+            # The audited hash fixes the exact eight paths. Samples are never uploaded.
+            $samples = Join-Path ([IO.Path]::GetTempPath()) ([Guid]::NewGuid().ToString('N'))
+            Add-Type -AssemblyName System.IO.Compression.FileSystem
             [IO.Compression.ZipFile]::ExtractToDirectory((Resolve-Path $BaselineZip).Path, $samples)
-        } catch {
-            # Real-time protection may block an original member during extraction.
-            # Record that limitation and still independently scan the new build.
-            $report.baselineError = $_.Exception.Message
-        }
-        if (Test-Path -LiteralPath $samples -PathType Container) {
             $members = @(Get-ChildItem $samples -File -Recurse | Sort-Object FullName)
         }
-    }
-    $report.scans += Invoke-FileScan $BaselineZip 'Original published ZIP'
-    foreach ($member in $members) {
-        $report.scans += Invoke-FileScan $member.FullName ("Original member: " + $member.Name)
+        $report.scans += Invoke-FileScan $BaselineZip 'Original published ZIP'
+        foreach ($member in $members) {
+            $report.scans += Invoke-FileScan $member.FullName ("Original member: " + $member.Name)
+        }
+    } catch {
+        # A blocked or unreadable baseline is a diagnostic result, not a reason to
+        # skip independently testing the new source build. It is not cleared for use.
+        $report.baselineError = $_.Exception.Message
     }
     $candidate = Invoke-FileScan $JarPath 'Newly built production JAR'
     $report.scans += $candidate
     $report.completed = $true
     $finalPreferences = Get-MpPreference
     $report.cleanJar = $candidate.result -eq 'Clean' -and (Get-MpComputerStatus).RealTimeProtectionEnabled `
-        -and [int]$finalPreferences.MAPSReporting -ne 0 -and -not $finalPreferences.DisableBlockAtFirstSeen
+        -and [int]$finalPreferences.MAPSReporting -ne 0 -and -not $finalPreferences.DisableBlockAtFirstSeen `
+        -and -not $finalPreferences.DisableArchiveScanning -and -not $finalPreferences.DisableBehaviorMonitoring `
+        -and -not $finalPreferences.DisableIOAVProtection -and -not $finalPreferences.DisableScriptScanning
     if (-not $report.cleanJar) { throw 'The newly built JAR did not pass a completed clean Defender scan.' }
     "$($candidate.sha256)  $([IO.Path]::GetFileName($JarPath))" |
         Set-Content (Join-Path $OutputDirectory 'SHA256SUMS.txt') -Encoding ASCII
