@@ -1,4 +1,58 @@
-# Verificación — 16 de octubre de 2026
+# Verificación de LegendaryWeapons
+
+## 2.0.10: todos los cambios desde 2.0.3
+
+La implementación parte directamente del commit
+`d75fa8bc19002f362df5732a430ec83e7bd84c1f`, sin incorporar los commits
+intermedios de las versiones posteriores. Un único cambio aplica la parálisis
+de la lanza, el daño fijo del hacha, el robo de vida de Bloodlust y las mejoras
+equilibradas de Sombras. El plugin sigue siendo independiente.
+
+Build completo con Java 25, desde `standalone/`:
+`bash gradlew --no-daemon --max-workers=4 clean build`. **74 pruebas correctas,
+sin fallos, errores ni exclusiones**. La suite también completó su ejecución
+en el runner Windows. Se conservaron las fuentes de los 28 archivos del pack,
+recetas, datos, cooldowns y código del plugin raíz.
+
+En Paper 26.2-133/Linux, con dos clientes oficiales Java 26.2, se usaron
+herramientas privadas de instrumentación externas al JAR distribuido:
+
+- Bloodlust: dos golpes válidos curaron un punto cada uno (salud 10 → 12),
+  con Fuerza III activa.
+- Earthbreaker: un golpe quitó cuatro puntos de salud incluso con Resistencia V
+  y ocho puntos de absorción, que quedaron intactos. Cancelarlo dejó la salud en 20.
+- Sombras: seis puntos mágicos, Invisibilidad y Velocidad III para el lanzador,
+  Debilidad II y Oscuridad para el rival. Tanto el valor antiguo 14 como la
+  ausencia de configuración resultaron en seis puntos.
+- Lanza: impacto en suelo, impacto directo, enemigo protegido y cancelación de
+  sesión. Ambos clientes intentaron caminar y saltar mediante W/Espacio y mover
+  la cámara. No hubo desplazamiento durante los 200 ticks de parálisis; solo el
+  impacto directo causó cinco golpes eléctricos de siete puntos. El rival
+  protegido siguió libre; al terminar/cancelar no quedaron bloqueos ni sesiones,
+  y volvió una sola lanza, sin devolución pendiente.
+
+El primer intento de Bloodlust se inició apenas conectaron los jugadores: solo
+uno de los dos ataques produjo un evento de daño y, correctamente, hubo una
+sola curación. Se repitió tras estabilizar la conexión y esperar la protección
+inicial vanilla; produjo dos golpes y dos curaciones. No se modificó código
+de producción para esa repetición. El informe conserva ambas observaciones.
+
+[Actions 39092559209](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39092559209)
+compiló y analizó con Defender el ZIP, sus tres archivos internos y el JAR
+independiente: **cinco análisis sin detecciones**, código cero. Motor 1.1.26090.9,
+firmas 1.461.81.0, protección en tiempo real y nube activas, sin exclusiones.
+Se distribuyen esos mismos archivos, comprobados por SHA-256. Sus 80 clases
+coinciden con las del JAR probado en Paper y con la lógica final de 2.0.9.
+ClamAV 1.4.6 tampoco detectó amenazas en los dos archivos distribuidos.
+
+Aplicar los mismos cambios sobre otra base no identifica una solución al aviso
+local anterior de Defender. No se confirmó un falso positivo ni se probó la
+instalación en la PC del usuario. Si vuelve a bloquear un archivo, debe permanecer
+en cuarentena. Esta ronda no repite el evento completo de veinte minutos ni
+WorldGuard instalado; conserva sus fuentes y ejecuta las pruebas existentes.
+
+[Resultados funcionales y hashes](docs/rebuild-verification-2.0.10.json) ·
+[Informe Defender](docs/defender-verification-2.0.10.json).
 
 ## Automatización
 

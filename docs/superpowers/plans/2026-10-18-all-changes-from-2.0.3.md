@@ -22,3 +22,14 @@ sus ramas; la rama nueva no incorpora sus commits intermedios.
 
 Partir de otra base e incorporar los mismos cambios no identifica una solución
 a la detección previa de Defender. Mantener esa limitación explícita.
+
+Completado: `4c7f5bebddec5f3b37cb0d3f38a27bc252eb4a10` incorpora el conjunto
+completo de cambios directamente sobre la base 2.0.3. Build con 74 pruebas
+correctas, seis casos de Bloodlust/hacha/Sombras y cuatro casos de lanza con
+dos clientes oficiales en Paper. El primer intento inmediato tras conectar no
+emitió ambos golpes; se documentó y se repitió con los clientes estabilizados.
+Defender en Actions `39092559209`: cinco análisis sin detecciones; ClamAV también
+sin detecciones en los dos archivos distribuidos. Se publican los archivos exactos
+del runner y sus hashes. Los 28 archivos de modelos conservan las fuentes de 2.0.3;
+las 80 clases finales coinciden con la lógica validada de 2.0.9. Instancia detenida,
+herramientas privadas retiradas y datos originales restaurados.
