@@ -1,0 +1,19 @@
+Product: Microsoft Defender Antivirus, Windows 11.
+Detection: Trojan:Script/Ulthar.A!ml.
+Affected file: Armas-Legendarias-2.0.7.zip. State: Removed.
+User alert: 2026-10-17 23:29, America/Buenos_Aires.
+Local copy was removed; its hash has not been recovered.
+Exact public reference SHA-256:
+cc79aa6e8093361ee00e6a2849215df1a88ca2d889fc11035b045e9922d13ad0
+Reference URL shown in the alert:
+https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/f3a7828a88f9d706abb281dbfb2e877b22ab9b3a/standalone/downloads/Armas-Legendarias-2.0.7.zip
+
+Expected application: open-source standalone Minecraft Paper 26.2 plugin, Java 25. ZIP contains the plugin JAR, a native JSON/PNG Minecraft resource pack, and a plain-text README. The plugin implements eight weapons and crafting events. It serves its embedded pack on localhost:8124 by default. Source review found no ProcessBuilder, Runtime.exec or bundled native executables/scripts. Optional WorldGuard integration uses reflection with fixed class names.
+
+Original Windows CI file scans did not detect threats:
+https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39089836320
+Protection, cloud and archive/script scanning were active; exclusions empty. A new controlled comparison downloads the exact published 2.0.5 and 2.0.7 ZIPs with pinned hashes and tests a fresh source rebuild:
+https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39090740658
+These scans do not reproduce the user's local installation context. Rebuilding from 2.0.5 with the requested powers produces the same 80 class files as 2.0.7; a version change is not claimed as a detection fix.
+
+Please determine whether the reference contains malicious content or was misclassified. No false-positive verdict is presumed. No submission has yet been sent.

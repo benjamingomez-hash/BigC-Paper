@@ -14,7 +14,7 @@ Plugin **independiente** para **Paper 26.2 / Java 25 / Gradle 9.2.1**. Incluye �
 - **Thunder Spear:** campo fijo de radio 7 y diez segundos que paraliza al lanzador y a rivales; solo el impacto directo recibe los cinco pulsos eléctricos. Regresa una sola lanza y conserva Lunge III. Se conserva la implementación 2.0.5.
 - **Frost:** congelación y Lentitud IV para entidades vivas permitidas. **Hyperion:** cinco bolas de fuego de ghast. **Windweaver:** impulso vertical de maza. **Katana:** tres cortes y desplazamiento. Se conservan los ocho modelos, el cobre, las recetas y los datos persistentes.
 
-Todos los cooldowns siguen en cuarenta segundos. Evento, recetas y operaciones de la base se documentan abajo. La guía de instalación de 2.0.5 es una referencia histórica, no una aprobación de esta compilación. La revisión actual se registra en `SECURITY-REBUILD-2.0.8.md`.
+Todos los cooldowns siguen en cuarenta segundos. Evento, recetas y operaciones de la base se documentan abajo. La guía de instalación de 2.0.5 es una referencia histórica, no una aprobación de esta compilación. [Revisión actual y siguientes pasos](SECURITY-REBUILD-2.0.8.md). Pasaron las 74 pruebas y cinco casos nativos; trece análisis Windows no reprodujeron el aviso, incluso contra el ZIP 2.0.7 exacto. La clasificación local continúa pendiente.
 
 ## Evento
 

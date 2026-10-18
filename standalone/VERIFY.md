@@ -1,5 +1,13 @@
 # Verificación — 16 de octubre de 2026
 
+## Reconstrucción desde 2.0.5 — 17 de octubre de 2026 (UTC−3)
+
+Base `a1ca1655e082173cde24f1493da91152a4b01d92`; versión de desarrollo 2.0.8. Se reintrodujeron las fuentes revisadas del hacha, Sombras y Bloodlust, sin reutilizar binarios posteriores. Java 25: `bash gradlew --no-daemon --max-workers=4 clean build`, **74 pruebas, cero fallos, errores o exclusiones**. Modelos, cobre y plugin integrado sin cambios.
+
+Paper 26.2-133/Linux y dos clientes oficiales 26.2, cinco casos nuevos: Bloodlust cura un punto por impacto válido (salud 10 → 12 con dos golpes); hacha quita cuatro puntos aun con Resistencia V y absorción (20 → 16, ocho puntos de absorción conservados); cancelar el daño del hacha conserva la salud; Sombras inflige seis puntos tanto con configuración catorce como sin la clave. Herramientas de prueba privadas, retiradas tras finalizar; diario y jugadores originales de la instancia se restauraron con Paper detenido. [Datos](docs/rebuild-verification-2.0.8.json).
+
+Las ochenta clases compiladas coinciden con 2.0.7: la reconstrucción funcional no supone una corrección de antivirus. En Windows se descargaron los ZIP públicos exactos de 2.0.5 y 2.0.7, se verificaron hashes y se analizaron junto a la compilación nueva. Trece análisis sin detecciones, con protección activa y sin exclusiones. **No se reprodujo siquiera la alerta local contra el ZIP 2.0.7 original.** Se publican fuentes e informes, sin ofrecer otro binario como solución. [Revisión, comparación y límites](SECURITY-REBUILD-2.0.8.md).
+
 ## Reconstrucción 2.0.5 — 18 de octubre de 2026 UTC
 
 Desde las fuentes 2.0.3, con la parálisis de Thunder Spear reimplementada. Java 25: `bash gradlew --no-daemon --max-workers=4 clean build`, **66 pruebas, cero fallos, errores o exclusiones**. Gradle genera el ZIP de distribución con tres archivos (JAR, pack, LEEME). Modelos: 28 archivos idénticos a 2.0.3; plugin integrado y cobre sin cambios.

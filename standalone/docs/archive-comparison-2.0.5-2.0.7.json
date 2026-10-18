@@ -1,0 +1,41 @@
+{
+  "archives": {
+    "Published 2.0.5 baseline": {
+      "zipSha256": "56384b30a77eb6e0c5c89e756752f20ba12814d8637e4649e92ebf5003bcabd5",
+      "members": [
+        "Armas-Legendarias-2.0.5/LegendaryWeapons-2.0.5.jar",
+        "Armas-Legendarias-2.0.5/legendary-weapons-java.zip",
+        "Armas-Legendarias-2.0.5/LEEME.txt"
+      ],
+      "classCount": 77,
+      "embeddedPackSha256": "e7cdcf94b3d0da272d192e817679d5067226bed6eb1786950533d46be199e1a5"
+    },
+    "Published 2.0.7 ZIP reported by user": {
+      "zipSha256": "cc79aa6e8093361ee00e6a2849215df1a88ca2d889fc11035b045e9922d13ad0",
+      "members": [
+        "Armas-Legendarias-2.0.7/LegendaryWeapons-2.0.7.jar",
+        "Armas-Legendarias-2.0.7/legendary-weapons-java.zip",
+        "Armas-Legendarias-2.0.7/LEEME.txt"
+      ],
+      "classCount": 80,
+      "embeddedPackSha256": "e7cdcf94b3d0da272d192e817679d5067226bed6eb1786950533d46be199e1a5"
+    }
+  },
+  "addedClasses": [
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryBloodlust.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryFixedDamage$Attempt.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryFixedDamage.class"
+  ],
+  "removedClasses": [],
+  "changedClasses": [
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryRuntime$1.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryRuntime$FreezeLease.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryRuntime$Session$1.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryRuntime$Session.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryRuntime$SessionKey.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryRuntime.class",
+    "dev/linqfy/bigCasares/modules/legendary/LegendaryWeapon.class"
+  ],
+  "unchangedClasses": 70,
+  "scope": "Content comparison only, not a malware verdict. Added/changed classes implement the requested three weapon updates; debug line numbers can also change nested Runtime class hashes."
+}

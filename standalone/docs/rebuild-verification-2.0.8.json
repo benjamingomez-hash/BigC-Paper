@@ -1,0 +1,168 @@
+{
+  "version": "2.0.8",
+  "baseCommit": "a1ca1655e082173cde24f1493da91152a4b01d92",
+  "gameplaySourcesReappliedFrom": "f3a7828a88f9d706abb281dbfb2e877b22ab9b3a",
+  "automatedTests": {
+    "tests": 74,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "nativeJarSha256": "a89167ded4990cb219b25682704abaa0199c21ad818790a843ec6194160408df",
+  "sameCompiledClassesAs207": 80,
+  "modelFilesUnchanged": 28,
+  "nativeEnvironment": "Paper 26.2-133/Linux, two official Java 26.2 clients. Private probes invoke real player attacks and production ability interaction listeners. Never distributed.",
+  "nativeCases": [
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "active",
+      "version": "2.0.8",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 12.0,
+      "targetHealthAfter": 166.0,
+      "hits": [
+        {
+          "tick": 30,
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false
+        },
+        {
+          "tick": 55,
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false
+        }
+      ],
+      "heals": [
+        {
+          "reason": "CUSTOM",
+          "tick": 30,
+          "amount": 1.0,
+          "cancelled": false
+        },
+        {
+          "reason": "CUSTOM",
+          "tick": 55,
+          "amount": 1.0,
+          "cancelled": false
+        }
+      ],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 16.0,
+      "absorptionBefore": 8.0,
+      "absorptionAfter": 8.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 6.5,
+      "totemRemaining": "AIR",
+      "case": "earth_resistance_absorption",
+      "version": "2.0.8",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "amount": 4.0,
+          "target": "rival",
+          "type": "minecraft:sonic_boom",
+          "cancelled": false
+        }
+      ],
+      "vetoes": 0,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "shieldBlockingAtActivation": false,
+      "hurtImmunityAtActivation": 0,
+      "healthBefore": 20.0,
+      "healthAfter": 20.0,
+      "absorptionBefore": 0.0,
+      "absorptionAfter": 0.0,
+      "casterHealth": 20.0,
+      "casterEffects": {},
+      "targetEffects": {},
+      "teleportDistance": 0.0,
+      "distanceBehindTarget": 6.5,
+      "totemRemaining": "AIR",
+      "case": "earth_cancel",
+      "version": "2.0.8",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "damageEvents": [
+        {
+          "amount": 4.0,
+          "target": "rival",
+          "type": "minecraft:sonic_boom",
+          "cancelled": true
+        }
+      ],
+      "vetoes": 1,
+      "casterEffectsAtEnd": {},
+      "targetEffectsAtEnd": {},
+      "sessionsAtEnd": 0
+    },
+    {
+      "healthBefore": 10.0,
+      "configuredShadowDamage": 14,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "case": "shadow_balance",
+      "version": "2.0.8",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 194.0,
+      "hits": [
+        {
+          "tick": 5,
+          "damage": 6.0,
+          "cause": "MAGIC",
+          "cancelled": false
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "configuredShadowDamage": "absent",
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "case": "shadow_default",
+      "version": "2.0.8",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 194.0,
+      "hits": [
+        {
+          "tick": 5,
+          "damage": 6.0,
+          "cause": "MAGIC",
+          "cancelled": false
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 1
+    }
+  ],
+  "limitations": [
+    "This is a reconstruction of requested gameplay from 2.0.5, not an antivirus fix.",
+    "Reapplying the same requested changes yields identical project classes to 2.0.7.",
+    "Only these five representative native cases were rerun. Unchanged abilities retain base 2.0.5 implementation; earlier comprehensive suites are historical.",
+    "Local Defender alert confirmed against published 2.0.7 ZIP; no Microsoft classification review completed."
+  ]
+}

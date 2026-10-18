@@ -1,0 +1,10 @@
+{
+  "Published 2.0.5 baseline": {
+    "sha256": "56384b30a77eb6e0c5c89e756752f20ba12814d8637e4649e92ebf5003bcabd5",
+    "bytes": 3254239
+  },
+  "Published 2.0.7 ZIP reported by user": {
+    "sha256": "cc79aa6e8093361ee00e6a2849215df1a88ca2d889fc11035b045e9922d13ad0",
+    "bytes": 3259422
+  }
+}
