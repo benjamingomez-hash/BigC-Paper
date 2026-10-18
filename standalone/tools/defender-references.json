@@ -1,0 +1,12 @@
+[
+  {
+    "label": "Published 2.0.5 baseline",
+    "url": "https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/a1ca1655e082173cde24f1493da91152a4b01d92/standalone/downloads/Armas-Legendarias-2.0.5.zip",
+    "sha256": "56384b30a77eb6e0c5c89e756752f20ba12814d8637e4649e92ebf5003bcabd5"
+  },
+  {
+    "label": "Published 2.0.7 ZIP reported by user",
+    "url": "https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/f3a7828a88f9d706abb281dbfb2e877b22ab9b3a/standalone/downloads/Armas-Legendarias-2.0.7.zip",
+    "sha256": "cc79aa6e8093361ee00e6a2849215df1a88ca2d889fc11035b045e9922d13ad0"
+  }
+]

@@ -2,9 +2,19 @@
 
 Plugin **independiente** para **Paper 26.2 / Java 25 / Gradle 9.2.1**. Incluye únicamente las ocho armas y su evento de fabricación. Usa modelos Java nativos y no requiere BigCasares, Vault, EssentialsX ni BetterModel. Si se usa BetterModel para otros plugins del servidor, la versión solicitada para 26.2 es 3.2.0; esta distribución no llama a su API. WorldGuard es opcional. Los equipos usan el scoreboard vanilla. No incluye integración Bedrock/Geyser.
 
-**Reconstrucción 2.0.5**, desde las fuentes de 2.0.3 y con la parálisis de Thunder Spear reimplementada. Las detecciones locales de Defender de 2.0.4 siguen sin diagnóstico confirmado; reconstruir no garantiza que desaparezcan. [Estado y alcance de la revisión](SECURITY-REBUILD-2.0.5.md).
+**Reconstrucción 2.0.8 desde la base 2.0.5**, commit `a1ca1655e082173cde24f1493da91152a4b01d92`. Se reintroducen las fuentes revisadas de las habilidades pedidas; no se reutilizan los JAR/ZIP 2.0.6 o 2.0.7.
 
-[Descargar ZIP 2.0.5](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-rebuild-2.0.3/standalone/downloads/Armas-Legendarias-2.0.5.zip) · [JAR independiente](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-rebuild-2.0.3/standalone/downloads/LegendaryWeapons-2.0.5.jar) · [SHA-256](downloads/SHA256SUMS-2.0.5.txt). El ZIP contiene JAR, pack y LEEME. Son los archivos exactos analizados por Defender en el runner Windows, sin detecciones allí; no se ha probado su instalación en la PC del usuario.
+**Distribución en revisión.** Windows detectó `Trojan:Script/Ulthar.A!ml` en el ZIP 2.0.7, estado «Quitado», el 17/10/2026 a las 23:29 del equipo del usuario. Al reconstruir desde 2.0.5 con los mismos cambios, las ochenta clases resultantes coinciden con 2.0.7. Por tanto, esta reconstrucción funcional **no se presenta como solución al antivirus** y no se recomienda instalar otro binario por haber cambiado la versión. La rama contiene las fuentes y los informes de revisión. Los archivos bloqueados deben permanecer quitados o en cuarentena; no se necesitan exclusiones.
+
+### Cambios incluidos sobre 2.0.5
+
+- **Earthbreaker:** cráter de radio 8 con profundidad 4/3/2/1 y un golpe inicial de cuatro puntos de salud (dos corazones), independiente de armadura, Protección, Resistencia, escudo y absorción. Respeta cancelaciones, equipos y regiones. Las caídas posteriores siguen siendo daño vanilla aparte.
+- **Shadow Blade:** teletransporte seguro detrás del rival, máximo seis puntos mágicos (tres corazones antes de reducciones), Debilidad II por 4 s y Oscuridad por 3 s. Invisibilidad y Velocidad III por 5 s al lanzador. `shadow-blade.ambush-damage` usa seis por defecto y máximo: el catorce de 2.0.6 queda limitado automáticamente al actualizar, sin borrar configuraciones. Sin rival mantiene el desplazamiento corto seguro.
+- **Bloodlust:** Fuerza III durante diez segundos y un punto de curación (medio corazón) por golpe directo válido con la espada durante la habilidad. El barrido cura una sola vez; no cura con golpes cancelados, absorción sin pérdida de salud, flechas, otra arma u otras habilidades. Se limita a la salud máxima y respeta la cancelación de curación.
+- **Thunder Spear:** campo fijo de radio 7 y diez segundos que paraliza al lanzador y a rivales; solo el impacto directo recibe los cinco pulsos eléctricos. Regresa una sola lanza y conserva Lunge III. Se conserva la implementación 2.0.5.
+- **Frost:** congelación y Lentitud IV para entidades vivas permitidas. **Hyperion:** cinco bolas de fuego de ghast. **Windweaver:** impulso vertical de maza. **Katana:** tres cortes y desplazamiento. Se conservan los ocho modelos, el cobre, las recetas y los datos persistentes.
+
+Todos los cooldowns siguen en cuarenta segundos. Evento, recetas y operaciones de la base se documentan abajo. La guía de instalación de 2.0.5 es una referencia histórica, no una aprobación de esta compilación. La revisión actual se registra en `SECURITY-REBUILD-2.0.8.md`.
 
 ## Evento
 
@@ -59,7 +69,7 @@ La base es el commit `d75fa8bc19002f362df5732a430ec83e7bd84c1f`; las otras siete
 
 Para actualizar desde 2.0.1 o 2.0.2, detén Paper, sustituye el JAR y conserva la carpeta `plugins/LegendaryWeapons`. No borres el diario ni los datos de jugadores: las armas existentes usan las habilidades nuevas y mantienen sus cooldowns. Las claves nuevas de configuración tienen valores predeterminados aunque el archivo existente no las contenga. Las claves anteriores de daño de Frost, Hyperion y Earthbreaker dejan de usarse, al igual que las antiguas de multiplicador/curación de Bloodlust y bonus de Shadow Blade. Los IDs persistentes de habilidades se conservan.
 
-## Instalación y prueba local en Windows
+## Instalación de la base 2.0.5 en Windows (referencia histórica)
 
 1. Instala Java 25 y descarga Paper 26.2 desde https://papermc.io/downloads/paper (versiones anteriores).
 2. En una carpeta nueva, guarda Paper como `paper.jar`. Ejecuta `java -Xms1G -Xmx2G -jar paper.jar --nogui`.
@@ -90,7 +100,7 @@ Los avisos se confirman antes de publicarse para evitar duplicarlos al reiniciar
 
 ## Desarrollo
 
-Desde `standalone/` con Java 25: `bash gradlew --no-daemon --max-workers=4 clean build` (Windows: `gradlew.bat build`). Artefacto: `build/libs/LegendaryWeapons-2.0.5.jar`.
+Desde `standalone/` con Java 25: `bash gradlew --no-daemon --max-workers=4 clean build` (Windows: `gradlew.bat build`). Artefacto: `build/libs/LegendaryWeapons-2.0.8.jar`.
 
 Consulta [los resultados y capturas](VERIFY.md).
 

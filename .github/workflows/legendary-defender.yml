@@ -2,7 +2,7 @@ name: LegendaryWeapons - Windows Defender verification
 
 on:
   push:
-    branches: [feat/legendary-rebuild-2.0.3]
+    branches: [feat/legendary-rebuild-2.0.5]
     paths:
       - .github/workflows/legendary-defender.yml
       - standalone/src/**
@@ -12,6 +12,7 @@ on:
       - standalone/pack/**
       - standalone/tools/Test-LegendaryDefender.ps1
       - standalone/DOWNLOAD-README.txt
+      - standalone/tools/defender-references.json
   workflow_dispatch:
 
 permissions:
@@ -50,8 +51,9 @@ jobs:
           if ($jars.Count -ne 1) { throw 'Expected exactly one production plugin JAR.' }
           & ./standalone/tools/Test-LegendaryDefender.ps1 `
             -JarPath $jars[0].FullName `
-            -DistributionZip standalone/build/distributions/Armas-Legendarias-2.0.5.zip `
-            -OutputDirectory "$env:RUNNER_TEMP/legendary-defender-report"
+            -DistributionZip standalone/build/distributions/Armas-Legendarias-2.0.8.zip `
+            -OutputDirectory "$env:RUNNER_TEMP/legendary-defender-report" `
+            -ReferenceManifest standalone/tools/defender-references.json
 
       - name: Preserve scan results
         if: always()
@@ -60,17 +62,6 @@ jobs:
           name: legendary-defender-report-${{ github.sha }}
           path: ${{ runner.temp }}/legendary-defender-report/
           if-no-files-found: warn
-          retention-days: 30
-
-      - name: Upload JAR only after a completed clean Defender scan
-        if: success() && steps.defender.outputs.clean_jar == 'true'
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-        with:
-          name: LegendaryWeapons-defender-checked-${{ github.sha }}
-          path: |
-            standalone/build/libs/LegendaryWeapons-*.jar
-            standalone/build/distributions/Armas-Legendarias-*.zip
-          if-no-files-found: error
           retention-days: 30
 
       - name: Preserve failed test reports

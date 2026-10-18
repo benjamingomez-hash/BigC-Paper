@@ -3,7 +3,8 @@
 param(
     [Parameter(Mandatory = $true)][string]$JarPath,
     [Parameter(Mandatory = $true)][string]$DistributionZip,
-    [Parameter(Mandatory = $true)][string]$OutputDirectory
+    [Parameter(Mandatory = $true)][string]$OutputDirectory,
+    [string]$ReferenceManifest
 )
 
 $ErrorActionPreference = 'Stop'
@@ -17,6 +18,7 @@ $report = [ordered]@{
     cleanDistribution = $false
     engine = $null
     scans = @()
+    references = @()
     error = $null
 }
 $scanIndex = 0
@@ -136,6 +138,38 @@ try {
     if (-not (Test-Path -LiteralPath $script:scanner -PathType Leaf)) { throw 'MpCmdRun.exe is unavailable.' }
     $report.cloudConnectionExitCode = Invoke-DefenderCommand '-ValidateMapsConnection' 'cloud-connection'
     if ($report.cloudConnectionExitCode -ne 0) { throw 'Defender cloud connectivity validation failed.' }
+
+    if ($ReferenceManifest) {
+        $referenceIndex = 0
+        foreach ($reference in (Get-Content -LiteralPath $ReferenceManifest -Raw | ConvertFrom-Json)) {
+            $referenceIndex++
+            $comparison = [ordered]@{ label = $reference.label; url = $reference.url; expectedSha256 = $reference.sha256; scans = @(); error = $null }
+            try {
+                $uri = [Uri]$reference.url
+                if ($uri.Scheme -ne 'https' -or $uri.Host -ne 'raw.githubusercontent.com') { throw 'Unexpected reference origin.' }
+                $referenceRoot = Join-Path ([IO.Path]::GetTempPath()) ([Guid]::NewGuid().ToString('N'))
+                New-Item -ItemType Directory -Path $referenceRoot | Out-Null
+                $referencePath = Join-Path $referenceRoot 'reference.zip'
+                Invoke-WebRequest -Uri $uri -OutFile $referencePath -UseBasicParsing
+                if ((Get-FileHash -LiteralPath $referencePath -Algorithm SHA256).Hash.ToLowerInvariant() -ne $reference.sha256) {
+                    throw 'Downloaded reference does not match the pinned hash.'
+                }
+                $archiveScan = Invoke-FileScan $referencePath $reference.label
+                $comparison.scans += $archiveScan
+                if ($archiveScan.result -ne 'Clean') { throw 'Reference archive blocked or scan failed; it is not cleared for use.' }
+                Add-Type -AssemblyName System.IO.Compression.FileSystem
+                $referenceMembers = Join-Path $referenceRoot 'members'
+                [IO.Compression.ZipFile]::ExtractToDirectory($referencePath, $referenceMembers)
+                foreach ($member in (Get-ChildItem $referenceMembers -Recurse -File | Sort-Object FullName)) {
+                    $comparison.scans += Invoke-FileScan $member.FullName ($reference.label + ': ' + $member.Name)
+                }
+            } catch {
+                # Reference diagnostics must not be mistaken for a local-user verdict.
+                $comparison.error = $_.Exception.Message
+            }
+            $report.references += [pscustomobject]$comparison
+        }
+    }
 
     $report.scans += Invoke-FileScan $DistributionZip 'Rebuilt distribution ZIP'
     if ($report.scans[-1].result -ne 'Clean') { throw 'Distribution ZIP was blocked or its scan failed.' }
