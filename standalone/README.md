@@ -2,9 +2,11 @@
 
 Plugin **independiente** para **Paper 26.2 / Java 25 / Gradle 9.2.1**. Incluye únicamente las ocho armas y su evento de fabricación. Usa modelos Java nativos y no requiere BigCasares, Vault, EssentialsX ni BetterModel. Si se usa BetterModel para otros plugins del servidor, la versión solicitada para 26.2 es 3.2.0; esta distribución no llama a su API. WorldGuard es opcional. Los equipos usan el scoreboard vanilla. No incluye integración Bedrock/Geyser.
 
-**Aviso de seguridad — 17/10/2026:** se recibió una detección de Microsoft Defender, `Trojan:Script/Ulthar.A!ml`, para `Armas-Legendarias-2.0.4.zip`. La recomendación de descarga queda suspendida mientras se investiga. Mantener el bloqueo de Defender y conservar la protección del equipo activada. Los detalles y límites de la revisión están en [el informe de revisión](SECURITY-REVIEW-2.0.4.md). Las instrucciones de instalación siguientes quedan pendientes de resolver esta detección.
+**Aviso de seguridad — 17/10/2026:** se recibió una detección de Microsoft Defender, `Trojan:Script/Ulthar.A!ml`, para `Armas-Legendarias-2.0.4.zip`. Ese ZIP sigue sin recomendarse. Mantener su bloqueo y conservar la protección del equipo activada. Los detalles y límites de la revisión están en [el informe de revisión](SECURITY-REVIEW-2.0.4.md).
 
-Se preparó una [comprobación con Defender en Windows](SECURITY-REVIEW-2.0.4.md#comprobación-preparada-en-windows) para compilar el plugin desde el código y publicar el JAR únicamente si supera su análisis. Su ejecución está pendiente; todavía no hay un JAR validado por ese workflow.
+[Descargar el JAR independiente examinado en Windows](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-crafting-pvp/standalone/downloads/LegendaryWeapons-2.0.4.jar). Se compiló desde el código en GitHub y superó el análisis de Defender con firmas actualizadas, nube y protección en tiempo real activas, y sin exclusiones de archivos. Incluye el pack de las ocho armas. [Ejecución y resultados](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39081168660) · [informe con hash y registros](docs/defender-verification-2.0.4.json) · [SHA-256](downloads/LegendaryWeapons-2.0.4.jar.sha256).
+
+Antes de instalar: actualiza Defender y analiza el JAR en tu equipo. Si lo bloquea, conserva el bloqueo. Si termina limpio, detén Paper 26.2, sustituye el JAR anterior en `plugins/` y reinicia conservando la carpeta `plugins/LegendaryWeapons` y los datos de jugadores. El análisis del runner no reproduce la alerta original ni constituye un dictamen de falso positivo de Microsoft.
 
 ## Evento
 

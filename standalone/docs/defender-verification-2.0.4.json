@@ -1,0 +1,128 @@
+{
+  "runId": 39081168660,
+  "runUrl": "https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39081168660",
+  "artifact": "LegendaryWeapons-2.0.4.jar",
+  "sha256": "ea0c9201e93f1f6937fdbddef6e7bba59eb5df18a83eba0c29e45e7504c4b0fe",
+  "classesIdenticalToOriginal": 75,
+  "resourceChanges": "Only Windows CRLF text line endings; identical PNG/model assets after text normalization",
+  "limits": "No threats detected under the recorded Defender configuration. The user-reported ZIP detection was not reproduced; no Microsoft false-positive adjudication has been obtained. Keep the original ZIP blocked and scan the independent JAR on the destination computer.",
+  "defenderReport": {
+    "commit": "c2a1304d358bb6dca9b3a560163baf12a98de6f1",
+    "startedUtc": "2026-10-18T00:01:32.7063019Z",
+    "completed": true,
+    "cleanJar": true,
+    "baselineError": null,
+    "engine": {
+      "productVersion": "4.18.26090.9",
+      "engineVersion": "1.1.26090.9",
+      "signatureVersion": "1.461.77.0",
+      "signatureUpdatedUtc": "2026-10-17T15:25:29.0000000Z",
+      "realTimeProtectionEnabled": true,
+      "mapsReporting": "2",
+      "disableBlockAtFirstSeen": false,
+      "submitSamplesConsent": "1",
+      "archiveScanningEnabled": true,
+      "behaviorMonitoringEnabled": true,
+      "ioavProtectionEnabled": true,
+      "scriptScanningEnabled": true,
+      "pathExclusions": [],
+      "extensionExclusions": [],
+      "processExclusions": []
+    },
+    "scans": [
+      {
+        "label": "Original published ZIP",
+        "sha256": "fa789ababf4a84d0cbcdc5834e1216f0c37fa684956cf9b95d6810e360f62734",
+        "result": "Clean",
+        "exitCode": 0
+      },
+      {
+        "label": "Original member: crater.png",
+        "sha256": "05b1a3907d2d787e47336de2db8b2643e11a77bbd65b640646105aff72aa0f64",
+        "result": "Clean",
+        "exitCode": 0
+      },
+      {
+        "label": "Original member: iniciar.bat",
+        "sha256": "cffc631081d61ee096640ddb6cc454c747a19f5bdf4f9fb1680a1f2875efcee9",
+        "result": "Clean",
+        "exitCode": 0
+      },
+      {
+        "label": "Original member: iniciar.sh",
+        "sha256": "63d256f77f2e1875efa21e048d4837cb61428908489e06200c04d962d3f3ce42",
+        "result": "Clean",
+        "exitCode": 0
+      },
+      {
+        "label": "Original member: LEEME.txt",
+        "sha256": "8d1632bdb246ff72345d9d83ab4071820cb99d261c286b8faa28615e1e4dd139",
+        "result": "Clean",
+        "exitCode": 0
+      },
+      {
+        "label": "Original member: legendary-weapons-java.zip",
+        "sha256": "a98dadd54f9d281f345addb5d8babfe618568b6f44caacf6751e2718d1078f23",
+        "result": "Clean",
+        "exitCode": 0
+      },
+      {
+        "label": "Original member: modelos.png",
+        "sha256": "3eba13583ba5bef90aa0d906ba9adf25d8f102d2f66045a15fe291ded6a72292",
+        "result": "Clean",
+        "exitCode": 0
+      },
+      {
+        "label": "Original member: LegendaryWeapons-2.0.4.jar",
+        "sha256": "1323fea72cd5ba99a3e8e231da40287ff5ed24c7882b2e4e7a3f82c1c5836f04",
+        "result": "Clean",
+        "exitCode": 0
+      },
+      {
+        "label": "Original member: server.properties",
+        "sha256": "c3805af580e044d2524b56d10c6aea8d3175050559840454c6673ecfe6c457fc",
+        "result": "Clean",
+        "exitCode": 0
+      },
+      {
+        "label": "Newly built production JAR",
+        "sha256": "ea0c9201e93f1f6937fdbddef6e7bba59eb5df18a83eba0c29e45e7504c4b0fe",
+        "result": "Clean",
+        "exitCode": 0
+      }
+    ],
+    "error": null,
+    "realTimeProtectionInitiallyEnabled": false,
+    "initialExclusionCounts": {
+      "paths": 2,
+      "extensions": 0,
+      "processes": 0
+    },
+    "cloudConnectionExitCode": 0,
+    "finishedUtc": "2026-10-18T00:01:57.8349489Z"
+  },
+  "scanLogs": {
+    "cloud-connection.stderr.txt": "",
+    "cloud-connection.stdout.txt": "---------------------------- MpCmdRunShowNetworkInfo() ------------------------------\nMpIsConnectedToInternet(): hr = 0, fIsConnectToInternet: true\nMpIsPaidNetwork(): hr = 0x1 (0 - S_OK, paid; 1 - S_FALSE, not paid; other - failure)\n-------------------------------------------------------------------------------------\nLast Successful MAPS connection: [10/18/2026 12:01:40 AM]\nValidateMapsConnection successfully established a connection to MAPS\n",
+    "scan-01.stderr.txt": "",
+    "scan-01.stdout.txt": "Scan starting...\nScan finished.\nScanning D:\\a\\BigC-Paper\\BigC-Paper\\standalone\\downloads\\Armas-Legendarias-2.0.4.zip found no threats.\n",
+    "scan-02.stderr.txt": "",
+    "scan-02.stdout.txt": "Scan starting...\nScan finished.\nScanning C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ea2c871fe9994d40b0a830d77904730c\\Armas-Legendarias-2.0.4\\crater.png found no threats.\n",
+    "scan-03.stderr.txt": "",
+    "scan-03.stdout.txt": "Scan starting...\nScan finished.\nScanning C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ea2c871fe9994d40b0a830d77904730c\\Armas-Legendarias-2.0.4\\iniciar.bat found no threats.\n",
+    "scan-04.stderr.txt": "",
+    "scan-04.stdout.txt": "Scan starting...\nScan finished.\nScanning C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ea2c871fe9994d40b0a830d77904730c\\Armas-Legendarias-2.0.4\\iniciar.sh found no threats.\n",
+    "scan-05.stderr.txt": "",
+    "scan-05.stdout.txt": "Scan starting...\nScan finished.\nScanning C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ea2c871fe9994d40b0a830d77904730c\\Armas-Legendarias-2.0.4\\LEEME.txt found no threats.\n",
+    "scan-06.stderr.txt": "",
+    "scan-06.stdout.txt": "Scan starting...\nScan finished.\nScanning C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ea2c871fe9994d40b0a830d77904730c\\Armas-Legendarias-2.0.4\\legendary-weapons-java.zip found no threats.\n",
+    "scan-07.stderr.txt": "",
+    "scan-07.stdout.txt": "Scan starting...\nScan finished.\nScanning C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ea2c871fe9994d40b0a830d77904730c\\Armas-Legendarias-2.0.4\\modelos.png found no threats.\n",
+    "scan-08.stderr.txt": "",
+    "scan-08.stdout.txt": "Scan starting...\nScan finished.\nScanning C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ea2c871fe9994d40b0a830d77904730c\\Armas-Legendarias-2.0.4\\plugins\\LegendaryWeapons-2.0.4.jar found no threats.\n",
+    "scan-09.stderr.txt": "",
+    "scan-09.stdout.txt": "Scan starting...\nScan finished.\nScanning C:\\Users\\runneradmin\\AppData\\Local\\Temp\\ea2c871fe9994d40b0a830d77904730c\\Armas-Legendarias-2.0.4\\server.properties found no threats.\n",
+    "scan-10.stderr.txt": "",
+    "scan-10.stdout.txt": "Scan starting...\nScan finished.\nScanning D:\\a\\BigC-Paper\\BigC-Paper\\standalone\\build\\libs\\LegendaryWeapons-2.0.4.jar found no threats.\n"
+  }
+}

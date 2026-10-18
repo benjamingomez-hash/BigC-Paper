@@ -1,15 +1,16 @@
 # Revisión de la detección de Defender en 2.0.4
 
-Estado: **detección pendiente de resolver; instalación desaconsejada**.
+Estado: **ZIP original pendiente de resolver; JAR independiente recompilado y examinado en Windows disponible**. Analizar el JAR también en el equipo de destino antes de instalarlo y conservar cualquier bloqueo local.
 
 El 17/10/2026 se recibió una captura de Microsoft Defender que identifica
 `Trojan:Script/Ulthar.A!ml` en `Armas-Legendarias-2.0.4.zip`, descargado desde
 el enlace publicado de esta rama. El estado mostrado es **Quitado**. La captura
 identifica el ZIP; no identifica un archivo interior concreto.
 
-La recomendación de descarga se ha suspendido en el README. El artefacto original
-se conserva para permitir el análisis de sus mismos bytes. No se ha publicado
-otra distribución para sustituirlo ni se ha determinado que sea un falso positivo.
+La recomendación de descarga del ZIP se ha suspendido en el README. El artefacto
+original se conserva para permitir el análisis de sus mismos bytes. Se publica
+por separado el JAR recompilado y examinado que se identifica abajo. No se ha
+determinado que la detección original sea un falso positivo.
 
 ## Identificación del artefacto
 
@@ -50,8 +51,9 @@ El análisis se realizó sobre los mismos hashes identificados arriba. No se
 ejecutaron los archivos del paquete durante esta revisión. El registro y los
 metadatos están en [antivirus-review-2.0.4.json](docs/antivirus-review-2.0.4.json).
 Un resultado negativo en este motor **no invalida la detección de Microsoft
-Defender**. No se dispone de Microsoft Defender en este entorno y no se ha
-reproducido su resultado ni obtenido un dictamen de Microsoft sobre este archivo.
+Defender**. En esa revisión local no se disponía de Microsoft Defender. Las
+comprobaciones posteriores en Windows se documentan abajo; no se ha obtenido
+un dictamen de Microsoft sobre la detección original.
 
 ## Pendiente
 
@@ -77,7 +79,7 @@ Block at First Sight; exige conexión correcta a la nube de Defender.
 
 El JAR solo se sube como artefacto si su análisis personalizado termina con
 resultado limpio y el archivo conserva su hash. Si Defender está inactivo,
-no puede actualizarse, detecta algo o el análisis falla, no se publica un JAR
+no puede actualizarse, detecta algo en el JAR nuevo o su análisis falla, no se publica un JAR
 verificado. El informe de diagnóstico se conserva también cuando falla la prueba.
 Los resultados del ZIP original se documentan por separado de los del JAR nuevo.
 
@@ -92,14 +94,13 @@ los modelos también coincide. ClamAV 1.4.6 no detectó amenazas en el JAR nuevo
 `actionlint` valida el workflow, PowerShell analiza el script sin errores y las
 comprobaciones locales verifican que ausencia de Defender, archivo ausente y
 salidas nativas distintas de cero impiden marcar un archivo como validado.
-Esas comprobaciones locales no sustituyen la ejecución pendiente en Windows.
+Esas comprobaciones locales complementan los resultados de Windows indicados abajo.
 
 Primera ejecución: [39080593114](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39080593114),
 correcta, con diez análisis personalizados sin detecciones, Defender
 `1.1.26090.9` y firmas `1.461.77.0`. La protección en tiempo real del runner
 estaba desactivada por su configuración inicial; no se reprodujo la alerta del
-equipo del usuario. Se prepara otra ejecución que exige protección en tiempo
-real y marca de Internet. La segunda ejecución,
+equipo del usuario. La segunda ejecución,
 [39080803550](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39080803550),
 también finalizó sin detecciones con la protección en tiempo real activa; se
 observó que MAPS y Block at First Sight estaban desactivados en el runner.
@@ -107,7 +108,40 @@ La tercera ejecución,
 [39080971859](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39080971859),
 completó también la comprobación con nube y Block at First Sight habilitados.
 La configuración oficial de las imágenes hospedadas incluye exclusiones para
-`C:\` y `D:\` y desactiva otros controles. Se prepara una última ejecución que
+`C:\` y `D:\` y desactiva otros controles. La última ejecución
 elimina esas exclusiones y habilita análisis de archivos, scripts, descargas y
-comportamiento. Su resultado sigue pendiente. La recomendación del ZIP original
-permanece suspendida.
+comportamiento. Su resultado se describe a continuación.
+
+## Resultado completo y JAR independiente
+
+La ejecución [39081168660](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39081168660)
+terminó correctamente el **17/10/2026, 21:01 (Argentina)**. Se compiló el código
+del commit `c2a1304d358bb6dca9b3a560163baf12a98de6f1` y pasó su tarea de pruebas.
+Defender examinó el ZIP original, sus ocho miembros y el JAR recién compilado:
+**diez resultados sin amenazas, con salida 0 y sin errores**.
+
+Se registraron Defender `1.1.26090.9`, producto `4.18.26090.9` y firmas
+`1.461.77.0` del 17/10/2026. Protección en tiempo real, nube, Block at First
+Sight, IOAV, comportamiento, scripts y archivos estaban habilitados. La prueba
+de conexión MAPS terminó correctamente. Las listas de exclusiones de rutas,
+extensiones y procesos estaban vacías. Las muestras recibieron marca de zona
+de Internet. No se ejecutó su contenido para realizar estos análisis.
+
+El JAR que se distribuye ahora es el artefacto de esa ejecución:
+
+- Archivo: [LegendaryWeapons-2.0.4.jar](downloads/LegendaryWeapons-2.0.4.jar).
+- SHA-256: `ea0c9201e93f1f6937fdbddef6e7bba59eb5df18a83eba0c29e45e7504c4b0fe`.
+- [Hash descargable](downloads/LegendaryWeapons-2.0.4.jar.sha256).
+- [Informe íntegro y registros de Defender](docs/defender-verification-2.0.4.json).
+
+Sus 75 clases coinciden byte a byte con las del JAR original probado en Paper.
+Las diferencias de bytes corresponden a finales de línea de Windows en los
+recursos YML/JSON; las texturas y el contenido de los modelos se conservan.
+La publicación no contiene scripts de inicio ni precisa extraer el ZIP bloqueado.
+
+La detección del equipo del usuario **no se reprodujo**, incluso al examinar el
+ZIP original en estas condiciones. Eso no permite afirmar que Microsoft haya
+confirmado un falso positivo. El ZIP original sigue sin recomendarse. Para usar
+el JAR independiente, actualizar Defender y analizarlo en el equipo de destino;
+si lo bloquea, mantener su bloqueo. Si no detecta amenazas, instalarlo en Paper
+26.2 conservando los datos del plugin. No se necesitan excepciones de antivirus.
