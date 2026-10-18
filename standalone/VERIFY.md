@@ -1,5 +1,20 @@
 # Verificación — 16 de octubre de 2026
 
+## Bloodlust y equilibrio de Sombras 2.0.7 — 17 de octubre de 2026 (UTC−3)
+
+Java 25, `bash gradlew --no-daemon --max-workers=4 clean build`: **74 pruebas, cero fallos, errores o exclusiones**. Cinco regresiones nuevas cubren medio corazón por golpe, límite exacto de doscientos ticks, exclusión de barridos/proyectiles/hechizos, daño nulo y máximo de salud normal o modificado.
+
+Paper 26.2-133/Linux con dos clientes oficiales Java 26.2. La herramienta privada llama `Player.attack` (ataque nativo) y el listener de activación; la flecha usa colisión nativa. Dieciocho escenarios validados y veintidós observaciones conservadas de la compilación final:
+
+- Bloodlust: dos golpes aceptados, cada uno de diecisiete puntos con Fuerza III, curan un punto por impacto: salud **10 → 12**. Fuerza III conserva sus doscientos ticks.
+- No cura sin activar, después de expirar, con otra espada en mano, daño cancelado, curación cancelada, veto de región, otra habilidad, tras cancelar la sesión o con una flecha. Un golpe absorbido sin daño de salud tampoco cura. Una vaca viva permitida sí activa el robo.
+- Salud máxima: **19,75 → 20**; a veinte no genera curación. Un barrido daña al rival y dos zombis secundarios, pero cura una sola vez: **10 → 11**.
+- Sombras: seis puntos mágicos tanto por defecto como con `ambush-damage: 14` de la versión anterior. Con cuatro piezas Protección IV, el daño observado es 2,16 puntos. El máximo de seis impide conservar accidentalmente el golpe anterior de siete corazones.
+
+El primer intento de la compilación final registró un solo golpe aceptado; se repitió y ambos entraron. Dos casos iniciales de Sombras no activaron por el cooldown de Sombras que la herramienta no había reiniciado; se repitieron tras restablecerlo en la instancia privada. Se conservan esas observaciones y se distinguen de las repeticiones válidas. [Datos completos](docs/bloodlust-verification-2.0.7.json).
+
+Modelos y plugin integrado sin cambios. No se repiten las baterías nativas completas de hacha y lanza de las versiones anteriores. Windows compiló las mismas fuentes; ochenta clases idénticas al JAR probado en Linux. Defender analizó sin detecciones el ZIP y JAR exactos publicados, con protección activa y sin exclusiones. [Revisión y límites](SECURITY-REVIEW-2.0.7.md).
+
 ## Earthbreaker y Shadow Blade 2.0.6 — 17 de octubre de 2026 (UTC−3)
 
 Java 25, `bash gradlew --no-daemon --max-workers=4 clean build`: **69 pruebas, cero fallos, errores o exclusiones**. Las tres regresiones nuevas comprueban daño final de cuatro puntos con todos los modificadores, sin modificadores opcionales y con cancelación de protección. Modelos y plugin integrado sin cambios.

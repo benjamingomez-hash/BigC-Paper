@@ -1,0 +1,1030 @@
+{
+  "version": "2.0.7",
+  "sourceCommit": "b152deb72d016838e858d0fdd44d07d22664b526",
+  "automatedTests": {
+    "tests": 74,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "nativeJarSha256": "1025fd6a12dd9e327965013eda5e39db5849f375c20a4d4ef1892a4c33db7987",
+  "windowsClassesIdentical": 80,
+  "resourceDifferences": [
+    "config.yml",
+    "legendary-pack.zip",
+    "plugin.yml"
+  ],
+  "modelSourceFilesUnchanged": 28,
+  "environment": "Paper 26.2-133/Linux, two official Java 26.2 clients, private probe calls real Player.attack and production interaction listener; Arrow uses real native collision. No probe shipped.",
+  "validatedScenarios": [
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "active",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 12.0,
+      "targetHealthAfter": 166.0,
+      "hits": [
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        },
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 55
+        }
+      ],
+      "heals": [
+        {
+          "amount": 1.0,
+          "cancelled": false,
+          "reason": "CUSTOM",
+          "tick": 30
+        },
+        {
+          "amount": 1.0,
+          "cancelled": false,
+          "reason": "CUSTOM",
+          "tick": 55
+        }
+      ],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "case": "inactive",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 192.0,
+      "hits": [
+        {
+          "damage": 8.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 0
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "expired",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 192.0,
+      "hits": [
+        {
+          "damage": 8.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 220
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 0
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "switched",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "cancel_damage",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 200.0,
+      "hits": [
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": true,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 1,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "cancel_heal",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [
+        {
+          "amount": 1.0,
+          "cancelled": true,
+          "reason": "CUSTOM",
+          "tick": 30
+        }
+      ],
+      "vetoes": 1,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 20.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "full",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 20.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 19.75,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "near_full",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 20.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [
+        {
+          "amount": 0.25,
+          "cancelled": false,
+          "reason": "CUSTOM",
+          "tick": 30
+        }
+      ],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "sweep",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 11.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        },
+        {
+          "damage": 0.9399999976158142,
+          "cause": "ENTITY_SWEEP_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        },
+        {
+          "damage": 0.9399999976158142,
+          "cause": "ENTITY_SWEEP_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [
+        {
+          "amount": 1.0,
+          "cancelled": false,
+          "reason": "CUSTOM",
+          "tick": 30
+        }
+      ],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "region",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 1,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "ability",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 195.0,
+      "hits": [
+        {
+          "damage": 5.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "cleanup",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 192.0,
+      "hits": [
+        {
+          "damage": 8.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 0
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "absorption",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 200.0,
+      "hits": [
+        {
+          "damage": 0.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "passive",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 11.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [
+        {
+          "amount": 1.0,
+          "cancelled": false,
+          "reason": "CUSTOM",
+          "tick": 30
+        }
+      ],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "projectile",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 197.0,
+      "hits": [
+        {
+          "damage": 3.0,
+          "cause": "PROJECTILE",
+          "cancelled": false,
+          "tick": 31
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "configuredShadowDamage": 14,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "case": "shadow_balance",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 194.0,
+      "hits": [
+        {
+          "damage": 6.0,
+          "cause": "MAGIC",
+          "cancelled": false,
+          "tick": 5
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "configuredShadowDamage": "absent",
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "case": "shadow_default",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 194.0,
+      "hits": [
+        {
+          "damage": 6.0,
+          "cause": "MAGIC",
+          "cancelled": false,
+          "tick": 5
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "configuredShadowDamage": 14,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "case": "shadow_protection",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 197.83999633789062,
+      "hits": [
+        {
+          "damage": 2.1600000858306885,
+          "cause": "MAGIC",
+          "cancelled": false,
+          "tick": 5
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 1
+    }
+  ],
+  "observations": [
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "active",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 11.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 55
+        }
+      ],
+      "heals": [
+        {
+          "amount": 1.0,
+          "cancelled": false,
+          "reason": "CUSTOM",
+          "tick": 55
+        }
+      ],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "case": "inactive",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 192.0,
+      "hits": [
+        {
+          "damage": 8.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 0
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "expired",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 192.0,
+      "hits": [
+        {
+          "damage": 8.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 220
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 0
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "switched",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "cancel_damage",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 200.0,
+      "hits": [
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": true,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 1,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "cancel_heal",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [
+        {
+          "amount": 1.0,
+          "cancelled": true,
+          "reason": "CUSTOM",
+          "tick": 30
+        }
+      ],
+      "vetoes": 1,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 20.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "full",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 20.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 19.75,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "near_full",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 20.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [
+        {
+          "amount": 0.25,
+          "cancelled": false,
+          "reason": "CUSTOM",
+          "tick": 30
+        }
+      ],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "sweep",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 11.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        },
+        {
+          "damage": 0.9399999976158142,
+          "cause": "ENTITY_SWEEP_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        },
+        {
+          "damage": 0.9399999976158142,
+          "cause": "ENTITY_SWEEP_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [
+        {
+          "amount": 1.0,
+          "cancelled": false,
+          "reason": "CUSTOM",
+          "tick": 30
+        }
+      ],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "region",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 1,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "ability",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 195.0,
+      "hits": [
+        {
+          "damage": 5.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "cleanup",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 192.0,
+      "hits": [
+        {
+          "damage": 8.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 0
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "absorption",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 200.0,
+      "hits": [
+        {
+          "damage": 0.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "passive",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 11.0,
+      "targetHealthAfter": 183.0,
+      "hits": [
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        }
+      ],
+      "heals": [
+        {
+          "amount": 1.0,
+          "cancelled": false,
+          "reason": "CUSTOM",
+          "tick": 30
+        }
+      ],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "projectile",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 197.0,
+      "hits": [
+        {
+          "damage": 3.0,
+          "cause": "PROJECTILE",
+          "cancelled": false,
+          "tick": 31
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "configuredShadowDamage": 14,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "case": "shadow_balance",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 194.0,
+      "hits": [
+        {
+          "damage": 6.0,
+          "cause": "MAGIC",
+          "cancelled": false,
+          "tick": 5
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "configuredShadowDamage": "absent",
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "case": "shadow_default",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 200.0,
+      "hits": [],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 0
+    },
+    {
+      "healthBefore": 10.0,
+      "configuredShadowDamage": 14,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "case": "shadow_protection",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 200.0,
+      "hits": [],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 0
+    },
+    {
+      "healthBefore": 10.0,
+      "strengthAmplifier": 2,
+      "strengthDuration": 195,
+      "case": "active",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 12.0,
+      "targetHealthAfter": 166.0,
+      "hits": [
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 30
+        },
+        {
+          "damage": 17.0,
+          "cause": "ENTITY_ATTACK",
+          "cancelled": false,
+          "tick": 55
+        }
+      ],
+      "heals": [
+        {
+          "amount": 1.0,
+          "cancelled": false,
+          "reason": "CUSTOM",
+          "tick": 30
+        },
+        {
+          "amount": 1.0,
+          "cancelled": false,
+          "reason": "CUSTOM",
+          "tick": 55
+        }
+      ],
+      "vetoes": 0,
+      "remainingStrength": true,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "configuredShadowDamage": 14,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "case": "shadow_balance",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 194.0,
+      "hits": [
+        {
+          "damage": 6.0,
+          "cause": "MAGIC",
+          "cancelled": false,
+          "tick": 5
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "configuredShadowDamage": "absent",
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "case": "shadow_default",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 194.0,
+      "hits": [
+        {
+          "damage": 6.0,
+          "cause": "MAGIC",
+          "cancelled": false,
+          "tick": 5
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 1
+    },
+    {
+      "healthBefore": 10.0,
+      "configuredShadowDamage": 14,
+      "strengthAmplifier": -1,
+      "strengthDuration": 0,
+      "case": "shadow_protection",
+      "version": "2.0.7",
+      "paper": "26.2-133-58e6e45 (MC: 26.2)",
+      "healthAfter": 10.0,
+      "targetHealthAfter": 197.83999633789062,
+      "hits": [
+        {
+          "damage": 2.1600000858306885,
+          "cause": "MAGIC",
+          "cancelled": false,
+          "tick": 5
+        }
+      ],
+      "heals": [],
+      "vetoes": 0,
+      "remainingStrength": false,
+      "activeSessions": 1
+    }
+  ],
+  "limits": [
+    "First final-build active attempt produced only one accepted native hit; repeated after login startup and both attacks landed. Healing matched accepted hits in both runs.",
+    "Two initial shadow cases were blocked by retained Shadow cooldown in the probe. Repeated after console cooldown reset; default and legacy 14 both deal 6. These initial observations are retained.",
+    "Temporary live configuration changes existed only in the private fixture and were restored; no user config file overwritten.",
+    "Other powers and models retained; earlier full native suites for axe and spear were not repeated.",
+    "No user-local Windows install/runtime test or diagnosis of previous antivirus alert."
+  ]
+}
