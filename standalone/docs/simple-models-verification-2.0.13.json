@@ -1,0 +1,25 @@
+{
+  "version": "2.0.13",
+  "sourceCommit": "45151a6c6adb20f180ad92265ca50e823667e6ff",
+  "client": "Official Minecraft Java 26.2",
+  "server": "Paper 26.2-133",
+  "capture": "legendary-models-simple-2.0.13.png",
+  "captureMethod": "Unmodified native F2 screenshot; six ItemDisplays and labels from an external private test helper.",
+  "models": {
+    "bloodlust": 10,
+    "earthbreaker": 12,
+    "frost_scythe": 12,
+    "shadow_blade": 12,
+    "thunder_spear": 11,
+    "windweaver": 9
+  },
+  "unitTests": 80,
+  "failures": 0,
+  "gameplayClassesIdenticalTo2_0_12": 83,
+  "historicalAtlasAndRetiredModelsUnchanged": true,
+  "nativePackComparison": "Every file matches the Windows artifact, allowing only CRLF/LF text line endings. PNGs and class files match byte-for-byte.",
+  "fixtureStoppedAndPlayerDataRestored": true,
+  "ciRun": "https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39600545543",
+  "distributionSha256": "c01a0a196535757dc686515296a1bb91aa8bdb7fad4e6d19d48ff6e2516e307e",
+  "jarSha256": "77673e80875215b1a5696864291b3aea1f20b1e84e3a7cd857627782ecdd542e"
+}

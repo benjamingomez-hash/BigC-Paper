@@ -1,3 +1,21 @@
+# Modelos simplificados — 2.0.13
+
+Las seis armas actuales tienen una paleta más plana, menos brillos y entre 9 y 12 cuboides por modelo, frente a los 46–76 anteriores. Conservan su identidad: Bloodlust carmesí, Frost Scythe celeste, Shadow Blade violeta, Windweaver plateada, Earthbreaker verde con mango marrón y Thunder Spear azul con guarda dorada.
+
+![Las seis armas simplificadas en Minecraft Java 26.2](docs/legendary-models-simple-2.0.13.png)
+
+La imagen es una captura del cliente oficial Java 26.2 conectado a Paper 26.2-133. La galería y sus rótulos pertenecen a una herramienta privada de pruebas, ausente de la distribución.
+
+`pack/assets/bigcasares/textures/legendary/simple_material_atlas.png` es la nueva textura creada con image_gen, conservada sin modificar píxeles. El atlas nativo extrae 48 materiales de 64×64 mediante `minecraft:unstitch`; el atlas anterior y los modelos de las dos armas retiradas se conservan intactos. No se sustituyen texturas vanilla ni de cobre.
+
+Desde `standalone/`, ejecutá `python3 tools/generate_simple_models.py` para regenerar los seis modelos y ambos orígenes del atlas. El script lee las dimensiones del PNG y solo escribe JSON. El generador anterior queda como fuente histórica; ejecutarlo directamente restaura el diseño antiguo.
+
+Esta versión cambia únicamente la apariencia. Conserva los poderes y las reglas de 2.0.12, identificadores de ítems y modelos, recetas, inventarios, cooldowns y diario. Void Katana e Hyperion siguen retiradas. Para actualizar, detené el servidor, sustituí el JAR anterior por 2.0.13 y reiniciá. Aceptá el nuevo pack; no borres datos ni instales ambas versiones juntas.
+
+La galería original se conserva a continuación.
+
+---
+
 # Modelos de las ocho armas — 2.0.1
 
 Esta es una galería histórica. Desde 2.0.12, Void Katana e Hyperion están retiradas del juego. Sus recursos se conservan para representar objetos antiguos al actualizar; no tienen receta ni habilidad activa.

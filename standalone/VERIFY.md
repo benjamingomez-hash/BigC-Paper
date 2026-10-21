@@ -1,5 +1,36 @@
 # Verificación de LegendaryWeapons
 
+## 2.0.13: texturas y modelos simplificados
+
+Se simplificaron las seis armas actuales: una paleta con menos contraste y
+entre 9 y 12 cuboides por modelo. Los 83 archivos de clases coinciden byte por
+byte con 2.0.12. No se alteran poderes, recetas, IDs ni estados persistentes.
+El atlas original y los dos modelos retirados también permanecen intactos.
+
+Java 25, desde `standalone/`:
+`bash gradlew --no-daemon --max-workers=4 clean build`.
+**80 pruebas correctas, sin fallos, errores ni exclusiones**, también en Windows.
+Se validan los 112 sprites de ambos atlas, los límites de sus regiones,
+referencias de texturas, cuboides y vistas de los ocho modelos históricos.
+
+La [captura sin editar](docs/legendary-models-simple-2.0.13.png) se tomó con F2
+en el cliente oficial Java 26.2 conectado a Paper 26.2-133, con el nuevo pack
+integrado cargado y seis modelos nativos. Los ItemDisplay y rótulos proceden de
+una herramienta privada externa a la distribución. Se detuvo la instancia y
+se restauraron los datos de jugadores, el directorio del plugin y el JAR previo.
+No se repitió toda la batería de habilidades para este cambio visual.
+
+[Actions 39600545543](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39600545543)
+completó cinco análisis Defender sin detecciones (ZIP, tres miembros y JAR),
+con firmas 1.461.135.0, protección en tiempo real y nube activas, sin exclusiones.
+Se distribuyen sus archivos exactos, comprobados por SHA-256. Sus clases y PNGs
+son idénticos a los probados en Paper; los textos del pack difieren únicamente
+en los finales de línea CRLF/LF. Esto no diagnostica las alertas locales previas
+ni garantiza aceptación en la PC del usuario.
+
+Detalles: [diseño y regeneración](MODELS.md), [verificación visual](docs/simple-models-verification-2.0.13.json)
+y [reporte de Defender](docs/defender-verification-2.0.13.json).
+
 ## 2.0.12: seis armas disponibles
 
 Retiradas Void Katana e Hyperion del catálogo activo, recetas, comandos y poderes.
