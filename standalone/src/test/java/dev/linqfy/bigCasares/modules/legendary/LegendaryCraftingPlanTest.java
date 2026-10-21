@@ -6,6 +6,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LegendaryCraftingPlanTest {
+    @Test void removedRecipesRejectBeforeMovingOrConsumingIngredients() {
+        for (var weapon : List.of(LegendaryWeapon.VOID_KATANA, LegendaryWeapon.HYPERION)) {
+            var storage = new ArrayList<Item>(java.util.Collections.nCopies(36, null));
+            var matrix = matrix(weapon, 64);
+            assertThrows(IllegalArgumentException.class, () -> LegendaryCraftingPlan.create(weapon, storage, matrix, ITEMS));
+            assertEquals(0, total(storage));
+            assertEquals(576, total(matrix));
+        }
+    }
     record Item(String material, int amount, boolean vanilla) { }
     private static final LegendaryCraftingPlan.Items<Item> ITEMS = new LegendaryCraftingPlan.Items<>() {
         public String material(Item i) { return i.material; }
@@ -25,7 +34,7 @@ class LegendaryCraftingPlanTest {
     private static int total(List<Item> inventory) { return inventory.stream().filter(java.util.Objects::nonNull).mapToInt(Item::amount).sum(); }
 
     @Test void allEightOriginalRecipesConsumeExactlyNineMaterialsAndNeverCreateWeapon() {
-        for (var weapon : LegendaryWeapon.values()) {
+        for (var weapon : LegendaryWeapon.available()) {
             var storage = new ArrayList<Item>(java.util.Collections.nCopies(36, null));
             var plan = LegendaryCraftingPlan.create(weapon, storage, matrix(weapon, 1), ITEMS);
             assertEquals(9, total(plan.before())); assertEquals(0, total(plan.after()));

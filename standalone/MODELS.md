@@ -1,5 +1,7 @@
 # Modelos de las ocho armas — 2.0.1
 
+Esta es una galería histórica. Desde 2.0.12, Void Katana e Hyperion están retiradas del juego. Sus recursos se conservan para representar objetos antiguos al actualizar; no tienen receta ni habilidad activa.
+
 Modelos originales inspirados en el estilo de la referencia de inventario: siluetas escalonadas, metal oscuro, bordes vivos y detalles de gemas o runas. El cambio se limita a las ocho armas del plugin independiente. Los assets de cobre permanecen intactos.
 
 ![Las ocho armas renderizadas en Minecraft Java 26.2](docs/legendary-models-2.0.1.png)

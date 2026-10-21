@@ -81,11 +81,11 @@ class LegendaryCraftingEventTest {
         assertTrue(ledger.find(LegendaryWeapon.THUNDER_SPEAR).orElseThrow().transactions().isEmpty());
     }
     @Test void oneConcurrentClaimWinsAndItsRecoveryDoesNotCreateAnotherReservation() throws Exception {
-        var ledger = ledger(); start(ledger, LegendaryWeapon.VOID_KATANA, 100);
+        var ledger = ledger(); start(ledger, LegendaryWeapon.SHADOW_BLADE, 100);
         ledger.advance(START + 1_200_000);
         try (var threads = Executors.newFixedThreadPool(8)) {
             Callable<Boolean> attempt = () -> {
-                try { ledger.claim(LegendaryWeapon.VOID_KATANA, tx(UUID.randomUUID(), LegendaryCraftingSession.TransactionKind.CLAIM)); return true; }
+                try { ledger.claim(LegendaryWeapon.SHADOW_BLADE, tx(UUID.randomUUID(), LegendaryCraftingSession.TransactionKind.CLAIM)); return true; }
                 catch (IllegalArgumentException rejected) { return false; }
             };
             var results = threads.invokeAll(java.util.Collections.nCopies(16, attempt));
@@ -94,24 +94,24 @@ class LegendaryCraftingEventTest {
             assertEquals(1, successes);
         }
         var restarted = ledger();
-        var pending = restarted.find(LegendaryWeapon.VOID_KATANA).orElseThrow().transactions().getFirst();
+        var pending = restarted.find(LegendaryWeapon.SHADOW_BLADE).orElseThrow().transactions().getFirst();
         assertTrue(restarted.advance(START + 1_300_000).isEmpty());
-        restarted.confirm(LegendaryWeapon.VOID_KATANA, pending.nonce());
+        restarted.confirm(LegendaryWeapon.SHADOW_BLADE, pending.nonce());
         assertEquals(List.of(5), restarted.advance(START + 1_300_000).stream().map(LegendaryCraftingLedger.Notice::index).toList());
         assertTrue(ledger().advance(START + 1_300_001).isEmpty());
-        assertThrows(IllegalArgumentException.class, () -> ledger().start(LegendaryWeapon.VOID_KATANA, WORLD, "Overworld (world)", 0, 0, 0, START, tx(UUID.randomUUID(), LegendaryCraftingSession.TransactionKind.START)));
+        assertThrows(IllegalArgumentException.class, () -> ledger().start(LegendaryWeapon.SHADOW_BLADE, WORLD, "Overworld (world)", 0, 0, 0, START, tx(UUID.randomUUID(), LegendaryCraftingSession.TransactionKind.START)));
     }
     @Test void creatorDisconnectOrUnresolvedConsumptionDoesNotPauseEventOrReservePrizeOwnership() throws Exception {
         var ledger = ledger(); var creator = tx(UUID.randomUUID(), LegendaryCraftingSession.TransactionKind.START);
-        ledger.start(LegendaryWeapon.HYPERION, WORLD, "Overworld (world)", 1, 2, 3, START, creator);
+        ledger.start(LegendaryWeapon.WINDWEAVER, WORLD, "Overworld (world)", 1, 2, 3, START, creator);
         var restarted = ledger(); restarted.advance(START + 1_200_000);
         var winner = tx(UUID.randomUUID(), LegendaryCraftingSession.TransactionKind.CLAIM);
-        assertEquals(2, restarted.claim(LegendaryWeapon.HYPERION, winner).transactions().size());
-        restarted.confirm(LegendaryWeapon.HYPERION, winner.nonce());
+        assertEquals(2, restarted.claim(LegendaryWeapon.WINDWEAVER, winner).transactions().size());
+        restarted.confirm(LegendaryWeapon.WINDWEAVER, winner.nonce());
         assertEquals(List.of(5), restarted.advance(START + 1_200_001).stream().map(LegendaryCraftingLedger.Notice::index).toList());
         assertTrue(restarted.pending(creator.player()));
         assertFalse(restarted.protectedCell(WORLD, 1, 2, 3));
-        restarted.confirm(LegendaryWeapon.HYPERION, creator.nonce());
+        restarted.confirm(LegendaryWeapon.WINDWEAVER, creator.nonce());
         assertFalse(restarted.pending(creator.player()));
     }
     @Test void differentWeaponsHaveIndependentEventsButOneTableCannotHostTwo() throws Exception {

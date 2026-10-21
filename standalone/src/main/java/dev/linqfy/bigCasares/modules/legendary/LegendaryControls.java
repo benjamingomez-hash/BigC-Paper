@@ -11,6 +11,7 @@ public final class LegendaryControls {
 
     public static Decision decide(LegendaryWeapon weapon, boolean rightClick, boolean mainHand, boolean denied) {
         if (weapon == null || !rightClick) return Decision.NATIVE_ATTACK;
+        if (!weapon.isAvailable()) return Decision.BLOCK_SPECIAL;
         return mainHand && !denied ? Decision.ACTIVATE_SPECIAL : Decision.BLOCK_SPECIAL;
     }
 }

@@ -39,7 +39,7 @@ class LegendaryControlsAndFlightTest {
 
     @Test
     void oneRightClickActivatesEachSpecialAndOffhandOrProtectionNeverLaunches() {
-        for (LegendaryWeapon weapon : LegendaryWeapon.values()) {
+        for (LegendaryWeapon weapon : LegendaryWeapon.available()) {
             assertEquals(LegendaryControls.Decision.ACTIVATE_SPECIAL, LegendaryControls.decide(weapon, true, true, false));
             assertEquals(LegendaryControls.Decision.BLOCK_SPECIAL, LegendaryControls.decide(weapon, true, false, false));
             assertEquals(LegendaryControls.Decision.BLOCK_SPECIAL, LegendaryControls.decide(weapon, true, true, true));

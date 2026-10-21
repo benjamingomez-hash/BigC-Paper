@@ -14,11 +14,11 @@ class LegendaryStateStoreTest {
     @TempDir Path directory;
 
     @Test
-    void exactlyEightUniqueAbilitiesAndAltarRecipes() {
-        assertEquals(8, LegendaryWeapon.values().length);
+    void sixAvailableWeaponsKeepUniqueAbilitiesAndRecipes() {
+        assertEquals(6, LegendaryWeapon.available().size());
         var abilities = new HashSet<String>();
         var altars = new HashSet<String>();
-        for (var weapon : LegendaryWeapon.values()) {
+        for (var weapon : LegendaryWeapon.available()) {
             assertTrue(abilities.add(weapon.abilityId));
             assertTrue(altars.add(weapon.altarName));
             assertEquals(9, weapon.ingredients.values().stream().mapToInt(Integer::intValue).sum());

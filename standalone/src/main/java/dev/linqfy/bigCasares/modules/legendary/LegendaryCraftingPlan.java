@@ -18,6 +18,7 @@ final class LegendaryCraftingPlan {
     private LegendaryCraftingPlan() { }
 
     static <T> Plan<T> create(LegendaryWeapon weapon, List<T> storage, List<T> matrix, Items<T> items) {
+        if (!weapon.isAvailable()) throw new IllegalArgumentException("Esta arma fue retirada.");
         if (matrix.size() != 9) throw new IllegalArgumentException("Usa una mesa de crafteo normal.");
         var counts = new java.util.HashMap<String, Integer>();
         for (T item : matrix) {

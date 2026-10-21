@@ -1,47 +1,38 @@
-ARMAS LEGENDARIAS 2.0.11 - PAPER 26.2 / JAVA 25
+ARMAS LEGENDARIAS 2.0.12 - PAPER 26.2 / JAVA 25
 
-Reescrito desde la base 2.0.5 con los cambios posteriores de hacha,
-Bloodlust y Sombras. Cada poder tiene su componente y reglas verificables.
-Plugin independiente; no necesita BigCasares ni BetterModel.
+Plugin independiente. No necesita BigCasares ni BetterModel.
 
-PODERES INCLUIDOS SOBRE LA BASE 2.0.5
-- Lanza: campo fijo de radio 7 por 10 s que paraliza al lanzador y rivales;
-  permite mirar y atacar. Solo el impacto directo recibe cinco pulsos
-  electricos. Regresa sin duplicarse. Lunge III nativo.
-- Earthbreaker: conserva el crater de radio 8 y profundidad 4/3/2/1.
-  Un unico golpe inicial quita 4 puntos de salud (dos corazones), aun con
-  armadura, encantamientos, Resistencia, escudo y absorcion. Respeta
-  invulnerabilidad, equipos, regiones y cancelaciones. Caidas: dano vanilla aparte.
-- Bloodlust: Fuerza III durante 10 segundos y cura medio corazon por golpe
-  directo valido con la espada mientras la habilidad esta activa.
-  No multiplica la curacion con barridos; no cura con proyectiles, golpes
-  cancelados o sin dano real. Respeta salud maxima y cancelaciones de curacion.
-- Sombras: teletransporte tras el rival, hasta 6 de dano magico (3 corazones
-  antes de reducciones), Debilidad II 4 s y Oscuridad 3 s. Invisibilidad y
-  Velocidad III 5 s al lanzador. La configuracion antigua de 14 se limita a 6.
+CAMBIO DE ESTA VERSION
+Se retiran Void Katana e Hyperion (la vara magica): sin recetas, comandos,
+listados ni poderes. No se agregan armas de la segunda semana por ahora.
 
-SE CONSERVA
-- Frost: congelacion y Lentitud IV para entidades vivas permitidas.
-- Hyperion: cinco bolas de fuego de ghast.
-- Maza: impulso vertical para preparar un smash y proteccion de la primera caida.
-- Katana, ocho modelos, recetas, evento, datos y cooldowns de 40 s.
+QUEDAN SEIS ARMAS
+- Bloodlust: Fuerza III 10 s y medio corazon por golpe directo valido.
+- Frost Scythe: congelacion y Lentitud IV para entidades vivas permitidas.
+- Shadow Blade: emboscada, hasta 3 corazones magicos antes de reducciones,
+  Debilidad II y Oscuridad; Invisibilidad y Velocidad III para el lanzador.
+- Windweaver: impulso vertical de maza y proteccion de la primera caida.
+- Earthbreaker: crater radio 8 y un golpe inicial de 2 corazones de salud.
+- Thunder Spear: campo de paralisis para ambos; rayos daninos solo al impacto directo.
+Los cooldowns siguen siendo de 40 segundos.
+
+ACTUALIZACION
+1. Detene Paper 26.2 y guarda una copia coherente del mundo, jugadores y
+   plugins/LegendaryWeapons. Java 25 es obligatorio.
+2. Guarda el JAR anterior fuera de plugins y copia LegendaryWeapons-2.0.12.jar.
+3. Conserva el diario y los datos de jugadores. Las armas retiradas ya existentes
+   quedan sin habilidad; sus registros se conservan y las transacciones pendientes
+   pueden recuperarse. Sus mesas dejan de estar protegidas por el evento retirado.
+4. Inicia Paper con Java 25 y conecta Minecraft Java 26.2. Acepta el pack.
+5. Usa /weapons list y /weapons info <arma>.
 
 CONTENIDO
-- LegendaryWeapons-2.0.11.jar: plugin con los ocho modelos incluidos.
-- legendary-weapons-java.zip: pack para instalacion manual opcional.
+- LegendaryWeapons-2.0.12.jar: plugin y pack incluido.
+- legendary-weapons-java.zip: pack manual opcional, con recursos historicos
+  para representar objetos antiguos al actualizar.
 - Este archivo.
 
-INSTALACION
-1. Detene Paper 26.2 y conserva una copia coherente del mundo, jugadores y
-   plugins/LegendaryWeapons. Java 25 es obligatorio.
-2. Guarda el JAR anterior fuera de plugins y copia LegendaryWeapons-2.0.11.jar
-   a plugins. Conserva el diario y los datos de jugadores al actualizar 2.0.x.
-3. Inicia Paper con Java 25 y conecta Minecraft Java 26.2. Acepta el pack.
-   Por defecto se sirve en http://127.0.0.1:8124/legendary-pack.zip para esa PC.
-4. Consulta /weapons info <arma> y fabrica en una mesa vanilla.
-
 AVISO DE WINDOWS
-Defender detecto Trojan:Script/Ulthar.A!ml en versiones anteriores. La causa
-del aviso local sigue sin confirmarse. Reescribir desde 2.0.5 no garantiza
-que desaparezca ni demuestra un falso positivo. Si vuelve a bloquear el
-archivo, dejalo en cuarentena; no desactives Defender ni agregues exclusiones.
+Las versiones anteriores tuvieron avisos locales de Defender sin diagnostico
+confirmado. Si vuelve a bloquear el archivo, dejalo en cuarentena; no desactives
+la proteccion ni agregues exclusiones para instalarlo.

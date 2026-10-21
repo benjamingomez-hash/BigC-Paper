@@ -28,9 +28,12 @@ public final class LegendaryCraftingLedger {
         }
     }
     public synchronized Optional<LegendaryCraftingSession> find(LegendaryWeapon weapon) { return Optional.ofNullable(sessions.get(weapon)); }
-    public synchronized List<LegendaryCraftingSession> all() { return List.copyOf(sessions.values()); }
+    public synchronized List<LegendaryCraftingSession> all() {
+        return sessions.values().stream().filter(session -> session.weapon().isAvailable()).toList();
+    }
+    public synchronized List<LegendaryCraftingSession> history() { return List.copyOf(sessions.values()); }
     public synchronized boolean protectedCell(UUID world, int x, int y, int z) {
-        return sessions.values().stream().anyMatch(s -> s.protectsTable() && s.world().equals(world)
+        return all().stream().anyMatch(s -> s.protectsTable() && s.world().equals(world)
             && s.x() == x && s.z() == z && (s.y() == y || s.y() + 1 == y));
     }
     public synchronized boolean pending(UUID player) {
@@ -38,10 +41,11 @@ public final class LegendaryCraftingLedger {
     }
     public synchronized LegendaryCraftingSession start(LegendaryWeapon weapon, UUID world, String dimension, int x, int y, int z,
                                                         long now, LegendaryCraftingSession.Pending transaction) throws IOException {
+        if (!weapon.isAvailable()) throw new IllegalArgumentException("Esta arma fue retirada.");
         if (sessions.containsKey(weapon)) throw new IllegalArgumentException("Esta arma ya fue reservada o fabricada.");
         if (transaction.kind() != LegendaryCraftingSession.TransactionKind.START) throw new IllegalArgumentException("Transacción incorrecta.");
         if (pending(transaction.player())) throw new IllegalArgumentException("Hay una transacción pendiente.");
-        if (sessions.values().stream().anyMatch(s -> s.protectsTable() && s.world().equals(world)
+        if (all().stream().anyMatch(s -> s.protectsTable() && s.world().equals(world)
             && s.x() == x && s.y() == y && s.z() == z)) throw new IllegalArgumentException("Esta mesa ya tiene un evento.");
         var session = new LegendaryCraftingSession(UUID.randomUUID(), weapon, world, dimension, x, y, z, now,
             Math.addExact(now, LegendaryCraftingSession.DURATION_MILLIS), LegendarySearchAreas.create(x, z, random),
@@ -50,6 +54,7 @@ public final class LegendaryCraftingLedger {
         return session;
     }
     public synchronized LegendaryCraftingSession claim(LegendaryWeapon weapon, LegendaryCraftingSession.Pending transaction) throws IOException {
+        if (!weapon.isAvailable()) throw new IllegalArgumentException("Esta arma fue retirada.");
         var session = find(weapon).orElseThrow();
         if (transaction.kind() != LegendaryCraftingSession.TransactionKind.CLAIM) throw new IllegalArgumentException("Transacción incorrecta.");
         if (session.stage() != LegendaryCraftingSession.Stage.READY_TO_CLAIM) {

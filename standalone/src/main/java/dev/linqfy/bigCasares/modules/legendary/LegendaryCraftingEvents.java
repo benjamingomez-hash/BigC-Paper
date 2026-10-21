@@ -91,7 +91,7 @@ final class LegendaryCraftingEvents implements Listener, Runnable {
         this.plugin = plugin; this.store = store; this.registrations = registrations;
         this.ledger = new LegendaryCraftingLedger(store, new java.security.SecureRandom());
         this.policy = new LegendaryCombatPolicy(plugin);
-        for (var weapon : LegendaryWeapon.values()) {
+        for (var weapon : LegendaryWeapon.available()) {
             var key = new NamespacedKey(plugin, "legendary_" + weapon.id);
             ItemStack preview = new ItemStack(Material.BARRIER);
             var meta = preview.getItemMeta();
@@ -194,7 +194,7 @@ final class LegendaryCraftingEvents implements Listener, Runnable {
 
     void recover(Player player) {
         try {
-            for (var session : ledger.all()) for (var transaction : session.transactions()) {
+            for (var session : ledger.history()) for (var transaction : session.transactions()) {
                 if (!transaction.player().equals(player.getUniqueId())) continue;
                 LegendaryInventoryTransaction.finish(transaction, new LegendaryInventoryTransaction.Inventory() {
                     public String marker() { return player.getPersistentDataContainer().get(COMMIT, PersistentDataType.STRING); }

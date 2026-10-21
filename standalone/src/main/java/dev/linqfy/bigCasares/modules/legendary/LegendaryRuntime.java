@@ -16,7 +16,6 @@ import org.bukkit.block.TileState;
 import org.bukkit.damage.DamageSource;
 import org.bukkit.damage.DamageType;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Fireball;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -26,14 +25,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockIgniteEvent;
-import org.bukkit.event.entity.EntityCombustByEntityEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
-import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -71,7 +65,6 @@ final class LegendaryRuntime implements Listener, Runnable {
     private final LegendaryMovementLock movementLock;
     private final LegendaryEarthShock earthShock;
     private final NamespacedKey temporary = new NamespacedKey("bigcasares", "legendary_temporary");
-    private final NamespacedKey hyperionShot = new NamespacedKey("bigcasares", "legendary_hyperion");
     private final java.util.function.Predicate<UUID> eventTransaction;
     private final java.util.function.Predicate<Block> protectedCell;
     private int tick;
@@ -127,8 +120,9 @@ final class LegendaryRuntime implements Listener, Runnable {
     }
 
     private void activate(Player player, LegendaryWeapon weapon) {
+        if (!weapon.isAvailable()) return;
         if (paralysis.anchor(player.getUniqueId()).isPresent()
-            && (weapon == LegendaryWeapon.WINDWEAVER || weapon == LegendaryWeapon.SHADOW_BLADE || weapon == LegendaryWeapon.VOID_KATANA)) {
+            && (weapon == LegendaryWeapon.WINDWEAVER || weapon == LegendaryWeapon.SHADOW_BLADE)) {
             player.sendActionBar(Component.text("⚡ Estás paralizado por la lanza."));
             return;
         }
@@ -229,8 +223,7 @@ final class LegendaryRuntime implements Listener, Runnable {
                     case WINDWEAVER -> wind(owner, session);
                     case SHADOW_BLADE -> { if (session.age >= LegendaryShadowAmbush.DURATION) finish(session, true); }
                     case EARTHBREAKER -> earthquake(owner, session);
-                    case VOID_KATANA -> katana(owner, session);
-                    case HYPERION -> hyperion(owner, session);
+                    case VOID_KATANA, HYPERION -> finish(session, false);
                     case THUNDER_SPEAR -> projectile(owner, session);
                 }
             } catch (RuntimeException | IOException failure) {
@@ -325,109 +318,6 @@ final class LegendaryRuntime implements Listener, Runnable {
         event.setExpToDrop(0);
         plugin.getServer().getPluginManager().callEvent(event);
         return !event.isCancelled();
-    }
-
-    private void hyperion(Player owner, Session session) throws IOException {
-        if (LegendaryHyperionSalvo.firesAt(session.age)) {
-            Vector direction = owner.getEyeLocation().getDirection();
-            Fireball fireball = owner.launchProjectile(Fireball.class, direction.clone().multiply(.85), entity -> {
-                entity.setPersistent(false);
-                entity.setYield((float) number("hyperion.explosion-power", 2, .5, 4));
-                entity.setIsIncendiary(plugin.getConfig().getBoolean("legendary-weapons.hyperion.ignite-blocks", false));
-                entity.setAcceleration(direction.clone().multiply(.06));
-                entity.getPersistentDataContainer().set(temporary, PersistentDataType.BYTE, (byte) 1);
-                entity.getPersistentDataContainer().set(hyperionShot, PersistentDataType.STRING, owner.getUniqueId().toString());
-            });
-            if (fireball.isValid()) session.ephemeral.add(fireball);
-            owner.getWorld().playSound(owner.getEyeLocation(), Sound.ENTITY_GHAST_SHOOT, .7f, 1);
-        }
-        for (Entity entity : new ArrayList<>(session.ephemeral)) {
-            if (entity.getTicksLived() > 100 || !entity.getWorld().equals(owner.getWorld())
-                || !entity.getWorld().getWorldBorder().isInside(entity.getLocation())
-                || !entity.getWorld().isChunkLoaded(entity.getLocation().getBlockX() >> 4, entity.getLocation().getBlockZ() >> 4)) {
-                entity.remove();
-            }
-        }
-        if (session.age >= LegendaryHyperionSalvo.MAX_AGE
-            || (session.age > LegendaryHyperionSalvo.LAST_SHOT && session.ephemeral.stream().noneMatch(Entity::isValid))) finish(session, true);
-    }
-
-    private Player hyperionOwner(Entity entity) {
-        if (!(entity instanceof Fireball)) return null;
-        String value = entity.getPersistentDataContainer().get(hyperionShot, PersistentDataType.STRING);
-        return value == null ? null : plugin.getServer().getPlayer(UUID.fromString(value));
-    }
-
-    private boolean hyperionShot(Entity entity) {
-        return entity instanceof Fireball && entity.getPersistentDataContainer().has(hyperionShot, PersistentDataType.STRING);
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void hyperionHit(ProjectileHitEvent event) {
-        if (!hyperionShot(event.getEntity())) return;
-        Player owner = hyperionOwner(event.getEntity());
-        Entity target = event.getHitEntity();
-        boolean denied = owner == null || (target instanceof LivingEntity living && !policy.affect(owner, living))
-            || (event.getHitBlock() != null && protectedCell.test(event.getHitBlock()));
-        if (denied) { event.setCancelled(true); event.getEntity().remove(); }
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void hyperionDamage(EntityDamageByEntityEvent event) {
-        Entity source = event.getDamageSource().getDirectEntity();
-        if (!hyperionShot(source)) return;
-        Player owner = hyperionOwner(source);
-        if (owner == null || (event.getEntity() instanceof LivingEntity living && !policy.affect(owner, living))
-            || !policy.allowed(owner, event.getEntity().getLocation(), null, LegendaryProtectionEvent.Action.DAMAGE)) event.setCancelled(true);
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void hyperionPrime(ExplosionPrimeEvent event) {
-        if (!hyperionShot(event.getEntity())) return;
-        Player owner = hyperionOwner(event.getEntity());
-        if (owner == null || !policy.allowed(owner, event.getEntity().getLocation(), null, LegendaryProtectionEvent.Action.DAMAGE)) event.setCancelled(true);
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void hyperionExplosion(EntityExplodeEvent event) {
-        if (!hyperionShot(event.getEntity())) return;
-        Player owner = hyperionOwner(event.getEntity());
-        if (owner == null) { event.setCancelled(true); return; }
-        event.blockList().removeIf(block -> !canBreakTerrain(owner, block));
-        event.setYield(0);
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void hyperionBurn(EntityCombustByEntityEvent event) {
-        if (!hyperionShot(event.getCombuster())) return;
-        Player owner = hyperionOwner(event.getCombuster());
-        if (owner == null || (event.getEntity() instanceof LivingEntity living && !policy.affect(owner, living))) event.setCancelled(true);
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void hyperionIgnite(BlockIgniteEvent event) {
-        if (!hyperionShot(event.getIgnitingEntity())) return;
-        Player owner = hyperionOwner(event.getIgnitingEntity());
-        if (owner == null || protectedCell.test(event.getBlock())
-            || !policy.allowed(owner, event.getBlock().getLocation(), null, LegendaryProtectionEvent.Action.BREAK)) event.setCancelled(true);
-    }
-
-    private void katana(Player owner, Session session) throws IOException {
-        if (session.age == 1 || session.age == 7 || session.age == 13) {
-            Location before = owner.getLocation();
-            if (!move(owner, before.clone().add(before.getDirection().setY(0).normalize().multiply(3)))) {
-                finish(session, false);
-                return;
-            }
-            owner.swingMainHand();
-            ring(owner.getLocation().add(0, 1, 0), 2.5, Color.PURPLE, session.age);
-            for (LivingEntity target : enemies(owner, owner.getLocation(), 3)) {
-                if (damage(owner, target, number("void-katana.damage-per-cut", 5, 0, 30))) {
-                    potion(session, target, PotionEffectType.DARKNESS, 30, 0);
-                }
-            }
-        }
-        if (session.age >= 14) finish(session, true);
     }
 
     private boolean shadow(Player owner, Session session, boolean preview) {
@@ -569,19 +459,6 @@ final class LegendaryRuntime implements Listener, Runnable {
                 paralysis.acquire(session.owner, target.getUniqueId(), point(destination));
             }
         }
-    }
-
-    private List<LivingEntity> enemies(Player owner, Location center, double radius) {
-        var candidates = center.getWorld().getNearbyEntities(center, radius, radius, radius).stream()
-            .filter(entity -> entity instanceof LivingEntity).map(entity -> (LivingEntity) entity).toList();
-        return LegendaryTargets.select(candidates, LivingEntity::getUniqueId,
-            entity -> entity.getLocation().distanceSquared(center),
-            entity -> entity.getLocation().distanceSquared(center) <= radius * radius && policy.target(owner, entity),
-            integer("max-targets-per-pulse", 12, 1, 64));
-    }
-
-    private boolean damage(Player owner, LivingEntity target, double amount) {
-        return damage(owner, target, amount, false);
     }
 
     private boolean spellDamage(Player owner, LivingEntity target, double amount) {

@@ -5,20 +5,15 @@ legendary-weapons:
   particles-per-ring: 24
   # Bloodlust: Fuerza III durante 200 ticks y medio corazón por golpe directo válido.
   # Shadow usa daño mágico (2 puntos = 1 corazón). Frost aplica estados,
-  # Hyperion lanza Fireball vanilla; Earthbreaker talla terreno y quita 4 puntos de salud una vez.
+  # Earthbreaker talla terreno y quita 4 puntos de salud una vez.
   frost-scythe:
     max-targets: 64
   shadow-blade:
     range: 16
     # Máximo 6 incluso con valores antiguos más altos; sustituye strike-damage.
     ambush-damage: 6
-  hyperion:
-    explosion-power: 2
-    ignite-blocks: false
   windweaver:
     upward-velocity: 1.3
-  void-katana:
-    damage-per-cut: 5
   spear:
     flight-speed: 1.8
     max-flight-ticks: 80

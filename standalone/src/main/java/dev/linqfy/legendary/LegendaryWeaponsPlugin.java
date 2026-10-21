@@ -2,6 +2,7 @@ package dev.linqfy.legendary;
 
 import com.sun.net.httpserver.HttpServer;
 import dev.linqfy.bigCasares.modules.legendary.LegendaryWeaponsModule;
+import dev.linqfy.bigCasares.modules.legendary.LegendaryWeapon;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -50,7 +51,7 @@ public final class LegendaryWeaponsPlugin extends JavaPlugin implements Listener
                 packServer.start();
                 getServer().getPluginManager().registerEvents(this, this);
             }
-            getLogger().info("Ocho armas legendarias listas. Usa /weapons help.");
+            getLogger().info(LegendaryWeapon.available().size() + " armas legendarias listas. Usa /weapons help.");
         } catch (Exception failure) {
             getLogger().log(java.util.logging.Level.SEVERE, "No se pudieron iniciar las armas legendarias.", failure);
             getServer().getPluginManager().disablePlugin(this);

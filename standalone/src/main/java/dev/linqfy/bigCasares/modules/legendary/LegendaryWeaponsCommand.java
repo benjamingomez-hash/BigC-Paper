@@ -5,7 +5,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -27,7 +26,7 @@ final class LegendaryWeaponsCommand implements CommandExecutor, TabCompleter {
                     sender.sendMessage("§7Administración: /weapons cooldown reset <jugador> | reload");
                 }
                 case "list", "events" -> {
-                    for (var weapon : LegendaryWeapon.values()) {
+                    for (var weapon : LegendaryWeapon.available()) {
                         var session = events.ledger().find(weapon);
                         String status = session.map(s -> s.stage().name()).orElse("AVAILABLE");
                         long seconds = session.map(s -> (s.remaining(System.currentTimeMillis()) + 999) / 1000).orElse(0L);
@@ -64,7 +63,7 @@ final class LegendaryWeaponsCommand implements CommandExecutor, TabCompleter {
     }
     @Override public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         List<String> options = args.length == 1 ? List.of("help", "list", "info", "events", "reload", "cooldown")
-            : args.length == 2 && args[0].equalsIgnoreCase("info") ? Arrays.stream(LegendaryWeapon.values()).map(w -> w.id).toList()
+            : args.length == 2 && args[0].equalsIgnoreCase("info") ? LegendaryWeapon.available().stream().map(w -> w.id).toList()
             : List.of();
         String prefix = args.length == 0 ? "" : args[args.length - 1].toLowerCase(Locale.ROOT);
         return options.stream().filter(o -> o.startsWith(prefix)).toList();

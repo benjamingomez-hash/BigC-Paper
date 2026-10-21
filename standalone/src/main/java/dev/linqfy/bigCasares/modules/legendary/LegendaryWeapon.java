@@ -1,6 +1,7 @@
 package dev.linqfy.bigCasares.modules.legendary;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -23,6 +24,8 @@ public enum LegendaryWeapon {
         Map.of("NETHERITE_SPEAR", 1, "LIGHTNING_ROD", 4, "HEART_OF_THE_SEA", 2, "COPPER_BLOCK", 2));
 
     public static final long COOLDOWN_MILLIS = 40_000;
+    // Keep historical enum names readable by the persisted journal and inventory recovery.
+    private static final List<LegendaryWeapon> AVAILABLE = Arrays.stream(values()).filter(LegendaryWeapon::isAvailable).toList();
     public static final int STORM_TICKS = 200;
     public static final int LIGHTNING_INTERVAL_TICKS = 40;
     public final String id;
@@ -49,11 +52,15 @@ public enum LegendaryWeapon {
     }
 
     public static Optional<LegendaryWeapon> find(String id) {
-        return Arrays.stream(values()).filter(weapon -> weapon.id.equalsIgnoreCase(id)).findFirst();
+        return AVAILABLE.stream().filter(weapon -> weapon.id.equalsIgnoreCase(id)).findFirst();
     }
 
+    public static List<LegendaryWeapon> available() { return AVAILABLE; }
+
+    public boolean isAvailable() { return this != VOID_KATANA && this != HYPERION; }
+
     public boolean canCraft(Map<String, Integer> inventory) {
-        return ingredients.entrySet().stream().allMatch(entry -> inventory.getOrDefault(entry.getKey(), 0) >= entry.getValue());
+        return isAvailable() && ingredients.entrySet().stream().allMatch(entry -> inventory.getOrDefault(entry.getKey(), 0) >= entry.getValue());
     }
 
     public String abilityDescription() {
@@ -61,10 +68,9 @@ public enum LegendaryWeapon {
             case BLOODLUST -> "Fuerza III durante 10 s y medio corazón de curación por golpe directo válido con la espada durante la habilidad.";
             case FROST_SCYTHE -> "Aura de 8 s y radio 6: congelación y Lentitud IV para cualquier entidad viva enemiga.";
             case SHADOW_BLADE -> "Emboscada tras el rival: hasta 3 corazones mágicos antes de reducciones, Debilidad II y Oscuridad; Invisibilidad y Velocidad III durante 5 s.";
-            case HYPERION -> "Ráfaga de cinco bolas de fuego explosivas de ghast; apunta mientras disparas.";
             case WINDWEAVER -> "Impulso vertical para atacar con la maza; protege la primera caída del salto durante un máximo de 10 s.";
             case EARTHBREAKER -> "Cráter de radio 8 y profundidad 4/3/2/1; un golpe inicial de 2 corazones de salud, independiente de armadura y reducciones.";
-            case VOID_KATANA -> "Tres cortes con desplazamiento y Oscuridad.";
+            case HYPERION, VOID_KATANA -> "Arma retirada de esta versión.";
             case THUNDER_SPEAR -> "Campo eléctrico de 10 s que paraliza a ambos; rayos dañinos solo al impacto directo. Regresa; Lunge III nativo.";
         };
     }
