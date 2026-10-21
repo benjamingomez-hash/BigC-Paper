@@ -1,5 +1,42 @@
 # Verificación de LegendaryWeapons
 
+## 2.0.14: modelos de la propuesta aprobada
+
+Se implementaron los seis diseños aprobados: espada roja con rubí, espada negra,
+guadaña gris/celeste, maza violeta centrada, hacha dorada de doble filo y lanza
+recta de una sola punta. Las vistas GUI son verticales; el cálculo de encuadre
+incluye las rotaciones nativas de 22,5 grados de las hojas del hacha.
+Los 83 archivos de clases coinciden byte por byte con 2.0.13: este cambio no
+modifica poderes, recetas ni persistencia. Ambos atlas PNG y los dos modelos
+retirados permanecen intactos; el generador reasigna sus materiales existentes.
+
+Java 25, desde `standalone/`:
+`bash gradlew --no-daemon --max-workers=4 clean build`.
+**80 pruebas correctas, sin fallos, errores ni exclusiones**, también en Windows.
+Las comprobaciones existentes validan los 112 sprites, regiones, referencias,
+cuboides y vistas. La regeneración de los modelos produce los mismos archivos.
+
+La [captura nativa sin editar](docs/legendary-models-approved-2.0.14.png) procede
+del cliente oficial Java 26.2 conectado a Paper 26.2-133, con el pack integrado
+de esta versión cargado. Se revisaron visualmente los seis modelos reales,
+incluido el contorno del hacha y la alineación de maza y lanza. Los ItemDisplay
+y rótulos proceden de una herramienta privada externa a la distribución.
+La instancia quedó detenida y se restauraron el JAR, el directorio del plugin
+y los datos de jugadores originales. No se repitieron todas las habilidades ni
+el evento completo de veinte minutos para este cambio visual.
+
+[Actions 39654428833](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39654428833)
+completó cinco análisis Defender sin detecciones: ZIP, sus tres archivos y JAR.
+Firmas 1.461.139.0, protección en tiempo real y nube activas, sin exclusiones.
+Se distribuyen los archivos exactos de ese trabajo, comprobados por SHA-256.
+Las clases y los PNG son idénticos a los probados en Paper; los textos del pack
+solo difieren por los finales de línea CRLF/LF de Windows. El resultado no
+diagnostica las alertas locales anteriores ni garantiza aceptación local.
+
+Detalles: [modelos y regeneración](MODELS.md),
+[verificación visual](docs/approved-models-verification-2.0.14.json) y
+[reporte de Defender](docs/defender-verification-2.0.14.json).
+
 ## 2.0.13: texturas y modelos simplificados
 
 Se simplificaron las seis armas actuales: una paleta con menos contraste y

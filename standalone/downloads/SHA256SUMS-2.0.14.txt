@@ -1,0 +1,2 @@
+6679dc5953aea14ddb08bae808dcdf769b258bc416a8e2346a46e802e0a5715f  LegendaryWeapons-2.0.14.jar
+1112231a68738bd5923b87e6aeca9d794760e5ea7198c19caecde5ffb4eadfa3  Armas-Legendarias-2.0.14.zip

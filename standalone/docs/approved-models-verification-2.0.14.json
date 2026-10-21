@@ -1,0 +1,27 @@
+{
+  "version": "2.0.14",
+  "sourceCommit": "d674ce86c7b8d202d407cae6efd68cea8761621c",
+  "approvedProposal": "legendary-models-approved-proposal-2.0.14.png",
+  "client": "Official Minecraft Java 26.2",
+  "server": "Paper 26.2-133",
+  "capture": "legendary-models-approved-2.0.14.png",
+  "captureSha256": "2d1a479cc99594f5319747d1519529e23863aa67e057ff2824ee09ce1d6eddef",
+  "captureMethod": "Unmodified native F2 screenshot. Six GUI ItemDisplays and labels from a private gallery helper outside the distribution.",
+  "models": {
+    "bloodlust": 39,
+    "earthbreaker": 33,
+    "frost_scythe": 35,
+    "shadow_blade": 27,
+    "thunder_spear": 33,
+    "windweaver": 25
+  },
+  "unitTests": 80,
+  "failures": 0,
+  "gameplayClassesIdenticalTo2_0_13": 83,
+  "historicalAtlasesAndRetiredModelsUnchanged": true,
+  "nativePackComparison": "Every file matches the Windows artifact, allowing only CRLF/LF text line endings. PNGs and class files match byte-for-byte.",
+  "fixtureStoppedAndPlayerDataRestored": true,
+  "ciRun": "https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39654428833",
+  "distributionSha256": "1112231a68738bd5923b87e6aeca9d794760e5ea7198c19caecde5ffb4eadfa3",
+  "jarSha256": "6679dc5953aea14ddb08bae808dcdf769b258bc416a8e2346a46e802e0a5715f"
+}

@@ -1,3 +1,28 @@
+# Modelos aprobados — 2.0.14
+
+Se implementa la propuesta aprobada por el usuario, con las dos correcciones de orientación y la lanza de una sola punta. Son modelos Java nativos del plugin independiente.
+
+![Los seis modelos dentro de Minecraft](docs/legendary-models-approved-2.0.14.png)
+
+| Arma | Diseño implementado |
+| --- | --- |
+| Bloodlust | Espada carmesí con punta ensanchada, guarda dorada, mango envuelto y rubí. |
+| Shadow Blade | Espada negra con borde escalonado gris, guarda de metal y pequeñas gemas violetas. |
+| Frost Scythe | Guadaña gris y negra, hoja en gancho, contrapeso celeste y bandas del mismo color. |
+| Windweaver | Maza centrada, armazón gris y negro, cristal violeta y mango recto. |
+| Earthbreaker | Hacha dorada simétrica de doble filo, mango de madera y empuñadura negra. |
+| Thunder Spear | Lanza recta de una sola hoja celeste con borde claro, engaste dorado y mango de madera. |
+
+La [propuesta aprobada](docs/legendary-models-approved-proposal-2.0.14.png) se conserva como referencia. La imagen superior es una captura nativa F2 del cliente oficial Java 26.2 conectado a Paper 26.2-133; no es la imagen conceptual. La galería usa una herramienta privada externa al plugin distribuido.
+
+Desde `standalone/`, ejecutá `python3 tools/generate_approved_models.py` para regenerar los seis modelos y la configuración del atlas. El script compone cuboides y asigna los materiales existentes a sus caras: no modifica píxeles de los PNG. Las dos texturas originales, ambos modelos retirados y todos los identificadores se conservan. Las vistas de inventario mantienen las armas verticales y calculan el encuadre a partir de sus límites reales.
+
+Esta actualización es visual: conserva los poderes, recetas, cooldowns, inventarios y diario de 2.0.13. Void Katana e Hyperion siguen retiradas. Detené Paper, sustituí el JAR anterior por 2.0.14 y reiniciá; aceptá el nuevo pack. No borres datos ni dejes ambos JAR instalados.
+
+Las galerías y generadores anteriores se conservan como historial. `generate_simple_models.py` restaura 2.0.13 y `generate_models.py` restaura el diseño original; usá el generador aprobado para el diseño actual.
+
+---
+
 # Modelos simplificados — 2.0.13
 
 Las seis armas actuales tienen una paleta más plana, menos brillos y entre 9 y 12 cuboides por modelo, frente a los 46–76 anteriores. Conservan su identidad: Bloodlust carmesí, Frost Scythe celeste, Shadow Blade violeta, Windweaver plateada, Earthbreaker verde con mango marrón y Thunder Spear azul con guarda dorada.
