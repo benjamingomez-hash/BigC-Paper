@@ -2,28 +2,28 @@
   "gui_light": "front",
   "ambientocclusion": false,
   "textures": {
-    "outline": "bigcasares:item/legendary/frost_scythe/outline",
-    "shade": "bigcasares:item/legendary/frost_scythe/shade",
-    "metal": "bigcasares:item/legendary/frost_scythe/metal",
-    "edge": "bigcasares:item/legendary/frost_scythe/edge",
-    "highlight": "bigcasares:item/legendary/frost_scythe/highlight",
-    "gem": "bigcasares:item/legendary/frost_scythe/gem",
-    "grip": "bigcasares:item/legendary/frost_scythe/grip",
-    "gold": "bigcasares:item/legendary/frost_scythe/gold",
+    "outline": "bigcasares:item/legendary_simple/frost_scythe/outline",
+    "shade": "bigcasares:item/legendary_simple/frost_scythe/shade",
+    "metal": "bigcasares:item/legendary_simple/frost_scythe/metal",
+    "edge": "bigcasares:item/legendary_simple/frost_scythe/edge",
+    "highlight": "bigcasares:item/legendary_simple/frost_scythe/highlight",
+    "gem": "bigcasares:item/legendary_simple/frost_scythe/gem",
+    "grip": "bigcasares:item/legendary_simple/frost_scythe/grip",
+    "gold": "bigcasares:item/legendary_simple/frost_scythe/gold",
     "particle": "#metal"
   },
   "elements": [
     {
-      "name": "long_haft",
+      "name": "shaft",
       "from": [
-        7.05,
-        -14,
-        7.05
+        7.2,
+        -15,
+        7.2
       ],
       "to": [
-        8.95,
+        8.8,
         25,
-        8.95
+        8.8
       ],
       "shade": true,
       "light_emission": 0,
@@ -35,7 +35,7 @@
             16,
             16
           ],
-          "texture": "#outline"
+          "texture": "#shade"
         },
         "south": {
           "uv": [
@@ -44,7 +44,7 @@
             16,
             16
           ],
-          "texture": "#outline"
+          "texture": "#shade"
         },
         "east": {
           "uv": [
@@ -53,7 +53,7 @@
             16,
             16
           ],
-          "texture": "#outline"
+          "texture": "#shade"
         },
         "west": {
           "uv": [
@@ -62,7 +62,7 @@
             16,
             16
           ],
-          "texture": "#outline"
+          "texture": "#shade"
         },
         "up": {
           "uv": [
@@ -71,7 +71,7 @@
             16,
             16
           ],
-          "texture": "#outline"
+          "texture": "#shade"
         },
         "down": {
           "uv": [
@@ -80,21 +80,21 @@
             16,
             16
           ],
-          "texture": "#outline"
+          "texture": "#shade"
         }
       }
     },
     {
-      "name": "haft_inlay",
+      "name": "grip",
       "from": [
-        7.5,
-        -12,
-        6.9
+        6.8,
+        -13,
+        6.8
       ],
       "to": [
-        8.5,
-        22,
-        7.05
+        9.2,
+        0,
+        9.2
       ],
       "shade": true,
       "light_emission": 0,
@@ -106,7 +106,7 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#grip"
         },
         "south": {
           "uv": [
@@ -115,7 +115,7 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#grip"
         },
         "east": {
           "uv": [
@@ -124,7 +124,7 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#grip"
         },
         "west": {
           "uv": [
@@ -133,7 +133,7 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#grip"
         },
         "up": {
           "uv": [
@@ -142,7 +142,7 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#grip"
         },
         "down": {
           "uv": [
@@ -151,1228 +151,92 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#grip"
         }
       }
     },
     {
-      "name": "lower_grip",
+      "name": "endcap",
       "from": [
         6.7,
-        -13,
+        -16,
         6.7
       ],
       "to": [
         9.3,
+        -14,
+        9.3
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        }
+      }
+    },
+    {
+      "name": "crescent_0",
+      "from": [
         1,
-        9.3
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#grip"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#grip"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#grip"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#grip"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#grip"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#grip"
-        }
-      }
-    },
-    {
-      "name": "haft_endcap",
-      "from": [
-        6.5,
-        -16,
-        6.5
-      ],
-      "to": [
-        9.5,
-        -13,
-        9.5
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        }
-      }
-    },
-    {
-      "name": "haft_ring_0",
-      "from": [
-        6.8,
-        -10,
-        6.8
-      ],
-      "to": [
-        9.2,
-        -9.35,
-        9.2
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        }
-      }
-    },
-    {
-      "name": "haft_ring_1",
-      "from": [
-        6.8,
-        -6,
-        6.8
-      ],
-      "to": [
-        9.2,
-        -5.35,
-        9.2
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        }
-      }
-    },
-    {
-      "name": "haft_ring_2",
-      "from": [
-        6.8,
-        -2,
-        6.8
-      ],
-      "to": [
-        9.2,
-        -1.35,
-        9.2
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        }
-      }
-    },
-    {
-      "name": "haft_ring_3",
-      "from": [
-        6.8,
-        4,
-        6.8
-      ],
-      "to": [
-        9.2,
-        4.65,
-        9.2
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        }
-      }
-    },
-    {
-      "name": "haft_ring_4",
-      "from": [
-        6.8,
-        9,
-        6.8
-      ],
-      "to": [
-        9.2,
-        9.65,
-        9.2
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        }
-      }
-    },
-    {
-      "name": "haft_ring_5",
-      "from": [
-        6.8,
-        14,
-        6.8
-      ],
-      "to": [
-        9.2,
-        14.65,
-        9.2
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        }
-      }
-    },
-    {
-      "name": "haft_ring_6",
-      "from": [
-        6.8,
-        18,
-        6.8
-      ],
-      "to": [
-        9.2,
-        18.65,
-        9.2
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        }
-      }
-    },
-    {
-      "name": "crescent_0_silhouette",
-      "from": [
-        6,
-        24,
-        6.7
-      ],
-      "to": [
-        11,
-        29,
-        9.3
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        }
-      }
-    },
-    {
-      "name": "crescent_0_steel_front",
-      "from": [
-        6.35,
-        24.1,
-        6.45
-      ],
-      "to": [
-        10.65,
-        28.9,
-        6.7
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        }
-      }
-    },
-    {
-      "name": "crescent_0_steel_back",
-      "from": [
-        6.35,
-        24.1,
-        9.3
-      ],
-      "to": [
-        10.65,
-        28.9,
-        9.55
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        }
-      }
-    },
-    {
-      "name": "crescent_0_edge_front",
-      "from": [
-        6.2,
-        24.15,
-        6.15
-      ],
-      "to": [
-        10.8,
-        24.85,
-        6.4
-      ],
-      "shade": false,
-      "light_emission": 3,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        }
-      }
-    },
-    {
-      "name": "crescent_0_edge_back",
-      "from": [
-        6.2,
-        24.15,
-        9.600000000000001
-      ],
-      "to": [
-        10.8,
-        24.85,
-        9.850000000000001
-      ],
-      "shade": false,
-      "light_emission": 3,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        }
-      }
-    },
-    {
-      "name": "crescent_0_glint_front",
-      "from": [
-        6.25,
-        24.12,
-        5.8500000000000005
-      ],
-      "to": [
-        10.75,
-        24.4,
-        6.1000000000000005
-      ],
-      "shade": false,
-      "light_emission": 5,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        }
-      }
-    },
-    {
-      "name": "crescent_0_glint_back",
-      "from": [
-        6.25,
-        24.12,
-        9.9
-      ],
-      "to": [
-        10.75,
-        24.4,
-        10.15
-      ],
-      "shade": false,
-      "light_emission": 5,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        }
-      }
-    },
-    {
-      "name": "crescent_1_silhouette",
-      "from": [
-        0,
         25,
-        6.7
+        7
       ],
       "to": [
-        6,
-        31,
-        9.3
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        }
-      }
-    },
-    {
-      "name": "crescent_1_steel_front",
-      "from": [
-        0.35,
-        25.1,
-        6.45
-      ],
-      "to": [
-        5.65,
-        30.9,
-        6.7
+        10,
+        29,
+        9
       ],
       "shade": true,
       "light_emission": 0,
@@ -1434,16 +298,16 @@
       }
     },
     {
-      "name": "crescent_1_steel_back",
+      "name": "crescent_0_edge",
       "from": [
-        0.35,
-        25.1,
-        9.3
+        1,
+        25,
+        6.8
       ],
       "to": [
-        5.65,
-        30.9,
-        9.55
+        10,
+        25.7,
+        9.2
       ],
       "shade": true,
       "light_emission": 0,
@@ -1455,77 +319,6 @@
             16,
             16
           ],
-          "texture": "#metal"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        }
-      }
-    },
-    {
-      "name": "crescent_1_edge_front",
-      "from": [
-        0.2,
-        25.15,
-        6.15
-      ],
-      "to": [
-        5.8,
-        25.85,
-        6.4
-      ],
-      "shade": false,
-      "light_emission": 3,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
           "texture": "#edge"
         },
         "south": {
@@ -1576,300 +369,16 @@
       }
     },
     {
-      "name": "crescent_1_edge_back",
-      "from": [
-        0.2,
-        25.15,
-        9.600000000000001
-      ],
-      "to": [
-        5.8,
-        25.85,
-        9.850000000000001
-      ],
-      "shade": false,
-      "light_emission": 3,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        }
-      }
-    },
-    {
-      "name": "crescent_1_glint_front",
-      "from": [
-        0.25,
-        25.12,
-        5.8500000000000005
-      ],
-      "to": [
-        5.75,
-        25.4,
-        6.1000000000000005
-      ],
-      "shade": false,
-      "light_emission": 5,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        }
-      }
-    },
-    {
-      "name": "crescent_1_glint_back",
-      "from": [
-        0.25,
-        25.12,
-        9.9
-      ],
-      "to": [
-        5.75,
-        25.4,
-        10.15
-      ],
-      "shade": false,
-      "light_emission": 5,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        }
-      }
-    },
-    {
-      "name": "crescent_2_silhouette",
+      "name": "crescent_1",
       "from": [
         -6,
         23,
-        6.7
+        7
       ],
       "to": [
-        0,
-        30,
-        9.3
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        }
-      }
-    },
-    {
-      "name": "crescent_2_steel_front",
-      "from": [
-        -5.65,
-        23.1,
-        6.45
-      ],
-      "to": [
-        -0.35,
-        29.9,
-        6.7
+        1,
+        29,
+        9
       ],
       "shade": true,
       "light_emission": 0,
@@ -1931,16 +440,16 @@
       }
     },
     {
-      "name": "crescent_2_steel_back",
+      "name": "crescent_1_edge",
       "from": [
-        -5.65,
-        23.1,
-        9.3
+        -6,
+        23,
+        6.8
       ],
       "to": [
-        -0.35,
-        29.9,
-        9.55
+        1,
+        23.7,
+        9.2
       ],
       "shade": true,
       "light_emission": 0,
@@ -1952,77 +461,6 @@
             16,
             16
           ],
-          "texture": "#metal"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        }
-      }
-    },
-    {
-      "name": "crescent_2_edge_front",
-      "from": [
-        -5.8,
-        23.15,
-        6.15
-      ],
-      "to": [
-        -0.2,
-        23.85,
-        6.4
-      ],
-      "shade": false,
-      "light_emission": 3,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
           "texture": "#edge"
         },
         "south": {
@@ -2073,300 +511,16 @@
       }
     },
     {
-      "name": "crescent_2_edge_back",
-      "from": [
-        -5.8,
-        23.15,
-        9.600000000000001
-      ],
-      "to": [
-        -0.2,
-        23.85,
-        9.850000000000001
-      ],
-      "shade": false,
-      "light_emission": 3,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        }
-      }
-    },
-    {
-      "name": "crescent_2_glint_front",
-      "from": [
-        -5.75,
-        23.12,
-        5.8500000000000005
-      ],
-      "to": [
-        -0.25,
-        23.4,
-        6.1000000000000005
-      ],
-      "shade": false,
-      "light_emission": 5,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        }
-      }
-    },
-    {
-      "name": "crescent_2_glint_back",
-      "from": [
-        -5.75,
-        23.12,
-        9.9
-      ],
-      "to": [
-        -0.25,
-        23.4,
-        10.15
-      ],
-      "shade": false,
-      "light_emission": 5,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        }
-      }
-    },
-    {
-      "name": "crescent_3_silhouette",
+      "name": "crescent_2",
       "from": [
         -11,
-        19,
-        6.7
+        18,
+        7
       ],
       "to": [
         -6,
-        27,
-        9.3
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        }
-      }
-    },
-    {
-      "name": "crescent_3_steel_front",
-      "from": [
-        -10.65,
-        19.1,
-        6.45
-      ],
-      "to": [
-        -6.35,
-        26.9,
-        6.7
+        26,
+        9
       ],
       "shade": true,
       "light_emission": 0,
@@ -2428,16 +582,16 @@
       }
     },
     {
-      "name": "crescent_3_steel_back",
+      "name": "crescent_2_edge",
       "from": [
-        -10.65,
-        19.1,
-        9.3
+        -11,
+        18,
+        6.8
       ],
       "to": [
-        -6.35,
-        26.9,
-        9.55
+        -6,
+        18.7,
+        9.2
       ],
       "shade": true,
       "light_emission": 0,
@@ -2449,77 +603,6 @@
             16,
             16
           ],
-          "texture": "#metal"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        }
-      }
-    },
-    {
-      "name": "crescent_3_edge_front",
-      "from": [
-        -10.8,
-        19.15,
-        6.15
-      ],
-      "to": [
-        -6.2,
-        19.85,
-        6.4
-      ],
-      "shade": false,
-      "light_emission": 3,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
           "texture": "#edge"
         },
         "south": {
@@ -2570,939 +653,158 @@
       }
     },
     {
-      "name": "crescent_3_edge_back",
+      "name": "crescent_3",
       "from": [
-        -10.8,
-        19.15,
-        9.600000000000001
-      ],
-      "to": [
-        -6.2,
-        19.85,
-        9.850000000000001
-      ],
-      "shade": false,
-      "light_emission": 3,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        }
-      }
-    },
-    {
-      "name": "crescent_3_glint_front",
-      "from": [
-        -10.75,
-        19.12,
-        5.8500000000000005
-      ],
-      "to": [
-        -6.25,
-        19.4,
-        6.1000000000000005
-      ],
-      "shade": false,
-      "light_emission": 5,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        }
-      }
-    },
-    {
-      "name": "crescent_3_glint_back",
-      "from": [
-        -10.75,
-        19.12,
-        9.9
-      ],
-      "to": [
-        -6.25,
-        19.4,
-        10.15
-      ],
-      "shade": false,
-      "light_emission": 5,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        }
-      }
-    },
-    {
-      "name": "crescent_4_silhouette",
-      "from": [
-        -14,
-        14,
-        6.7
+        -13,
+        12,
+        7
       ],
       "to": [
         -10,
+        21,
+        9
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#metal"
+        }
+      }
+    },
+    {
+      "name": "crescent_3_edge",
+      "from": [
+        -13,
+        12,
+        6.8
+      ],
+      "to": [
+        -10,
+        12.7,
+        9.2
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#edge"
+        }
+      }
+    },
+    {
+      "name": "ice_socket",
+      "from": [
+        6,
         23,
-        9.3
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        }
-      }
-    },
-    {
-      "name": "crescent_4_steel_front",
-      "from": [
-        -13.65,
-        14.1,
-        6.45
+        6
       ],
       "to": [
-        -10.35,
-        22.9,
-        6.7
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        }
-      }
-    },
-    {
-      "name": "crescent_4_steel_back",
-      "from": [
-        -13.65,
-        14.1,
-        9.3
-      ],
-      "to": [
-        -10.35,
-        22.9,
-        9.55
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        }
-      }
-    },
-    {
-      "name": "crescent_4_edge_front",
-      "from": [
-        -13.8,
-        14.15,
-        6.15
-      ],
-      "to": [
-        -10.2,
-        14.85,
-        6.4
-      ],
-      "shade": false,
-      "light_emission": 3,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        }
-      }
-    },
-    {
-      "name": "crescent_4_edge_back",
-      "from": [
-        -13.8,
-        14.15,
-        9.600000000000001
-      ],
-      "to": [
-        -10.2,
-        14.85,
-        9.850000000000001
-      ],
-      "shade": false,
-      "light_emission": 3,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        }
-      }
-    },
-    {
-      "name": "crescent_4_glint_front",
-      "from": [
-        -13.75,
-        14.12,
-        5.8500000000000005
-      ],
-      "to": [
-        -10.25,
-        14.4,
-        6.1000000000000005
-      ],
-      "shade": false,
-      "light_emission": 5,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        }
-      }
-    },
-    {
-      "name": "crescent_4_glint_back",
-      "from": [
-        -13.75,
-        14.12,
-        9.9
-      ],
-      "to": [
-        -10.25,
-        14.4,
-        10.15
-      ],
-      "shade": false,
-      "light_emission": 5,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        }
-      }
-    },
-    {
-      "name": "crescent_5_silhouette",
-      "from": [
-        -15,
         10,
-        6.7
-      ],
-      "to": [
-        -12,
-        17,
-        9.3
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#outline"
-        }
-      }
-    },
-    {
-      "name": "crescent_5_steel_front",
-      "from": [
-        -14.65,
-        10.1,
-        6.45
-      ],
-      "to": [
-        -12.35,
-        16.9,
-        6.7
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        }
-      }
-    },
-    {
-      "name": "crescent_5_steel_back",
-      "from": [
-        -14.65,
-        10.1,
-        9.3
-      ],
-      "to": [
-        -12.35,
-        16.9,
-        9.55
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#metal"
-        }
-      }
-    },
-    {
-      "name": "crescent_5_edge_front",
-      "from": [
-        -14.8,
-        10.15,
-        6.15
-      ],
-      "to": [
-        -12.2,
-        10.85,
-        6.4
+        27,
+        10
       ],
       "shade": false,
       "light_emission": 3,
@@ -3514,574 +816,6 @@
             16,
             16
           ],
-          "texture": "#edge"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        }
-      }
-    },
-    {
-      "name": "crescent_5_edge_back",
-      "from": [
-        -14.8,
-        10.15,
-        9.600000000000001
-      ],
-      "to": [
-        -12.2,
-        10.85,
-        9.850000000000001
-      ],
-      "shade": false,
-      "light_emission": 3,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#edge"
-        }
-      }
-    },
-    {
-      "name": "crescent_5_glint_front",
-      "from": [
-        -14.75,
-        10.12,
-        5.8500000000000005
-      ],
-      "to": [
-        -12.25,
-        10.4,
-        6.1000000000000005
-      ],
-      "shade": false,
-      "light_emission": 5,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        }
-      }
-    },
-    {
-      "name": "crescent_5_glint_back",
-      "from": [
-        -14.75,
-        10.12,
-        9.9
-      ],
-      "to": [
-        -12.25,
-        10.4,
-        10.15
-      ],
-      "shade": false,
-      "light_emission": 5,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        }
-      }
-    },
-    {
-      "name": "ice_tooth_0",
-      "from": [
-        -5,
-        20,
-        7.2
-      ],
-      "to": [
-        -4.2,
-        22,
-        8.8
-      ],
-      "shade": false,
-      "light_emission": 6,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        }
-      }
-    },
-    {
-      "name": "ice_tooth_1",
-      "from": [
-        -9,
-        16,
-        7.2
-      ],
-      "to": [
-        -8.2,
-        18,
-        8.8
-      ],
-      "shade": false,
-      "light_emission": 6,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        }
-      }
-    },
-    {
-      "name": "ice_tooth_2",
-      "from": [
-        0,
-        22,
-        7.2
-      ],
-      "to": [
-        0.8,
-        24,
-        8.8
-      ],
-      "shade": false,
-      "light_emission": 6,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        }
-      }
-    },
-    {
-      "name": "frost_heart_bezel",
-      "from": [
-        6.0,
-        23.6,
-        5.9
-      ],
-      "to": [
-        10.0,
-        28.4,
-        10.1
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gold"
-        }
-      }
-    },
-    {
-      "name": "frost_heart_crystal_front",
-      "from": [
-        6.4,
-        24.666666666666668,
-        5.45
-      ],
-      "to": [
-        9.6,
-        27.333333333333332,
-        5.7
-      ],
-      "shade": false,
-      "light_emission": 13,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
           "texture": "#gem"
         },
         "south": {
@@ -4128,361 +862,6 @@
             16
           ],
           "texture": "#gem"
-        }
-      }
-    },
-    {
-      "name": "frost_heart_crystal_back",
-      "from": [
-        6.4,
-        24.666666666666668,
-        10.3
-      ],
-      "to": [
-        9.6,
-        27.333333333333332,
-        10.55
-      ],
-      "shade": false,
-      "light_emission": 13,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gem"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gem"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gem"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gem"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gem"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gem"
-        }
-      }
-    },
-    {
-      "name": "frost_heart_tips_front",
-      "from": [
-        7.2,
-        24.0,
-        5.300000000000001
-      ],
-      "to": [
-        8.8,
-        28.0,
-        5.550000000000001
-      ],
-      "shade": false,
-      "light_emission": 13,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gem"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gem"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gem"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gem"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gem"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gem"
-        }
-      }
-    },
-    {
-      "name": "frost_heart_tips_back",
-      "from": [
-        7.2,
-        24.0,
-        10.450000000000001
-      ],
-      "to": [
-        8.8,
-        28.0,
-        10.700000000000001
-      ],
-      "shade": false,
-      "light_emission": 13,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gem"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gem"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gem"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gem"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gem"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#gem"
-        }
-      }
-    },
-    {
-      "name": "frost_heart_facet_front",
-      "from": [
-        7.2,
-        26,
-        5.0
-      ],
-      "to": [
-        7.6,
-        27.333333333333332,
-        5.25
-      ],
-      "shade": false,
-      "light_emission": 14,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        }
-      }
-    },
-    {
-      "name": "frost_heart_facet_back",
-      "from": [
-        7.2,
-        26,
-        10.75
-      ],
-      "to": [
-        7.6,
-        27.333333333333332,
-        11.0
-      ],
-      "shade": false,
-      "light_emission": 14,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#highlight"
         }
       }
     }
@@ -4495,14 +874,14 @@
         -38
       ],
       "translation": [
-        0.231,
-        -1.188,
-        0.087
+        0.2,
+        -1.121,
+        0.183
       ],
       "scale": [
-        0.2985,
-        0.2985,
-        0.2985
+        0.3049,
+        0.3049,
+        0.3049
       ]
     },
     "firstperson_righthand": {

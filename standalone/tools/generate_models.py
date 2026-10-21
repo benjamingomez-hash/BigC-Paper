@@ -17,8 +17,9 @@ MATERIALS = ('outline', 'shade', 'metal', 'edge', 'highlight', 'gem', 'grip', 'g
 
 
 class Weapon:
-    def __init__(self, name):
+    def __init__(self, name, palette='legendary'):
         self.name = name
+        self.palette = palette
         self.elements = []
 
     def box(self, name, start, end, material='metal', light=0):
@@ -97,7 +98,7 @@ class Weapon:
         }
         model = {
             'gui_light': 'front', 'ambientocclusion': False,
-            'textures': {**{m: f'bigcasares:item/legendary/{self.name}/{m}' for m in MATERIALS}, 'particle': '#metal'},
+            'textures': {**{m: f'bigcasares:item/{self.palette}/{self.name}/{m}' for m in MATERIALS}, 'particle': '#metal'},
             'elements': self.elements, 'display': display,
         }
         path = ASSETS / 'bigcasares/models/item' / (self.name + '.json')

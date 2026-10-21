@@ -1,5 +1,5 @@
 name: LegendaryWeapons
-version: 2.0.12
+version: 2.0.13
 main: dev.linqfy.legendary.LegendaryWeaponsPlugin
 api-version: '26.2'
 authors: [linqfy]

@@ -17,31 +17,37 @@ class LegendaryModelAssetsTest {
     }
     private static Set<String> sprites() throws Exception {
         var sprites = new HashSet<String>();
-        var source = json(ASSETS.resolve("minecraft/atlases/items.json")).getAsJsonArray("sources").get(0).getAsJsonObject();
-        for (var entry : source.getAsJsonArray("regions")) sprites.add(entry.getAsJsonObject().get("sprite").getAsString());
+        for (var entry : json(ASSETS.resolve("minecraft/atlases/items.json")).getAsJsonArray("sources")) {
+            for (var region : entry.getAsJsonObject().getAsJsonArray("regions")) {
+                assertTrue(sprites.add(region.getAsJsonObject().get("sprite").getAsString()), "Duplicate sprite");
+            }
+        }
         return sprites;
     }
 
-    @Test void nativeAtlasExtractsPowerOfTwoMaterialsInsideTheUnmodifiedSource() throws Exception {
+    @Test void nativeAtlasExtractsPowerOfTwoMaterialsInsideBothUnmodifiedSources() throws Exception {
         var sources = json(ASSETS.resolve("minecraft/atlases/items.json")).getAsJsonArray("sources");
-        assertEquals(1, sources.size());
-        var source = sources.get(0).getAsJsonObject();
-        assertEquals("minecraft:unstitch", source.get("type").getAsString());
-        assertEquals("bigcasares:legendary/material_atlas", source.get("resource").getAsString());
-        var image = ImageIO.read(ASSETS.resolve("bigcasares/textures/legendary/material_atlas.png").toFile());
-        assertNotNull(image);
-        assertEquals(image.getWidth(), source.get("divisor_x").getAsInt());
-        assertEquals(image.getHeight(), source.get("divisor_y").getAsInt());
-        for (var region : source.getAsJsonArray("regions")) {
-            var r = region.getAsJsonObject();
-            int width = r.get("width").getAsInt(), height = r.get("height").getAsInt();
-            assertTrue(width > 0 && (width & (width - 1)) == 0);
-            assertTrue(height > 0 && (height & (height - 1)) == 0);
-            assertTrue(r.get("x").getAsInt() >= 0 && r.get("y").getAsInt() >= 0);
-            assertTrue(r.get("x").getAsInt() + width <= image.getWidth());
-            assertTrue(r.get("y").getAsInt() + height <= image.getHeight());
+        assertEquals(2, sources.size());
+        for (var entry : sources) {
+            var source = entry.getAsJsonObject();
+            assertEquals("minecraft:unstitch", source.get("type").getAsString());
+            String resource = source.get("resource").getAsString();
+            assertTrue(Set.of("bigcasares:legendary/material_atlas", "bigcasares:legendary/simple_material_atlas").contains(resource));
+            var image = ImageIO.read(ASSETS.resolve("bigcasares/textures/" + resource.split(":", 2)[1] + ".png").toFile());
+            assertNotNull(image);
+            assertEquals(image.getWidth(), source.get("divisor_x").getAsInt());
+            assertEquals(image.getHeight(), source.get("divisor_y").getAsInt());
+            for (var region : source.getAsJsonArray("regions")) {
+                var r = region.getAsJsonObject();
+                int width = r.get("width").getAsInt(), height = r.get("height").getAsInt();
+                assertTrue(width > 0 && (width & (width - 1)) == 0);
+                assertTrue(height > 0 && (height & (height - 1)) == 0);
+                assertTrue(r.get("x").getAsInt() >= 0 && r.get("y").getAsInt() >= 0);
+                assertTrue(r.get("x").getAsInt() + width <= image.getWidth());
+                assertTrue(r.get("y").getAsInt() + height <= image.getHeight());
+            }
         }
-        assertEquals(64, sprites().size());
+        assertEquals(112, sprites().size());
     }
 
     @Test void allEightModelsResolveTheirVirtualSpritesAndUseValidNativeCuboids() throws Exception {
@@ -82,7 +88,7 @@ class LegendaryModelAssetsTest {
             assertEquals("bigcasares:item/" + weapon.id, definition.get("model").getAsString());
         }
         for (String sprite : sprites()) {
-            String path = sprite.substring("bigcasares:item/legendary/".length());
+            String path = sprite.substring(sprite.indexOf('/', "bigcasares:item/".length()) + 1);
             assertTrue(names.contains(path.substring(0, path.indexOf('/'))));
             assertFalse(sprite.contains("copper"));
         }
