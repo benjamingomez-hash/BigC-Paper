@@ -17,9 +17,11 @@ MATERIALS = ('outline', 'shade', 'metal', 'edge', 'highlight', 'gem', 'grip', 'g
 
 
 class Weapon:
-    def __init__(self, name, palette='legendary'):
+    def __init__(self, name, palette='legendary', gui_rotation=(12, -22, -38)):
         self.name = name
         self.palette = palette
+        self.gui_rotation = gui_rotation
+        self.textures = {m: f'bigcasares:item/{palette}/{name}/{m}' for m in MATERIALS}
         self.elements = []
 
     def box(self, name, start, end, material='metal', light=0):
@@ -73,11 +75,25 @@ class Weapon:
             self.box('haft_ring_' + str(i), (6.8, y, 6.8), (9.2, y + .65, 9.2), 'gold')
 
     def save(self):
-        # Compute a safe diagonal icon size from the real cuboid bounds.
-        rx, ry, rz = map(math.radians, (12, -22, -38))
+        # Fit the actual geometry in the icon, including custom upright views.
+        rx, ry, rz = map(math.radians, self.gui_rotation)
         points = []
         for e in self.elements:
             for x, y, z in itertools.product(*zip(e['from'], e['to'])):
+                # Native element rotations also affect the icon's real bounds.
+                if 'rotation' in e:
+                    rotation = e['rotation']
+                    ox, oy, oz = rotation['origin']
+                    angle = math.radians(rotation['angle'])
+                    c, s = math.cos(angle), math.sin(angle)
+                    x, y, z = x - ox, y - oy, z - oz
+                    if rotation['axis'] == 'x':
+                        y, z = y * c - z * s, y * s + z * c
+                    elif rotation['axis'] == 'y':
+                        x, z = x * c + z * s, -x * s + z * c
+                    else:
+                        x, y = x * c - y * s, x * s + y * c
+                    x, y, z = x + ox, y + oy, z + oz
                 x, y, z = x - 8, y - 8, z - 8
                 x, y = x * math.cos(rz) - y * math.sin(rz), x * math.sin(rz) + y * math.cos(rz)
                 x, z = x * math.cos(ry) + z * math.sin(ry), -x * math.sin(ry) + z * math.cos(ry)
@@ -88,7 +104,7 @@ class Weapon:
         scale = round(13.5 / max(high[i] - low[i] for i in (0, 1)), 4)
         gui_shift = [round(-(low[i] + high[i]) / 2 * scale, 3) for i in range(3)]
         display = {
-            'gui': {'rotation': [12, -22, -38], 'translation': gui_shift, 'scale': [scale] * 3},
+            'gui': {'rotation': list(self.gui_rotation), 'translation': gui_shift, 'scale': [scale] * 3},
             'firstperson_righthand': {'rotation': [0, -85, 22], 'translation': [1, 1.5, -1.5], 'scale': [.46] * 3},
             'firstperson_lefthand': {'rotation': [0, 85, -22], 'translation': [1, 1.5, -1.5], 'scale': [.46] * 3},
             'thirdperson_righthand': {'rotation': [0, -90, 0], 'translation': [0, 2, 0], 'scale': [.42] * 3},
@@ -98,7 +114,7 @@ class Weapon:
         }
         model = {
             'gui_light': 'front', 'ambientocclusion': False,
-            'textures': {**{m: f'bigcasares:item/{self.palette}/{self.name}/{m}' for m in MATERIALS}, 'particle': '#metal'},
+            'textures': {**self.textures, 'particle': '#metal'},
             'elements': self.elements, 'display': display,
         }
         path = ASSETS / 'bigcasares/models/item' / (self.name + '.json')

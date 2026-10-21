@@ -1,9 +1,11 @@
-ARMAS LEGENDARIAS 2.0.13 - PAPER 26.2 / JAVA 25
+ARMAS LEGENDARIAS 2.0.14 - PAPER 26.2 / JAVA 25
 
 Plugin independiente. No necesita BigCasares ni BetterModel.
 
 CAMBIO DE ESTA VERSION
-Texturas mas simples y modelos con menos adornos para las seis armas actuales.
+Modelos basados en la propuesta aprobada: espada roja, espada negra, guadana
+gris y celeste, maza violeta centrada, hacha dorada de doble filo y lanza
+de una sola punta. Las vistas de inventario muestran las armas derechas.
 Se mantienen todos sus poderes y reglas de la 2.0.12. Void Katana e Hyperion
 siguen retiradas. No se agregan armas de la segunda semana por ahora.
 
@@ -20,7 +22,7 @@ Los cooldowns siguen siendo de 40 segundos.
 ACTUALIZACION
 1. Detene Paper 26.2 y guarda una copia coherente del mundo, jugadores y
    plugins/LegendaryWeapons. Java 25 es obligatorio.
-2. Guarda el JAR anterior fuera de plugins y copia LegendaryWeapons-2.0.13.jar.
+2. Guarda el JAR anterior fuera de plugins y copia LegendaryWeapons-2.0.14.jar.
 3. Conserva el diario y los datos de jugadores. Las armas retiradas ya existentes
    quedan sin habilidad; sus registros se conservan y las transacciones pendientes
    pueden recuperarse. Sus mesas dejan de estar protegidas por el evento retirado.
@@ -28,7 +30,7 @@ ACTUALIZACION
 5. Usa /weapons list y /weapons info <arma>.
 
 CONTENIDO
-- LegendaryWeapons-2.0.13.jar: plugin y pack incluido.
+- LegendaryWeapons-2.0.14.jar: plugin y pack incluido.
 - legendary-weapons-java.zip: pack manual opcional, con recursos historicos
   para representar objetos antiguos al actualizar.
 - Este archivo.

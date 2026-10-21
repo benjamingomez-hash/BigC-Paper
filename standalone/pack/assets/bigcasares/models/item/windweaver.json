@@ -9,83 +9,33 @@
     "highlight": "bigcasares:item/legendary_simple/windweaver/highlight",
     "gem": "bigcasares:item/legendary_simple/windweaver/gem",
     "grip": "bigcasares:item/legendary_simple/windweaver/grip",
-    "gold": "bigcasares:item/legendary_simple/windweaver/gold",
+    "gold": "bigcasares:item/legendary_simple/earthbreaker/gold",
+    "black": "bigcasares:item/legendary_simple/shadow_blade/grip",
+    "charcoal": "bigcasares:item/legendary_simple/windweaver/outline",
+    "darksteel": "bigcasares:item/legendary_simple/windweaver/shade",
+    "steel": "bigcasares:item/legendary_simple/windweaver/metal",
+    "silver": "bigcasares:item/legendary_simple/windweaver/edge",
+    "white": "bigcasares:item/legendary_simple/windweaver/highlight",
+    "cyan": "bigcasares:item/legendary_simple/frost_scythe/metal",
+    "ice": "bigcasares:item/legendary_simple/frost_scythe/edge",
+    "blue": "bigcasares:item/legendary_simple/thunder_spear/shade",
+    "purple": "bigcasares:item/legendary_simple/shadow_blade/gem",
+    "violet": "bigcasares:item/legendary_simple/shadow_blade/edge",
+    "darkpurple": "bigcasares:item/legendary_simple/shadow_blade/shade",
+    "wood": "bigcasares:item/legendary_simple/earthbreaker/grip",
+    "brass": "bigcasares:item/legendary_simple/bloodlust/gold",
+    "palegold": "bigcasares:item/legendary_simple/frost_scythe/gold",
+    "ivory": "bigcasares:item/legendary_simple/windweaver/gold",
+    "red": "bigcasares:item/legendary_simple/bloodlust/metal",
+    "ruby": "bigcasares:item/legendary_simple/bloodlust/gem",
+    "crimson": "bigcasares:item/legendary_simple/bloodlust/shade",
+    "rededge": "bigcasares:item/legendary_simple/bloodlust/edge",
+    "burgundy": "bigcasares:item/legendary_simple/bloodlust/grip",
     "particle": "#metal"
   },
   "elements": [
     {
-      "name": "shaft",
-      "from": [
-        7.2,
-        -15,
-        7.2
-      ],
-      "to": [
-        8.8,
-        25,
-        8.8
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#shade"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#shade"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#shade"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#shade"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#shade"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#shade"
-        }
-      }
-    },
-    {
-      "name": "grip",
+      "name": "straight_shaft",
       "from": [
         6.8,
         -13,
@@ -93,7 +43,7 @@
       ],
       "to": [
         9.2,
-        0,
+        17,
         9.2
       ],
       "shade": true,
@@ -106,7 +56,7 @@
             16,
             16
           ],
-          "texture": "#grip"
+          "texture": "#black"
         },
         "south": {
           "uv": [
@@ -115,7 +65,7 @@
             16,
             16
           ],
-          "texture": "#grip"
+          "texture": "#black"
         },
         "east": {
           "uv": [
@@ -124,7 +74,7 @@
             16,
             16
           ],
-          "texture": "#grip"
+          "texture": "#black"
         },
         "west": {
           "uv": [
@@ -133,7 +83,7 @@
             16,
             16
           ],
-          "texture": "#grip"
+          "texture": "#black"
         },
         "up": {
           "uv": [
@@ -142,7 +92,7 @@
             16,
             16
           ],
-          "texture": "#grip"
+          "texture": "#charcoal"
         },
         "down": {
           "uv": [
@@ -151,21 +101,21 @@
             16,
             16
           ],
-          "texture": "#grip"
+          "texture": "#black"
         }
       }
     },
     {
-      "name": "endcap",
+      "name": "purple_wrap_0",
       "from": [
-        6.7,
-        -16,
-        6.7
+        6.6,
+        1,
+        6.6
       ],
       "to": [
-        9.3,
-        -14,
-        9.3
+        9.4,
+        1.8,
+        9.4
       ],
       "shade": true,
       "light_emission": 0,
@@ -177,7 +127,7 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#violet"
         },
         "south": {
           "uv": [
@@ -186,7 +136,7 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#violet"
         },
         "east": {
           "uv": [
@@ -195,7 +145,7 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#violet"
         },
         "west": {
           "uv": [
@@ -204,7 +154,7 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#violet"
         },
         "up": {
           "uv": [
@@ -213,7 +163,7 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#violet"
         },
         "down": {
           "uv": [
@@ -222,20 +172,730 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#violet"
         }
       }
     },
     {
-      "name": "mace_head",
+      "name": "purple_wrap_1",
       "from": [
-        3,
-        17,
+        6.6,
+        4.5,
+        6.6
+      ],
+      "to": [
+        9.4,
+        5.3,
+        9.4
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        }
+      }
+    },
+    {
+      "name": "purple_wrap_2",
+      "from": [
+        6.6,
+        8,
+        6.6
+      ],
+      "to": [
+        9.4,
+        8.8,
+        9.4
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        }
+      }
+    },
+    {
+      "name": "purple_wrap_3",
+      "from": [
+        6.6,
+        11.5,
+        6.6
+      ],
+      "to": [
+        9.4,
+        12.3,
+        9.4
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        }
+      }
+    },
+    {
+      "name": "pommel",
+      "from": [
+        5.7,
+        -16,
+        5.7
+      ],
+      "to": [
+        10.3,
+        -12,
+        10.3
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darksteel"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darksteel"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#charcoal"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#charcoal"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#steel"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#charcoal"
+        }
+      }
+    },
+    {
+      "name": "pommel_amethyst_front",
+      "from": [
+        7.0,
+        -14.8,
+        5.2
+      ],
+      "to": [
+        9.0,
+        -13.2,
+        5.4
+      ],
+      "shade": false,
+      "light_emission": 5,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        }
+      }
+    },
+    {
+      "name": "pommel_amethyst_back",
+      "from": [
+        7.0,
+        -14.8,
+        10.6
+      ],
+      "to": [
+        9.0,
+        -13.2,
+        10.799999999999999
+      ],
+      "shade": false,
+      "light_emission": 5,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        }
+      }
+    },
+    {
+      "name": "pommel_amethyst_tips_front",
+      "from": [
+        7.5,
+        -15.2,
+        5.05
+      ],
+      "to": [
+        8.5,
+        -12.8,
+        5.25
+      ],
+      "shade": false,
+      "light_emission": 5,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        }
+      }
+    },
+    {
+      "name": "pommel_amethyst_tips_back",
+      "from": [
+        7.5,
+        -15.2,
+        10.75
+      ],
+      "to": [
+        8.5,
+        -12.8,
+        10.95
+      ],
+      "shade": false,
+      "light_emission": 5,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#purple"
+        }
+      }
+    },
+    {
+      "name": "mace_core",
+      "from": [
+        2,
+        16,
+        3
+      ],
+      "to": [
+        14,
+        29,
+        13
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#charcoal"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#charcoal"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#black"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#black"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darksteel"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#black"
+        }
+      }
+    },
+    {
+      "name": "head_shoulders",
+      "from": [
+        0,
+        18,
+        4
+      ],
+      "to": [
+        16,
+        27,
+        12
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#black"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#black"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darkpurple"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darkpurple"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darksteel"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darkpurple"
+        }
+      }
+    },
+    {
+      "name": "head_crown",
+      "from": [
+        4,
+        29,
         5
       ],
       "to": [
-        13,
-        27,
+        12,
+        31,
         11
       ],
       "shade": true,
@@ -248,7 +908,7 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#charcoal"
         },
         "south": {
           "uv": [
@@ -257,7 +917,7 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#charcoal"
         },
         "east": {
           "uv": [
@@ -266,7 +926,7 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#black"
         },
         "west": {
           "uv": [
@@ -275,7 +935,7 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#black"
         },
         "up": {
           "uv": [
@@ -284,7 +944,7 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#steel"
         },
         "down": {
           "uv": [
@@ -293,163 +953,21 @@
             16,
             16
           ],
-          "texture": "#metal"
+          "texture": "#black"
         }
       }
     },
     {
-      "name": "left_flange",
+      "name": "left_brace",
       "from": [
-        1,
-        19,
-        6
+        2.5,
+        18,
+        2
       ],
       "to": [
-        3,
-        25,
-        10
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#shade"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#shade"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#shade"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#shade"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#shade"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#shade"
-        }
-      }
-    },
-    {
-      "name": "right_flange",
-      "from": [
-        13,
-        19,
-        6
-      ],
-      "to": [
-        15,
-        25,
-        10
-      ],
-      "shade": true,
-      "light_emission": 0,
-      "faces": {
-        "north": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#shade"
-        },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#shade"
-        },
-        "east": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#shade"
-        },
-        "west": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#shade"
-        },
-        "up": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#shade"
-        },
-        "down": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#shade"
-        }
-      }
-    },
-    {
-      "name": "head_cap",
-      "from": [
-        4,
+        5,
         27,
-        5.5
-      ],
-      "to": [
-        12,
-        29,
-        10.5
+        14
       ],
       "shade": true,
       "light_emission": 0,
@@ -461,7 +979,7 @@
             16,
             16
           ],
-          "texture": "#highlight"
+          "texture": "#steel"
         },
         "south": {
           "uv": [
@@ -470,7 +988,7 @@
             16,
             16
           ],
-          "texture": "#highlight"
+          "texture": "#steel"
         },
         "east": {
           "uv": [
@@ -479,7 +997,7 @@
             16,
             16
           ],
-          "texture": "#highlight"
+          "texture": "#darksteel"
         },
         "west": {
           "uv": [
@@ -488,7 +1006,7 @@
             16,
             16
           ],
-          "texture": "#highlight"
+          "texture": "#darksteel"
         },
         "up": {
           "uv": [
@@ -497,7 +1015,7 @@
             16,
             16
           ],
-          "texture": "#highlight"
+          "texture": "#silver"
         },
         "down": {
           "uv": [
@@ -506,21 +1024,518 @@
             16,
             16
           ],
-          "texture": "#highlight"
+          "texture": "#darksteel"
         }
       }
     },
     {
-      "name": "collar",
+      "name": "right_brace",
+      "from": [
+        11,
+        18,
+        2
+      ],
+      "to": [
+        13.5,
+        27,
+        14
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#steel"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#steel"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darksteel"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darksteel"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#silver"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darksteel"
+        }
+      }
+    },
+    {
+      "name": "bottom_brace",
+      "from": [
+        4.5,
+        16.5,
+        2
+      ],
+      "to": [
+        11.5,
+        19,
+        14
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#steel"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#steel"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darksteel"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darksteel"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#silver"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darksteel"
+        }
+      }
+    },
+    {
+      "name": "top_brace",
+      "from": [
+        4.5,
+        26,
+        2
+      ],
+      "to": [
+        11.5,
+        28.5,
+        14
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#steel"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#steel"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darksteel"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darksteel"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#silver"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darksteel"
+        }
+      }
+    },
+    {
+      "name": "upper_strut",
+      "from": [
+        7,
+        28,
+        2.5
+      ],
+      "to": [
+        9,
+        32,
+        13.5
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#silver"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#silver"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#steel"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#steel"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#steel"
+        }
+      }
+    },
+    {
+      "name": "lower_strut",
+      "from": [
+        7,
+        13,
+        3
+      ],
+      "to": [
+        9,
+        17,
+        13
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#silver"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#silver"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#steel"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#steel"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#steel"
+        }
+      }
+    },
+    {
+      "name": "side_stud_0",
+      "from": [
+        0,
+        21.5,
+        3
+      ],
+      "to": [
+        2,
+        24,
+        13
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#steel"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#steel"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darksteel"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darksteel"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#silver"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darksteel"
+        }
+      }
+    },
+    {
+      "name": "side_stud_14",
+      "from": [
+        14,
+        21.5,
+        3
+      ],
+      "to": [
+        16,
+        24,
+        13
+      ],
+      "shade": true,
+      "light_emission": 0,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#steel"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#steel"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darksteel"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darksteel"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#silver"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#darksteel"
+        }
+      }
+    },
+    {
+      "name": "crystal_socket",
       "from": [
         5,
-        15,
-        6
+        19,
+        1.7
       ],
       "to": [
         11,
-        17,
-        10
+        26,
+        14.3
       ],
       "shade": true,
       "light_emission": 0,
@@ -532,7 +1547,7 @@
             16,
             16
           ],
-          "texture": "#edge"
+          "texture": "#darkpurple"
         },
         "south": {
           "uv": [
@@ -541,7 +1556,7 @@
             16,
             16
           ],
-          "texture": "#edge"
+          "texture": "#darkpurple"
         },
         "east": {
           "uv": [
@@ -550,7 +1565,7 @@
             16,
             16
           ],
-          "texture": "#edge"
+          "texture": "#charcoal"
         },
         "west": {
           "uv": [
@@ -559,7 +1574,7 @@
             16,
             16
           ],
-          "texture": "#edge"
+          "texture": "#charcoal"
         },
         "up": {
           "uv": [
@@ -568,7 +1583,7 @@
             16,
             16
           ],
-          "texture": "#edge"
+          "texture": "#violet"
         },
         "down": {
           "uv": [
@@ -577,24 +1592,24 @@
             16,
             16
           ],
-          "texture": "#edge"
+          "texture": "#charcoal"
         }
       }
     },
     {
-      "name": "wind_core",
+      "name": "amethyst_crystal",
       "from": [
-        6.5,
+        6,
         20,
-        4.5
+        1.3
       ],
       "to": [
-        9.5,
-        24,
-        11.5
+        10,
+        25,
+        14.7
       ],
       "shade": false,
-      "light_emission": 3,
+      "light_emission": 6,
       "faces": {
         "north": {
           "uv": [
@@ -603,7 +1618,7 @@
             16,
             16
           ],
-          "texture": "#gem"
+          "texture": "#purple"
         },
         "south": {
           "uv": [
@@ -612,7 +1627,7 @@
             16,
             16
           ],
-          "texture": "#gem"
+          "texture": "#purple"
         },
         "east": {
           "uv": [
@@ -621,7 +1636,7 @@
             16,
             16
           ],
-          "texture": "#gem"
+          "texture": "#darkpurple"
         },
         "west": {
           "uv": [
@@ -630,7 +1645,7 @@
             16,
             16
           ],
-          "texture": "#gem"
+          "texture": "#darkpurple"
         },
         "up": {
           "uv": [
@@ -639,7 +1654,7 @@
             16,
             16
           ],
-          "texture": "#gem"
+          "texture": "#violet"
         },
         "down": {
           "uv": [
@@ -648,7 +1663,149 @@
             16,
             16
           ],
-          "texture": "#gem"
+          "texture": "#darkpurple"
+        }
+      }
+    },
+    {
+      "name": "crystal_facet_front",
+      "from": [
+        6.3,
+        23.5,
+        1.0
+      ],
+      "to": [
+        9.7,
+        24.5,
+        1.2
+      ],
+      "shade": false,
+      "light_emission": 6,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        }
+      }
+    },
+    {
+      "name": "crystal_facet_back",
+      "from": [
+        6.3,
+        23.5,
+        14.8
+      ],
+      "to": [
+        9.7,
+        24.5,
+        15.0
+      ],
+      "shade": false,
+      "light_emission": 6,
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#violet"
         }
       }
     }
@@ -656,19 +1813,19 @@
   "display": {
     "gui": {
       "rotation": [
-        12,
-        -22,
-        -38
+        0,
+        -10,
+        0
       ],
       "translation": [
-        -0.13,
-        0.027,
-        -0.065
+        -0.0,
+        -0.0,
+        -0.0
       ],
       "scale": [
-        0.3671,
-        0.3671,
-        0.3671
+        0.2812,
+        0.2812,
+        0.2812
       ]
     },
     "firstperson_righthand": {
