@@ -1,5 +1,42 @@
 # Verificación de LegendaryWeapons
 
+## 2.0.12: seis armas disponibles
+
+Retiradas Void Katana e Hyperion del catálogo activo, recetas, comandos y poderes.
+No se agregaron armas para la segunda semana ni cambios a la apertura del End.
+Los identificadores históricos del enum, los registros y los modelos se conservan
+para actualizar sin borrar inventarios ni romper la recuperación pendiente.
+
+Java 25, desde `standalone/`:
+`bash gradlew --no-daemon --max-workers=4 clean build`.
+**80 pruebas correctas, cero fallos, errores o exclusiones**. Se comprobaron
+recetas retiradas sin consumir materiales, rechazo de nuevas reservas, lectura
+de sesiones antiguas, ausencia de anuncios/protección de mesas retiradas y
+confirmación de transacciones históricas de inicio y reclamo.
+
+Paper 26.2-133 y un cliente oficial Java 26.2, con una herramienta privada externa
+a la distribución: catálogo, registro de recetas, creación de objetos, lista y
+autocompletado contienen exactamente las seis armas. Crear las dos retiradas
+falla; los objetos antiguos no activan sesiones, movimiento ni cooldown, incluso
+al invocar el punto de activación directamente. El diario y el estado CLAIMED
+de Thunder Spear se mantuvieron. La instancia se detuvo y restauró después.
+
+[Actions 39596991130](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39596991130)
+completó build y pruebas en Windows y cinco análisis Defender sin detecciones:
+ZIP, sus tres archivos internos y JAR independiente. Firmas 1.461.118.0,
+protección en tiempo real y nube activas, sin exclusiones. Se publican esos
+archivos exactos, verificados por SHA-256; sus 83 clases coinciden con las del
+JAR probado en Paper.
+
+No se repitieron el evento completo ni todas las pruebas de balance. Los poderes
+restantes y los 28 archivos originales del pack se conservaron; el pack mantiene
+recursos históricos para objetos ya existentes. Los análisis no diagnostican el
+aviso local de Defender de versiones anteriores ni garantizan aceptación en la PC
+del usuario.
+
+[Resultados y hashes](docs/six-weapons-verification-2.0.12.json) ·
+[Informe Defender](docs/defender-verification-2.0.12.json).
+
 ## Reescritura 2.0.11 desde 2.0.5
 
 Base directa: `a1ca1655e082173cde24f1493da91152a4b01d92`. La implementación nueva

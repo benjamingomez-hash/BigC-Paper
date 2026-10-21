@@ -15,3 +15,10 @@ de la segunda semana. Mantener el plugin independiente y la plataforma existente
   histórica con JUnit. Compilar y comprobar catálogo, recetas, comandos y objetos
   retirados en Paper. Publicar rama y 2.0.12 con los mismos binarios analizados
   por el workflow Windows.
+
+Completado: commit `7ba56f26aed7874f084c00030b9d6d787c8b4cff`, 80 pruebas
+correctas y comprobación nativa de seis recetas, seis objetos disponibles,
+comandos y rechazo de habilidades retiradas. Los 28 assets originales y las
+fuentes de los poderes restantes se conservaron. Actions `39596991130` completó
+cinco análisis Defender sin detecciones. Se distribuyen sus archivos exactos y
+los hashes; la instancia privada fue detenida y sus datos originales restaurados.

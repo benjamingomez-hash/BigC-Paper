@@ -1,0 +1,78 @@
+{
+  "version": "2.0.12",
+  "baseCommit": "3b9d96eff7be321cf36af4773104bf4d186fca9a",
+  "implementationCommit": "7ba56f26aed7874f084c00030b9d6d787c8b4cff",
+  "removedFromGameplay": [
+    "void_katana",
+    "hyperion"
+  ],
+  "automatedTests": {
+    "tests": 80,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "nativeChecks": {
+    "version": "2.0.12",
+    "paper": "26.2-133-58e6e45 (MC: 26.2)",
+    "catalog": [
+      "bloodlust",
+      "earthbreaker",
+      "frost_scythe",
+      "shadow_blade",
+      "thunder_spear",
+      "windweaver"
+    ],
+    "recipes": [
+      "bloodlust",
+      "earthbreaker",
+      "frost_scythe",
+      "shadow_blade",
+      "thunder_spear",
+      "windweaver"
+    ],
+    "completion": [
+      "bloodlust",
+      "frost_scythe",
+      "shadow_blade",
+      "windweaver",
+      "earthbreaker",
+      "thunder_spear"
+    ],
+    "activeItemsCreated": 6,
+    "retired": [
+      {
+        "factoryRejected": true,
+        "id": "void_katana",
+        "noAbilityOrCooldown": true
+      },
+      {
+        "factoryRejected": true,
+        "id": "hyperion",
+        "noAbilityOrCooldown": true
+      }
+    ],
+    "journalUnchanged": true,
+    "commandList": "\u00a7bbloodlust \u00a77\u2014 AVAILABLE\n\u00a7bfrost_scythe \u00a77\u2014 AVAILABLE\n\u00a7bshadow_blade \u00a77\u2014 AVAILABLE\n\u00a7bwindweaver \u00a77\u2014 AVAILABLE\n\u00a7bearthbreaker \u00a77\u2014 AVAILABLE\n\u00a7bthunder_spear \u00a77\u2014 CLAIMED\n\n"
+  },
+  "historicalData": "Historical enum names, journal entries, pending transaction recovery and original model assets are retained. Retired events do not advance or protect tables. Existing retired items have no plugin ability.",
+  "unchangedModelAssetFiles": 28,
+  "unchangedRemainingAbilitySources": true,
+  "integratedPluginAndCopperUnchanged": true,
+  "sourceHelpersRemoved": [
+    "LegendaryHyperionSalvo"
+  ],
+  "sameCompiledClassesNativeAndWindows": 83,
+  "nativeJarSha256": "c30d2a4cf7e605277e18d83f2fc0b790f687bf4d9f971eb427014f1e9381e53b",
+  "distributedFiles": {
+    "LegendaryWeapons-2.0.12.jar": "1f8d0115eff2577cf11792fecfd0be9fadd7f067a027b04196f2630205c493b7",
+    "Armas-Legendarias-2.0.12.zip": "6139dfae27732e77b00361fe694a3b0d646c811f2d02b1f0076bfcb17bcfb58d"
+  },
+  "windowsActionRun": "https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39596991130",
+  "originalFixtureRestored": true,
+  "limits": [
+    "No new second-week weapons or End unlock scheduler were added.",
+    "No full crafting event or complete ability balance suite was repeated in this round.",
+    "The prior local Defender alert remains without a confirmed cause; these runner scans do not reproduce installation on the user PC."
+  ]
+}
