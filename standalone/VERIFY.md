@@ -21,8 +21,20 @@ Los análisis de archivos no se repiten para evitar una detección.
 Validación local: cuatro casos de actualización (éxito, recuperación tras error
 RPC, códigos de error persistentes y excepciones persistentes), tres comprobaciones
 reales de códigos de salida de procesos y sintaxis del workflow con actionlint.
-Estos casos son simulaciones de infraestructura; el análisis real en Windows
-se registra por separado cuando termina la ejecución de GitHub.
+Estos casos son simulaciones de infraestructura.
+
+La ejecución real [41141239847](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/41141239847)
+terminó correctamente sobre `71187fe0141cad702ff4c50929e48276ca0fb299`:
+compilación limpia y pruebas del plugin, las siete comprobaciones anteriores y
+cinco análisis Defender con código cero, sin detecciones. El actualizador nativo
+funcionó en el primer intento. Motor `1.1.26100.4`, firmas `1.463.43.0`, protección
+en tiempo real y nube activas, sin exclusiones. Se conservaron el retiro de Frost
+y el resto del código de juego; no se publicó una nueva descarga ni se integraron
+los modelos que continúan en revisión.
+
+[Informe con hashes y resultados](docs/defender-recovery-2026-10-30.json).
+Este resultado corresponde a los archivos reconstruidos en GitHub; no determina
+la clasificación de las versiones anteriores bloqueadas en la PC del usuario.
 
 ## Pendiente de publicar: retirada de Frost Scythe
 
