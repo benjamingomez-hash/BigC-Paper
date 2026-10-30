@@ -1,10 +1,12 @@
 # LegendaryWeapons — Crafting PvP
 
-Plugin **independiente** para **Paper 26.2 / Java 25 / Gradle 9.2.1**. Incluye seis armas y su evento de fabricación. Usa modelos Java nativos y no requiere BigCasares, Vault, EssentialsX ni BetterModel. Si se usa BetterModel para otros plugins del servidor, la versión solicitada para 26.2 es 3.2.0; esta distribución no llama a su API. WorldGuard es opcional. Los equipos usan el scoreboard vanilla. No incluye integración Bedrock/Geyser.
+Plugin **independiente** para **Paper 26.2 / Java 25 / Gradle 9.2.1**. El código actual incluye cinco armas y su evento de fabricación. Usa modelos Java nativos y no requiere BigCasares, Vault, EssentialsX ni BetterModel. Si se usa BetterModel para otros plugins del servidor, la versión solicitada para 26.2 es 3.2.0; esta distribución no llama a su API. WorldGuard es opcional. Los equipos usan el scoreboard vanilla. No incluye integración Bedrock/Geyser.
+
+**Próxima versión, pendiente de publicar: retirada Frost Scythe.** Quedan Bloodlust, Shadow Blade, Windweaver, Earthbreaker y Thunder Spear. Frost ya no se ofrece en recetas, listas, información ni autocompletado y no conserva su poder de congelación. Los registros y recursos antiguos se mantienen para compatibilidad. Los nuevos modelos y animaciones siguen en revisión; la descarga pública 2.0.14 todavía incluye Frost.
 
 **2.0.14: modelos de la propuesta aprobada.** Bloodlust roja, Shadow Blade negra, guadaña gris/celeste, maza violeta centrada, hacha dorada de doble filo y lanza de una sola punta. [Ver captura y detalles](MODELS.md).
 
-**2.0.12: retiradas Void Katana e Hyperion (la vara mágica).** Quedan Bloodlust, Frost Scythe, Shadow Blade, Windweaver, Earthbreaker y Thunder Spear. Las dos retiradas no aparecen en recetas, listas, información ni autocompletado y sus poderes se eliminaron. No se agregan armas nuevas ni desbloqueos para la segunda semana.
+**2.0.12: retiradas Void Katana e Hyperion (la vara mágica).** En esa versión quedaban Bloodlust, Frost Scythe, Shadow Blade, Windweaver, Earthbreaker y Thunder Spear. Las dos retiradas no aparecen en recetas, listas, información ni autocompletado y sus poderes se eliminaron. No se agregan armas nuevas ni desbloqueos para la segunda semana.
 
 Al actualizar, se conservan los inventarios, el diario y los cooldowns. Los objetos retirados que ya existían quedan sin habilidad. Sus eventos antiguos dejan de avanzar, anunciarse o proteger mesas; los registros permanecen guardados y las operaciones de inventario pendientes pueden terminar de recuperarse. Los recursos históricos se conservan para que los objetos antiguos no pierdan su representación.
 
@@ -15,7 +17,7 @@ Al actualizar, se conservan los inventarios, el diario y los cooldowns. Los obje
 - **Bloodlust:** Fuerza III durante diez segundos y un punto de curación (medio corazón) por golpe directo válido mientras la habilidad está activa y se sostiene la espada. Sin curación con proyectiles, barridos secundarios, golpes cancelados o sin daño real; respeta la salud máxima y los vetos de curación.
 - **Sombras:** teletransporte seguro detrás del rival, máximo seis puntos de daño mágico (tres corazones antes de reducciones), Debilidad II durante cuatro segundos y Oscuridad durante tres. Invisibilidad y Velocidad III durante cinco segundos al lanzador. El valor antiguo `ambush-damage: 14` queda limitado a seis sin borrar la configuración.
 
-Las seis armas restantes conservan sus poderes, ingredientes, evento, identificadores persistentes y cooldowns de cuarenta segundos.
+Las cinco armas restantes conservan sus poderes, ingredientes, evento, identificadores persistentes y cooldowns de cuarenta segundos.
 
 ## Evento
 
@@ -35,7 +37,6 @@ La protección alcanza únicamente la mesa y la celda inmediatamente superior. I
 | ID | Ingrediente base ×1 | Material ×4 | Material ×2 | Material ×2 | Habilidad |
 | --- | --- | --- | --- | --- | --- |
 | bloodlust | Netherite Sword | Redstone Block | Ghast Tear | Netherite Block | Furia de Sangre |
-| frost_scythe | Diamond Hoe | Blue Ice | Heart of the Sea | Diamond Block | Tormenta Glacial |
 | shadow_blade | Netherite Sword | Ender Pearl | Phantom Membrane | Crying Obsidian | Asesino de Sombras |
 | windweaver | Mace | Wind Charge | Feather | Iron Block | Impulso Divino |
 | earthbreaker | Netherite Axe | Deepslate | Emerald Block | Netherite Ingot | Terremoto Titán |
@@ -56,13 +57,12 @@ La parálisis de la lanza se conserva de 2.0.5; el hacha, Sombras y Bloodlust us
 | Arma | Efecto por defecto |
 | --- | --- |
 | Bloodlust | **Fuerza III durante 10 s** y curación de medio corazón por golpe directo válido con la espada durante la habilidad. |
-| Frost Scythe | Aura de **radio 6 durante 8 s**: aplica **Lentitud IV y congelación nativa** directamente, sin requerir un golpe. Incluye jugadores y cualquier tipo de entidad viva: animales, aldeanos, mascotas y mobs hostiles. Excluye al lanzador y respeta equipos y protecciones. Hasta 64 objetivos por actualización, configurable. |
 | Shadow Blade | Teletransporte detrás del objetivo a un máximo de 16 bloques y **hasta 6 puntos de daño mágico**, Debilidad II durante 4 s y Oscuridad durante 3 s. Invisibilidad y Velocidad III durante 5 s. Sin enemigo, conserva el desplazamiento corto a un lugar seguro y los beneficios del lanzador. |
 | Windweaver | Impulso vertical para preparar un smash de maza, conservando movimiento horizontal. Altura aproximada de 9 bloques desde suelo llano. Protege la primera caída del salto hasta aterrizar o diez segundos como máximo; no aplica levitación ni ralentiza la caída. |
 | Earthbreaker | Abre un **cráter circular de radio 8 bajo el jugador** y aplica una vez **4 puntos de salud** a enemigos en radio 8 y altura ±4. Profundidad 4 a menos de 2 bloques del centro; 3 entre 2 y 4; 2 entre 4 y 6; 1 entre 6 y 8 inclusive. Elimina terreno permanentemente por lotes, sin drops; conserva bloques irrompibles, contenedores, datos de bloques y celdas protegidas. Retirar el suelo puede causar caídas normales. Requiere suelo a un máximo de cuatro bloques bajo los pies. |
 | Thunder Spear | Campo de parálisis de ambos descrito arriba; solo el impacto directo recibe los cinco pulsos eléctricos. |
 
-**Dos puntos equivalen a un corazón antes de reducciones.** Shadow Blade conserva daño mágico; Protección y Resistencia siguen reduciéndolo. Frost aplica estados directamente y usa la congelación vanilla, que puede producir daño nativo de frío. Las seis habilidades disponibles conservan su funcionamiento de 2.0.11. `/weapons info <arma>` explica cada poder.
+**Dos puntos equivalen a un corazón antes de reducciones.** Shadow Blade conserva daño mágico; Protección y Resistencia siguen reduciéndolo. Las cinco habilidades disponibles conservan el funcionamiento descrito arriba. `/weapons info <arma>` explica cada poder. La configuración antigua `frost-scythe` deja de usarse sin borrar archivos del servidor.
 
 Para actualizar desde 2.0.1 o 2.0.2, detén Paper, sustituye el JAR y conserva la carpeta `plugins/LegendaryWeapons`. No borres el diario ni los datos de jugadores: las armas existentes usan las habilidades nuevas y mantienen sus cooldowns. Las claves nuevas de configuración tienen valores predeterminados aunque el archivo existente no las contenga. Las claves anteriores de daño de Frost, Hyperion y Earthbreaker dejan de usarse, al igual que las antiguas de multiplicador/curación de Bloodlust y bonus de Shadow Blade. Los IDs persistentes de habilidades se conservan.
 
@@ -83,7 +83,7 @@ El plugin va en `plugins`, no en `mods`. Lunar puede conectarse si ofrece esa ve
 
 La versión **2.0.1** rediseña las ocho armas con metal oscuro, bordes de color, gemas y siluetas distintas, inspiradas en la referencia de inventario del usuario. Consulta [la galería y el detalle de los modelos](MODELS.md). No modifica los modelos de cobre.
 
-El JAR incluye el pack Java de las seis armas y los recursos históricos de compatibilidad y lo sirve por defecto en `http://127.0.0.1:8124/legendary-pack.zip`. Esto sirve para jugar en la misma PC. También se genera `build/packs/legendary-weapons-java.zip` para instalación manual en `resourcepacks`.
+El JAR incluye el pack Java de las cinco armas y los recursos históricos de compatibilidad, incluida Frost, y lo sirve por defecto en `http://127.0.0.1:8124/legendary-pack.zip`. Esto sirve para jugar en la misma PC. También se genera `build/packs/legendary-weapons-java.zip` para instalación manual en `resourcepacks`.
 
 Para otros equipos, configura `resource-pack.bind-address: 0.0.0.0`, una `resource-pack.url` accesible para ellos y acceso al puerto 8124. O desactiva `resource-pack.enabled` y distribuye el ZIP manualmente. Se usa formato 88 para 26.2.
 

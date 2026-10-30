@@ -1,5 +1,21 @@
 # Verificación de LegendaryWeapons
 
+## Pendiente de publicar: retirada de Frost Scythe
+
+El código ofrece cinco armas: Bloodlust, Shadow Blade, Windweaver,
+Earthbreaker y Thunder Spear. Frost no se registra como receta, no se ofrece en
+comandos ni autocompletado y su poder de congelación se eliminó del runtime.
+Se conserva el enum histórico y sus recursos para leer inventarios y diarios
+anteriores. Sus eventos dejan de avanzar, anunciarse o proteger mesas; las
+transacciones de inventario pendientes siguen pudiendo confirmarse tras reiniciar.
+
+Validación: `bash gradlew -p standalone --no-daemon --max-workers=4 clean build`
+con Java 25 y Gradle 9.2.1: **84 pruebas, cero fallos y cero errores**. Las pruebas
+de retirada cubren Frost, Void Katana e Hyperion, incluidos reinicio, registros
+antiguos, bloqueo de recetas y recuperación de reclamos pendientes.
+No se probó este cambio en un servidor Paper en ejecución. No se publicó JAR
+ni ZIP nuevo: la descarga 2.0.14 y los modelos nuevos en revisión siguen aparte.
+
 ## 2.0.14: modelos de la propuesta aprobada
 
 Se implementaron los seis diseños aprobados: espada roja con rubí, espada negra,

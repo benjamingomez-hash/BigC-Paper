@@ -115,7 +115,7 @@ class LegendaryCraftingEventTest {
         assertFalse(restarted.pending(creator.player()));
     }
     @Test void differentWeaponsHaveIndependentEventsButOneTableCannotHostTwo() throws Exception {
-        var ledger = ledger(); start(ledger, LegendaryWeapon.FROST_SCYTHE, 11);
+        var ledger = ledger(); start(ledger, LegendaryWeapon.SHADOW_BLADE, 11);
         assertThrows(IllegalArgumentException.class, () -> start(ledger, LegendaryWeapon.BLOODLUST, 11));
         start(ledger, LegendaryWeapon.BLOODLUST, 12);
         assertEquals(2, ledger.all().size());

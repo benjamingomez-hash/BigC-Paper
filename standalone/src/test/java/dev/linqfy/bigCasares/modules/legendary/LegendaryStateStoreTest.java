@@ -14,8 +14,8 @@ class LegendaryStateStoreTest {
     @TempDir Path directory;
 
     @Test
-    void sixAvailableWeaponsKeepUniqueAbilitiesAndRecipes() {
-        assertEquals(6, LegendaryWeapon.available().size());
+    void fiveAvailableWeaponsKeepUniqueAbilitiesAndRecipes() {
+        assertEquals(5, LegendaryWeapon.available().size());
         var abilities = new HashSet<String>();
         var altars = new HashSet<String>();
         for (var weapon : LegendaryWeapon.available()) {

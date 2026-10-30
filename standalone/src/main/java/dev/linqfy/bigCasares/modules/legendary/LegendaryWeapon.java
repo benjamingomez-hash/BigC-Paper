@@ -57,7 +57,7 @@ public enum LegendaryWeapon {
 
     public static List<LegendaryWeapon> available() { return AVAILABLE; }
 
-    public boolean isAvailable() { return this != VOID_KATANA && this != HYPERION; }
+    public boolean isAvailable() { return this != VOID_KATANA && this != HYPERION && this != FROST_SCYTHE; }
 
     public boolean canCraft(Map<String, Integer> inventory) {
         return isAvailable() && ingredients.entrySet().stream().allMatch(entry -> inventory.getOrDefault(entry.getKey(), 0) >= entry.getValue());
@@ -66,11 +66,10 @@ public enum LegendaryWeapon {
     public String abilityDescription() {
         return switch (this) {
             case BLOODLUST -> "Fuerza III durante 10 s y medio corazón de curación por golpe directo válido con la espada durante la habilidad.";
-            case FROST_SCYTHE -> "Aura de 8 s y radio 6: congelación y Lentitud IV para cualquier entidad viva enemiga.";
             case SHADOW_BLADE -> "Emboscada tras el rival: hasta 3 corazones mágicos antes de reducciones, Debilidad II y Oscuridad; Invisibilidad y Velocidad III durante 5 s.";
             case WINDWEAVER -> "Impulso vertical para atacar con la maza; protege la primera caída del salto durante un máximo de 10 s.";
             case EARTHBREAKER -> "Cráter de radio 8 y profundidad 4/3/2/1; un golpe inicial de 2 corazones de salud, independiente de armadura y reducciones.";
-            case HYPERION, VOID_KATANA -> "Arma retirada de esta versión.";
+            case HYPERION, VOID_KATANA, FROST_SCYTHE -> "Arma retirada de esta versión.";
             case THUNDER_SPEAR -> "Campo eléctrico de 10 s que paraliza a ambos; rayos dañinos solo al impacto directo. Regresa; Lunge III nativo.";
         };
     }

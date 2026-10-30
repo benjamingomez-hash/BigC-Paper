@@ -25,7 +25,7 @@ final class LegendaryCombatPolicy {
         return affect(source, target);
     }
 
-    /** Frost and native fireballs also affect passive mobs, villagers and pets. */
+    /** Shared protection checks for effects that can also affect passive entities. */
     boolean affect(Player source, LivingEntity target) {
         if (source.equals(target) || target.isDead() || !target.isValid()) return false;
         if (target instanceof Player player) {

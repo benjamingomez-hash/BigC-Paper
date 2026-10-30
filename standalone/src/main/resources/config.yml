@@ -4,10 +4,8 @@ legendary-weapons:
   max-targets-per-pulse: 12
   particles-per-ring: 24
   # Bloodlust: Fuerza III durante 200 ticks y medio corazón por golpe directo válido.
-  # Shadow usa daño mágico (2 puntos = 1 corazón). Frost aplica estados,
+  # Shadow usa daño mágico (2 puntos = 1 corazón).
   # Earthbreaker talla terreno y quita 4 puntos de salud una vez.
-  frost-scythe:
-    max-targets: 64
   shadow-blade:
     range: 16
     # Máximo 6 incluso con valores antiguos más altos; sustituye strike-damage.

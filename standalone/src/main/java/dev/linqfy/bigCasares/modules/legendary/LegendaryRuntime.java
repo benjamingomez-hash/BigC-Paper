@@ -219,11 +219,10 @@ final class LegendaryRuntime implements Listener, Runnable {
                             finish(session, true);
                         }
                     }
-                    case FROST_SCYTHE -> frost(owner, session);
                     case WINDWEAVER -> wind(owner, session);
                     case SHADOW_BLADE -> { if (session.age >= LegendaryShadowAmbush.DURATION) finish(session, true); }
                     case EARTHBREAKER -> earthquake(owner, session);
-                    case VOID_KATANA, HYPERION -> finish(session, false);
+                    case VOID_KATANA, HYPERION, FROST_SCYTHE -> finish(session, false);
                     case THUNDER_SPEAR -> projectile(owner, session);
                 }
             } catch (RuntimeException | IOException failure) {
@@ -253,33 +252,6 @@ final class LegendaryRuntime implements Listener, Runnable {
                 }
             }
         }
-    }
-
-    private void frost(Player owner, Session session) throws IOException {
-        session.center = owner.getLocation();
-        Color color = Color.fromRGB(170, 235, 255);
-        double radius = 6;
-        if (session.age % 3 == 0) {
-            for (int layer = 0; layer < 3; layer++) ring(session.center.clone().add(0, layer * 0.8, 0), radius - layer * 0.6, color, session.age);
-        }
-        if ((session.age - 1) % 10 == 0) {
-            var candidates = session.center.getWorld().getNearbyEntities(session.center, radius, radius, radius).stream()
-                .filter(entity -> entity instanceof LivingEntity).map(entity -> (LivingEntity) entity).toList();
-            for (LivingEntity target : LegendaryTargets.select(candidates, LivingEntity::getUniqueId,
-                entity -> entity.getLocation().distanceSquared(session.center),
-                entity -> entity.getLocation().distanceSquared(session.center) <= radius * radius && policy.affect(owner, entity),
-                integer("frost-scythe.max-targets", 64, 1, 128))) {
-                potion(session, target, PotionEffectType.SLOWNESS, 30, 3);
-                FreezeLease prior = session.freezes.get(target.getUniqueId());
-                int frozen = Math.max(target.getFreezeTicks(), target.getMaxFreezeTicks() + 40);
-                session.freezes.put(target.getUniqueId(), new FreezeLease(target,
-                    prior == null ? target.getFreezeTicks() : prior.previous(),
-                    prior == null ? session.age : prior.previousAt(), frozen));
-                target.setFreezeTicks(frozen);
-                owner.getWorld().spawnParticle(Particle.SNOWFLAKE, target.getLocation().add(0, 1, 0), 8, 0.4, 0.4, 0.4, 0.03);
-            }
-        }
-        if (session.age >= 160) finish(session, true);
     }
 
     private void wind(Player owner, Session session) throws IOException {
@@ -727,7 +699,6 @@ final class LegendaryRuntime implements Listener, Runnable {
     }
 
     private record SessionKey(UUID owner, LegendaryWeapon weapon) {}
-    private record FreezeLease(LivingEntity target, int previous, int previousAt, int owned) {}
 
     private static final class Session {
         final UUID owner;
@@ -735,7 +706,6 @@ final class LegendaryRuntime implements Listener, Runnable {
         final LegendaryCrater crater = new LegendaryCrater();
         final List<Entity> ephemeral = new ArrayList<>();
         final Map<UUID, LivingEntity> affected = new HashMap<>();
-        final Map<UUID, FreezeLease> freezes = new HashMap<>();
         final LegendaryEffectOwnership effects = new LegendaryEffectOwnership(new LegendaryEffectOwnership.Gateway() {
             private PotionEffectType type(String key) {
                 return PotionEffectType.getByKey(NamespacedKey.fromString(key));
@@ -766,12 +736,6 @@ final class LegendaryRuntime implements Listener, Runnable {
 
         void cleanupEffects() {
             effects.cleanup(age);
-            freezes.values().forEach(lease -> {
-                if (lease.target().getFreezeTicks() <= lease.owned()) {
-                    lease.target().setFreezeTicks(Math.max(0, lease.previous() - 2 * (age - lease.previousAt())));
-                }
-            });
-            freezes.clear();
         }
 
         Session(UUID owner, LegendaryWeapon weapon, Location center) {
