@@ -17,6 +17,7 @@ $report = [ordered]@{
     cleanJar = $false
     cleanDistribution = $false
     engine = $null
+    signatureUpdates = @()
     scans = @()
     references = @()
     jarEntries = @()
@@ -54,6 +55,39 @@ function Invoke-DefenderCommand([string]$Arguments, [string]$LogName) {
     return $process.ExitCode
 }
 
+function Resolve-DefenderScanner {
+    $platform = Join-Path $env:ProgramData 'Microsoft/Windows Defender/Platform'
+    $scanner = Get-ChildItem "$platform/*/MpCmdRun.exe" -ErrorAction SilentlyContinue |
+        Sort-Object LastWriteTimeUtc -Descending | Select-Object -First 1 -ExpandProperty FullName
+    if (-not $scanner) { $scanner = Join-Path $env:ProgramFiles 'Windows Defender/MpCmdRun.exe' }
+    if (-not (Test-Path -LiteralPath $scanner -PathType Leaf)) { throw 'MpCmdRun.exe is unavailable.' }
+    return $scanner
+}
+
+function Update-DefenderSignatures {
+    # Use Microsoft's native updater instead of the Update-MpSignature CIM call
+    # that failed with RPC error 0x800706be on the hosted Windows runner.
+    # Only infrastructure preparation is retried; detections are never retried
+    # or ignored. Every artifact still requires the full clean scan below.
+    for ($attempt = 1; $attempt -le 3; $attempt++) {
+        $update = [ordered]@{ method = 'MpCmdRun -SignatureUpdate -MMPC'; attempt = $attempt; exitCode = $null; error = $null }
+        try {
+            Write-Host "Updating Defender signatures directly from Microsoft (attempt $attempt/3)."
+            $update.exitCode = Invoke-DefenderCommand '-SignatureUpdate -MMPC' ("signature-update-$attempt")
+            if ($update.exitCode -eq 0) {
+                $report.signatureUpdates += [pscustomobject]$update
+                return
+            }
+            $update.error = "Signature updater returned exit code $($update.exitCode)."
+        } catch {
+            $update.error = $_.Exception.Message
+        }
+        $report.signatureUpdates += [pscustomobject]$update
+        if ($attempt -lt 3) { Start-Sleep -Seconds 5 }
+    }
+    throw 'Defender signature update failed after three attempts; no artifact is cleared for use. See signature-update logs.'
+}
+
 function Invoke-FileScan([string]$Path, [string]$Label) {
     $script:scanIndex++
     $result = [ordered]@{ label = $Label; sha256 = $null; result = 'Unavailable'; exitCode = $null }
@@ -83,7 +117,7 @@ function Invoke-FileScan([string]$Path, [string]$Label) {
 }
 
 try {
-    Get-Command Get-MpComputerStatus, Set-MpPreference, Get-MpPreference, Remove-MpPreference, Update-MpSignature -ErrorAction Stop | Out-Null
+    Get-Command Get-MpComputerStatus, Set-MpPreference, Get-MpPreference, Remove-MpPreference -ErrorAction Stop | Out-Null
     $status = Get-MpComputerStatus
     if (-not $status.AMServiceEnabled -or -not $status.AntivirusEnabled) {
         throw 'Microsoft Defender is not active on this runner; no verified artifact can be produced.'
@@ -114,7 +148,8 @@ try {
     # Samples are this public repository's distribution and build, on a disposable
     # runner. Enable normal cloud protection instead of bypassing its ML checks.
     Set-MpPreference -MAPSReporting Advanced -SubmitSamplesConsent SendSafeSamples -DisableBlockAtFirstSeen $false -ErrorAction Stop
-    Update-MpSignature -ErrorAction Stop
+    $script:scanner = Resolve-DefenderScanner
+    Update-DefenderSignatures
     $status = Get-MpComputerStatus
     if (-not $status.AMServiceEnabled -or -not $status.AntivirusEnabled -or -not $status.RealTimeProtectionEnabled -or $status.AntivirusSignatureAge -gt 2) {
         throw 'Defender is unavailable or its signatures are stale.'
@@ -148,11 +183,8 @@ try {
         extensionExclusions = @($preferences.ExclusionExtension | Where-Object { $_ })
         processExclusions = @($preferences.ExclusionProcess | Where-Object { $_ })
     }
-    $platform = Join-Path $env:ProgramData 'Microsoft/Windows Defender/Platform'
-    $script:scanner = Get-ChildItem "$platform/*/MpCmdRun.exe" -ErrorAction SilentlyContinue |
-        Sort-Object LastWriteTimeUtc -Descending | Select-Object -First 1 -ExpandProperty FullName
-    if (-not $script:scanner) { $script:scanner = Join-Path $env:ProgramFiles 'Windows Defender/MpCmdRun.exe' }
-    if (-not (Test-Path -LiteralPath $script:scanner -PathType Leaf)) { throw 'MpCmdRun.exe is unavailable.' }
+    # A signature update can install a newer platform directory.
+    $script:scanner = Resolve-DefenderScanner
     $report.cloudConnectionExitCode = Invoke-DefenderCommand '-ValidateMapsConnection' 'cloud-connection'
     if ($report.cloudConnectionExitCode -ne 0) { throw 'Defender cloud connectivity validation failed.' }
 

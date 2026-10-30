@@ -11,6 +11,7 @@ on:
       - standalone/*.gradle
       - standalone/pack/**
       - standalone/tools/Test-LegendaryDefender.ps1
+      - standalone/tools/Test-LegendaryDefender.Tests.ps1
       - standalone/DOWNLOAD-README.txt
   workflow_dispatch:
 
@@ -41,6 +42,10 @@ jobs:
         working-directory: standalone
         shell: cmd
         run: gradlew.bat --no-daemon --max-workers=2 clean build
+
+      - name: Check Defender update recovery without changing protection settings
+        shell: powershell
+        run: ./standalone/tools/Test-LegendaryDefender.Tests.ps1
 
       - name: Scan rebuilt distribution and JAR
         id: defender

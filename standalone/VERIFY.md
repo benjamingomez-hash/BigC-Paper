@@ -1,5 +1,29 @@
 # Verificación de LegendaryWeapons
 
+## Recuperación de la comprobación de Defender — 30 de octubre
+
+La última comprobación correcta de la base 2.0.14 fue la ejecución
+[39654428833](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/39654428833).
+El retiro de Frost conservó ese mismo script, pero los dos intentos de la ejecución
+[41140173439](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/41140173439)
+fallaron en `Update-MpSignature` con RPC `0x800706be`, antes de analizar archivos.
+Los informes no registraron detecciones ni análisis completados.
+
+Se mantiene esa base y el retiro de Frost. La actualización de firmas pasa al
+[comando oficial de Microsoft](https://learn.microsoft.com/en-us/defender-endpoint/command-line-arguments-microsoft-defender-antivirus)
+`MpCmdRun.exe -SignatureUpdate -MMPC`, que descarga directamente de Microsoft.
+Se permiten hasta tres intentos de actualización y se conserva la salida de cada
+uno en el informe. Un fallo definitivo impide publicar artefactos comprobados.
+Se mantienen las verificaciones de firmas recientes, protección activa, nube,
+ausencia de exclusiones y los cinco análisis del ZIP, sus miembros y el JAR.
+Los análisis de archivos no se repiten para evitar una detección.
+
+Validación local: cuatro casos de actualización (éxito, recuperación tras error
+RPC, códigos de error persistentes y excepciones persistentes), tres comprobaciones
+reales de códigos de salida de procesos y sintaxis del workflow con actionlint.
+Estos casos son simulaciones de infraestructura; el análisis real en Windows
+se registra por separado cuando termina la ejecución de GitHub.
+
 ## Pendiente de publicar: retirada de Frost Scythe
 
 El código ofrece cinco armas: Bloodlust, Shadow Blade, Windweaver,
