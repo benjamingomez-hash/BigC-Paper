@@ -1,0 +1,762 @@
+{
+  "commit": "285328e515725885139f151603bc1321992531cf",
+  "startedUtc": "2026-10-31T17:22:44.2554204Z",
+  "completed": true,
+  "cleanJar": true,
+  "cleanDistribution": true,
+  "engine": {
+    "productVersion": "4.18.26100.4",
+    "engineVersion": "1.1.26100.4",
+    "signatureVersion": "1.463.59.0",
+    "signatureUpdatedUtc": "2026-10-31T08:22:34.0000000Z",
+    "realTimeProtectionEnabled": true,
+    "mapsReporting": "2",
+    "disableBlockAtFirstSeen": false,
+    "submitSamplesConsent": "1",
+    "archiveScanningEnabled": true,
+    "behaviorMonitoringEnabled": true,
+    "ioavProtectionEnabled": true,
+    "scriptScanningEnabled": true,
+    "pathExclusions": [],
+    "extensionExclusions": [],
+    "processExclusions": []
+  },
+  "signatureUpdates": [
+    {
+      "method": "MpCmdRun -SignatureUpdate -MMPC",
+      "attempt": 1,
+      "exitCode": 0,
+      "error": null
+    }
+  ],
+  "scans": [
+    {
+      "label": "User-provided final distribution ZIP",
+      "sha256": "aa9c1e94baceaf565b7c226e571b8148212c9449dc0a3f6a0ef82de59da5bb17",
+      "result": "Clean",
+      "exitCode": 0
+    },
+    {
+      "label": "Distribution member: config.yml",
+      "sha256": "9d6740e9c51eb4f428309305f254a2b3c766f39d6e73724ff9fabe7859c6ee2f",
+      "result": "Clean",
+      "exitCode": 0
+    },
+    {
+      "label": "Distribution member: LEEME.txt",
+      "sha256": "f4d137fdc0120fbe537919f973cc7eb1f14b28315c9a490eefd78b411a426ff7",
+      "result": "Clean",
+      "exitCode": 0
+    },
+    {
+      "label": "Distribution member: LegendaryWeapons-Final.jar",
+      "sha256": "c2e7d2aa1d6125cf0cea66b6feb663c6976d28dbbcbfebb514d686899dabc108",
+      "result": "Clean",
+      "exitCode": 0
+    },
+    {
+      "label": "Distribution member: legendary-weapons-java.zip",
+      "sha256": "452dfd3df3b84d1ae4cfe174ac53a8f16393b2a7a28c93e9d7aecabf6416949a",
+      "result": "Clean",
+      "exitCode": 0
+    },
+    {
+      "label": "User-provided final plugin JAR",
+      "sha256": "c2e7d2aa1d6125cf0cea66b6feb663c6976d28dbbcbfebb514d686899dabc108",
+      "result": "Clean",
+      "exitCode": 0
+    }
+  ],
+  "references": [],
+  "jarEntries": [
+    {
+      "name": "META-INF/MANIFEST.MF",
+      "size": 25,
+      "sha256": "566ad1a80220026d05099562645ce968ff0e7c36cde22634332605bb34cc3eff"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/module/PluginModule.class",
+      "size": 547,
+      "sha256": "532681bd799951ba4874451b2385af64910ad4182bcb2ffff5687287a2960aed"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/module/runtime/BukkitRuntimeRegistrations$BukkitAccess.class",
+      "size": 845,
+      "sha256": "b92ab61b617411c87027ec5d352fa789e45833539258811f2cacd92d32b047d8"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/module/runtime/BukkitRuntimeRegistrations$CommandBinding.class",
+      "size": 539,
+      "sha256": "8c00d142ca6aba793c83a720fa69b1b4d1c956ce8d234f0e00ba829385d42481"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/module/runtime/BukkitRuntimeRegistrations$OneShotLease.class",
+      "size": 2653,
+      "sha256": "4249263843dd04147d7c1577d63f6f4558808649cc61121af13b903d1a09d814"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/module/runtime/BukkitRuntimeRegistrations$OneShotScheduler.class",
+      "size": 476,
+      "sha256": "7198fe77f054002cbcc4eddd50ebaf93fcc60be1bd0ad241555e599d76f18425"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/module/runtime/BukkitRuntimeRegistrations$PluginCommandBinding.class",
+      "size": 1609,
+      "sha256": "c39235e4c98a2b16eaea3e43cf8024db5b26399761e206c5e1d4e2c64616724e"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/module/runtime/BukkitRuntimeRegistrations$ServerBukkitAccess.class",
+      "size": 3194,
+      "sha256": "b002ade6456c1a6a85502d267d1127946cbe65863f68aee26a40ba787fa24f00"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/module/runtime/BukkitRuntimeRegistrations.class",
+      "size": 15079,
+      "sha256": "36dc59d304a8111ca3f655d8ec4423842665d15c45931d909bfb9bba8f560d16"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/module/runtime/RuntimeCleanupAction.class",
+      "size": 302,
+      "sha256": "c138e3c6e059149f53e226bb9f6fecb5280b5efdcbe2cf5a416f989b5ad2e97b"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/module/runtime/RuntimeCleanupOutcome.class",
+      "size": 2249,
+      "sha256": "07ccd9b850f7b8d3a44f4ea39d97f0516581094aee001d30f4f9eaa8e0291580"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/module/runtime/RuntimeCleanupReport.class",
+      "size": 3551,
+      "sha256": "4d55f67003650c7f647393c69d036c24d9c25e96ac2ccd956e3a3cb1e0734414"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/module/runtime/RuntimeGeneration.class",
+      "size": 2652,
+      "sha256": "3ae72a90b9064a6ad8311541b44fd33c8168b05b22a92e97754710ae667b044a"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/module/runtime/RuntimeRegistrationScope$Registration.class",
+      "size": 2061,
+      "sha256": "ee02f0fa88c728cb2599616d5d23d1154a22ff81d30d1df39d7d15b07e7772cd"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/module/runtime/RuntimeRegistrationScope.class",
+      "size": 5639,
+      "sha256": "9886bf79cab801fb9369fcea8db47d60698b181f0be15f8a0d191f0d52bb5a4a"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryAbilityCast$1.class",
+      "size": 3573,
+      "sha256": "a768605d25cabc2030a4c2388e80f01427c8daa38a206e569539849db610ba53"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryAbilityCast.class",
+      "size": 4838,
+      "sha256": "216c47d807ac89d8390b7b9232d7f210958dbe6dd71c39bf16e6ead52f5ac43a"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryAbilityLevels$1.class",
+      "size": 965,
+      "sha256": "a8341316d43f72e91c883f16a7069b6d20e0e94ac8e55ced96faab58062643e5"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryAbilityLevels.class",
+      "size": 3854,
+      "sha256": "2dbe17c8ad715e72a8ba6541850a19d46fe6565b0bf2df8379eac3e476881dd7"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryAltarAbilities$1.class",
+      "size": 968,
+      "sha256": "8e65daac836936a422d2247aeeab2c2dfc8e4eb4b13b0422127aea2d356a5f4c"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryAltarAbilities$Bleed.class",
+      "size": 2209,
+      "sha256": "10e84c742ca65b7e16935a041fb3fc0f64ba606236a087373cc2013156fefa8c"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryAltarAbilities$Dagger.class",
+      "size": 868,
+      "sha256": "cfc419d5f125f3367091578b7f7059433d6ded4e637f3b090ae60df373de943c"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryAltarAbilities$Key.class",
+      "size": 2162,
+      "sha256": "d9e818c90fa3da6c0a45f2b8e7b3eef08e9484ae08aff0a8d846e51f5d4e0c0a"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryAltarAbilities$Passive.class",
+      "size": 2320,
+      "sha256": "03f1e91a7e60f782d70033326955321d0250e83ec6108f9f7d3532e4a2ed80ab"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryAltarAbilities$Session.class",
+      "size": 1977,
+      "sha256": "af4e27bbb33b8295d808c5aa4105d44fa22b1f17c6027179e480b6b46681e05d"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryAltarAbilities.class",
+      "size": 35102,
+      "sha256": "8cbca91024967f1c6ceadeb95219b12240136dd28265f63edc7f3b80ff74413f"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryAnimationCatalog$1.class",
+      "size": 1026,
+      "sha256": "0e349b16ba010a672a20ea883e04b89be93443b0fb0de11bdee038f820a72385"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryAnimationCatalog$Clip.class",
+      "size": 2334,
+      "sha256": "b021cc699f1728731a7961ad2ae30ae17629a8a589768ffcaad7f5e1e25ab60e"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryAnimationCatalog.class",
+      "size": 4552,
+      "sha256": "2a1e8c99ef41f09700a3baec0331e21715d980eb0bcf256e079fa028772ed3c7"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryAnimationTimeline$State.class",
+      "size": 2147,
+      "sha256": "59216b44a30025db145ea30697e2cfff34de9f65fb79c873e4460566ef7fcce1"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryAnimationTimeline.class",
+      "size": 5678,
+      "sha256": "eb0d371ed52903a2abbc6f2dce90ce19d5ed1ef22054244f234e60a2a7c2a412"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryCombatPolicy.class",
+      "size": 6840,
+      "sha256": "cc35dab274713e744730613465d065a36ed1f156e532c7f58c2b40419181d6c8"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryControls$Decision.class",
+      "size": 1516,
+      "sha256": "2c30a5ec38db8037b62113f6ffe739fd23572ee6cab55e7cdd6e83b08e01debe"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryControls.class",
+      "size": 1698,
+      "sha256": "460b8934085ff2d5d5fdbb7d1254e2487fb0bdb21641e765000efd8f50d40be0"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryCraftingEvents$1.class",
+      "size": 3311,
+      "sha256": "f6ddb9171fea2f2d4b66ca638acbf4aae87e935c48ce13058cff49ca37250383"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryCraftingEvents$2.class",
+      "size": 2873,
+      "sha256": "fdb6bd8a78d876097f7cac76abc1c29da05a055a8118be051df50475f52182b8"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryCraftingEvents$3.class",
+      "size": 1607,
+      "sha256": "f621197a4044cbc316031b1f19d1ddd74b1bed8792f430308d19bc238c5da2c4"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryCraftingEvents$Visual.class",
+      "size": 961,
+      "sha256": "42a2e625c83488e45b14ded4d72cf49941ce216f31ab20d227974b30679daa0f"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryCraftingEvents.class",
+      "size": 43704,
+      "sha256": "9483a36766b4e2bebef1df7521a2317298f775f9b0ca81dea7a771b493027844"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryCraftingLedger$Notice.class",
+      "size": 2015,
+      "sha256": "ddb0afad86386d57cfb6f6a1105438683d52bf248e0187288205cbab632322ce"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryCraftingLedger.class",
+      "size": 11783,
+      "sha256": "aba7f0172b01c2c7d6254b0948a1a123e98d5c21438096f07d61ad43fd59148f"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryCraftingMessages.class",
+      "size": 4396,
+      "sha256": "8fc6d72377edc0d068474d3747bf499325eb191e4f723ca078b9e9434a686cba"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryCraftingPlan$Items.class",
+      "size": 745,
+      "sha256": "c8da0fb9e0fe6310b7fae3eb208adfd07a1645174a4af6a9a56d51bb0e07c222"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryCraftingPlan$Plan.class",
+      "size": 2294,
+      "sha256": "e86fa6966c7510d9f4a509be202ec1ce2cdd925e13017dc1f37b3a53383f6f0e"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryCraftingPlan.class",
+      "size": 5129,
+      "sha256": "5a0c8ca2e23cfdcd609e1fc2c570b3c65274959e442545264bea8a4218145437"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryCraftingSession$Pending.class",
+      "size": 2659,
+      "sha256": "3533ccdd8ace9112181746322835734a3f844bbda579a1cee7ed5db9dafbc8b8"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryCraftingSession$Stage.class",
+      "size": 1590,
+      "sha256": "39f80f34539a1fd0adf1bbbf3e1058b8cb8b50f996df47eda33b9362b482f2ce"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryCraftingSession$TransactionKind.class",
+      "size": 1546,
+      "sha256": "5f66d69683a7a28b5dc4b45a1b0b9ff45467dc430f29b8badf17c9b1ce9607c2"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryCraftingSession.class",
+      "size": 8502,
+      "sha256": "b56349b69f4046f9fcead5f393c8372b61f8340b97ab620e71d65f8c4cc54ec7"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryCrater$Cell.class",
+      "size": 1839,
+      "sha256": "4076b08a4b2ca838335bbc2f28c44aee769bb03f07bd3f1df6d8daeb76732f12"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryCrater.class",
+      "size": 3667,
+      "sha256": "a199b13c71def4939da66d4d3ec1ce892a2460e05834d6fcde0b959fd1f5b93e"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryDurability$DirectorySync.class",
+      "size": 468,
+      "sha256": "92f3605bffc24cd3bd807cde56fc977660bc0bab73366f6f5aeed18b84b13ef2"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryDurability.class",
+      "size": 2688,
+      "sha256": "8974ec40d20df1beeb64feb090e3d9d4a4af5c5a175fdf98b50af192123925e6"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryEarthShock$Impact.class",
+      "size": 617,
+      "sha256": "63ce51e95263575f9602cffdb5d5fcdeb66beef43f94869246c15f1168428701"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryEarthShock.class",
+      "size": 9073,
+      "sha256": "32cd3736118c0d053b00ec04ab1e841751ba3940e5d3a2b7b4394ce995ea7f72"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryEffectOwnership$Effect.class",
+      "size": 2517,
+      "sha256": "6ba31d03102e79dcc25597f9efe16c10795f3b016c154d57183eddec474df474"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryEffectOwnership$Gateway.class",
+      "size": 818,
+      "sha256": "2c2526d11192eadee776d77102cc04af4ecb7164b68f9f55515efdaf08f805e3"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryEffectOwnership$Key.class",
+      "size": 1884,
+      "sha256": "66c6077ee58d5886f4ce67617fa5f0032cf53f4b8cf5c8a11cb93b847a6b94b1"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryEffectOwnership$Lease.class",
+      "size": 2478,
+      "sha256": "ff76c4cf5a8bdbb996034a5667313bdf89efc08aba1453885775e9c310b03a05"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryEffectOwnership.class",
+      "size": 7648,
+      "sha256": "9e9d6d64b4759c7b55cd281e81d149bcc694188014326dae61dcb656c3e028fd"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryElementalAbilities.class",
+      "size": 19297,
+      "sha256": "21483c461c086f2b79693d380580f4543816f821787a67a3da7869983d73eee8"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryElementalContext.class",
+      "size": 17334,
+      "sha256": "700be5705945b85002ac297804a859848a5d581bd18c839c09dabfcf60fd05da"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryElementalSkill$Settings.class",
+      "size": 3767,
+      "sha256": "20d13dca6dee57b2689570e6ea0dd97ef9c093cae70baabf6c8f451cfd01052b"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryElementalSkill.class",
+      "size": 5319,
+      "sha256": "75f3f71b99783fc79f6dd76c8cfd1a529baa9660f1b8cfd3200c212d52518f24"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryFlightWindow.class",
+      "size": 828,
+      "sha256": "dfa67cca24132e4826352452a6ffe85a33b681eeb58812c423c7f98743d4d141"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryHitBudget.class",
+      "size": 1122,
+      "sha256": "fdb6484b6354ba96f8e077705de3980b8e60c8d3cdc3de23c979c35762ecab92"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryInventoryTransaction$Confirmation.class",
+      "size": 478,
+      "sha256": "c0b397fd9f8ff1f956186c34a3aec3eddcdf7dec3f27f653a68e56ec094c40d9"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryInventoryTransaction$Inventory.class",
+      "size": 495,
+      "sha256": "ce31d5cfef8a1a7ddca1f440774945ba54e171abf74f78f245357f9cd08fffe3"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryInventoryTransaction.class",
+      "size": 1931,
+      "sha256": "729cadad757308d464fcd9c83fa63af72d9d79032f80eba581d43df280603672"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryKillCredits$Credit.class",
+      "size": 2147,
+      "sha256": "94d58bd7c0c9afbe901ee7a9e356eacf360f3fe958f2b635311ac8d36b6a0e98"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryKillCredits.class",
+      "size": 3891,
+      "sha256": "f7454f1d223342d07de06b70835e23d4923d390ffd3fa7d92b485762fc6fada7"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryLifeSteal$Hit.class",
+      "size": 2509,
+      "sha256": "d5fb2f37d2d0aeaee761e1eb019a84dd403a69d1378a880210b3add560318110"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryLifeSteal.class",
+      "size": 4207,
+      "sha256": "113fdc824a0f3aa535bab631d9221eb6cc4319359b32a8769f2a647dca754249"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryModelAnimations$1.class",
+      "size": 1023,
+      "sha256": "34b010bb381ddea8e9ccead015e96ded732d5dbabb5a39fe41c9c52b261bfb72"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryModelAnimations.class",
+      "size": 13277,
+      "sha256": "172716d48add55d58525806567191edf1ebb3e79b86732d20d231d827911434f"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryMovementLock.class",
+      "size": 8690,
+      "sha256": "5f30df50acba47e4c988513f8267449aada6b4585e90e96a3637ea4c86079135"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryPaladinGuard$Absorbed.class",
+      "size": 2115,
+      "sha256": "058bdce94b53a1b5fbcf4f65b37b9c97165952955b6c5924773da4ae70085390"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryPaladinGuard$Guard.class",
+      "size": 955,
+      "sha256": "4c9dfe4593bf7f89e047110c9bdb75a5cbfe2206a050c77332542ecde99956a4"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryPaladinGuard$Reflection.class",
+      "size": 386,
+      "sha256": "69ba5e7c6f60c5951606f704ea557969d4a229bbb4303966c7ee5a5372d37148"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryPaladinGuard.class",
+      "size": 9896,
+      "sha256": "ca0061dab94a7515b68528aa426ce4a5fee2166904f1fabb10be7841cdef5ccb"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryParalysis$Lease.class",
+      "size": 912,
+      "sha256": "6f8477875f8e93c50bf58b361b476dc1e0c73eff9d9dde2971a1e635d6a29798"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryParalysis$Point.class",
+      "size": 2451,
+      "sha256": "ecdbe5ebb785d6851390c0ebc2443020e6265c4306f1f957fe18c4aaee27220b"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryParalysis.class",
+      "size": 6497,
+      "sha256": "9eefd635bdd1add0585588294a04f5f7af3384f695c8ec2e654dc660d68f5aaf"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryPlayerSaveVerifier$Reader.class",
+      "size": 477,
+      "sha256": "a796f6735c47d85862e57124bf9cead05a689847b834d0488cc887c6655f23bc"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryPlayerSaveVerifier.class",
+      "size": 7102,
+      "sha256": "5c9e2134faa879431ea6ebea4bff5a7c6bd9e5fa151663376c818efa01c1f220"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryPotionEffects$1.class",
+      "size": 3584,
+      "sha256": "2177ece665d5071f643808f7fff7e4589fb021c5b2bd7f6ef602b030cedfd308"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryPotionEffects.class",
+      "size": 2538,
+      "sha256": "625e73c98a76998d9c61575e7a177826c92247348bda146a253e0f1837c134a7"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryProjectileSweep$Step.class",
+      "size": 2109,
+      "sha256": "ee3b7bd62c359ef677b8f2801271f7f38eab04d1ac6cf9cee91c8228a224904f"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryProjectileSweep$Trace.class",
+      "size": 455,
+      "sha256": "b06db31604432d5bbfd32389fbc74f1c7fea7ae0e1f7aa1492d3908cc3a0999e"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryProjectileSweep.class",
+      "size": 2048,
+      "sha256": "aa59641701d1cd9a887ac35fe5f387c2a3e6e34128d76aa584b7d09d21709b5b"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryProtectionEvent$Action.class",
+      "size": 1579,
+      "sha256": "181cc3bf728423165aa8e6818e991a50d62f70cf7d2cb1039de815baea4235d8"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryProtectionEvent.class",
+      "size": 2255,
+      "sha256": "f35d3e179a6fce4ff3190ed75fc93d385146f3d6250ed51c90d40aee95cf372b"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryPvpLevels.class",
+      "size": 2962,
+      "sha256": "2ad725fc0c173482fbc6d9c7651de5b46a75f287d67ad3d803eab084b9a50720"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryPvpProgression$Context.class",
+      "size": 2045,
+      "sha256": "7a302ee358a4d61dbf306589ddd647db41860f590a540d82384da9abbcde9967"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryPvpProgression$Hit.class",
+      "size": 2158,
+      "sha256": "cfd5698b1fc53d8398b1411f466fc171cbd15b95b020d38740713eaac0615101"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryPvpProgression.class",
+      "size": 8760,
+      "sha256": "f0e98728a33b26a595109f9664059c07c5f314c2797ed749f90c4cf44ffe61f8"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryReturnPolicy$Decision.class",
+      "size": 1610,
+      "sha256": "d61faa9e9c948111fcffe3a2ce9df1ba022462f44f76242e36e5bbd52aa78ed5"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryReturnPolicy.class",
+      "size": 975,
+      "sha256": "82ba49d2a2868ea6656ecf21bb953a1cd367d8e53372a923eb65c47219bb8b3c"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryRuntime.class",
+      "size": 12479,
+      "sha256": "f825e4619d16031c14696a804a1c4f5984d7a20add846907aa109865b9c69bce"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendarySearchAreas$Square.class",
+      "size": 2666,
+      "sha256": "025abaa093a8078eda0064ba41732bb1afbcd6076ac77fd98595e0172dba40a4"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendarySearchAreas.class",
+      "size": 3019,
+      "sha256": "b86e9804cc86df70e0421f7007ac5eae9225a9bb435038646d4d3ea431b9bdce"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryShadowAmbush$Buff.class",
+      "size": 2032,
+      "sha256": "4fe758c265ed49bd642afbb6cac4871ad8842379d848bbb8844fc57fa56a4bdb"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryShadowAmbush$Plan.class",
+      "size": 2014,
+      "sha256": "8297b94bc289fba419f404656ea08934784775c12fd5085ee6f7abe23ec83bfe"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryShadowAmbush.class",
+      "size": 4523,
+      "sha256": "98e818dab7bad460f6e8218be3ee8b8809ca02ddbca2c54eec4ee127f093793f"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendarySpearEscrow.class",
+      "size": 7284,
+      "sha256": "1c02f3087eb913a47e0ff3e62939f9af260a5aa263c60da258f76310d5af72a8"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryStateStore.class",
+      "size": 9594,
+      "sha256": "db76be971f08a5e3efeaa57d677ac282fd485fce17dc3ac80635ac09559dddec"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryStormTiming.class",
+      "size": 567,
+      "sha256": "23b64cd9bb94b829d51c93924245ae9e8331fb2a3e3ee13ecd631436c98c8f1e"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryTargets.class",
+      "size": 2964,
+      "sha256": "96f1e3be657d98885def2aa6e04c2fd5c7622225dc5f3d4d84c75c88b0b35db2"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryTeamRules.class",
+      "size": 1051,
+      "sha256": "a7cefb8cd6b179567a78b43f2940abbb6a7c8e86a8e50d09bcfffc0e061498cf"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryThunderAbilities$1.class",
+      "size": 1121,
+      "sha256": "b962356bbdd49500ecc7961b86a2193188649a2bc944aaaba0f69495ab44fdc0"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryThunderAbilities$Chain.class",
+      "size": 5131,
+      "sha256": "ab019c6c73249634f26d60a2563a5ad9097ed841a6dbc2b50660b1f43e49cc55"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryThunderAbilities$Dash.class",
+      "size": 5195,
+      "sha256": "25c597efdb6bfefa87222a7f5640b5b6a6c43e217ab50696e9c7288e5061f932"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryThunderAbilities$Mark.class",
+      "size": 3759,
+      "sha256": "347759ee7ca7104849daaf561d72082ad9f2e2937d88ce56e816b0d270e222a6"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryThunderAbilities$Storm.class",
+      "size": 3597,
+      "sha256": "8590884e17ab69a0ead3e515d5722511e36e863e968279fcac34e8dd04df180d"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryThunderAbilities$Zeus.class",
+      "size": 3649,
+      "sha256": "b8ea53f34c3667db6bfe951161451071c4c729c03181ef01271e6892f49ed5fc"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryThunderAbilities.class",
+      "size": 3710,
+      "sha256": "7a174dca6b9222e868d73d5e8a8b5f4537b4c57848f47231ddc3e999bae02c07"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryWeapon.class",
+      "size": 9297,
+      "sha256": "85df66ca272eb287e1d94440e9b5214d82f3a000153d71f01641beab9d2057e2"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryWeaponsCommand.class",
+      "size": 12161,
+      "sha256": "74dc3e01a7095011a7b224a01d192227cf8e732c1ce29fbee56436b14eddd7d3"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryWeaponsModule.class",
+      "size": 11468,
+      "sha256": "0fadde127762f68e87c6516bd71cbc5afdf22a956c58463d9771a6260b6c7b4b"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryWindAbilities$1.class",
+      "size": 1095,
+      "sha256": "9c567e6791869ba22367b9844a8f8832df0d2a766095e0d5ff274e99a5069d50"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryWindAbilities$Flight.class",
+      "size": 7206,
+      "sha256": "dced3745b87f4cb941ab5f6575c33abd94aef2ab61cdbca213839bdc244d5272"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryWindAbilities$Prison.class",
+      "size": 3642,
+      "sha256": "b9f06fa35bd9c7fe05fab86d1842b973971fab6c2afeeb2355afae864a5f19a1"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryWindAbilities$Tornado.class",
+      "size": 5176,
+      "sha256": "86ddbe0e2664d82de0f37fe0284f8bb4cede0407eccc7c60c5d1a9f430c811ab"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryWindAbilities.class",
+      "size": 3071,
+      "sha256": "7d54d0a038075a09ca066f316ecdf888ec1ab6b6bb7868b69c65245f23491f90"
+    },
+    {
+      "name": "dev/linqfy/bigCasares/modules/legendary/LegendaryWindLaunch.class",
+      "size": 747,
+      "sha256": "7cc4a7f4005216369f3a14c5bbcad46664a69b26abc4ab4d18432f46b21e9810"
+    },
+    {
+      "name": "dev/linqfy/legendary/LegendaryItemRegistry.class",
+      "size": 4016,
+      "sha256": "63ab401f7161a560a678d4d6455877c3c941ac0bd2542b1a61f49678d70f64c1"
+    },
+    {
+      "name": "dev/linqfy/legendary/LegendaryPackInstaller$Result.class",
+      "size": 1978,
+      "sha256": "3cd8e1bc1a77681d304bd9d28637a3f15fe1376e75ece5521d7d4793d0e4848a"
+    },
+    {
+      "name": "dev/linqfy/legendary/LegendaryPackInstaller.class",
+      "size": 4671,
+      "sha256": "5c27f00200bd37b3d1064b38ada07eb5fa24967be46b6a4e3cdacf571259a5c5"
+    },
+    {
+      "name": "dev/linqfy/legendary/LegendaryWeaponsPlugin.class",
+      "size": 9451,
+      "sha256": "0c2f0616aa3a8de55fca8872cc9a828267c1fd3428d5c999dcec596cd4009c3b"
+    },
+    {
+      "name": "config.yml",
+      "size": 1388,
+      "sha256": "9d6740e9c51eb4f428309305f254a2b3c766f39d6e73724ff9fabe7859c6ee2f"
+    },
+    {
+      "name": "legendary-animations.properties",
+      "size": 2165,
+      "sha256": "73b306ce9677797b238bfbefddd3400d0200aab44a2512ed8e5e81f321d5066a"
+    },
+    {
+      "name": "legendary-pack-known-hashes.txt",
+      "size": 525,
+      "sha256": "3f89a78a30cb0f2d19842bf41974075b3de396dee550a7d4befa65bcf0283ddd"
+    },
+    {
+      "name": "legendary-pack.zip",
+      "size": 2673450,
+      "sha256": "452dfd3df3b84d1ae4cfe174ac53a8f16393b2a7a28c93e9d7aecabf6416949a"
+    },
+    {
+      "name": "plugin.yml",
+      "size": 469,
+      "sha256": "f6782ab21777666fe55c6efe2c75515f22b4da0736fade57e20530dc687b427a"
+    },
+    {
+      "name": "dev/codex/legendaryfinal/LegendaryWeaponLore$WeaponInfo.class",
+      "size": 1742,
+      "sha256": "25ed4c38fafb0bbd13e2f9cd30c91bdc3799bff513fa483919262356c760d19d"
+    },
+    {
+      "name": "dev/codex/legendaryfinal/LegendaryWeaponLore.class",
+      "size": 12863,
+      "sha256": "633299baf10a49c7d27c9e6fce53040297767d488e4af9a22e41971c52e2d263"
+    }
+  ],
+  "error": null,
+  "realTimeProtectionInitiallyEnabled": false,
+  "initialExclusionCounts": {
+    "paths": 2,
+    "extensions": 0,
+    "processes": 0
+  },
+  "cloudConnectionExitCode": 0,
+  "finishedUtc": "2026-10-31T17:24:03.5314749Z"
+}

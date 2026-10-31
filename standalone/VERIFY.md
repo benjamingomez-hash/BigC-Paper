@@ -1,5 +1,24 @@
 # Verificación de LegendaryWeapons
 
+## 2.0.16-final.1 — archivos terminados por el usuario
+
+Publicados sin modificaciones los cuatro originales: JAR, pack, configuración y
+LEEME. Se verificaron sus SHA-256, CRC de los archivos comprimidos y coincidencia
+del pack y la configuración con sus copias dentro del JAR. El ZIP conjunto
+contiene exactamente esos cuatro archivos originales.
+
+[La ejecución Windows 41224205520](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/41224205520)
+comprobó los bytes publicados en `285328e515725885139f151603bc1321992531cf`:
+**seis análisis Defender sin detecciones**, motor `1.1.26100.4`, firmas
+`1.463.59.0`, protección en tiempo real y nube activas, sin exclusiones.
+[Informe](docs/defender-user-final-2.0.16-final.1.json) ·
+[Procedencia e integridad](docs/user-final-2.0.16-final.1.json) ·
+[Descargas](downloads/2.0.16-final.1/README.md).
+
+El JAR fue aportado ya compilado: no se reconstruyó ni se ejecutó. Las pruebas de
+fuentes, jugabilidad y FPS de 2.0.16 registradas abajo corresponden a aquella
+versión; no validan los cambios compilados de esta entrega final.
+
 ## 2.0.16 — optimización conservando los modelos
 
 Compilación limpia: **107 pruebas Java correctas** del plugin y **8 pruebas Python**

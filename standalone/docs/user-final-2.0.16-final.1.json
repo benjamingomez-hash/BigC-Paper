@@ -31,5 +31,16 @@
     "distributionContainsOriginalFourFiles": true
   },
   "sourceNote": "Compiled artifact supplied by the user; it was not rebuilt from the 2.0.16 source tree.",
-  "windowsVerification": "Pending dedicated workflow for these exact supplied binaries."
+  "windowsVerification": {
+    "workflowRun": "https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/41224205520",
+    "artifactCommit": "285328e515725885139f151603bc1321992531cf",
+    "report": "defender-user-final-2.0.16-final.1.json",
+    "completed": true,
+    "cleanJar": true,
+    "cleanDistribution": true,
+    "cleanScans": 6,
+    "engineVersion": "1.1.26100.4",
+    "signatureVersion": "1.463.59.0",
+    "scope": "Exact supplied bytes scanned without executing or rebuilding the plugin; no live gameplay or FPS validation."
+  }
 }
