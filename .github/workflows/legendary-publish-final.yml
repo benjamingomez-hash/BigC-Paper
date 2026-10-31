@@ -1,0 +1,76 @@
+name: LegendaryWeapons - Publish final release
+
+on:
+  push:
+    branches: [feat/legendary-six-weapons]
+    paths:
+      - .github/workflows/legendary-publish-final.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: legendary-publish-final-2.0.16-final.1
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/feat/legendary-six-weapons'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Check out final distribution
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Verify unchanged files against the completed Defender report
+        working-directory: standalone/downloads/2.0.16-final.1
+        run: |
+          sha256sum --check SHA256SUMS.txt
+          python3 - <<'PYTHON'
+          import hashlib, json
+          from pathlib import Path
+          report = json.loads(Path('../../docs/defender-user-final-2.0.16-final.1.json').read_text())
+          assert report['completed'] and report['cleanJar'] and report['cleanDistribution'] and not report['error']
+          scans = report['scans']
+          assert len(scans) == 6 and all(s['result'] == 'Clean' and s['exitCode'] == 0 for s in scans)
+          assert hashlib.sha256(Path('Armas-Legendarias-Final.zip').read_bytes()).hexdigest() == scans[0]['sha256']
+          assert hashlib.sha256(Path('LegendaryWeapons-Final.jar').read_bytes()).hexdigest() == scans[-1]['sha256']
+          for scan in scans[1:-1]:
+              name = scan['label'].removeprefix('Distribution member: ')
+              assert name in {'LEEME.txt', 'config.yml', 'LegendaryWeapons-Final.jar', 'legendary-weapons-java.zip'}
+              assert hashlib.sha256(Path(name).read_bytes()).hexdigest() == scan['sha256']
+          PYTHON
+
+      - name: Upload one checked ZIP and publish the prepared draft
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: legendary-weapons-2.0.16-final.1
+        run: |
+          gh release view "$RELEASE_TAG" --json isDraft,assets > "$RUNNER_TEMP/final-release-before.json"
+          python3 - <<'PYTHON'
+          import json, os
+          from pathlib import Path
+          release = json.loads((Path(os.environ['RUNNER_TEMP']) / 'final-release-before.json').read_text())
+          assert release['isDraft'], 'Only the prepared unpublished draft can be published by this workflow.'
+          assert release['assets'] == [], 'Refusing to replace existing release assets.'
+          PYTHON
+          gh release upload "$RELEASE_TAG" standalone/downloads/2.0.16-final.1/Armas-Legendarias-Final.zip
+          gh release view "$RELEASE_TAG" --json assets > "$RUNNER_TEMP/final-release-uploaded.json"
+          gh release download "$RELEASE_TAG" --pattern Armas-Legendarias-Final.zip --dir "$RUNNER_TEMP/final-release-download"
+          python3 - <<'PYTHON'
+          import hashlib, json, os
+          from pathlib import Path
+          temp = Path(os.environ['RUNNER_TEMP'])
+          assets = json.loads((temp / 'final-release-uploaded.json').read_text())['assets']
+          assert len(assets) == 1 and assets[0]['name'] == 'Armas-Legendarias-Final.zip'
+          uploaded = temp / 'final-release-download/Armas-Legendarias-Final.zip'
+          local = Path('standalone/downloads/2.0.16-final.1/Armas-Legendarias-Final.zip')
+          assert hashlib.sha256(uploaded.read_bytes()).digest() == hashlib.sha256(local.read_bytes()).digest()
+          PYTHON
+          gh release edit "$RELEASE_TAG" --target "$GITHUB_SHA" --title 'LegendaryWeapons 2.0.16-final.1' --notes-file standalone/docs/release-2.0.16-final.1.md --prerelease=false --draft=false --latest
