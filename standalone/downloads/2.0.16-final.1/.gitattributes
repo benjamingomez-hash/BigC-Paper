@@ -1,0 +1,2 @@
+# Preserve every uploaded byte, including text line endings.
+* -text

@@ -1,0 +1,32 @@
+ARMAS LEGENDARIAS - VERSIÓN FINAL
+Paper 26.2 / Java 25 o posterior compatible con Paper 26.2.
+
+Incluye las cinco armas, la mejora moderada de Thunder Spear,
+las descripciones con controles y nivel, y el pack optimizado con tamaños corregidos.
+Las animaciones de los modelos están desactivadas por defecto.
+
+PROGRESO
+Las armas suben de nivel exclusivamente al matar jugadores con el arma o sus habilidades.
+Cada baja válida da 1 nivel, hasta nivel 5. Se aplican las reglas PvP originales:
+no cuentan bajas propias ni combates en creativo/espectador.
+No contiene bots, comandos /testbots ni progreso por matar mobs.
+
+INSTALACIÓN
+1. Detener el servidor con stop.
+2. En plugins, quitar versiones anteriores de LegendaryWeapons y los complementos
+   LegendaryWeaponsLoreFix y LegendaryWeaponsTestBots, si estaban instalados.
+3. Copiar únicamente LegendaryWeapons-Final.jar a plugins.
+4. Conservar la carpeta plugins/LegendaryWeapons: contiene tus niveles y datos.
+5. Arrancar el servidor. El plugin genera su configuración en una instalación nueva.
+
+CONFIGURACIÓN Y PACK
+El JAR ya incluye la configuración final y el resource pack corregido.
+También se entregan config.yml y legendary-weapons-java.zip por separado.
+Para actualizar la configuración de otro servidor existente, usar config.yml como referencia
+conservando sus ajustes de red. En este servidor local la mejora ya está configurada.
+
+La URL 127.0.0.1 del pack sirve solo en la propia PC.
+Para amigos, entregarles legendary-weapons-java.zip para instalarlo manualmente,
+o configurar una URL del pack que sus equipos puedan alcanzar.
+
+No se incluyen mundos, datos de jugadores ni niveles de prueba en este paquete.

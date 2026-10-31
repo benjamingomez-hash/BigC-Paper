@@ -2,6 +2,12 @@
 
 Plugin **independiente** para **Paper 26.2 / Java 25 / Gradle 9.2.1**. El código actual incluye cinco armas y su evento de fabricación. Usa modelos Java nativos y no requiere BigCasares, Vault, EssentialsX ni BetterModel. Si se usa BetterModel para otros plugins del servidor, la versión solicitada para 26.2 es 3.2.0; esta distribución no llama a su API. WorldGuard es opcional. Los equipos usan el scoreboard vanilla. No incluye integración Bedrock/Geyser.
 
+**Versión final aportada: `2.0.16-final.1`.**
+[Descargar el ZIP final](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-six-weapons/standalone/downloads/2.0.16-final.1/Armas-Legendarias-Final.zip) ·
+[Archivos originales e instrucciones](downloads/2.0.16-final.1/README.md).
+Publicados el JAR, pack, configuración y LEEME que terminó el usuario, sin
+reconstruirlos. El código fuente 2.0.16 y sus descargas anteriores se conservan.
+
 **2.0.16: pack optimizado sin rediseñar las armas.** Menos caras ocultas,
 geometría compartida entre poses y menor frecuencia visual, conservando duración,
 poderes y progreso. [Detalles, actualización y ajustes](PERFORMANCE.md).

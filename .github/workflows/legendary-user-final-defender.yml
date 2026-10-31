@@ -1,0 +1,81 @@
+name: LegendaryWeapons - User final Windows verification
+
+on:
+  push:
+    branches: [feat/legendary-six-weapons]
+    paths:
+      - .github/workflows/legendary-user-final-defender.yml
+      - standalone/downloads/2.0.16-final.1/**
+      - '!standalone/downloads/2.0.16-final.1/README.md'
+      - standalone/tools/Test-LegendaryDefender.ps1
+      - standalone/tools/Test-LegendaryDefender.Tests.ps1
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: legendary-user-final-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out original user files
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Verify original file hashes without rebuilding the JAR
+        shell: powershell
+        run: |
+          $folder = 'standalone/downloads/2.0.16-final.1'
+          foreach ($line in Get-Content "$folder/SHA256SUMS.txt") {
+            if ($line -notmatch '^([0-9a-f]{64})  ([A-Za-z0-9._-]+)$') { throw 'Invalid checksum manifest line.' }
+            $expected = $Matches[1]
+            $name = $Matches[2]
+            $actual = (Get-FileHash -LiteralPath (Join-Path $folder $name) -Algorithm SHA256).Hash.ToLowerInvariant()
+            if ($actual -ne $expected) { throw "Original file hash mismatch: $name" }
+          }
+
+      - name: Check signature update recovery
+        shell: powershell
+        run: ./standalone/tools/Test-LegendaryDefender.Tests.ps1
+
+      - name: Scan the exact supplied JAR and four-file distribution
+        id: defender
+        shell: powershell
+        run: |
+          & ./standalone/tools/Test-LegendaryDefender.ps1 `
+            -JarPath standalone/downloads/2.0.16-final.1/LegendaryWeapons-Final.jar `
+            -DistributionZip standalone/downloads/2.0.16-final.1/Armas-Legendarias-Final.zip `
+            -ExpectedDistributionMembers 4 `
+            -DistributionLabel 'User-provided final distribution ZIP' `
+            -JarLabel 'User-provided final plugin JAR' `
+            -OutputDirectory "$env:RUNNER_TEMP/legendary-user-final-report"
+
+      - name: Preserve scan results
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: legendary-user-final-report-${{ github.sha }}
+          path: ${{ runner.temp }}/legendary-user-final-report/
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Preserve checked user files
+        if: success() && steps.defender.outputs.clean_jar == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: LegendaryWeapons-user-final-checked-${{ github.sha }}
+          path: |
+            standalone/downloads/2.0.16-final.1/LegendaryWeapons-Final.jar
+            standalone/downloads/2.0.16-final.1/Armas-Legendarias-Final.zip
+            standalone/downloads/2.0.16-final.1/config.yml
+            standalone/downloads/2.0.16-final.1/legendary-weapons-java.zip
+            standalone/downloads/2.0.16-final.1/LEEME.txt
+            standalone/downloads/2.0.16-final.1/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 30

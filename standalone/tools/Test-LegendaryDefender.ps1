@@ -4,7 +4,10 @@ param(
     [Parameter(Mandatory = $true)][string]$JarPath,
     [Parameter(Mandatory = $true)][string]$DistributionZip,
     [Parameter(Mandatory = $true)][string]$OutputDirectory,
-    [string]$ReferenceManifest
+    [string]$ReferenceManifest,
+    [ValidateRange(1, 16)][int]$ExpectedDistributionMembers = 3,
+    [string]$DistributionLabel = 'Rebuilt distribution ZIP',
+    [string]$JarLabel = 'Newly built production JAR'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -223,22 +226,22 @@ try {
         }
     }
 
-    $report.scans += Invoke-FileScan $DistributionZip 'Rebuilt distribution ZIP'
+    $report.scans += Invoke-FileScan $DistributionZip $DistributionLabel
     if ($report.scans[-1].result -ne 'Clean') { throw 'Distribution ZIP was blocked or its scan failed.' }
     $samples = Join-Path ([IO.Path]::GetTempPath()) ([Guid]::NewGuid().ToString('N'))
     Add-Type -AssemblyName System.IO.Compression.FileSystem
     [IO.Compression.ZipFile]::ExtractToDirectory((Resolve-Path $DistributionZip).Path, $samples)
     $members = @(Get-ChildItem $samples -File -Recurse | Sort-Object FullName)
-    if ($members.Count -ne 3) { throw 'Expected exactly three distribution members.' }
+    if ($members.Count -ne $ExpectedDistributionMembers) { throw "Expected exactly $ExpectedDistributionMembers distribution members." }
     $packedJar = @($members | Where-Object { $_.Name -eq [IO.Path]::GetFileName($JarPath) })
     if ($packedJar.Count -ne 1 -or (Get-FileHash $packedJar[0].FullName).Hash -ne (Get-FileHash $JarPath).Hash) {
-        throw 'The distributed JAR does not match the source build.'
+        throw 'The distributed JAR does not match the supplied candidate.'
     }
     foreach ($member in $members) {
         $report.scans += Invoke-FileScan $member.FullName ("Distribution member: " + $member.Name)
     }
     $report.cleanDistribution = @($report.scans | Where-Object { $_.result -ne 'Clean' }).Count -eq 0
-    $candidate = Invoke-FileScan $JarPath 'Newly built production JAR'
+    $candidate = Invoke-FileScan $JarPath $JarLabel
     $report.scans += $candidate
     $report.completed = $true
     $finalPreferences = Get-MpPreference
