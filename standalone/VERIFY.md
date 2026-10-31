@@ -60,7 +60,7 @@ recomprimir del ZIP comprobado y contiene `pack.mcmeta` en la raíz.
 
 [Informe Defender](docs/defender-verification-2.0.16.json) ·
 [Validación completa](docs/performance-verification-2.0.16.json) ·
-[SHA-256](downloads/SHA256SUMS-2.0.16.txt).
+Los SHA-256 constan en los informes históricos enlazados.
 Todas las clases y los 157 archivos del pack coinciden con los probados en Linux;
 solo difiere una entrada de directorio vacío dentro del ZIP.
 También pasó la compilación limpia del proyecto principal con 1.014 pruebas.
@@ -92,7 +92,7 @@ La ejecución [41155884363](https://github.com/benjamingomez-hash/BigC-Paper/act
 compiló y comprobó `42f92f863014e794cd0858e57f2608acbb384830` en Windows.
 Los **cinco análisis terminaron sin detecciones**, motor `1.1.26100.4`, firmas
 `1.463.47.0`, protección en tiempo real y nube activas, sin exclusiones.
-[Informe](docs/defender-verification-2.0.15.json) · [SHA-256 de descargas](downloads/SHA256SUMS-2.0.15.txt).
+[Informe y SHA-256](docs/defender-verification-2.0.15.json).
 Se publican el JAR y el ZIP descargados de esa ejecución, sin reconstruirlos.
 Las clases y todos los archivos del pack coinciden byte por byte con los probados
 en Paper; solo difiere el contenedor ZIP por un directorio vacío local.

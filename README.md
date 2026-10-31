@@ -50,3 +50,5 @@ Los planes fechados describen decisiones históricas; para el comportamiento
 actual, verificá el código y la configuración versionada.
 
 Para probar únicamente las armas, hay una [distribución independiente](standalone/README.md) sin los otros módulos ni dependencias de BigCasares.
+
+Última publicación de las armas: [LegendaryWeapons 2.0.16-final.1](https://github.com/benjamingomez-hash/BigC-Paper/releases/tag/legendary-weapons-2.0.16-final.1), con una única descarga ZIP.

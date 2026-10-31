@@ -2,35 +2,26 @@
 
 Plugin **independiente** para **Paper 26.2 / Java 25 / Gradle 9.2.1**. El código actual incluye cinco armas y su evento de fabricación. Usa modelos Java nativos y no requiere BigCasares, Vault, EssentialsX ni BetterModel. Si se usa BetterModel para otros plugins del servidor, la versión solicitada para 26.2 es 3.2.0; esta distribución no llama a su API. WorldGuard es opcional. Los equipos usan el scoreboard vanilla. No incluye integración Bedrock/Geyser.
 
-**Versión final aportada: `2.0.16-final.1`.**
-[Descargar el ZIP final](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-six-weapons/standalone/downloads/2.0.16-final.1/Armas-Legendarias-Final.zip) ·
-[Archivos originales e instrucciones](downloads/2.0.16-final.1/README.md).
-Publicados el JAR, pack, configuración y LEEME que terminó el usuario, sin
-reconstruirlos. El código fuente 2.0.16 y sus descargas anteriores se conservan.
+**Última versión publicada: `2.0.16-final.1`.**
+[Descargar ZIP final](https://github.com/benjamingomez-hash/BigC-Paper/releases/download/legendary-weapons-2.0.16-final.1/Armas-Legendarias-Final.zip) ·
+[Publicación en GitHub](https://github.com/benjamingomez-hash/BigC-Paper/releases/tag/legendary-weapons-2.0.16-final.1) ·
+[Instrucciones y archivos finales](downloads/2.0.16-final.1/README.md).
 
-**2.0.16: pack optimizado sin rediseñar las armas.** Menos caras ocultas,
-geometría compartida entre poses y menor frecuencia visual, conservando duración,
-poderes y progreso. [Detalles, actualización y ajustes](PERFORMANCE.md).
+El ZIP contiene el JAR, pack, configuración y LEEME terminados por el usuario,
+sin modificaciones. La carpeta de descargas mantiene únicamente esta versión.
+El JAR publicado no se reconstruyó desde las fuentes 2.0.16 de esta rama.
 
-**2.0.15: tus cinco modelos, once animaciones y niveles PvP.** Incluye Bloodlust,
-Shadow Blade, Windweaver, Earthbreaker y Thunder Spear. Frost Scythe queda retirada,
-junto con Void Katana e Hyperion. Las animaciones se reproducen con modelos Java
-nativos a 20 fotogramas por segundo; el hacha conserva su movimiento vanilla.
-[Fuentes y correspondencia de animaciones](models/reference-study/README.md).
+Incluye Bloodlust, Shadow Blade, Windweaver, Earthbreaker y Thunder Spear. Frost,
+Void Katana e Hyperion están retiradas. Las animaciones están desactivadas por
+defecto en la configuración final.
 
 **Niveles y poderes:** una baja de jugador suma un nivel por jugador y arma,
-hasta 5, sin perderlo al morir. Thunder Spear y Windweaver tienen las diez
-habilidades nuevas del documento del usuario; Bloodlust usa la progresión
-confirmada, y Shadow/Earthbreaker sus habilidades inspiradas en Altar SMP.
+hasta 5, sin perderlo al morir.
 [Controles, efectos, cooldowns y configuración](ABILITIES.md).
 
-**2.0.14: modelos de la propuesta aprobada.** Bloodlust roja, Shadow Blade negra, guadaña gris/celeste, maza violeta centrada, hacha dorada de doble filo y lanza de una sola punta. [Ver captura y detalles](MODELS.md).
-
-**2.0.12: retiradas Void Katana e Hyperion (la vara mágica).** En esa versión quedaban Bloodlust, Frost Scythe, Shadow Blade, Windweaver, Earthbreaker y Thunder Spear. Las dos retiradas no aparecen en recetas, listas, información ni autocompletado y sus poderes se eliminaron. No se agregan armas nuevas ni desbloqueos para la segunda semana.
-
-Al actualizar, se conservan los inventarios, el diario y los cooldowns. Los objetos retirados que ya existían quedan sin habilidad. Sus eventos antiguos dejan de avanzar, anunciarse o proteger mesas; los registros permanecen guardados y las operaciones de inventario pendientes pueden terminar de recuperarse. Los recursos históricos se conservan para que los objetos antiguos no pierdan su representación.
-
-[Descargar ZIP 2.0.16](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-six-weapons/standalone/downloads/Armas-Legendarias-2.0.16.zip) · [JAR independiente](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-six-weapons/standalone/downloads/LegendaryWeapons-2.0.16.jar) · [SHA-256](downloads/SHA256SUMS-2.0.16.txt). El ZIP contiene únicamente JAR, pack y LEEME. Windows detectó `Trojan:Script/Ulthar.A!ml` en versiones anteriores; reescribir desde 2.0.5 no demuestra corregir esa detección. Si vuelve a bloquearlo, dejalo en cuarentena. La clasificación del aviso local continúa pendiente.
+Al actualizar, conservá los inventarios, el diario y los datos de jugadores.
+Los recursos históricos permanecen para que los objetos antiguos no pierdan
+su representación. [Comprobaciones de esta entrega](VERIFY.md).
 
 ## Evento
 
@@ -65,7 +56,7 @@ un tridente. Sus habilidades nuevas no retiran el arma del inventario.
 1. Instala Java 25 y descarga Paper 26.2 desde https://papermc.io/downloads/paper (versiones anteriores).
 2. En una carpeta nueva, guarda Paper como `paper.jar`. Ejecuta `java -Xms1G -Xmx2G -jar paper.jar --nogui`.
 3. Lee el EULA en `eula.txt` y, si lo aceptas, cambia `eula=false` por `eula=true`.
-4. Copia **`LegendaryWeapons-2.0.16.jar`** en `plugins` y vuelve a iniciar Paper. Guarda cualquier JAR anterior fuera de `plugins`; conserva el diario y los datos de jugadores al actualizar desde 2.0.x.
+4. Copia **`LegendaryWeapons-Final.jar`** en `plugins` y vuelve a iniciar Paper. Guarda cualquier JAR anterior fuera de `plugins`; conserva el diario y los datos de jugadores al actualizar desde 2.0.x.
 5. En la consola escribe `op TuNombre`. En Minecraft Java **26.2**, entra a Multijugador → Conexión directa → `localhost`; acepta el paquete de recursos.
 6. Consulta `/weapons info thunder_spear`, consigue los materiales y fabrica en una mesa. `/weapons events` muestra disponibilidad y tiempo sin filtrar coordenadas anticipadas.
 

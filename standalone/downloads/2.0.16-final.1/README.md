@@ -1,4 +1,7 @@
-# Versión final aportada por el usuario
+# LegendaryWeapons 2.0.16-final.1
+
+**[Descargar ZIP final](https://github.com/benjamingomez-hash/BigC-Paper/releases/download/legendary-weapons-2.0.16-final.1/Armas-Legendarias-Final.zip)** ·
+[Publicación en GitHub](https://github.com/benjamingomez-hash/BigC-Paper/releases/tag/legendary-weapons-2.0.16-final.1).
 
 Los cuatro archivos originales se publican sin cambios. El JAR declara la versión
 `2.0.16-final.1`, Paper 26.2 y Java 25. Incluye el mismo pack y la misma configuración
