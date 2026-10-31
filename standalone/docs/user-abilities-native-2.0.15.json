@@ -146,5 +146,13 @@
     "[01:31:08] [Server thread/INFO]: [LegendaryCapture] PVP_ATTACK LegendaryRaider victimDead=true",
     "[01:31:08] [Server thread/INFO]: [LegendaryCapture] LEVEL player=LegendaryRaider bloodlust=5 health=20.0",
     "[01:31:09] [Server thread/INFO]: [LegendaryCapture] LEVEL player=LegendaryRaider bloodlust=5 health=20.0"
-  ]
+  ],
+  "publishedWindowsJarSHA256": "9822ef0003eebd248a1fff41601930d9419225fcb93be5fe38c7f2f735a86464",
+  "publishedWindowsSourceCommit": "42f92f863014e794cd0858e57f2608acbb384830",
+  "publishedComparison": {
+    "allClassAndResourcePayloadsIdentical": true,
+    "nativePackPayloadFilesCompared": 371,
+    "packagingDifference": "Windows checkout omits one empty untracked directory, assets/bigcasares/textures/item/legendary/. Pack file contents are identical; archive bytes differ."
+  },
+  "fixtureRestoredByteForByte": true
 }

@@ -18,6 +18,19 @@ El balance final requiere partidas reales; WorldGuard no estaba instalado en el
 servidor de prueba. La validación Windows del artefacto se registra aparte.
 
 
+### Publicación Windows comprobada
+
+La ejecución [41155884363](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/41155884363)
+compiló y comprobó `42f92f863014e794cd0858e57f2608acbb384830` en Windows.
+Los **cinco análisis terminaron sin detecciones**, motor `1.1.26100.4`, firmas
+`1.463.47.0`, protección en tiempo real y nube activas, sin exclusiones.
+[Informe](docs/defender-verification-2.0.15.json) · [SHA-256 de descargas](downloads/SHA256SUMS-2.0.15.txt).
+Se publican el JAR y el ZIP descargados de esa ejecución, sin reconstruirlos.
+Las clases y todos los archivos del pack coinciden byte por byte con los probados
+en Paper; solo difiere el contenedor ZIP por un directorio vacío local.
+Los diez archivos originales del servidor de prueba y sus opciones del cliente
+quedaron restaurados, conservando aparte los datos de las pruebas.
+
 ## Recuperación de la comprobación de Defender — 30 de octubre
 
 La última comprobación correcta de la base 2.0.14 fue la ejecución
