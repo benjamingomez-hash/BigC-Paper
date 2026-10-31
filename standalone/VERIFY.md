@@ -1,5 +1,23 @@
 # Verificación de LegendaryWeapons
 
+## 2.0.15 — modelos, habilidades y cambios de arma
+
+Integrados los cinco proyectos del usuario y once clips, con geometría Java nativa
+y texturas originales. Comprobados en Blockbench y en dos clientes oficiales 26.2
+sobre Paper 26.2-133. [Captura real de los modelos](docs/legendary-user-models-2.0.15.png).
+
+`bash gradlew -p standalone --no-daemon clean build`: **100 pruebas correctas**.
+`bash gradlew --no-daemon clean build`: **1.014 pruebas correctas** del proyecto principal.
+Se comprobaron daño base y reducción por armadura, las ondas, limpieza al morir,
+equipos sin fuego amigo y progreso por bajas. El ensayo de cambio de arma durante
+el golpe dio un nivel solo a Shadow; una tormenta retrasada después de cambiar a
+Bloodlust dio un nivel solo a Thunder Spear. No se repartieron premios.
+
+[Informe detallado y límites de la prueba](docs/user-abilities-native-2.0.15.json).
+El balance final requiere partidas reales; WorldGuard no estaba instalado en el
+servidor de prueba. La validación Windows del artefacto se registra aparte.
+
+
 ## Recuperación de la comprobación de Defender — 30 de octubre
 
 La última comprobación correcta de la base 2.0.14 fue la ejecución

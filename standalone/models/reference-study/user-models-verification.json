@@ -1,0 +1,272 @@
+{
+  "version": "5.2.2",
+  "models": {
+    "bloodlust": {
+      "cubes": 39,
+      "meshes": 0,
+      "faces": 234,
+      "textures": [
+        {
+          "name": "paleta_rubi.png",
+          "width": 16,
+          "height": 16,
+          "embedded": true
+        }
+      ],
+      "resolvedTextures": true,
+      "animations": [
+        {
+          "name": "idle_aura",
+          "length": 6,
+          "channelsBound": true,
+          "poseChanges": true
+        },
+        {
+          "name": "ataque_tajo",
+          "length": 0.9,
+          "channelsBound": true,
+          "poseChanges": true
+        },
+        {
+          "name": "estocada",
+          "length": 1.1,
+          "channelsBound": true,
+          "poseChanges": true
+        }
+      ]
+    },
+    "shadow_blade": {
+      "cubes": 138,
+      "meshes": 0,
+      "faces": 778,
+      "textures": [
+        {
+          "name": "espada_oscura_v2.png",
+          "width": 16,
+          "height": 16,
+          "embedded": true
+        }
+      ],
+      "resolvedTextures": true,
+      "animations": [
+        {
+          "name": "aura_oscura",
+          "length": 2,
+          "channelsBound": true,
+          "poseChanges": true
+        },
+        {
+          "name": "tira_particulas",
+          "length": 2,
+          "channelsBound": true,
+          "poseChanges": true
+        },
+        {
+          "name": "idle_flotar",
+          "length": 3,
+          "channelsBound": true,
+          "poseChanges": true
+        },
+        {
+          "name": "golpe_oscuro",
+          "length": 1.2,
+          "channelsBound": true,
+          "poseChanges": true
+        }
+      ]
+    },
+    "windweaver": {
+      "cubes": 47,
+      "meshes": 0,
+      "faces": 282,
+      "textures": [
+        {
+          "name": "paleta_windweaver.png",
+          "width": 16,
+          "height": 16,
+          "embedded": true
+        }
+      ],
+      "resolvedTextures": true,
+      "animations": [
+        {
+          "name": "idle_aura",
+          "length": 6,
+          "channelsBound": true,
+          "poseChanges": true
+        },
+        {
+          "name": "golpe_martillo",
+          "length": 1.2,
+          "channelsBound": true,
+          "poseChanges": true
+        },
+        {
+          "name": "golpe_lateral",
+          "length": 1,
+          "channelsBound": true,
+          "poseChanges": true
+        }
+      ]
+    },
+    "earthbreaker": {
+      "cubes": 344,
+      "meshes": 0,
+      "faces": 2064,
+      "textures": [
+        {
+          "name": "paleta_battle_axe.png",
+          "width": 16,
+          "height": 16,
+          "embedded": true
+        }
+      ],
+      "resolvedTextures": true,
+      "animations": []
+    },
+    "thunder_spear": {
+      "cubes": 140,
+      "meshes": 0,
+      "faces": 840,
+      "textures": [
+        {
+          "name": "paleta_cetro_cristal.png",
+          "width": 16,
+          "height": 16,
+          "embedded": true
+        }
+      ],
+      "resolvedTextures": true,
+      "animations": [
+        {
+          "name": "rayo",
+          "length": 1,
+          "channelsBound": true,
+          "poseChanges": true
+        }
+      ]
+    }
+  },
+  "originals": {
+    "bloodlust": {
+      "filename": "espada_rubi (3).bbmodel",
+      "sha256": "0b2f90d4d33e9b3da2d3492418d923b1934b4426a5142a317354d2068d76e522",
+      "activeProjectSha256": "0b2f90d4d33e9b3da2d3492418d923b1934b4426a5142a317354d2068d76e522",
+      "cubes": 39,
+      "animations": [
+        "idle_aura",
+        "ataque_tajo",
+        "estocada"
+      ]
+    },
+    "shadow_blade": {
+      "filename": "espada_oscura_v3.bbmodel",
+      "sha256": "48703d89d022adebbe0376d95a3d797ab671192b7bebec6485afccaed4413a35",
+      "activeProjectSha256": "9c46d41500141ed7e62639b742cfe29fa577a6b5e7b50b32b7766015558ab8ec",
+      "cubes": 138,
+      "animations": [
+        "aura_oscura",
+        "tira_particulas",
+        "idle_flotar",
+        "golpe_oscuro"
+      ]
+    },
+    "windweaver": {
+      "filename": "windweaver (1).bbmodel",
+      "sha256": "02dd682eeae5d3b3aed3fd433631a36644a92b5aeb6e32cd602a89663d21ff9f",
+      "activeProjectSha256": "02dd682eeae5d3b3aed3fd433631a36644a92b5aeb6e32cd602a89663d21ff9f",
+      "cubes": 47,
+      "animations": [
+        "idle_aura",
+        "golpe_martillo",
+        "golpe_lateral"
+      ]
+    },
+    "earthbreaker": {
+      "filename": "battle_axe_acostado.bbmodel",
+      "sha256": "6c9b4a9ecca45aab585ca9d9eb712e50575382deb4f5bf437c791d99cde258c1",
+      "activeProjectSha256": "6c9b4a9ecca45aab585ca9d9eb712e50575382deb4f5bf437c791d99cde258c1",
+      "cubes": 344,
+      "animations": []
+    },
+    "thunder_spear": {
+      "filename": "cetro_cristal_rayo.bbmodel",
+      "sha256": "56b71dbec540486d862a51d7368dad1679e72001e61f2fd87d2a84100c9c324b",
+      "activeProjectSha256": "56b71dbec540486d862a51d7368dad1679e72001e61f2fd87d2a84100c9c324b",
+      "cubes": 140,
+      "animations": [
+        "rayo"
+      ]
+    }
+  },
+  "activeWeapons": [
+    "bloodlust",
+    "shadow_blade",
+    "windweaver",
+    "earthbreaker",
+    "thunder_spear"
+  ],
+  "retiredWeapons": [
+    "void_katana",
+    "hyperion",
+    "frost_scythe"
+  ],
+  "status": "Editable Blockbench sources and animation preview verified; no native Minecraft animation integration yet.",
+  "gallerySha256": "39a087fdae19c3cad6ea4f8705a119ff9ee5403a51f87754bb17cfe11fd1b161",
+  "gallery": {
+    "version": "5.2.2",
+    "cubes": 708,
+    "meshes": 0,
+    "faces": 4198,
+    "textures": [
+      {
+        "name": "paleta_rubi.png",
+        "width": 16,
+        "height": 16
+      },
+      {
+        "name": "espada_oscura_v2.png",
+        "width": 16,
+        "height": 16
+      },
+      {
+        "name": "paleta_windweaver.png",
+        "width": 16,
+        "height": 16
+      },
+      {
+        "name": "paleta_battle_axe.png",
+        "width": 16,
+        "height": 16
+      },
+      {
+        "name": "paleta_cetro_cristal.png",
+        "width": 16,
+        "height": 16
+      }
+    ],
+    "groups": [
+      "bloodlust · review angle",
+      "shadow_blade · review angle",
+      "windweaver · review angle",
+      "earthbreaker · review angle",
+      "thunder_spear · review angle"
+    ],
+    "resolvedTextures": true
+  },
+  "capture": "review-blockbench.png",
+  "captures": {
+    "review-blockbench.png": "39a087fdae19c3cad6ea4f8705a119ff9ee5403a51f87754bb17cfe11fd1b161"
+  },
+  "existingStandaloneBuild": {
+    "command": "JAVA_HOME=/workspace/.cloud-setup/java25 PATH=/workspace/.cloud-setup/java25/bin:$PATH GRADLE_USER_HOME=/workspace/.cloud-setup/gradle bash gradlew -p standalone --no-daemon --max-workers=4 clean build",
+    "result": "BUILD SUCCESSFUL",
+    "counts": {
+      "tests": 84,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "scope": "Existing runtime and native pack only; uploaded models and animations remain editable sources pending integration."
+  }
+}

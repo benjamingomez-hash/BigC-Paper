@@ -1,0 +1,17 @@
+{
+  "paper": "26.2-133",
+  "minecraft": "26.2",
+  "pluginVersion": "2.0.15",
+  "fiveModelsRendered": true,
+  "nativeScreenshot": "legendary-user-models-2.0.15.png",
+  "clientModelErrors": [],
+  "metadataAndControlSamples": [
+    "[00:14:59] [Server thread/INFO]: [LegendaryCapture] STATUS sameMetadata=true frames=[1.0] strength=null version=2.0.15",
+    "[00:15:10] [Server thread/INFO]: [LegendaryCapture] STATUS sameMetadata=true frames=[28.0] strength=null version=2.0.15",
+    "[00:15:10] [Server thread/INFO]: [LegendaryCapture] STATUS sameMetadata=true frames=[29.0] strength=null version=2.0.15",
+    "[00:15:52] [Server thread/INFO]: [LegendaryCapture] STATUS sameMetadata=true frames=[64.0] strength=PotionEffect{amplifier=2, duration=189, type=CraftPotionEffectType{holder=Reference{ResourceKey[minecraft:mob_effect / minecraft:strength]=net.minecraft.world.effect.MobEffect@759d7eb8}}, ambient=false, particles=true, icon=true, hiddenEffect=null} version=2.0.15",
+    "[00:18:04] [Server thread/INFO]: [LegendaryCapture] STATUS sameMetadata=false frames=[14.0] strength=null version=2.0.15"
+  ],
+  "scope": "Models, first-person idle/ability playback, G activation, right-click stays native, spear receipt/return. New PvP progression and redesigned powers remain a separate pending design.",
+  "scopeNote": "Earlier prototype visual/metadata verification. Final gameplay, control, progression and swap tests are in user-abilities-native-2.0.15.json."
+}

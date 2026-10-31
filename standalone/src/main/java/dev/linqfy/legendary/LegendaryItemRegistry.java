@@ -1,7 +1,9 @@
 package dev.linqfy.legendary;
 
 import dev.linqfy.bigCasares.modules.legendary.LegendaryWeapon;
+
 import net.kyori.adventure.text.Component;
+
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -21,7 +23,11 @@ public final class LegendaryItemRegistry {
         var meta = item.getItemMeta();
         meta.getPersistentDataContainer().set(ID, PersistentDataType.STRING, weapon.id);
         meta.displayName(Component.text(weapon.displayName));
-        meta.lore(List.of(Component.text(weapon.abilityName), Component.text("Clic derecho: habilidad · 40 segundos")));
+        meta.lore(
+                List.of(
+                        Component.text(weapon.abilityName),
+                        Component.text(
+                                "/weapons info " + weapon.id + " · niveles 0-5 por bajas PvP")));
         meta.setMaxStackSize(1);
         meta.setItemModel(new NamespacedKey("bigcasares", weapon.id));
         if (weapon == LegendaryWeapon.THUNDER_SPEAR) meta.addEnchant(Enchantment.LUNGE, 3, true);
@@ -31,6 +37,7 @@ public final class LegendaryItemRegistry {
 
     public Optional<String> resolveItemId(ItemStack item) {
         if (item == null || !item.hasItemMeta()) return Optional.empty();
-        return Optional.ofNullable(item.getItemMeta().getPersistentDataContainer().get(ID, PersistentDataType.STRING));
+        return Optional.ofNullable(
+                item.getItemMeta().getPersistentDataContainer().get(ID, PersistentDataType.STRING));
     }
 }

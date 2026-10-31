@@ -1,0 +1,16 @@
+{
+  "active": [
+    "bloodlust",
+    "shadow_blade",
+    "windweaver",
+    "earthbreaker",
+    "thunder_spear"
+  ],
+  "retired": [
+    "void_katana",
+    "hyperion",
+    "frost_scythe"
+  ],
+  "preserveSources": true,
+  "note": "Frost removed at user request; previous projects and captures retained."
+}

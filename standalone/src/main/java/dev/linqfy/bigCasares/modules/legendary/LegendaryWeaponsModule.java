@@ -1,9 +1,9 @@
 package dev.linqfy.bigCasares.modules.legendary;
 
-import dev.linqfy.legendary.LegendaryWeaponsPlugin;
 import dev.linqfy.bigCasares.module.PluginModule;
 import dev.linqfy.bigCasares.module.runtime.BukkitRuntimeRegistrations;
 import dev.linqfy.bigCasares.module.runtime.RuntimeRegistrationScope;
+import dev.linqfy.legendary.LegendaryWeaponsPlugin;
 
 public final class LegendaryWeaponsModule implements PluginModule {
     public static final String MODULE_ID = "legendary-weapons";
@@ -11,31 +11,96 @@ public final class LegendaryWeaponsModule implements PluginModule {
     private RuntimeRegistrationScope compatibilityScope;
     private LegendaryRuntime runtime;
     private LegendaryCraftingEvents events;
+    private LegendaryModelAnimations animations;
+    private LegendaryPvpLevels levels;
+    private LegendaryElementalAbilities elemental;
+    private LegendaryAltarAbilities altar;
 
-    public LegendaryWeaponsModule(LegendaryWeaponsPlugin plugin) { this.plugin = plugin; }
-    @Override public String getId() { return MODULE_ID; }
-    @Override public void onEnable() {
+    public LegendaryWeaponsModule(LegendaryWeaponsPlugin plugin) {
+        this.plugin = plugin;
+    }
+
+    @Override
+    public String getId() {
+        return MODULE_ID;
+    }
+
+    @Override
+    public void onEnable() {
         compatibilityScope = new RuntimeRegistrationScope();
         onEnable(compatibilityScope);
     }
-    @Override public void onEnable(RuntimeRegistrationScope scope) {
+
+    @Override
+    public void onEnable(RuntimeRegistrationScope scope) {
         try {
-            LegendaryStateStore store = new LegendaryStateStore(plugin.getDataFolder().toPath().resolve("data/legendary/state.properties"));
-            BukkitRuntimeRegistrations registrations = new BukkitRuntimeRegistrations(plugin, scope);
-            if (store.snapshot().keySet().stream().anyMatch(key -> key.startsWith("altar.") || key.startsWith("craft."))) {
-                throw new IllegalStateException("Hay datos de altares anteriores. Conserva una copia y usa una instalación nueva para Crafting PvP.");
+            LegendaryStateStore store =
+                    new LegendaryStateStore(
+                            plugin.getDataFolder()
+                                    .toPath()
+                                    .resolve("data/legendary/state.properties"));
+            BukkitRuntimeRegistrations registrations =
+                    new BukkitRuntimeRegistrations(plugin, scope);
+            if (store.snapshot().keySet().stream()
+                    .anyMatch(key -> key.startsWith("altar.") || key.startsWith("craft."))) {
+                throw new IllegalStateException(
+                        "Hay datos de altares anteriores. Conserva una copia y usa una instalación"
+                            + " nueva para Crafting PvP.");
             }
             events = new LegendaryCraftingEvents(plugin, store, registrations);
-            runtime = new LegendaryRuntime(plugin, store, registrations, events::pending, events::protectedCell);
+            levels = new LegendaryPvpLevels(store);
+            var progression =
+                    registrations.registerListener(
+                            "legendary-pvp-progression",
+                            new LegendaryPvpProgression(plugin, levels));
+            animations =
+                    registrations.registerListener(
+                            "legendary-model-animations",
+                            new LegendaryModelAnimations(
+                                    plugin,
+                                    player ->
+                                            events.pending(player.getUniqueId())
+                                                    || store.get("craft." + player.getUniqueId())
+                                                            != null));
+            runtime = new LegendaryRuntime(plugin, store, registrations, events::pending);
+            scope.register("legendary-model-animation-state", animations::shutdown);
             scope.register("legendary-effects", runtime::shutdown);
             scope.register("legendary-events", events::shutdown);
             registrations.registerListener("legendary-event-listener", events);
             registrations.registerListener("legendary-listener", runtime);
+            elemental =
+                    registrations.registerListener(
+                            "legendary-elemental-abilities",
+                            new LegendaryElementalAbilities(
+                                    plugin,
+                                    store,
+                                    levels,
+                                    progression,
+                                    animations,
+                                    runtime::blocked,
+                                    registrations));
+            altar =
+                    registrations.registerListener(
+                            "legendary-altar-abilities",
+                            new LegendaryAltarAbilities(
+                                    plugin,
+                                    store,
+                                    levels,
+                                    progression,
+                                    animations,
+                                    runtime::blocked,
+                                    registrations));
+            scope.register("legendary-elemental-state", elemental::shutdown);
+            scope.register("legendary-altar-state", altar::shutdown);
+            registrations.scheduleRepeating("legendary-elemental-tick", elemental, 1, 1);
+            registrations.scheduleRepeating("legendary-altar-tick", altar, 1, 1);
             registrations.scheduleRepeating("legendary-effects-tick", runtime, 1, 1);
+            registrations.scheduleRepeating("legendary-model-animation-tick", animations, 1, 1);
             registrations.scheduleRepeating("legendary-event-tick", events, 1, 1);
             var command = plugin.getCommand("weapons");
-            if (command == null) throw new IllegalStateException("Falta el comando weapons en plugin.yml.");
-            var executor = new LegendaryWeaponsCommand(plugin, store, events);
+            if (command == null)
+                throw new IllegalStateException("Falta el comando weapons en plugin.yml.");
+            var executor = new LegendaryWeaponsCommand(plugin, store, events, levels);
             registrations.bindCommand("legendary-command", command, executor, executor);
             for (var world : plugin.getServer().getWorlds()) {
                 for (var chunk : world.getLoadedChunks()) {
@@ -49,15 +114,21 @@ public final class LegendaryWeaponsModule implements PluginModule {
                 runtime.recover(player);
             }
         } catch (java.io.IOException failure) {
-            throw new IllegalStateException("No se pudo abrir el estado persistente de armas legendarias.", failure);
+            throw new IllegalStateException(
+                    "No se pudo abrir el estado persistente de armas legendarias.", failure);
         }
     }
-    @Override public void onDisable() {
+
+    @Override
+    public void onDisable() {
         if (compatibilityScope != null) {
             compatibilityScope.close();
             compatibilityScope = null;
         }
         if (runtime != null) runtime.shutdown();
+        if (elemental != null) elemental.shutdown();
+        if (altar != null) altar.shutdown();
+        if (animations != null) animations.shutdown();
         if (events != null) events.shutdown();
         runtime = null;
         events = null;

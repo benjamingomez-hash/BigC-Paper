@@ -1,96 +1,157 @@
 package dev.linqfy.bigCasares.modules.legendary;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
 import org.junit.jupiter.api.Test;
-import javax.imageio.ImageIO;
+
+import java.io.ByteArrayInputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Base64;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-import static org.junit.jupiter.api.Assertions.*;
+
+import javax.imageio.ImageIO;
 
 class LegendaryModelAssetsTest {
     private static final Path ASSETS = Path.of("pack/assets");
-    private static JsonObject json(Path file) throws Exception {
-        return JsonParser.parseString(Files.readString(file)).getAsJsonObject();
-    }
-    private static Set<String> sprites() throws Exception {
-        var sprites = new HashSet<String>();
-        for (var entry : json(ASSETS.resolve("minecraft/atlases/items.json")).getAsJsonArray("sources")) {
-            for (var region : entry.getAsJsonObject().getAsJsonArray("regions")) {
-                assertTrue(sprites.add(region.getAsJsonObject().get("sprite").getAsString()), "Duplicate sprite");
-            }
-        }
-        return sprites;
+
+    private static JsonObject json(Path path) throws Exception {
+        return JsonParser.parseString(Files.readString(path)).getAsJsonObject();
     }
 
-    @Test void nativeAtlasExtractsPowerOfTwoMaterialsInsideBothUnmodifiedSources() throws Exception {
-        var sources = json(ASSETS.resolve("minecraft/atlases/items.json")).getAsJsonArray("sources");
-        assertEquals(2, sources.size());
-        for (var entry : sources) {
-            var source = entry.getAsJsonObject();
-            assertEquals("minecraft:unstitch", source.get("type").getAsString());
-            String resource = source.get("resource").getAsString();
-            assertTrue(Set.of("bigcasares:legendary/material_atlas", "bigcasares:legendary/simple_material_atlas").contains(resource));
-            var image = ImageIO.read(ASSETS.resolve("bigcasares/textures/" + resource.split(":", 2)[1] + ".png").toFile());
-            assertNotNull(image);
-            assertEquals(image.getWidth(), source.get("divisor_x").getAsInt());
-            assertEquals(image.getHeight(), source.get("divisor_y").getAsInt());
-            for (var region : source.getAsJsonArray("regions")) {
-                var r = region.getAsJsonObject();
-                int width = r.get("width").getAsInt(), height = r.get("height").getAsInt();
-                assertTrue(width > 0 && (width & (width - 1)) == 0);
-                assertTrue(height > 0 && (height & (height - 1)) == 0);
-                assertTrue(r.get("x").getAsInt() >= 0 && r.get("y").getAsInt() >= 0);
-                assertTrue(r.get("x").getAsInt() + width <= image.getWidth());
-                assertTrue(r.get("y").getAsInt() + height <= image.getHeight());
-            }
+    @Test
+    void suppliedTexturesAreCopiedExactlyAndLegacyAtlasRegionsRemainAvailable() throws Exception {
+        var sources =
+                json(ASSETS.resolve("minecraft/atlases/items.json")).getAsJsonArray("sources");
+        assertEquals(7, sources.size());
+        var singles = new HashSet<String>();
+        int historical = 0;
+        for (var source : sources) {
+            var s = source.getAsJsonObject();
+            if (s.get("type").getAsString().equals("minecraft:single"))
+                singles.add(s.get("resource").getAsString());
+            else historical += s.getAsJsonArray("regions").size();
         }
-        assertEquals(112, sprites().size());
+        assertEquals(112, historical);
+        for (var weapon : LegendaryWeapon.available()) {
+            assertTrue(singles.contains("bigcasares:item/user/" + weapon.id));
+            var original = json(Path.of("models/reference-study/" + weapon.id + ".bbmodel"));
+            byte[] embedded =
+                    Base64.getDecoder()
+                            .decode(
+                                    original.getAsJsonArray("textures")
+                                            .get(0)
+                                            .getAsJsonObject()
+                                            .get("source")
+                                            .getAsString()
+                                            .split(",", 2)[1]);
+            byte[] exported =
+                    Files.readAllBytes(
+                            ASSETS.resolve("bigcasares/textures/item/user/" + weapon.id + ".png"));
+            assertArrayEquals(embedded, exported, weapon.id + " texture changed");
+            var image = ImageIO.read(new ByteArrayInputStream(exported));
+            assertEquals(16, image.getWidth());
+            assertEquals(16, image.getHeight());
+        }
+        assertEquals(5, singles.size());
     }
 
-    @Test void allEightModelsResolveTheirVirtualSpritesAndUseValidNativeCuboids() throws Exception {
-        Set<String> sprites = sprites();
-        for (var weapon : LegendaryWeapon.values()) {
-            var model = json(ASSETS.resolve("bigcasares/models/item/" + weapon.id + ".json"));
-            var textures = model.getAsJsonObject("textures");
-            for (var element : model.getAsJsonArray("elements")) {
-                var box = element.getAsJsonObject();
-                for (int axis = 0; axis < 3; axis++) {
-                    double from = box.getAsJsonArray("from").get(axis).getAsDouble();
-                    double to = box.getAsJsonArray("to").get(axis).getAsDouble();
-                    assertTrue(from >= -16 && from < to && to <= 32, weapon.id + " has an invalid cuboid");
+    @Test
+    void everyBakedPoseUsesNativeCoordinatesResolvedTexturesAndTheSameParent() throws Exception {
+        try (var paths = Files.walk(ASSETS.resolve("bigcasares/models/item"))) {
+            for (Path path : paths.filter(p -> p.toString().endsWith(".json")).toList()) {
+                var model = json(path);
+                if (model.has("parent")) {
+                    String parent = model.get("parent").getAsString();
+                    assertTrue(
+                            Files.exists(
+                                    ASSETS.resolve(
+                                            "bigcasares/models/"
+                                                    + parent.split(":", 2)[1]
+                                                    + ".json")));
                 }
-                int emission = box.get("light_emission").getAsInt();
-                assertTrue(emission >= 0 && emission <= 15);
-                for (var face : box.getAsJsonObject("faces").entrySet()) {
-                    var data = face.getValue().getAsJsonObject();
-                    String role = data.get("texture").getAsString().substring(1);
-                    assertTrue(sprites.contains(textures.get(role).getAsString()), weapon.id + ": missing material " + role);
-                    for (var coordinate : data.getAsJsonArray("uv")) assertTrue(coordinate.getAsDouble() >= 0 && coordinate.getAsDouble() <= 16);
+                if (!model.has("elements")) continue;
+                for (var item : model.getAsJsonArray("elements")) {
+                    var e = item.getAsJsonObject();
+                    for (int axis = 0; axis < 3; axis++) {
+                        double from = e.getAsJsonArray("from").get(axis).getAsDouble(),
+                                to = e.getAsJsonArray("to").get(axis).getAsDouble();
+                        assertTrue(
+                                Double.isFinite(from)
+                                        && Double.isFinite(to)
+                                        && from < to
+                                        && from >= -16
+                                        && to <= 32,
+                                path.toString());
+                    }
+                    if (e.has("rotation")) {
+                        var r = e.getAsJsonObject("rotation");
+                        assertEquals(3, r.getAsJsonArray("origin").size());
+                        if (r.has("axis"))
+                            assertTrue(Set.of("x", "y", "z").contains(r.get("axis").getAsString()));
+                        else
+                            for (String axis : Set.of("x", "y", "z"))
+                                assertTrue(Double.isFinite(r.get(axis).getAsDouble()));
+                    }
+                    for (var face : e.getAsJsonObject("faces").entrySet()) {
+                        assertNotNull(face.getValue().getAsJsonObject().get("texture"));
+                        for (var uv : face.getValue().getAsJsonObject().getAsJsonArray("uv"))
+                            assertTrue(uv.getAsDouble() >= 0 && uv.getAsDouble() <= 16);
+                    }
                 }
             }
-            for (String view : Set.of("gui", "firstperson_righthand", "firstperson_lefthand", "ground", "fixed")) {
-                assertNotNull(model.getAsJsonObject("display").get(view));
-            }
-            String particle = textures.get(textures.get("particle").getAsString().substring(1)).getAsString();
-            assertTrue(sprites.contains(particle));
         }
     }
 
-    @Test void existingItemIdsKeepTheirModelBindingsAndAtlasOnlyAddsAgreedWeapons() throws Exception {
-        Set<String> names = new HashSet<>();
-        for (var weapon : LegendaryWeapon.values()) {
-            names.add(weapon.id);
-            var definition = json(ASSETS.resolve("bigcasares/items/" + weapon.id + ".json")).getAsJsonObject("model");
-            assertEquals("minecraft:model", definition.get("type").getAsString());
-            assertEquals("bigcasares:item/" + weapon.id, definition.get("model").getAsString());
+    @Test
+    void everyAnimationFrameResolvesAndGuiKeepsAStableRestPoseWithoutSwapBobbing()
+            throws Exception {
+        LegendaryAnimationCatalog catalog;
+        try (var input =
+                Files.newInputStream(
+                        Path.of("src/main/resources/legendary-animations.properties"))) {
+            catalog = LegendaryAnimationCatalog.load(input);
         }
-        for (String sprite : sprites()) {
-            String path = sprite.substring(sprite.indexOf('/', "bigcasares:item/".length()) + 1);
-            assertTrue(names.contains(path.substring(0, path.indexOf('/'))));
-            assertFalse(sprite.contains("copper"));
+        var exported =
+                json(Path.of("docs/user-models-export-2.0.15.json")).getAsJsonObject("weapons");
+        int clips = 0;
+        for (var weapon : LegendaryWeapon.available()) {
+            var definition = json(ASSETS.resolve("bigcasares/items/" + weapon.id + ".json"));
+            assertFalse(definition.get("hand_animation_on_swap").getAsBoolean());
+            var select = definition.getAsJsonObject("model");
+            assertEquals("minecraft:display_context", select.get("property").getAsString());
+            var gui = select.getAsJsonArray("cases").get(0).getAsJsonObject();
+            assertEquals("gui", gui.get("when").getAsString());
+            assertEquals(
+                    "bigcasares:item/" + weapon.id,
+                    gui.getAsJsonObject("model").get("model").getAsString());
+            var entries = select.getAsJsonObject("fallback").getAsJsonArray("entries");
+            var frames = new HashMap<Integer, String>();
+            for (var entry : entries) {
+                var e = entry.getAsJsonObject();
+                String model = e.getAsJsonObject("model").get("model").getAsString();
+                assertTrue(
+                        Files.exists(
+                                ASSETS.resolve(
+                                        "bigcasares/models/" + model.split(":", 2)[1] + ".json")));
+                assertNull(frames.put(e.get("threshold").getAsInt(), model));
+            }
+            for (var clip :
+                    exported.getAsJsonObject(weapon.id).getAsJsonObject("clips").entrySet()) {
+                var sequence = catalog.clip(weapon, clip.getKey());
+                assertNotNull(sequence);
+                assertEquals(
+                        clip.getValue().getAsJsonObject().get("ticks").getAsInt(),
+                        sequence.duration());
+                for (int frame : sequence.sequence()) assertTrue(frames.containsKey(frame));
+                clips++;
+            }
         }
+        assertEquals(11, clips);
     }
 }

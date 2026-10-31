@@ -1,0 +1,120 @@
+{
+  "shadow_blade": {
+    "project": "shadow_blade.bbmodel",
+    "original": "user-sources/espada_oscura_v3.bbmodel",
+    "sha256": "48703d89d022adebbe0376d95a3d797ab671192b7bebec6485afccaed4413a35",
+    "preserveOriginal": true,
+    "preview": {
+      "sourceCenter": [
+        8,
+        8.125,
+        8.3375
+      ],
+      "axisRotation": [
+        90,
+        90,
+        0
+      ],
+      "scale": 1.25
+    },
+    "status": "User-selected model. Original geometry, UVs, embedded texture and four animations preserved. Integrated as native 26.2 geometry and animation frames in plugin 2.0.15.",
+    "normalization": {
+      "explicitInvisibleFaces": 50,
+      "reason": "Blockbench 5.2.2 expects six face entries per cube; absent faces are explicitly disabled. Geometry, UVs, existing faces, texture and animations are unchanged."
+    }
+  },
+  "bloodlust": {
+    "project": "bloodlust.bbmodel",
+    "original": "user-sources/espada_rubi (3).bbmodel",
+    "sha256": "0b2f90d4d33e9b3da2d3492418d923b1934b4426a5142a317354d2068d76e522",
+    "preserveOriginal": true,
+    "preview": {
+      "sourceCenter": [
+        8.0,
+        16.25,
+        7.958333333
+      ],
+      "axisRotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1.25
+    },
+    "animations": [
+      "idle_aura",
+      "ataque_tajo",
+      "estocada"
+    ],
+    "status": "User-supplied model. Original file, geometry, UVs, embedded texture and animations preserved byte for byte. Integrated as native 26.2 geometry and animation frames in plugin 2.0.15."
+  },
+  "windweaver": {
+    "project": "windweaver.bbmodel",
+    "original": "user-sources/windweaver (1).bbmodel",
+    "sha256": "02dd682eeae5d3b3aed3fd433631a36644a92b5aeb6e32cd602a89663d21ff9f",
+    "preserveOriginal": true,
+    "preview": {
+      "sourceCenter": [
+        8.0,
+        15.5,
+        7.953125
+      ],
+      "axisRotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1.25
+    },
+    "animations": [
+      "idle_aura",
+      "golpe_martillo",
+      "golpe_lateral"
+    ],
+    "status": "User-supplied model. Original file, geometry, UVs, embedded texture and animations preserved byte for byte. Integrated as native 26.2 geometry and animation frames in plugin 2.0.15."
+  },
+  "earthbreaker": {
+    "project": "earthbreaker.bbmodel",
+    "original": "user-sources/battle_axe_acostado.bbmodel",
+    "sha256": "6c9b4a9ecca45aab585ca9d9eb712e50575382deb4f5bf437c791d99cde258c1",
+    "preserveOriginal": true,
+    "preview": {
+      "sourceCenter": [
+        8.0,
+        14.45,
+        8.0
+      ],
+      "axisRotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1.25
+    },
+    "animations": [],
+    "status": "User-supplied model. Original file, geometry, UVs, embedded texture and animations preserved byte for byte. Integrated as native 26.2 geometry and animation frames in plugin 2.0.15."
+  },
+  "thunder_spear": {
+    "project": "thunder_spear.bbmodel",
+    "original": "user-sources/cetro_cristal_rayo.bbmodel",
+    "sha256": "56b71dbec540486d862a51d7368dad1679e72001e61f2fd87d2a84100c9c324b",
+    "preserveOriginal": true,
+    "preview": {
+      "sourceCenter": [
+        8.0,
+        20.55,
+        8.0
+      ],
+      "axisRotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": 1.25
+    },
+    "animations": [
+      "rayo"
+    ],
+    "status": "User-supplied model. Original file, geometry, UVs, embedded texture and animations preserved byte for byte. Integrated as native 26.2 geometry and animation frames in plugin 2.0.15."
+  }
+}

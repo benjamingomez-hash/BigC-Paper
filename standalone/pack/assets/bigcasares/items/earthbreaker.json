@@ -1,6 +1,1 @@
-{
-  "model": {
-    "type": "minecraft:model",
-    "model": "bigcasares:item/earthbreaker"
-  }
-}
+{"hand_animation_on_swap":false,"model":{"type":"minecraft:select","property":"minecraft:display_context","cases":[{"when":"gui","model":{"type":"minecraft:model","model":"bigcasares:item/earthbreaker"}}],"fallback":{"type":"minecraft:range_dispatch","property":"minecraft:custom_model_data","index":0,"entries":[{"threshold":0,"model":{"type":"minecraft:model","model":"bigcasares:item/earthbreaker"}}],"fallback":{"type":"minecraft:model","model":"bigcasares:item/earthbreaker"}}}}

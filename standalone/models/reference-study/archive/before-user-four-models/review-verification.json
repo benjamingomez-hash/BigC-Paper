@@ -1,0 +1,261 @@
+{
+  "version": "5.2.2",
+  "reopened": {
+    "bloodlust": {
+      "meshes": 18,
+      "cubes": 0,
+      "faces": 351,
+      "embeddedTextures": true,
+      "resolvedTextures": true,
+      "animations": []
+    },
+    "shadow_blade": {
+      "meshes": 0,
+      "cubes": 138,
+      "faces": 778,
+      "embeddedTextures": true,
+      "resolvedTextures": true,
+      "animations": [
+        "aura_oscura",
+        "tira_particulas",
+        "idle_flotar",
+        "golpe_oscuro"
+      ]
+    },
+    "frost_scythe": {
+      "meshes": 30,
+      "cubes": 0,
+      "faces": 697,
+      "embeddedTextures": true,
+      "resolvedTextures": true,
+      "animations": [],
+      "status": "Archived and retired; excluded from active gallery."
+    },
+    "windweaver": {
+      "meshes": 21,
+      "cubes": 0,
+      "faces": 1568,
+      "embeddedTextures": true,
+      "resolvedTextures": true,
+      "animations": []
+    },
+    "earthbreaker": {
+      "meshes": 25,
+      "cubes": 0,
+      "faces": 852,
+      "embeddedTextures": true,
+      "resolvedTextures": true,
+      "animations": []
+    },
+    "thunder_spear": {
+      "meshes": 11,
+      "cubes": 0,
+      "faces": 213,
+      "embeddedTextures": true,
+      "resolvedTextures": true,
+      "animations": []
+    },
+    "gallery": {
+      "meshes": 75,
+      "cubes": 138,
+      "textures": 5,
+      "groups": [
+        "bloodlust · review angle",
+        "shadow_blade · review angle",
+        "windweaver · review angle",
+        "earthbreaker · review angle",
+        "thunder_spear · review angle"
+      ],
+      "resolvedTextures": true
+    }
+  },
+  "status": "Visual review awaiting approval. Not exported to native game assets.",
+  "capture": "review-blockbench.png",
+  "captureSha256": "b55ac4bf147309c20783af381b5191b78230d039d3d60cab7d974b3284110525",
+  "revision": "2026-10-30",
+  "references": {
+    "first": "Shadow Blade",
+    "second": "Frost Scythe",
+    "last": "Windweaver / mace"
+  },
+  "solidParts": [
+    {
+      "weapon": "bloodlust",
+      "part": "Hoja / acero carmesí con sección romboidal",
+      "closed": true,
+      "volume": 606.99448,
+      "depth": 4.4
+    },
+    {
+      "weapon": "earthbreaker",
+      "part": "Hojas / filo curvo en cuña False",
+      "closed": true,
+      "volume": 323.07484,
+      "depth": 5.6
+    },
+    {
+      "weapon": "earthbreaker",
+      "part": "Hojas / filo curvo en cuña True",
+      "closed": true,
+      "volume": 323.07484,
+      "depth": 5.6
+    },
+    {
+      "weapon": "thunder_spear",
+      "part": "Punta / cristal con nervio y sección romboidal",
+      "closed": true,
+      "volume": 160.97063,
+      "depth": 4.2
+    },
+    {
+      "weapon": "windweaver",
+      "part": "Mango / hilo de viento helicoidal",
+      "closed": true,
+      "volume": 0.79535
+    },
+    {
+      "weapon": "windweaver",
+      "part": "Cabeza / cuerpo interior de acero",
+      "closed": true,
+      "volume": 648.37075
+    },
+    {
+      "weapon": "windweaver",
+      "part": "Núcleo / cristal facetado de viento",
+      "closed": true,
+      "volume": 514.07524
+    },
+    {
+      "weapon": "windweaver",
+      "part": "Aletas / espiral de acero 0",
+      "closed": true,
+      "volume": 104.26303
+    },
+    {
+      "weapon": "windweaver",
+      "part": "Aletas / espiral de acero 1",
+      "closed": true,
+      "volume": 104.26303
+    },
+    {
+      "weapon": "windweaver",
+      "part": "Aletas / espiral de acero 2",
+      "closed": true,
+      "volume": 104.26303
+    },
+    {
+      "weapon": "windweaver",
+      "part": "Aletas / espiral de acero 3",
+      "closed": true,
+      "volume": 104.26303
+    },
+    {
+      "weapon": "windweaver",
+      "part": "Aletas / espiral de acero 4",
+      "closed": true,
+      "volume": 104.26303
+    },
+    {
+      "weapon": "windweaver",
+      "part": "Aletas / espiral de acero 5",
+      "closed": true,
+      "volume": 104.26303
+    },
+    {
+      "weapon": "windweaver",
+      "part": "Cabeza / corona superior biselada",
+      "closed": true,
+      "volume": 35.719
+    },
+    {
+      "weapon": "windweaver",
+      "part": "Cabeza / anillo inferior del vórtice",
+      "closed": true,
+      "volume": 42.1535
+    }
+  ],
+  "captures": {
+    "review-blockbench.png": "b55ac4bf147309c20783af381b5191b78230d039d3d60cab7d974b3284110525",
+    "review-shadow-knife.png": "1c05066707ca4ef707701369db02c2e13bad636a9f715d45ea83b0a4a1bdab59",
+    "review-windweaver-vortex.png": "1731273bf4194552ccd785814b3230ba62e10693c6d714a3428ac6d5b0201b99",
+    "review-head-details.png": "a7764a2c1bce6fb17b0ccab37814bec99f17c47e4db9e76b23302ac9e92950c5",
+    "review-frost-horizontal.png": "2f7a7f58242d84d86ea8ae8f2856b600af2db7323df46666a26a1aef3c1886da",
+    "review-shadow-user-model.png": "ff7c80536ac8b89e897876f050cce279bd55ff3ba89d2fd23dc6ad9ce55df35e"
+  },
+  "existingStandaloneBuild": {
+    "command": "JAVA_HOME=/workspace/.cloud-setup/java25 PATH=/workspace/.cloud-setup/java25/bin:$PATH GRADLE_USER_HOME=/workspace/.cloud-setup/gradle bash gradlew -p standalone --no-daemon --max-workers=4 clean build",
+    "result": "BUILD SUCCESSFUL",
+    "counts": {
+      "tests": 84,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "scope": "Frost retirement code and existing native assets; editable Blockbench designs still pending native export."
+  },
+  "shadowKnife": {
+    "shapeAndThinEdgeUnchanged": true,
+    "bladeMaterials": "Black, obsidian, charcoal and blue-black shadow only.",
+    "capture": "review-shadow-knife.png"
+  },
+  "frostHorizontalHead": {
+    "otherFiveWeaponsUnchanged": true,
+    "closedBlade": true,
+    "topY": 27.4,
+    "horizontalSpan": 16.5,
+    "frontCaptureUsesLevelCamera": true,
+    "capture": "review-frost-horizontal.png"
+  },
+  "windweaverVortex": {
+    "design": "Original compact flanged mace inspired by an upward vortex; silver, dark steel and pale blue.",
+    "closedFlanges": 6,
+    "closedCoreAndCrown": true,
+    "headCenterX": 8.0,
+    "shaftCenterX": 8,
+    "capture": "review-windweaver-vortex.png"
+  },
+  "otherFourWeaponGeometriesUnchanged": true,
+  "sourceOverrides": {
+    "shadow_blade": {
+      "project": "shadow_blade.bbmodel",
+      "original": "user-sources/espada_oscura_v3.bbmodel",
+      "sha256": "48703d89d022adebbe0376d95a3d797ab671192b7bebec6485afccaed4413a35",
+      "preserveOriginal": true,
+      "preview": {
+        "sourceCenter": [
+          8,
+          8.125,
+          8.3375
+        ],
+        "axisRotation": [
+          90,
+          90,
+          0
+        ],
+        "scale": 1.25
+      },
+      "status": "User-selected model. Original geometry, UVs, embedded texture and four animations preserved. Native plugin export pending.",
+      "normalization": {
+        "explicitInvisibleFaces": 50,
+        "reason": "Blockbench 5.2.2 expects six face entries per cube; absent faces are explicitly disabled. Geometry, UVs, existing faces, texture and animations are unchanged."
+      }
+    }
+  },
+  "uploadedShadowPreservedExceptExplicitInvisibleFaces": true,
+  "otherFiveGeometryUnchanged": true,
+  "shadowBlackEdge": {
+    "status": "Previous generated knife superseded by user-provided espada_oscura_v3.bbmodel."
+  },
+  "activeWeapons": [
+    "bloodlust",
+    "shadow_blade",
+    "windweaver",
+    "earthbreaker",
+    "thunder_spear"
+  ],
+  "retiredWeapons": [
+    "void_katana",
+    "hyperion",
+    "frost_scythe"
+  ]
+}

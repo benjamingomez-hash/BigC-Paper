@@ -1,0 +1,27 @@
+{
+  "commit": "052e2c336420c6f601dd96824fd287eabf7d654b",
+  "branch": "preview/legendary-weapons-models-image",
+  "images": {
+    "Shadow-Modelo-Usuario.png": "https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/cbac31216aedf209a3b7542c0188085e185d5fa9/Shadow-Modelo-Usuario.png",
+    "Armas-Shadow-Modelo-Usuario.png": "https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/cbac31216aedf209a3b7542c0188085e185d5fa9/Armas-Shadow-Modelo-Usuario.png",
+    "Armas-Cinco-Sin-Frost.png": "https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/91ab7d0b30ddd0c81e5c6e8de40115edb32d8b4d/Armas-Cinco-Sin-Frost.png",
+    "Armas-Tus-Cinco-Modelos.png": "https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/052e2c336420c6f601dd96824fd287eabf7d654b/Armas-Tus-Cinco-Modelos.png"
+  },
+  "verified": true,
+  "sha256": {
+    "Shadow-Modelo-Usuario.png": "ff7c80536ac8b89e897876f050cce279bd55ff3ba89d2fd23dc6ad9ce55df35e",
+    "Armas-Shadow-Modelo-Usuario.png": "88d92f5b855591a376addcce1d4936670a3b4c9fea363b71c7d231d424968105",
+    "Armas-Cinco-Sin-Frost.png": "b55ac4bf147309c20783af381b5191b78230d039d3d60cab7d974b3284110525",
+    "Armas-Tus-Cinco-Modelos.png": "39a087fdae19c3cad6ea4f8705a119ff9ee5403a51f87754bb17cfe11fd1b161"
+  },
+  "activeWeapons": [
+    "bloodlust",
+    "shadow_blade",
+    "windweaver",
+    "earthbreaker",
+    "thunder_spear"
+  ],
+  "gallery": "https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/052e2c336420c6f601dd96824fd287eabf7d654b/Armas-Tus-Cinco-Modelos.png",
+  "sourceCommit": "3a3a80b6ad07603a850f247386a10e4a9437d4c1",
+  "modelScope": "All five preview models are supplied by the user. Animations verified in Blockbench, not yet integrated into Minecraft."
+}

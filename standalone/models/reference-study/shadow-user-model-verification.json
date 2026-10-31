@@ -1,0 +1,23 @@
+{
+  "version": "5.2.2",
+  "cubes": 138,
+  "meshes": 0,
+  "animations": [
+    "aura_oscura",
+    "tira_particulas",
+    "idle_flotar",
+    "golpe_oscuro"
+  ],
+  "textures": [
+    {
+      "name": "espada_oscura_v2.png",
+      "width": 16,
+      "height": 16,
+      "embedded": true
+    }
+  ],
+  "resolvedTextures": true,
+  "originalSha256": "48703d89d022adebbe0376d95a3d797ab671192b7bebec6485afccaed4413a35",
+  "activeProjectSha256": "9c46d41500141ed7e62639b742cfe29fa577a6b5e7b50b32b7766015558ab8ec",
+  "explicitInvisibleFacesAdded": 50
+}

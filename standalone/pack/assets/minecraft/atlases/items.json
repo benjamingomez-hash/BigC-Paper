@@ -799,6 +799,26 @@
           "height": 64
         }
       ]
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "bigcasares:item/user/bloodlust"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "bigcasares:item/user/shadow_blade"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "bigcasares:item/user/windweaver"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "bigcasares:item/user/earthbreaker"
+    },
+    {
+      "type": "minecraft:single",
+      "resource": "bigcasares:item/user/thunder_spear"
     }
   ]
 }

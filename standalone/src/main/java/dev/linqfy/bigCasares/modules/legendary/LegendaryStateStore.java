@@ -39,7 +39,9 @@ public final class LegendaryStateStore {
     }
 
     public void put(String key, String value) throws IOException {
-        if (writeFailed) throw new IOException("El diario necesita recuperarse antes de aceptar nuevas transacciones.");
+        if (writeFailed)
+            throw new IOException(
+                    "El diario necesita recuperarse antes de aceptar nuevas transacciones.");
         if (java.util.Objects.equals(values.get(key), value)) return;
         Map<String, String> next = new LinkedHashMap<>(values);
         if (value == null) {
@@ -64,14 +66,51 @@ public final class LegendaryStateStore {
         if (remaining(player, weapon, now) > 0) {
             return false;
         }
-        put(cooldownKey(player, weapon), Long.toString(Math.addExact(now, LegendaryWeapon.COOLDOWN_MILLIS)));
+        put(
+                cooldownKey(player, weapon),
+                Long.toString(Math.addExact(now, LegendaryWeapon.COOLDOWN_MILLIS)));
+        return true;
+    }
+
+    public long remaining(UUID player, LegendaryWeapon weapon, boolean secondary, long now) {
+        String current = get(cooldownKey(player, weapon) + (secondary ? ".secondary" : ".primary"));
+        return Math.max(
+                remaining(player, weapon, now),
+                current == null ? 0 : Math.max(0, Long.parseLong(current) - now));
+    }
+
+    public boolean beginCooldown(
+            UUID player, LegendaryWeapon weapon, boolean secondary, long now, long duration)
+            throws IOException {
+        if (duration <= 0) throw new IllegalArgumentException("Invalid cooldown");
+        if (remaining(player, weapon, secondary, now) > 0) return false;
+        put(
+                cooldownKey(player, weapon) + (secondary ? ".secondary" : ".primary"),
+                Long.toString(Math.addExact(now, duration)));
         return true;
     }
 
     public void resetCooldowns(UUID player) throws IOException {
-        for (LegendaryWeapon weapon : LegendaryWeapon.values()) {
-            put(cooldownKey(player, weapon), null);
-        }
+        for (String key : snapshot().keySet())
+            if (key.startsWith("cooldown." + player + ".")) put(key, null);
+    }
+
+    long abilityRemaining(UUID player, LegendaryElementalSkill skill, long now) {
+        String current = get(cooldownKey(player, skill.weapon) + "." + skill.id);
+        return Math.max(
+                remaining(player, skill.weapon, now),
+                current == null ? 0 : Math.max(0, Long.parseLong(current) - now));
+    }
+
+    boolean beginAbilityCooldown(
+            UUID player, LegendaryElementalSkill skill, long now, long duration)
+            throws IOException {
+        if (duration <= 0) throw new IllegalArgumentException("Invalid cooldown");
+        if (abilityRemaining(player, skill, now) > 0) return false;
+        put(
+                cooldownKey(player, skill.weapon) + "." + skill.id,
+                Long.toString(Math.addExact(now, duration)));
+        return true;
     }
 
     private static String cooldownKey(UUID player, LegendaryWeapon weapon) {
@@ -84,7 +123,8 @@ public final class LegendaryStateStore {
         properties.putAll(next);
         java.io.StringWriter writer = new java.io.StringWriter();
         properties.store(writer, "LegendaryWeaponsPlugin Legendary Weapons");
-        Path temporary = Files.createTempFile(path.toAbsolutePath().getParent(), "legendary-", ".tmp");
+        Path temporary =
+                Files.createTempFile(path.toAbsolutePath().getParent(), "legendary-", ".tmp");
         try {
             try (FileChannel channel = FileChannel.open(temporary, StandardOpenOption.WRITE)) {
                 ByteBuffer buffer = StandardCharsets.UTF_8.encode(writer.toString());
@@ -93,7 +133,11 @@ public final class LegendaryStateStore {
                 }
                 channel.force(true);
             }
-            Files.move(temporary, path, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+            Files.move(
+                    temporary,
+                    path,
+                    StandardCopyOption.ATOMIC_MOVE,
+                    StandardCopyOption.REPLACE_EXISTING);
             // Reflect the committed rename even if directory fsync fails. No
             // subsequent write may erase an uncertain ownership transition.
             values.clear();

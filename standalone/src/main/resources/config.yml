@@ -3,24 +3,22 @@ legendary-weapons:
   max-active-effects: 32
   max-targets-per-pulse: 12
   particles-per-ring: 24
-  # Bloodlust: Fuerza III durante 200 ticks y medio corazón por golpe directo válido.
-  # Shadow usa daño mágico (2 puntos = 1 corazón).
-  # Earthbreaker talla terreno y quita 4 puntos de salud una vez.
-  shadow-blade:
-    range: 16
-    # Máximo 6 incluso con valores antiguos más altos; sustituye strike-damage.
-    ambush-damage: 6
-  windweaver:
-    upward-velocity: 1.3
+  # Compatibilidad con devoluciones pendientes de versiones anteriores.
   spear:
-    flight-speed: 1.8
-    max-flight-ticks: 80
-    storm-radius: 7
-    # El campo paraliza también al lanzador; solo un impacto directo recibe daño.
-    max-paralyzed-targets: 64
-    lightning-damage: 7
-    # on-respawn o on-join; nunca se arroja al suelo.
     death-return: on-respawn
+  # HP base: 2 HP = 1 corazón; armadura y encantamientos reducen estos valores.
+  # Duraciones y cooldowns en segundos; alcance y radio en bloques.
+  abilities:
+    lightning-dash: {damage: 4, range: 8, radius: 0, duration: 1, cooldown: 20}
+    thunder-mark: {damage: 5, secondary-damage: 3, range: 0, radius: 4, duration: 6, cooldown: 40}
+    chain-lightning: {damage: 6, range: 15, radius: 5, duration: 1, cooldown: 35}
+    thunderstorm: {damage: 4, range: 20, radius: 6, duration: 8, cooldown: 60}
+    wrath-of-zeus: {damage: 12, secondary-damage: 5, range: 20, radius: 5, duration: 1.5, cooldown: 90}
+    wind-dash: {damage: 0, range: 9, radius: 0, duration: 1, cooldown: 18}
+    skybreaker: {damage: 8, outer-damage: 4, range: 8, radius: 5, duration: 10, cooldown: 40}
+    tornado: {damage: 2, max-damage: 6, speed: 3, range: 15, radius: 3, duration: 5, cooldown: 40}
+    wind-prison: {damage: 0, range: 12, radius: 5, duration: 5, cooldown: 50}
+    heavens-fall: {damage: 12, outer-damage: 6, range: 12, radius: 7, duration: 12, cooldown: 90}
 
 resource-pack:
   enabled: true
