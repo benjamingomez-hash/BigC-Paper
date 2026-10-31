@@ -16,6 +16,11 @@ import org.bukkit.inventory.ItemStack;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 /** Owns only the first custom-model-data float; never changes item identity or combat. */
@@ -26,6 +31,9 @@ final class LegendaryModelAnimations implements Listener, Runnable {
     private final LegendaryAnimationTimeline timeline;
     private long tick;
     private boolean stopped;
+    private boolean previouslyEnabled = true;
+    private final Map<UUID, Integer> lastSlots = new HashMap<>();
+    private final Set<UUID> inventoryChanges = new HashSet<>();
 
     LegendaryModelAnimations(LegendaryWeaponsPlugin plugin, Predicate<Player> pending)
             throws IOException {
@@ -63,17 +71,34 @@ final class LegendaryModelAnimations implements Listener, Runnable {
     public void run() {
         if (stopped) return;
         tick++;
+        if (!plugin.getConfig().getBoolean("legendary-weapons.model-animations.enabled", true)) {
+            if (previouslyEnabled) plugin.getServer().getOnlinePlayers().forEach(this::reset);
+            previouslyEnabled = false;
+            return;
+        }
+        previouslyEnabled = true;
+        boolean idleEnabled =
+                plugin.getConfig().getBoolean("legendary-weapons.model-animations.idle", true);
         for (var player : plugin.getServer().getOnlinePlayers()) {
             if (pending.test(player)) {
                 timeline.forget(player.getUniqueId());
+                lastSlots.remove(player.getUniqueId());
                 continue;
             }
             var inventory = player.getInventory();
             int slot = inventory.getHeldItemSlot();
-            for (int index = 0; index < inventory.getSize(); index++) {
-                if (index == slot) continue;
-                ItemStack item = inventory.getItem(index);
-                if (apply(item, 0)) inventory.setItem(index, item);
+            Integer previousSlot = lastSlots.put(player.getUniqueId(), slot);
+            // Most ticks need only the held item. Inventory moves reset stale poses
+            // once, with a once-per-second sweep for changes made by other plugins.
+            if (previousSlot == null
+                    || previousSlot != slot
+                    || inventoryChanges.remove(player.getUniqueId())
+                    || tick % 20 == 0) {
+                for (int index = 0; index < inventory.getSize(); index++) {
+                    if (index == slot) continue;
+                    ItemStack item = inventory.getItem(index);
+                    if (apply(item, 0)) inventory.setItem(index, item);
+                }
             }
             ItemStack held = inventory.getItemInMainHand();
             LegendaryWeapon weapon = weapon(held);
@@ -81,7 +106,7 @@ final class LegendaryModelAnimations implements Listener, Runnable {
                 timeline.forget(player.getUniqueId());
                 continue;
             }
-            int frame = timeline.frame(player.getUniqueId(), weapon, slot, tick);
+            int frame = timeline.frame(player.getUniqueId(), weapon, slot, tick, idleEnabled);
             if (apply(held, frame)) inventory.setItem(slot, held);
         }
     }
@@ -134,7 +159,24 @@ final class LegendaryModelAnimations implements Listener, Runnable {
         if (clip != null && apply(item, clip.frame(age))) display.setItemStack(item);
     }
 
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void inventoryClick(org.bukkit.event.inventory.InventoryClickEvent event) {
+        inventoryChanges.add(event.getWhoClicked().getUniqueId());
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void inventoryDrag(org.bukkit.event.inventory.InventoryDragEvent event) {
+        inventoryChanges.add(event.getWhoClicked().getUniqueId());
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void inventorySwap(org.bukkit.event.player.PlayerSwapHandItemsEvent event) {
+        inventoryChanges.add(event.getPlayer().getUniqueId());
+    }
+
     private void reset(Player player) {
+        lastSlots.remove(player.getUniqueId());
+        inventoryChanges.remove(player.getUniqueId());
         timeline.forget(player.getUniqueId());
         if (pending.test(player)) return;
         for (int slot = 0; slot < player.getInventory().getSize(); slot++) {
@@ -167,5 +209,7 @@ final class LegendaryModelAnimations implements Listener, Runnable {
         stopped = true;
         plugin.getServer().getOnlinePlayers().forEach(this::reset);
         timeline.clear();
+        lastSlots.clear();
+        inventoryChanges.clear();
     }
 }

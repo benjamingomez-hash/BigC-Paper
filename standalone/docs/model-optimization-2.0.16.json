@@ -1,0 +1,154 @@
+{
+  "weapons": {
+    "bloodlust": {
+      "beforeElements": 39,
+      "afterElements": 39,
+      "beforeFaces": 234,
+      "afterFaces": 224,
+      "hiddenFaces": 10,
+      "mergedBoxes": 0,
+      "originalAnimationPoses": 74,
+      "selectedAnimationPoses": 29,
+      "geometryMeshes": 31,
+      "sharedAnimationFrames": 29,
+      "verifiedAffineCorners": 6728,
+      "maximumRenderLayers": 2,
+      "storedFacesBefore": 17550,
+      "storedFacesAfter": 2128,
+      "clips": {
+        "idle_aura": {
+          "ticks": 120,
+          "originalUniquePoses": 36,
+          "optimizedUniquePoses": 9
+        },
+        "ataque_tajo": {
+          "ticks": 18,
+          "originalUniquePoses": 18,
+          "optimizedUniquePoses": 10
+        },
+        "estocada": {
+          "ticks": 22,
+          "originalUniquePoses": 22,
+          "optimizedUniquePoses": 12
+        }
+      }
+    },
+    "shadow_blade": {
+      "beforeElements": 138,
+      "afterElements": 138,
+      "beforeFaces": 778,
+      "afterFaces": 778,
+      "hiddenFaces": 0,
+      "mergedBoxes": 0,
+      "preservedTranslucentOrdering": true,
+      "originalAnimationPoses": 164,
+      "selectedAnimationPoses": 48,
+      "geometryMeshes": 54,
+      "sharedAnimationFrames": 48,
+      "verifiedAffineCorners": 46288,
+      "maximumRenderLayers": 3,
+      "storedFacesBefore": 128370,
+      "storedFacesAfter": 7896,
+      "clips": {
+        "aura_oscura": {
+          "ticks": 40,
+          "originalUniquePoses": 40,
+          "optimizedUniquePoses": 10
+        },
+        "tira_particulas": {
+          "ticks": 40,
+          "originalUniquePoses": 40,
+          "optimizedUniquePoses": 10
+        },
+        "idle_flotar": {
+          "ticks": 60,
+          "originalUniquePoses": 60,
+          "optimizedUniquePoses": 15
+        },
+        "golpe_oscuro": {
+          "ticks": 24,
+          "originalUniquePoses": 24,
+          "optimizedUniquePoses": 13
+        }
+      }
+    },
+    "windweaver": {
+      "beforeElements": 47,
+      "afterElements": 46,
+      "beforeFaces": 282,
+      "afterFaces": 239,
+      "hiddenFaces": 43,
+      "mergedBoxes": 0,
+      "originalAnimationPoses": 79,
+      "selectedAnimationPoses": 32,
+      "geometryMeshes": 34,
+      "sharedAnimationFrames": 32,
+      "verifiedAffineCorners": 9728,
+      "maximumRenderLayers": 2,
+      "storedFacesBefore": 22560,
+      "storedFacesAfter": 2152,
+      "clips": {
+        "idle_aura": {
+          "ticks": 120,
+          "originalUniquePoses": 36,
+          "optimizedUniquePoses": 9
+        },
+        "golpe_martillo": {
+          "ticks": 24,
+          "originalUniquePoses": 24,
+          "optimizedUniquePoses": 13
+        },
+        "golpe_lateral": {
+          "ticks": 20,
+          "originalUniquePoses": 20,
+          "optimizedUniquePoses": 11
+        }
+      }
+    },
+    "earthbreaker": {
+      "beforeElements": 344,
+      "afterElements": 213,
+      "beforeFaces": 2064,
+      "afterFaces": 841,
+      "hiddenFaces": 885,
+      "mergedBoxes": 118,
+      "originalAnimationPoses": 0,
+      "selectedAnimationPoses": 0,
+      "geometryMeshes": 1,
+      "sharedAnimationFrames": 0,
+      "verifiedAffineCorners": 0,
+      "maximumRenderLayers": 1,
+      "storedFacesBefore": 2064,
+      "storedFacesAfter": 841,
+      "clips": {}
+    },
+    "thunder_spear": {
+      "beforeElements": 140,
+      "afterElements": 133,
+      "beforeFaces": 840,
+      "afterFaces": 681,
+      "hiddenFaces": 132,
+      "mergedBoxes": 7,
+      "originalAnimationPoses": 20,
+      "selectedAnimationPoses": 5,
+      "geometryMeshes": 8,
+      "sharedAnimationFrames": 2,
+      "verifiedAffineCorners": 1632,
+      "maximumRenderLayers": 2,
+      "storedFacesBefore": 17640,
+      "storedFacesAfter": 3694,
+      "clips": {
+        "rayo": {
+          "ticks": 20,
+          "originalUniquePoses": 20,
+          "optimizedUniquePoses": 5
+        }
+      }
+    }
+  },
+  "serverTicksPerSecond": 20,
+  "idlePoseFPS": 5,
+  "attackPoseFPS": 10,
+  "sourcePackSHA256": "3006389b9bc0800a8c7f50c8d0dcf85c9c7b0ffec4b0f537a6aa77bdec734bda",
+  "nativeTransformationFormat": "Minecraft 26.2 minecraft:model transformation, row-major 4x4, translation in blocks"
+}

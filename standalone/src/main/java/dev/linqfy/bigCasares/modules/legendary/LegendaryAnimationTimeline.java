@@ -44,6 +44,10 @@ final class LegendaryAnimationTimeline {
     }
 
     int frame(UUID player, LegendaryWeapon weapon, int slot, long tick) {
+        return frame(player, weapon, slot, tick, true);
+    }
+
+    int frame(UUID player, LegendaryWeapon weapon, int slot, long tick, boolean idleEnabled) {
         if (!weapon.isAvailable()) {
             forget(player);
             return 0;
@@ -58,6 +62,7 @@ final class LegendaryAnimationTimeline {
         }
         state.active = List.of();
         state.priority = 0;
+        if (!idleEnabled) return 0;
         var idle = catalog.clip(weapon, catalog.idle(weapon));
         return idle == null ? 0 : idle.frame(Math.max(0, tick - state.idleStart));
     }

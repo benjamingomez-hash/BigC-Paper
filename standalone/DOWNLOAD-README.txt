@@ -1,4 +1,4 @@
-ARMAS LEGENDARIAS 2.0.15 - PAPER 26.2 / JAVA 25
+ARMAS LEGENDARIAS 2.0.16 - PAPER 26.2 / JAVA 25
 
 Plugin independiente. No necesita BigCasares, BetterModel ni mods del cliente.
 
@@ -7,6 +7,16 @@ Se integran los cinco modelos del usuario: espada rubi (Bloodlust), cuchillo de
 sombras (Shadow Blade), Windweaver, hacha dorada (Earthbreaker) y cetro de cristal
 de rayo (Thunder Spear). Se conservan sus once animaciones originales.
 El hacha no incluia animaciones propias y usa el movimiento normal de Minecraft.
+
+RENDIMIENTO
+El pack comparte la geometria entre poses y elimina caras completamente ocultas.
+Conserva las formas, colores y once clips originales. Las animaciones ambientales
+usan 5 poses por segundo y los ataques 10, con la duracion original.
+Se mantienen los poderes, niveles y credito correcto de bajas al cambiar de arma.
+En config.yml, legendary-weapons.model-animations.idle: false deja el reposo
+quieto conservando los ataques; enabled: false deja todas las armas estaticas.
+Usa /weapons reload para aplicar esos ajustes.
+Los FPS de cada computadora dependen tambien de GPU, cliente, shaders y ajustes.
 
 NIVELES Y CONTROLES
 Una baja de jugador con un arma suma un nivel de esa arma para ese jugador,
@@ -45,14 +55,18 @@ Usa /weapons info <arma> para ver los controles en el juego.
 ACTUALIZACION
 1. Detene Paper y guarda una copia coherente del mundo, jugadores y
    plugins/LegendaryWeapons. Java 25 es obligatorio.
-2. Guarda el JAR anterior fuera de plugins y copia LegendaryWeapons-2.0.15.jar.
+2. Guarda el JAR anterior fuera de plugins y copia LegendaryWeapons-2.0.16.jar.
 3. Conserva el diario y los datos de jugadores. No borres inventarios ni cooldowns.
+   Un pack anterior conocido se respalda automaticamente en la carpeta backups.
+   Los packs personalizados se conservan: respaldalos y reemplazalos manualmente
+   por legendary-weapons-java.zip si queres usar esta optimizacion. Reinicia Paper.
+   pack.mcmeta debe quedar en la raiz del ZIP.
    Los objetos retirados quedan sin poder; sus registros y recursos se conservan.
 4. Inicia Paper con Java 25 y conecta Minecraft Java 26.2. Acepta el nuevo pack.
 5. Usa /weapons list y /weapons info <arma>.
 
 CONTENIDO
-- LegendaryWeapons-2.0.15.jar: plugin y pack incluido.
+- LegendaryWeapons-2.0.16.jar: plugin y pack incluido.
 - legendary-weapons-java.zip: pack manual opcional, con recursos historicos.
 - Este archivo.
 

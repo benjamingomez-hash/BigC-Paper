@@ -1,0 +1,22 @@
+{
+  "bloodlust": {
+    "verifiedRays": 1500,
+    "skippedCoplanarAmbiguities": 0
+  },
+  "shadow_blade": {
+    "verifiedRays": 1464,
+    "skippedCoplanarAmbiguities": 36
+  },
+  "windweaver": {
+    "verifiedRays": 1500,
+    "skippedCoplanarAmbiguities": 0
+  },
+  "earthbreaker": {
+    "verifiedRays": 1500,
+    "skippedCoplanarAmbiguities": 0
+  },
+  "thunder_spear": {
+    "verifiedRays": 1323,
+    "skippedCoplanarAmbiguities": 177
+  }
+}

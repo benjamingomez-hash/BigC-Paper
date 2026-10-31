@@ -1,5 +1,35 @@
 # Verificación de LegendaryWeapons
 
+## 2.0.16 — optimización conservando los modelos
+
+Compilación limpia: **107 pruebas Java correctas** del plugin y **8 pruebas Python**
+del optimizador. Comprobación independiente de superficies: **7.287 rayos válidos**;
+se omiten 213 casos con materiales originales coplanares ambiguos.
+
+Los cinco modelos cargaron en Minecraft Java 26.2. La comprobación visual detectó
+que simplificar una textura con transparencia alteraba Shadow; se conservó su
+geometría completa y el orden original de sus caras. La imagen de reposo coincide
+píxel por píxel en la región analizada. Ocho poses comparadas en el renderizador
+nativo tuvieron error medio por canal menor a 1,17/255, concentrado en bordes y
+mezcla de transparencias. No se repintaron los PNG ni se editaron los originales.
+
+[Captura nativa](docs/legendary-models-optimized-2.0.16.png) ·
+[Geometría](docs/model-optimization-2.0.16.json) ·
+[Superficies](docs/model-surface-check-2.0.16.json) ·
+[Comparación visual](docs/model-visual-check-2.0.16.json).
+
+Los datos geométricos guardados pasan de 188.184 a 16.711 caras, aproximadamente
+91% menos, mediante geometría compartida y poses reducidas. Las once duraciones,
+las habilidades y el crédito de bajas no cambian. Se mantienen rutas para los
+fotogramas anteriores. Los packs distribuidos anteriormente se respaldan antes
+de actualizar; las modificaciones manuales se conservan.
+
+Las mediciones con el cliente por software dieron cerca de 25 FPS tanto sin pack
+como con el pack anterior y sin armas visibles; no reproducen la caída informada
+en el equipo del usuario. No demuestran un aumento sostenido de FPS. La reducción
+de geometría está verificada; el resultado en el cliente del usuario necesita
+una prueba allí. [Actualización y ajustes](PERFORMANCE.md).
+
 ## 2.0.15 — modelos, habilidades y cambios de arma
 
 Integrados los cinco proyectos del usuario y once clips, con geometría Java nativa

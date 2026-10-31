@@ -2,6 +2,10 @@
 
 Plugin **independiente** para **Paper 26.2 / Java 25 / Gradle 9.2.1**. El código actual incluye cinco armas y su evento de fabricación. Usa modelos Java nativos y no requiere BigCasares, Vault, EssentialsX ni BetterModel. Si se usa BetterModel para otros plugins del servidor, la versión solicitada para 26.2 es 3.2.0; esta distribución no llama a su API. WorldGuard es opcional. Los equipos usan el scoreboard vanilla. No incluye integración Bedrock/Geyser.
 
+**2.0.16: pack optimizado sin rediseñar las armas.** Menos caras ocultas,
+geometría compartida entre poses y menor frecuencia visual, conservando duración,
+poderes y progreso. [Detalles, actualización y ajustes](PERFORMANCE.md).
+
 **2.0.15: tus cinco modelos, once animaciones y niveles PvP.** Incluye Bloodlust,
 Shadow Blade, Windweaver, Earthbreaker y Thunder Spear. Frost Scythe queda retirada,
 junto con Void Katana e Hyperion. Las animaciones se reproducen con modelos Java
@@ -20,7 +24,7 @@ confirmada, y Shadow/Earthbreaker sus habilidades inspiradas en Altar SMP.
 
 Al actualizar, se conservan los inventarios, el diario y los cooldowns. Los objetos retirados que ya existían quedan sin habilidad. Sus eventos antiguos dejan de avanzar, anunciarse o proteger mesas; los registros permanecen guardados y las operaciones de inventario pendientes pueden terminar de recuperarse. Los recursos históricos se conservan para que los objetos antiguos no pierdan su representación.
 
-[Descargar ZIP 2.0.15](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-six-weapons/standalone/downloads/Armas-Legendarias-2.0.15.zip) · [JAR independiente](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-six-weapons/standalone/downloads/LegendaryWeapons-2.0.15.jar) · [SHA-256](downloads/SHA256SUMS-2.0.15.txt). El ZIP contiene únicamente JAR, pack y LEEME. Windows detectó `Trojan:Script/Ulthar.A!ml` en versiones anteriores; reescribir desde 2.0.5 no demuestra corregir esa detección. Si vuelve a bloquearlo, dejalo en cuarentena. La clasificación del aviso local continúa pendiente.
+[Descargar ZIP 2.0.16](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-six-weapons/standalone/downloads/Armas-Legendarias-2.0.16.zip) · [JAR independiente](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/legendary-six-weapons/standalone/downloads/LegendaryWeapons-2.0.16.jar) · [SHA-256](downloads/SHA256SUMS-2.0.16.txt). El ZIP contiene únicamente JAR, pack y LEEME. Windows detectó `Trojan:Script/Ulthar.A!ml` en versiones anteriores; reescribir desde 2.0.5 no demuestra corregir esa detección. Si vuelve a bloquearlo, dejalo en cuarentena. La clasificación del aviso local continúa pendiente.
 
 ## Evento
 
@@ -55,7 +59,7 @@ un tridente. Sus habilidades nuevas no retiran el arma del inventario.
 1. Instala Java 25 y descarga Paper 26.2 desde https://papermc.io/downloads/paper (versiones anteriores).
 2. En una carpeta nueva, guarda Paper como `paper.jar`. Ejecuta `java -Xms1G -Xmx2G -jar paper.jar --nogui`.
 3. Lee el EULA en `eula.txt` y, si lo aceptas, cambia `eula=false` por `eula=true`.
-4. Copia **`LegendaryWeapons-2.0.15.jar`** en `plugins` y vuelve a iniciar Paper. Guarda cualquier JAR anterior fuera de `plugins`; conserva el diario y los datos de jugadores al actualizar desde 2.0.x.
+4. Copia **`LegendaryWeapons-2.0.16.jar`** en `plugins` y vuelve a iniciar Paper. Guarda cualquier JAR anterior fuera de `plugins`; conserva el diario y los datos de jugadores al actualizar desde 2.0.x.
 5. En la consola escribe `op TuNombre`. En Minecraft Java **26.2**, entra a Multijugador → Conexión directa → `localhost`; acepta el paquete de recursos.
 6. Consulta `/weapons info thunder_spear`, consigue los materiales y fabrica en una mesa. `/weapons events` muestra disponibilidad y tiempo sin filtrar coordenadas anticipadas.
 
@@ -81,7 +85,7 @@ Los avisos se confirman antes de publicarse para evitar duplicarlos al reiniciar
 
 ## Desarrollo
 
-Desde `standalone/` con Java 25: `bash gradlew --no-daemon --max-workers=4 clean build` (Windows: `gradlew.bat build`). Artefacto: `build/libs/LegendaryWeapons-2.0.15.jar`.
+Desde `standalone/` con Java 25: `bash gradlew --no-daemon --max-workers=4 clean build` (Windows: `gradlew.bat build`). Artefacto: `build/libs/LegendaryWeapons-2.0.16.jar`.
 
 Consulta [los resultados y capturas](VERIFY.md).
 

@@ -1,0 +1,49 @@
+{
+  "client": "Official Minecraft Java 26.2, unmodified, software OpenGL llvmpipe",
+  "method": "Render original baked pose and optimized shared-geometry graph in the same ItemDisplay at the same camera; analyze only existing native screenshots, without editing image pixels.",
+  "restPosePixelsIdentical": true,
+  "meanErrorUnits": "RGB channel value / 255",
+  "poses": {
+    "0": {
+      "meanAbsoluteColorDifference": 0.0,
+      "pixels": 9526,
+      "maximumDifference": 0.0
+    },
+    "1": {
+      "meanAbsoluteColorDifference": 0.42436240413768506,
+      "pixels": 9345,
+      "maximumDifference": 69.0
+    },
+    "5": {
+      "meanAbsoluteColorDifference": 0.271726036826708,
+      "pixels": 9685,
+      "maximumDifference": 69.0
+    },
+    "41": {
+      "meanAbsoluteColorDifference": 0.17082944692023352,
+      "pixels": 9649,
+      "maximumDifference": 65.0
+    },
+    "81": {
+      "meanAbsoluteColorDifference": 0.38096227068189686,
+      "pixels": 9630,
+      "maximumDifference": 25.0
+    },
+    "105": {
+      "meanAbsoluteColorDifference": 0.6301811863986101,
+      "pixels": 9401,
+      "maximumDifference": 69.0
+    },
+    "141": {
+      "meanAbsoluteColorDifference": 0.0,
+      "pixels": 9510,
+      "maximumDifference": 0.0
+    },
+    "161": {
+      "meanAbsoluteColorDifference": 1.1600417727302395,
+      "pixels": 10214,
+      "maximumDifference": 69.0
+    }
+  },
+  "limit": "Minor edge/blending differences remain in animation poses; mean absolute channel difference below 1.17/255 in the measured model region."
+}

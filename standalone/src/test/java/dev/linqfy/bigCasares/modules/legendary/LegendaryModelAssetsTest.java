@@ -134,13 +134,11 @@ class LegendaryModelAssetsTest {
             var frames = new HashMap<Integer, String>();
             for (var entry : entries) {
                 var e = entry.getAsJsonObject();
-                String model = e.getAsJsonObject("model").get("model").getAsString();
-                assertTrue(
-                        Files.exists(
-                                ASSETS.resolve(
-                                        "bigcasares/models/" + model.split(":", 2)[1] + ".json")));
-                assertNull(frames.put(e.get("threshold").getAsInt(), model));
+                var graph = e.getAsJsonObject("model");
+                checkGraph(graph);
+                assertNull(frames.put(e.get("threshold").getAsInt(), graph.toString()));
             }
+
             for (var clip :
                     exported.getAsJsonObject(weapon.id).getAsJsonObject("clips").entrySet()) {
                 var sequence = catalog.clip(weapon, clip.getKey());
@@ -153,5 +151,83 @@ class LegendaryModelAssetsTest {
             }
         }
         assertEquals(11, clips);
+    }
+
+    private static void checkGraph(JsonObject graph) throws Exception {
+        if (graph.get("type").getAsString().equals("minecraft:composite")) {
+            assertTrue(graph.getAsJsonArray("models").size() <= 4);
+            for (var child : graph.getAsJsonArray("models")) checkGraph(child.getAsJsonObject());
+            return;
+        }
+        assertEquals("minecraft:model", graph.get("type").getAsString());
+        String model = graph.get("model").getAsString();
+        assertTrue(
+                Files.exists(
+                        ASSETS.resolve("bigcasares/models/" + model.split(":", 2)[1] + ".json")),
+                model);
+        if (graph.has("transformation")) {
+            var matrix = graph.getAsJsonArray("transformation");
+            assertEquals(16, matrix.size());
+            for (var value : matrix) assertTrue(Double.isFinite(value.getAsDouble()));
+            assertEquals(1, matrix.get(15).getAsDouble());
+        }
+    }
+
+    @Test
+    void optimizedMeshesReduceStoredFacesAndRetainEveryOldFrameId() throws Exception {
+        var optimization =
+                json(Path.of("docs/model-optimization-2.0.16.json")).getAsJsonObject("weapons");
+        var source =
+                json(Path.of("docs/user-models-export-2.0.15.json")).getAsJsonObject("weapons");
+        long before = 0, after = 0;
+        for (var weapon : LegendaryWeapon.available()) {
+            var stats = optimization.getAsJsonObject(weapon.id);
+            before += stats.get("storedFacesBefore").getAsLong();
+            long actualFaces =
+                    faceCount(ASSETS.resolve("bigcasares/models/item/" + weapon.id + ".json"));
+            Path optimized = ASSETS.resolve("bigcasares/models/item/optimized/" + weapon.id);
+            if (Files.exists(optimized))
+                try (var files = Files.list(optimized)) {
+                    for (Path model : files.filter(p -> p.toString().endsWith(".json")).toList())
+                        actualFaces += faceCount(model);
+                }
+            assertEquals(stats.get("storedFacesAfter").getAsLong(), actualFaces);
+            after += actualFaces;
+            var graph =
+                    json(ASSETS.resolve("bigcasares/items/" + weapon.id + ".json"))
+                            .getAsJsonObject("model")
+                            .getAsJsonObject("fallback");
+            assertEquals(
+                    source.getAsJsonObject(weapon.id).get("uniquePoses").getAsInt(),
+                    graph.getAsJsonArray("entries").size());
+        }
+        assertTrue(after < before / 5, "Stored face payload should fall by at least 80%");
+    }
+
+    private static long faceCount(Path model) throws Exception {
+        long faces = 0;
+        for (var element : json(model).getAsJsonArray("elements"))
+            faces += element.getAsJsonObject().getAsJsonObject("faces").size();
+        return faces;
+    }
+
+    @Test
+    void translucentShadowRetainsEveryOriginalCubeAndItsOrder() throws Exception {
+        try (var archive = new java.util.zip.ZipFile("models/archive/legendary-pack-2.0.15.zip")) {
+            try (var input =
+                    archive.getInputStream(
+                            archive.getEntry("assets/bigcasares/models/item/shadow_blade.json"))) {
+                var original =
+                        JsonParser.parseString(
+                                        new String(
+                                                input.readAllBytes(),
+                                                java.nio.charset.StandardCharsets.UTF_8))
+                                .getAsJsonObject();
+                assertEquals(
+                        original.getAsJsonArray("elements"),
+                        json(ASSETS.resolve("bigcasares/models/item/shadow_blade.json"))
+                                .getAsJsonArray("elements"));
+            }
+        }
     }
 }

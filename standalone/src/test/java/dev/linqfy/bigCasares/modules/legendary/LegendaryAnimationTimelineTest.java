@@ -13,14 +13,14 @@ class LegendaryAnimationTimelineTest {
         return LegendaryAnimationCatalog.load(
                 new ByteArrayInputStream(
                         ("fps=20\n"
-                             + "bloodlust.idle_aura.frames=0,1,2\n"
-                             + "bloodlust.idle_aura.loop=true\n"
-                             + "bloodlust.ataque_tajo.frames=3,4\n"
-                             + "bloodlust.ataque_tajo.loop=false\n"
-                             + "bloodlust.estocada.frames=5,6,7\n"
-                             + "bloodlust.estocada.loop=false\n"
-                             + "windweaver.idle_aura.frames=0,8\n"
-                             + "windweaver.idle_aura.loop=true\n")
+                                        + "bloodlust.idle_aura.frames=0,1,2\n"
+                                        + "bloodlust.idle_aura.loop=true\n"
+                                        + "bloodlust.ataque_tajo.frames=3,4\n"
+                                        + "bloodlust.ataque_tajo.loop=false\n"
+                                        + "bloodlust.estocada.frames=5,6,7\n"
+                                        + "bloodlust.estocada.loop=false\n"
+                                        + "windweaver.idle_aura.frames=0,8\n"
+                                        + "windweaver.idle_aura.loop=true\n")
                                 .getBytes(StandardCharsets.UTF_8)));
     }
 
@@ -73,5 +73,17 @@ class LegendaryAnimationTimelineTest {
                                 new ByteArrayInputStream(
                                         "fps=20\nbloodlust.bad.frames=-1\nbloodlust.bad.loop=false\n"
                                                 .getBytes(StandardCharsets.UTF_8))));
+    }
+
+    @Test
+    void staticIdleStillPlaysAttacksAndReturnsToRest() throws Exception {
+        var timeline = new LegendaryAnimationTimeline(catalog());
+        var player = UUID.randomUUID();
+        assertEquals(0, timeline.frame(player, LegendaryWeapon.BLOODLUST, 0, 100, false));
+        assertEquals(0, timeline.frame(player, LegendaryWeapon.BLOODLUST, 0, 102, false));
+        timeline.play(player, LegendaryWeapon.BLOODLUST, 0, 103, 1, "ataque_tajo");
+        assertEquals(3, timeline.frame(player, LegendaryWeapon.BLOODLUST, 0, 103, false));
+        assertEquals(4, timeline.frame(player, LegendaryWeapon.BLOODLUST, 0, 104, false));
+        assertEquals(0, timeline.frame(player, LegendaryWeapon.BLOODLUST, 0, 105, false));
     }
 }

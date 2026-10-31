@@ -1,5 +1,9 @@
 legendary-weapons:
   friendly-fire: false
+  model-animations:
+    enabled: true
+    # false mantiene ataques/poderes animados, con reposo estático.
+    idle: true
   max-active-effects: 32
   max-targets-per-pulse: 12
   particles-per-ring: 24
