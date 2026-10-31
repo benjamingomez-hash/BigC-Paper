@@ -30,6 +30,25 @@ en el equipo del usuario. No demuestran un aumento sostenido de FPS. La reducci�
 de geometría está verificada; el resultado en el cliente del usuario necesita
 una prueba allí. [Actualización y ajustes](PERFORMANCE.md).
 
+### Artefactos Windows publicados
+
+[La ejecución 41163346528](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/41163346528)
+comprobó el código `b5cd07377320ccb06fecaf9cd6f7aa0faeeeda89`: compilación limpia,
+107 pruebas Java y los cinco análisis Defender sin detecciones, motor
+`1.1.26100.4`, firmas `1.463.52.0`, protección y nube activas, sin exclusiones.
+Se publican exactamente el JAR y el ZIP analizados. El pack manual se extrae sin
+recomprimir del ZIP comprobado y contiene `pack.mcmeta` en la raíz.
+
+[Informe Defender](docs/defender-verification-2.0.16.json) ·
+[Validación completa](docs/performance-verification-2.0.16.json) ·
+[SHA-256](downloads/SHA256SUMS-2.0.16.txt).
+Todas las clases y los 157 archivos del pack coinciden con los probados en Linux;
+solo difiere una entrada de directorio vacío dentro del ZIP.
+También pasó la compilación limpia del proyecto principal con 1.014 pruebas.
+Los diez archivos originales del servidor de prueba y sus opciones del cliente
+quedaron restaurados byte por byte; se archivaron los datos modificados y se
+retiró el pack de comprobación visual del cliente.
+
 ## 2.0.15 — modelos, habilidades y cambios de arma
 
 Integrados los cinco proyectos del usuario y once clips, con geometría Java nativa

@@ -17,3 +17,23 @@ persistent identifiers. Retain an exact pack backup before editing generated ass
    compare real Minecraft rendering/frame measurements under the same conditions.
 6. Publish the reviewed branch and exact Windows Defender-checked artifacts with
    measured results and limits. Restore the private native fixture byte for byte.
+
+## Completion
+
+Source b5cd073 on feat/legendary-six-weapons. Final geometry stores 16,711 faces
+instead of 188,184 (91.12% less), 128 geometry meshes instead of342, preserving
+all eleven clip durations and every prior frame ID. Earthbreaker213cuboids/841faces;
+Shadow138/778 unchanged because whole-sprite translucency requires original quad
+order. Transparent animation sharing preserves contiguous original runs.
+
+107 Java tests,8 Python optimizer tests,7,287 unambiguous surface rays and eight
+native-renderer Shadow pose comparisons passed. Static rest pixels match; mean
+animated-region channel error below1.17/255. Normalized item metadata preserved,
+static-idle option still plays attacks and returns to rest. Main build1,014tests.
+No sustained FPS uplift established on software OpenGL: empty-scene controls
+with and without the original pack both around25FPS. Do not promise user hardware
+FPS; detailed data and limitation recorded in performance-verification-2.0.16.json.
+
+Windows run41163346528 passed five Defender scans; publish its exact JAR, ZIP and
+inner pack bytes with hashes. Restore10baselinefixturefiles and client options,
+archive test modifications, remove test resource pack, stop owned processes.

@@ -1,0 +1,111 @@
+{
+  "sourceCommit": "b5cd07377320ccb06fecaf9cd6f7aa0faeeeda89",
+  "version": "2.0.16",
+  "javaTests": 107,
+  "pythonOptimizerTests": 8,
+  "mainRepositoryTests": 1014,
+  "raySurfaceChecks": {
+    "bloodlust": {
+      "verifiedRays": 1500,
+      "skippedCoplanarAmbiguities": 0
+    },
+    "shadow_blade": {
+      "verifiedRays": 1464,
+      "skippedCoplanarAmbiguities": 36
+    },
+    "windweaver": {
+      "verifiedRays": 1500,
+      "skippedCoplanarAmbiguities": 0
+    },
+    "earthbreaker": {
+      "verifiedRays": 1500,
+      "skippedCoplanarAmbiguities": 0
+    },
+    "thunder_spear": {
+      "verifiedRays": 1323,
+      "skippedCoplanarAmbiguities": 177
+    }
+  },
+  "visualChecks": {
+    "client": "Official Minecraft Java 26.2, unmodified, software OpenGL llvmpipe",
+    "method": "Render original baked pose and optimized shared-geometry graph in the same ItemDisplay at the same camera; analyze only existing native screenshots, without editing image pixels.",
+    "restPosePixelsIdentical": true,
+    "meanErrorUnits": "RGB channel value / 255",
+    "poses": {
+      "0": {
+        "meanAbsoluteColorDifference": 0.0,
+        "pixels": 9526,
+        "maximumDifference": 0.0
+      },
+      "1": {
+        "meanAbsoluteColorDifference": 0.42436240413768506,
+        "pixels": 9345,
+        "maximumDifference": 69.0
+      },
+      "5": {
+        "meanAbsoluteColorDifference": 0.271726036826708,
+        "pixels": 9685,
+        "maximumDifference": 69.0
+      },
+      "41": {
+        "meanAbsoluteColorDifference": 0.17082944692023352,
+        "pixels": 9649,
+        "maximumDifference": 65.0
+      },
+      "81": {
+        "meanAbsoluteColorDifference": 0.38096227068189686,
+        "pixels": 9630,
+        "maximumDifference": 25.0
+      },
+      "105": {
+        "meanAbsoluteColorDifference": 0.6301811863986101,
+        "pixels": 9401,
+        "maximumDifference": 69.0
+      },
+      "141": {
+        "meanAbsoluteColorDifference": 0.0,
+        "pixels": 9510,
+        "maximumDifference": 0.0
+      },
+      "161": {
+        "meanAbsoluteColorDifference": 1.1600417727302395,
+        "pixels": 10214,
+        "maximumDifference": 69.0
+      }
+    },
+    "limit": "Minor edge/blending differences remain in animation poses; mean absolute channel difference below 1.17/255 in the measured model region."
+  },
+  "nativeAnimationStatus": [
+    "[03:13:28] [Server thread/INFO]: [LegendaryCapture] STATUS sameMetadata=true frames=[] strength=null version=2.0.16",
+    "[03:13:28] [Server thread/INFO]: [LegendaryCapture] STATUS sameMetadata=true frames=[147.0] strength=null version=2.0.16",
+    "[03:13:29] [Server thread/INFO]: [LegendaryCapture] STATUS sameMetadata=true frames=[0.0] strength=null version=2.0.16"
+  ],
+  "baselineControls": {
+    "pack2_0_15NoWeaponMeanFPS": 25.052400439165584,
+    "noPackRepeatMeanFPS": 24.897510248975102,
+    "environment": "Official client 26.2, 1600x1100, software OpenGL llvmpipe, no shaders, same flat scene",
+    "interpretation": "The reported slowdown with no visible weapons was not reproduced. These controls do not establish a sustained FPS increase or a frame rate for the user computer."
+  },
+  "fixtureRestoration": {
+    "restored": {
+      "plugins/LegendaryWeapons-2.0.0.jar": true,
+      "plugins/LegendaryWeapons/legendary-pack.zip": true,
+      "plugins/LegendaryWeapons/config.yml": true,
+      "plugins/LegendaryWeapons/data/legendary/state.properties": true,
+      "world/players/data/8230d3ad-8b5f-3e12-8d6d-83132e24e6ab.dat": true,
+      "world/players/data/bebeffd1-aefa-3827-85f0-fc71e3667037.dat": true,
+      "world/players/data/997c1d58-30f9-3b9e-b490-17bad2d459ec.dat": true,
+      "world/players/data/bebeffd1-aefa-3827-85f0-fc71e3667037.dat_old": true,
+      "world/players/data/997c1d58-30f9-3b9e-b490-17bad2d459ec.dat_old": true,
+      "world/players/data/8230d3ad-8b5f-3e12-8d6d-83132e24e6ab.dat_old": true
+    },
+    "clientOptionsRestored": true,
+    "verificationPackRemoved": true
+  },
+  "defenderWorkflow": "https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/41163346528",
+  "publishedHashes": {
+    "LegendaryWeapons-2.0.16.jar": "d1b1b40d81e1e164d282d4cbe6d52be310b6e10820616285b149ff278ac9d189",
+    "Armas-Legendarias-2.0.16.zip": "77cab3c0478937aa3930107685afc71e7f5d7df95d3ec6d383a2a94191b64fd7",
+    "legendary-weapons-java-2.0.16.zip": "81f8a0dcb65533bd79002d15dc70133adda1f17f6bc51185c90538e2d7f594e0"
+  }
+}

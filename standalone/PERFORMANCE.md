@@ -68,3 +68,10 @@ El script `tools/optimize_legendary_pack.py` parte de la distribución original
 `models/archive/legendary-pack-2.0.15.zip` conserva una copia exacta del pack previo.
 Las pruebas revisan caras ocultas, transparencia, texturas dibujadas, tiempos,
 rutas de modelos, compatibilidad de fotogramas y recuperación del pack.
+
+[Validación completa y límites](docs/performance-verification-2.0.16.json) ·
+[Captura real](docs/legendary-models-optimized-2.0.16.png) ·
+[Pack manual optimizado](downloads/legendary-weapons-java-2.0.16.zip).
+
+Para instalar el pack manual, guardá una copia anterior y copiá el ZIP como
+`plugins/LegendaryWeapons/legendary-pack.zip`, con ese nombre exacto, y reiniciá.
