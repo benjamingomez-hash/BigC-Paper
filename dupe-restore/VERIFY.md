@@ -22,4 +22,15 @@ antigua con la física vanilla 26.2 debe probarse con ese diseño.
 El servidor de prueba tuvo una advertencia de conexión a las claves públicas de
 Mojang; la prueba no usa autenticación ni jugadores y completó sus 15 casos.
 No se modificaron mundos, configuraciones ni datos de ningún servidor existente.
-La validación Windows y los hashes de las descargas se registran aparte.
+
+## Descargas comprobadas en Windows
+
+[La ejecución 41835451441](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/41835451441)
+compiló y comprobó `923204227cbc8e6a8f06f5aa501a94df8b449743`: las 14 pruebas Java
+pasaron y los **cinco análisis Defender terminaron sin detecciones**, motor
+`1.1.26100.4`, firmas `1.463.122.0`, protección en tiempo real y nube activas,
+sin exclusiones. Se publican los binarios de esa ejecución sin reconstruirlos.
+El JAR coincide byte por byte con el ensayado en Paper 26.2-133.
+
+[Informe Defender](docs/defender-verification-1.0.0.json) ·
+[SHA-256 de descargas](downloads/SHA256SUMS.txt).

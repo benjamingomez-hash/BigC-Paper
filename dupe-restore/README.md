@@ -3,6 +3,10 @@
 Plugin **independiente** para **Paper 26.2 / Java 25**. Restaura dupes sin necesitar
 BigCasares, LegendaryWeapons, BetterModel ni un mod en el cliente.
 
+**[Descargar ZIP](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/dupe-restore-plugin/dupe-restore/downloads/DupeRestore-1.0.0.zip)** · [Solo JAR](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/dupe-restore-plugin/dupe-restore/downloads/DupeRestore-1.0.0.jar) · [SHA-256](downloads/SHA256SUMS.txt).
+
+Se distribuyen exactamente los archivos comprobados en Windows Defender.
+
 | Dupe | Implementación |
 | --- | --- |
 | TNT | Opción nativa de Paper `allowPistonDuplication`. |
