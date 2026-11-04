@@ -1,0 +1,68 @@
+{
+  "server": "26.2-133-58e6e45 (MC: 26.2)",
+  "checks": {
+    "startup": {
+      "passed": true,
+      "detail": "plugin enabled"
+    },
+    "native-pistons-enabled": {
+      "passed": true,
+      "detail": "native Paper flag"
+    },
+    "native-hooks-enabled": {
+      "passed": true,
+      "detail": "native Paper flag"
+    },
+    "attached-wire": {
+      "passed": true,
+      "detail": "before water"
+    },
+    "string-farm-duplicates": {
+      "passed": true,
+      "detail": "string items=20, water breaks=20"
+    },
+    "cancelled-water-respected": {
+      "passed": true,
+      "detail": "items=0, block=TRIPWIRE"
+    },
+    "suppressed-drops-not-restored": {
+      "passed": true,
+      "detail": "items=0"
+    },
+    "unconnected-wire-not-restored": {
+      "passed": true,
+      "detail": "items=1"
+    },
+    "manual-break-not-restored": {
+      "passed": true,
+      "detail": "items=1"
+    },
+    "reload-restores-native-flags": {
+      "passed": true,
+      "detail": "both false"
+    },
+    "disabled-string-is-vanilla": {
+      "passed": true,
+      "detail": "items=1"
+    },
+    "reload-enables-native-flags": {
+      "passed": true,
+      "detail": "both true"
+    },
+    "reload-restores-string-farm": {
+      "passed": true,
+      "detail": "items=12"
+    },
+    "disable-restores-native-flags": {
+      "passed": true,
+      "detail": "both false"
+    },
+    "disable-cleans-tasks": {
+      "passed": true,
+      "detail": "no remaining tasks"
+    }
+  },
+  "completed": true,
+  "scope": "Real water string farm and lifecycle; native flags for piston/hook dupes. Not every historical farm design was exercised.",
+  "testedJarSha256": "597fcf20211ca9cb00814e960acb1b3f628ea3e9c035f46525d813e206236395"
+}

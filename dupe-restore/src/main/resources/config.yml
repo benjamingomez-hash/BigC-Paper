@@ -1,0 +1,7 @@
+# Paper usa una sola opción para TNT, alfombras y raíles.
+# false deja esa opción como estaba antes de activar el plugin.
+piston-duplication: true
+tripwire-hook-duplication: true
+# Restaura el hilo que destruye el agua en una línea válida entre dos ganchos.
+# No duplica roturas de jugadores, pistones ni explosiones.
+string-duplication: true

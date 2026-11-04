@@ -48,3 +48,5 @@ del servidor. Los generadores Python son pasos manuales, separados del build.
 
 Los planes fechados describen decisiones históricas; para el comportamiento
 actual, verificá el código y la configuración versionada.
+
+Para restaurar dupes de TNT, alfombras, ganchos e hilo en Paper 26.2, hay un [plugin separado DupeRestore](dupe-restore/README.md).

@@ -1,0 +1,30 @@
+DupeRestore 1.0.0 — Paper 26.2 / Java 25
+
+Plugin independiente. No requiere BigCasares, LegendaryWeapons ni BetterModel.
+
+INSTALACIÓN
+1. Detené Paper.
+2. Copiá DupeRestore-1.0.0.jar a plugins.
+3. Iniciá Paper. Los dupes se habilitan por defecto.
+4. Consultá /duperestore status como operador o desde la consola.
+
+DUPES
+- TNT y alfombras: activa la opción nativa de duplicación de pistones de Paper.
+  Esa opción también habilita los dupes nativos de raíles; Paper no los separa.
+- Ganchos: activa la opción nativa de Paper para validación de ganchos.
+- Hilo: el agua debe romper un hilo conectado entre dos ganchos enfrentados.
+  Cae el hilo normal y el plugin lo repone un tick después si la línea sigue
+  siendo válida. Dejá salida para el agua debajo del hilo y recogé los drops
+  con tolvas. No requiere tijeras ni funciona rompiendo hilo suelto a mano.
+
+CONFIGURACIÓN
+plugins/DupeRestore/config.yml permite desactivar cada grupo.
+/duperestore reload aplica los cambios. Solo operadores o duperestore.admin.
+false deja las opciones de Paper como estaban antes de activar el plugin.
+El plugin no cambia paper-global.yml; restaura sus opciones al desactivarse.
+Al quitar el JAR y reiniciar, quedan los valores de configuración de Paper.
+
+No restaura todos los bugs de versiones antiguas de Minecraft. Las máquinas
+necesitan ser compatibles con la física vanilla de Paper 26.2. El hilo usa el
+mecanismo con agua descrito arriba. Los bloques nuevos y chunks descargados se
+respetan y las roturas a mano, por pistón o explosiones no generan reposición.

@@ -1,0 +1,47 @@
+plugins { id 'java' }
+group = 'dev.linqfy'
+version = '1.0.0'
+repositories {
+    mavenCentral()
+    maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+}
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:26.2.build.56-alpha'
+    testImplementation platform('org.junit:junit-bom:5.11.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+java { sourceCompatibility = JavaVersion.VERSION_25; targetCompatibility = JavaVersion.VERSION_25 }
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8'; options.release = 25 }
+test { useJUnitPlatform() }
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('plugin.yml') { expand version: project.version }
+}
+tasks.withType(AbstractArchiveTask).configureEach {
+    preserveFileTimestamps = false
+    reproducibleFileOrder = true
+}
+tasks.register('distribution', Zip) {
+    dependsOn jar
+    archiveFileName = "DupeRestore-${project.version}.zip"
+    destinationDirectory = layout.buildDirectory.dir('distributions')
+    into("DupeRestore-${project.version}") {
+        from(tasks.named('jar'))
+        from('src/main/resources/config.yml')
+        from('LEEME.txt')
+    }
+}
+assemble.dependsOn distribution
+
+sourceSets {
+    nativeTest {
+        compileClasspath += sourceSets.main.compileClasspath
+    }
+}
+tasks.register('nativeProbeJar', Jar) {
+    dependsOn nativeTestClasses
+    archiveFileName = 'DupeRestoreProbe.jar'
+    destinationDirectory = layout.buildDirectory.dir('native-test')
+    from sourceSets.nativeTest.output
+}
