@@ -1,6 +1,30 @@
 # Validación de DupeRestore
 
-## 1.0.1 — origen directo waterlogged
+## 1.1.0 — API pública y opciones nativas explícitas
+
+Reconstrucción desde las fuentes 1.0.0, reaplicando el filtro waterlogged. Se
+eliminaron el puente de reflexión y los cambios internos de Paper. Las opciones
+nativas se activan manualmente en Paper; el plugin solo consulta una instantánea
+pública y administra el hilo. No se ejecutó la versión reportada al investigar.
+
+- Compilación limpia: **14 pruebas Java correctas** del plugin y **1.014** del
+  proyecto principal.
+- **40 casos correctos en dos servidores Paper 26.2-133**, con opciones nativas
+  false y true. Los valores y el archivo de Paper se conservaron al recargar y
+  desactivar el plugin. Las granjas de trampilla/escalera waterlogged siguieron
+  produciendo; agua común, corrientes intermedias y origen vaciado no repusieron hilo.
+- Inspección del JAR: **11 clases de producción**, sin probe ni archivos inesperados
+  y sin referencias directas a reflexión, ClassLoader, procesos, red o clases
+  internas del servidor. Esta inspección no equivale a un análisis antimalware.
+
+[Prueba nativa](docs/native-verification-1.1.0.json) ·
+[Inspección de clases](docs/jar-audit-1.1.0.json).
+
+La detección local de 1.0.1 no tiene identificador ni archivo confirmados; no se
+ha determinado su causa. La comprobación Windows de esta versión se registra al
+terminar y no garantiza resultados en otro equipo.
+
+## 1.0.1 — origen directo waterlogged (histórico; detección local informada)
 
 La fuente de la rotura debe ser un bloque con `Waterlogged.isWaterlogged()`;
 se vuelve a comprobar antes de reponer el hilo. El usuario confirmó producción
@@ -30,7 +54,7 @@ Se distribuyen sus archivos exactos, sin reconstruirlos. El JAR coincide byte
 por byte con el probado en Paper para los 19 casos.
 
 [Informe Defender](docs/defender-verification-1.0.1.json) ·
-[SHA-256](downloads/SHA256SUMS.txt).
+[SHA-256 originales](https://github.com/benjamingomez-hash/BigC-Paper/blob/fe2abff21b4219f0018a85f18c1a4ed809c42530/dupe-restore/downloads/SHA256SUMS.txt).
 
 ## 1.0.0 — registro histórico
 

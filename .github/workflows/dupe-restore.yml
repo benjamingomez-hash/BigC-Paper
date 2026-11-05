@@ -53,6 +53,10 @@ jobs:
         shell: cmd
         run: gradlew.bat --no-daemon --max-workers=2 clean build
 
+      - name: Inspect production archive references
+        shell: powershell
+        run: python ./dupe-restore/tools/audit_jar.py ./dupe-restore/build/libs/DupeRestore-1.1.0.jar --output "$env:RUNNER_TEMP/duperestore-defender-report/jar-audit.json"
+
       - name: Test Defender updater failure handling
         shell: powershell
         run: ./dupe-restore/tools/Test-Defender.Tests.ps1
@@ -62,9 +66,10 @@ jobs:
         shell: powershell
         run: |
           & ./dupe-restore/tools/Test-Defender.ps1 `
-            -JarPath dupe-restore/build/libs/DupeRestore-1.0.1.jar `
-            -DistributionZip dupe-restore/build/distributions/DupeRestore-1.0.1.zip `
-            -OutputDirectory "$env:RUNNER_TEMP/duperestore-defender-report"
+            -JarPath dupe-restore/build/libs/DupeRestore-1.1.0.jar `
+            -DistributionZip dupe-restore/build/distributions/DupeRestore-1.1.0.zip `
+            -OutputDirectory "$env:RUNNER_TEMP/duperestore-defender-report" `
+            -ReferenceManifest dupe-restore/tools/defender-references.json
 
       - name: Preserve scan report
         if: always()
@@ -81,8 +86,8 @@ jobs:
         with:
           name: DupeRestore-checked-${{ github.sha }}
           path: |
-            dupe-restore/build/libs/DupeRestore-1.0.1.jar
-            dupe-restore/build/distributions/DupeRestore-1.0.1.zip
+            dupe-restore/build/libs/DupeRestore-1.1.0.jar
+            dupe-restore/build/distributions/DupeRestore-1.1.0.zip
           if-no-files-found: error
           retention-days: 30
 

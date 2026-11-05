@@ -8,23 +8,31 @@ import org.bukkit.block.Block;
 import org.bukkit.block.data.type.Tripwire;
 import org.bukkit.block.data.Waterlogged;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFromToEvent;
+import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.security.MessageDigest;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public final class DupeRestoreProbe extends JavaPlugin implements Listener {
     private World world;
     private JavaPlugin subject;
+    private boolean originalPistons;
+    private boolean originalHooks;
+    private byte[] paperConfigHash;
     private final YamlConfiguration report = new YamlConfiguration();
     private final Map<Integer, Integer> breaks = new HashMap<>();
     private final Map<Integer, Material> sources = new HashMap<>();
+    private final Map<Integer, Integer> spawnedStrings = new HashMap<>();
 
     @Override public void onEnable() {
         Bukkit.getPluginManager().registerEvents(this, this);
@@ -36,8 +44,13 @@ public final class DupeRestoreProbe extends JavaPlugin implements Listener {
         subject = (JavaPlugin) Bukkit.getPluginManager().getPlugin("DupeRestore");
         report.set("server", Bukkit.getVersion());
         check("startup", subject != null && subject.isEnabled(), "plugin enabled");
-        check("native-pistons-enabled", flag("allowPistonDuplication"), "native Paper flag");
-        check("native-hooks-enabled", flag("skipTripwireHookPlacementValidation"), "native Paper flag");
+        originalPistons = Bukkit.spigot().getPaperConfig().getBoolean("unsupported-settings.allow-piston-duplication");
+        originalHooks = Bukkit.spigot().getPaperConfig().getBoolean("unsupported-settings.skip-tripwire-hook-placement-validation");
+        paperConfigHash = hashPaperConfig();
+        report.set("nativeConfiguration.pistons", originalPistons);
+        report.set("nativeConfiguration.hooks", originalHooks);
+        check("native-pistons-match-configuration", flag("allowPistonDuplication") == originalPistons, "native flag matches file");
+        check("native-hooks-match-configuration", flag("skipTripwireHookPlacementValidation") == originalHooks, "native flag matches file");
         for (int x : new int[]{0, 16, 32, 48, 64, 112, 128, 144, 160}) farm(x);
         at(50, 80, 0).setType(Material.AIR, true);
         at(65, 80, 0).breakNaturally();
@@ -80,7 +93,7 @@ public final class DupeRestoreProbe extends JavaPlugin implements Listener {
         check("indirect-flow-not-restored", strings(160) == 1 && at(161, 80, 0).getType() != Material.TRIPWIRE,
                 "items=" + strings(160) + ", source=" + sources.get(161));
         configure(false);
-        check("reload-restores-native-flags", !flag("allowPistonDuplication") && !flag("skipTripwireHookPlacementValidation"), "both false");
+        check("reload-preserves-native-flags", nativeFlagsUnchanged(), "native settings unchanged");
         farm(80);
         later(10, () -> {
             water(80);
@@ -88,7 +101,7 @@ public final class DupeRestoreProbe extends JavaPlugin implements Listener {
                 check("disabled-string-is-vanilla", strings(80) == 1 && at(81, 80, 0).getType() != Material.TRIPWIRE,
                         "items=" + strings(80));
                 configure(true);
-                check("reload-enables-native-flags", flag("allowPistonDuplication") && flag("skipTripwireHookPlacementValidation"), "both true");
+                check("reactivation-preserves-native-flags", nativeFlagsUnchanged(), "native settings unchanged");
                 farm(96);
                 later(10, () -> {
                     water(96);
@@ -101,16 +114,15 @@ public final class DupeRestoreProbe extends JavaPlugin implements Listener {
     private void finish() throws Exception {
         check("reload-restores-string-farm", strings(96) >= 3, "items=" + strings(96));
         Bukkit.getPluginManager().disablePlugin(subject);
-        check("disable-restores-native-flags", !flag("allowPistonDuplication") && !flag("skipTripwireHookPlacementValidation"), "both false");
+        check("disable-preserves-native-flags", nativeFlagsUnchanged(), "native settings unchanged");
+        check("paper-config-file-unchanged", Arrays.equals(paperConfigHash, hashPaperConfig()), "same SHA-256 throughout probe");
         check("disable-cleans-tasks", Bukkit.getScheduler().getPendingTasks().stream().noneMatch(t -> t.getOwner() == subject), "no remaining tasks");
         report.set("completed", true);
         saveAndStop();
     }
 
     private void configure(boolean enabled) {
-        for (String key : new String[]{"piston-duplication", "tripwire-hook-duplication", "string-duplication"}) {
-            subject.getConfig().set(key, enabled);
-        }
+        subject.getConfig().set("string-duplication", enabled);
         subject.saveConfig();
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "duperestore reload");
     }
@@ -145,10 +157,16 @@ public final class DupeRestoreProbe extends JavaPlugin implements Listener {
     private Block at(int x, int y, int z) { return world.getBlockAt(x, y, z); }
 
     private int strings(int farmX) {
-        return world.getEntitiesByClass(Item.class).stream()
-                .filter(item -> item.getItemStack().getType() == Material.STRING)
-                .filter(item -> Math.abs(item.getX() - (farmX + 1)) < 6)
-                .mapToInt(item -> item.getItemStack().getAmount()).sum();
+        // Count actual emitted items at spawn. Flow can carry the first item
+        // outside a farm's region before the end-of-test inspection.
+        return spawnedStrings.getOrDefault(farmX, 0);
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onItemSpawn(ItemSpawnEvent event) {
+        if (event.getEntity().getItemStack().getType() != Material.STRING) return;
+        int farmX = Math.floorDiv(event.getLocation().getBlockX(), 16) * 16;
+        spawnedStrings.merge(farmX, event.getEntity().getItemStack().getAmount(), Integer::sum);
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -171,6 +189,15 @@ public final class DupeRestoreProbe extends JavaPlugin implements Listener {
             wet.setWaterlogged(false);
             event.getSource().setBlockData(wet, false);
         }
+    }
+
+    private byte[] hashPaperConfig() throws Exception {
+        return MessageDigest.getInstance("SHA-256").digest(Files.readAllBytes(Path.of("config/paper-global.yml")));
+    }
+
+    private boolean nativeFlagsUnchanged() throws Exception {
+        return flag("allowPistonDuplication") == originalPistons
+                && flag("skipTripwireHookPlacementValidation") == originalHooks;
     }
 
     private boolean flag(String name) throws Exception {

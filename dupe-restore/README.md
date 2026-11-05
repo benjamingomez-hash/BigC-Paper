@@ -1,67 +1,68 @@
-# DupeRestore
+# DupeRestore 1.1.0
 
-Plugin **independiente** para **Paper 26.2 / Java 25**. Restaura dupes sin necesitar
-BigCasares, LegendaryWeapons, BetterModel ni un mod en el cliente.
+Plugin independiente para **Paper 26.2 / Java 25**. La nueva implementación parte
+de las fuentes 1.0.0 y conserva el hilo con origen directo `waterlogged`.
+El JAR administra el hilo mediante la API pública; TNT, alfombras, raíles y ganchos
+usan las opciones oficiales de Paper. El plugin solo consulta esas opciones.
 
-**[Descargar ZIP](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/dupe-restore-plugin/dupe-restore/downloads/DupeRestore-1.0.1.zip)** · [Solo JAR](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/dupe-restore-plugin/dupe-restore/downloads/DupeRestore-1.0.1.jar) · [SHA-256](downloads/SHA256SUMS.txt).
+La descarga 1.1.0 se publicará después de sus comprobaciones de Windows.
 
-Se distribuyen exactamente los archivos comprobados en Windows Defender.
+## Instalación
 
-| Dupe | Implementación |
-| --- | --- |
-| TNT | Opción nativa de Paper `allowPistonDuplication`. |
-| Alfombras | La misma opción de pistones; también habilita raíles. |
-| Ganchos de cuerda | Opción nativa `skipTripwireHookPlacementValidation`. |
-| Hilo | Agua que sale directamente de un bloque `waterlogged`; cae su drop normal y se repone el hilo al tick siguiente. |
+1. Detené Paper.
+2. En `config/paper-global.yml`, editá estas dos opciones de la sección existente:
 
-Paper agrupa TNT, alfombras y raíles en una sola opción. Las máquinas tienen que
-ser compatibles con la física vanilla 26.2; no se recuperan todos los diseños de
-bugs de versiones anteriores. El hilo usa el mecanismo descrito aquí.
+   ```yaml
+   unsupported-settings:
+     allow-piston-duplication: true
+     skip-tripwire-hook-placement-validation: true
+   ```
 
-## Instalar
+3. Reemplazá el JAR anterior por `DupeRestore-1.1.0.jar` en `plugins/` e iniciá Paper.
+4. Consultá `/duperestore status` como operador o desde la consola.
 
-1. Detené Paper y copiá `DupeRestore-1.0.1.jar` a `plugins/`.
-2. Iniciá el servidor: queda habilitado por defecto.
-3. Consultá `/duperestore status`. `/duperestore reload` aplica cambios de
-   `plugins/DupeRestore/config.yml`. Permiso: `duperestore.admin`, operadores y consola.
+La primera opción de Paper agrupa TNT, alfombras y raíles. La segunda permite
+los dupes nativos de ganchos compatibles con la física vanilla 26.2.
 
-El `config.yml` del ZIP es de referencia. El JAR genera su propia configuración
-si no existe. No se reescribe `paper-global.yml`: las opciones se habilitan en
-memoria y se restauran al desactivar el plugin. Una opción `false` conserva el
-valor original del servidor; no fuerza a false una opción que ya estaba habilitada.
-Al quitar el JAR y reiniciar quedan los valores que configuraste en Paper.
+`plugins/DupeRestore/config.yml` controla solo `string-duplication`.
+`/duperestore reload` recarga el hilo. Las claves antiguas del plugin para pistones
+y ganchos se ignoran, con un aviso; ahora se configuran en Paper y requieren reinicio.
+El comando muestra el valor **configurado en el archivo**, no un valor leído de
+campos internos de la JVM. Quitar el plugin detiene el hilo; las opciones nativas
+continúan como las hayas configurado en Paper.
 
 ## Granja de hilo
 
-Colocá dos ganchos enfrentados con uno o más hilos conectados entre ellos,
-con un máximo de 40 bloques de hilo. Colocá una trampilla, escalera u otro bloque
-**anegado (`waterlogged: true`) al lado del hilo**, de modo que el agua salga
-directamente de él hacia el hilo. **Dejá una salida hacia abajo**, para que no
-arrastre los ganchos. Podés usar una línea de un solo hilo y tolvas debajo.
+Colocá dos ganchos enfrentados y una línea de hasta 40 bloques de hilo. Una
+trampilla, escalera u otro bloque anegado debe dejar salir agua **directamente
+hacia el hilo**. Dejá salida hacia abajo para que no arrastre los ganchos.
 
-El plugin conserva el drop normal y repone el hilo un tick después si los ganchos
-y el resto de la línea siguen siendo válidos y el bloque de origen continúa
-anegado. **Produce continuamente mientras salga agua de ese bloque**. El agua
-común y las corrientes intermedias no activan el dupe, aunque tengan más lejos
-un bloque anegado como origen. No requiere tijeras.
-No repone hilo suelto, roturas a mano, por pistones ni explosiones. Respeta flujos
-de agua cancelados y drops suprimidos; no pisa bloques nuevos ni carga chunks.
-Las reposiciones pendientes se descartan al desactivar o recargar el plugin.
+Produce continuamente mientras salga agua de ese bloque. Agua común y corrientes
+intermedias no activan la reposición. El hilo cae normalmente y se repone un tick
+después si la línea y el origen siguen siendo válidos. No requiere tijeras.
+Se respetan flujos cancelados, drops suprimidos, bloques nuevos y chunks descargados.
+Las roturas manuales, por pistones y explosiones no reponen hilo.
 
-## Compilar y verificar
+## Cambio de implementación y alerta local
+
+El usuario informó una detección local de 1.0.1, sin nombre de amenaza ni archivo
+precisos. Se retira su descarga recomendada; no se ha identificado la causa.
+Se eliminaron del JAR el puente reflectivo y la modificación de opciones internas.
+El nuevo JAR no incorpora ejecutables auxiliares ni scripts de instalación.
+
+La inspección de referencias de clases y los análisis de Defender se documentan
+en [VERIFY.md](VERIFY.md). Una comprobación en GitHub no garantiza el resultado
+en otra PC ni demuestra que la alerta anterior fuera falsa. Los archivos que
+Windows bloquee deben quedar en cuarentena mientras se revisan sus detalles.
+
+## Desarrollo
 
 ```bash
 bash gradlew -p dupe-restore --no-daemon clean build
+python3 dupe-restore/tools/audit_jar.py dupe-restore/build/libs/DupeRestore-1.1.0.jar --output dupe-restore/build/reports/jar-audit.json
 ```
 
-Genera `dupe-restore/build/libs/DupeRestore-1.0.1.jar` y el ZIP con JAR,
-configuración y LEEME en `dupe-restore/build/distributions/`.
-
-[Comprobaciones y alcance](VERIFY.md). El código de la prueba nativa vive en
-`src/nativeTest/`; `nativeProbeJar` genera un **plugin de prueba separado**, que
-no entra en el JAR distribuido. Solo se ejecuta en mundos desechables: crea
-mecanismos, modifica bloques y apaga el servidor al terminar.
-
-Opciones verificadas en el [código de Paper 26.2](https://github.com/PaperMC/Paper/blob/ver/26.2/paper-server/src/main/java/io/papermc/paper/configuration/GlobalConfiguration.java).
-El puente comprueba los dos campos públicos antes de escribir; si no están
-disponibles desactiva el plugin y deja un error claro en el registro.
+El ZIP incluye JAR, configuración del hilo y LEEME. `nativeProbeJar` genera un
+plugin de prueba separado, excluido de la distribución, para mundos desechables:
+crea granjas y apaga el servidor. Ese probe puede leer internamente el servidor
+para diagnóstico; el JAR de producción solo usa la API pública.

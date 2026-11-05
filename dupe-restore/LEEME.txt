@@ -1,33 +1,39 @@
-DupeRestore 1.0.1 — Paper 26.2 / Java 25
+DupeRestore 1.1.0 — Paper 26.2 / Java 25
 
-Plugin independiente. No requiere BigCasares, LegendaryWeapons ni BetterModel.
+Implementación reconstruida desde las fuentes previas, con API pública de Paper.
+El JAR maneja el hilo. TNT, alfombras, raíles y ganchos usan la configuración
+oficial de Paper. El plugin consulta esas opciones, sin modificarlas.
 
 INSTALACIÓN
 1. Detené Paper.
-2. Copiá DupeRestore-1.0.1.jar a plugins.
-3. Iniciá Paper. Los dupes se habilitan por defecto.
-4. Consultá /duperestore status como operador o desde la consola.
+2. En config/paper-global.yml, dentro de unsupported-settings, activá:
 
-DUPES
-- TNT y alfombras: activa la opción nativa de duplicación de pistones de Paper.
-  Esa opción también habilita los dupes nativos de raíles; Paper no los separa.
-- Ganchos: activa la opción nativa de Paper para validación de ganchos.
-- Hilo: un bloque anegado (waterlogged), por ejemplo una trampilla o escalera,
-  debe soltar agua directamente hacia un hilo conectado entre dos ganchos.
-  Cae el hilo normal y el plugin lo repone un tick después si la línea sigue
-  siendo válida y el bloque sigue anegado. Produce mientras siga saliendo agua.
-  Agua común o una corriente intermedia no activan la reposición.
-  Dejá salida para el agua debajo del hilo y recogé los drops con tolvas.
-  No requiere tijeras ni funciona rompiendo hilo suelto a mano.
+   allow-piston-duplication: true
+   skip-tripwire-hook-placement-validation: true
+
+   Editá las dos claves existentes. Conservá el resto del archivo y su sección.
+   Paper agrupa TNT, alfombras y raíles en la primera opción.
+3. Reemplazá el JAR anterior de DupeRestore por DupeRestore-1.1.0.jar en plugins.
+4. Iniciá Paper y consultá /duperestore status como operador o desde la consola.
+
+HILO
+Un bloque anegado (waterlogged), como una trampilla o escalera, debe soltar agua
+directamente hacia un hilo conectado entre dos ganchos enfrentados.
+Cae el hilo normal y se repone al tick siguiente si la línea sigue válida y el
+origen continúa anegado. Produce mientras siga saliendo agua de ese bloque.
+Agua común y corrientes intermedias no activan la reposición. Dejá salida hacia
+abajo para que el agua no arrastre los ganchos. Podés recoger los drops con tolvas.
 
 CONFIGURACIÓN
-plugins/DupeRestore/config.yml permite desactivar cada grupo.
-/duperestore reload aplica los cambios. Solo operadores o duperestore.admin.
-false deja las opciones de Paper como estaban antes de activar el plugin.
-El plugin no cambia paper-global.yml; restaura sus opciones al desactivarse.
-Al quitar el JAR y reiniciar, quedan los valores de configuración de Paper.
+plugins/DupeRestore/config.yml solo controla string-duplication.
+/duperestore reload aplica el ajuste del hilo; permiso duperestore.admin.
+Las claves antiguas piston-duplication y tripwire-hook-duplication del plugin
+se ignoran. Usá las dos opciones de Paper de arriba y reiniciá tras cambiarlas.
+Quitar este plugin detiene el dupe de hilo. Para desactivar los dupes nativos,
+volvé a false las opciones de Paper y reiniciá.
 
-No restaura todos los bugs de versiones antiguas de Minecraft. Las máquinas
-necesitan ser compatibles con la física vanilla de Paper 26.2. El hilo usa el
-mecanismo con agua descrito arriba. Los bloques nuevos y chunks descargados se
-respetan y las roturas a mano, por pistón o explosiones no generan reposición.
+ALERTA DE WINDOWS
+La versión anterior tuvo una detección local informada por el usuario, sin
+nombre de amenaza ni detalles del archivo. No se ha identificado su causa.
+Una comprobación limpia de GitHub no garantiza el resultado en otra PC.
+Si Windows bloquea el archivo, dejalo en cuarentena y conservá los detalles.

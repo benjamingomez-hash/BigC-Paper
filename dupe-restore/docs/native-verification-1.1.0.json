@@ -1,0 +1,190 @@
+{
+  "version": "1.1.0",
+  "sourceBase": "6de5a558da62d88dbfa39468ba5f5e2d28ad25b8 (1.0.0 sources, waterlogged filter reapplied)",
+  "testedJarSha256": "36d8e1f4c0000fb3ef6affbb56ff7c16133255138a6a2830394a2eae67e04cae",
+  "checksPassed": 40,
+  "runs": [
+    {
+      "server": "26.2-133-58e6e45 (MC: 26.2)",
+      "checks": {
+        "startup": {
+          "passed": true,
+          "detail": "plugin enabled"
+        },
+        "native-pistons-match-configuration": {
+          "passed": true,
+          "detail": "native flag matches file"
+        },
+        "native-hooks-match-configuration": {
+          "passed": true,
+          "detail": "native flag matches file"
+        },
+        "attached-wire": {
+          "passed": true,
+          "detail": "before water"
+        },
+        "string-farm-duplicates": {
+          "passed": true,
+          "detail": "string items=20, water breaks=20, source=OAK_TRAPDOOR"
+        },
+        "cancelled-water-respected": {
+          "passed": true,
+          "detail": "items=0, block=TRIPWIRE"
+        },
+        "suppressed-drops-not-restored": {
+          "passed": true,
+          "detail": "items=0"
+        },
+        "unconnected-wire-not-restored": {
+          "passed": true,
+          "detail": "items=1"
+        },
+        "manual-break-not-restored": {
+          "passed": true,
+          "detail": "items=1"
+        },
+        "ordinary-water-not-restored": {
+          "passed": true,
+          "detail": "items=1, block=WATER"
+        },
+        "waterlogged-stairs-duplicate": {
+          "passed": true,
+          "detail": "items=20, breaks=20"
+        },
+        "drained-source-not-restored": {
+          "passed": true,
+          "detail": "items=1"
+        },
+        "indirect-flow-not-restored": {
+          "passed": true,
+          "detail": "items=1, source=WATER"
+        },
+        "reload-preserves-native-flags": {
+          "passed": true,
+          "detail": "native settings unchanged"
+        },
+        "disabled-string-is-vanilla": {
+          "passed": true,
+          "detail": "items=1"
+        },
+        "reactivation-preserves-native-flags": {
+          "passed": true,
+          "detail": "native settings unchanged"
+        },
+        "reload-restores-string-farm": {
+          "passed": true,
+          "detail": "items=12"
+        },
+        "disable-preserves-native-flags": {
+          "passed": true,
+          "detail": "native settings unchanged"
+        },
+        "paper-config-file-unchanged": {
+          "passed": true,
+          "detail": "same SHA-256 throughout probe"
+        },
+        "disable-cleans-tasks": {
+          "passed": true,
+          "detail": "no remaining tasks"
+        }
+      },
+      "nativeConfiguration": {
+        "pistons": false,
+        "hooks": false
+      },
+      "completed": true
+    },
+    {
+      "server": "26.2-133-58e6e45 (MC: 26.2)",
+      "checks": {
+        "startup": {
+          "passed": true,
+          "detail": "plugin enabled"
+        },
+        "native-pistons-match-configuration": {
+          "passed": true,
+          "detail": "native flag matches file"
+        },
+        "native-hooks-match-configuration": {
+          "passed": true,
+          "detail": "native flag matches file"
+        },
+        "attached-wire": {
+          "passed": true,
+          "detail": "before water"
+        },
+        "string-farm-duplicates": {
+          "passed": true,
+          "detail": "string items=20, water breaks=20, source=OAK_TRAPDOOR"
+        },
+        "cancelled-water-respected": {
+          "passed": true,
+          "detail": "items=0, block=TRIPWIRE"
+        },
+        "suppressed-drops-not-restored": {
+          "passed": true,
+          "detail": "items=0"
+        },
+        "unconnected-wire-not-restored": {
+          "passed": true,
+          "detail": "items=1"
+        },
+        "manual-break-not-restored": {
+          "passed": true,
+          "detail": "items=1"
+        },
+        "ordinary-water-not-restored": {
+          "passed": true,
+          "detail": "items=1, block=WATER"
+        },
+        "waterlogged-stairs-duplicate": {
+          "passed": true,
+          "detail": "items=20, breaks=20"
+        },
+        "drained-source-not-restored": {
+          "passed": true,
+          "detail": "items=1"
+        },
+        "indirect-flow-not-restored": {
+          "passed": true,
+          "detail": "items=1, source=WATER"
+        },
+        "reload-preserves-native-flags": {
+          "passed": true,
+          "detail": "native settings unchanged"
+        },
+        "disabled-string-is-vanilla": {
+          "passed": true,
+          "detail": "items=1"
+        },
+        "reactivation-preserves-native-flags": {
+          "passed": true,
+          "detail": "native settings unchanged"
+        },
+        "reload-restores-string-farm": {
+          "passed": true,
+          "detail": "items=12"
+        },
+        "disable-preserves-native-flags": {
+          "passed": true,
+          "detail": "native settings unchanged"
+        },
+        "paper-config-file-unchanged": {
+          "passed": true,
+          "detail": "same SHA-256 throughout probe"
+        },
+        "disable-cleans-tasks": {
+          "passed": true,
+          "detail": "no remaining tasks"
+        }
+      },
+      "nativeConfiguration": {
+        "pistons": true,
+        "hooks": true
+      },
+      "completed": true
+    }
+  ],
+  "itemCounting": "Counts real ItemSpawnEvent output, so flow carrying items outside the farm does not affect the result.",
+  "scope": "Public-API string plugin; native configuration remains explicit and unchanged. Test probe is excluded from production JAR."
+}

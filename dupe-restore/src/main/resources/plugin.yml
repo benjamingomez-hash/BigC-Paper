@@ -2,9 +2,9 @@ name: DupeRestore
 version: '${version}'
 main: dev.linqfy.bigCasares.duperestore.DupeRestorePlugin
 api-version: '26.2'
-load: STARTUP
+load: POSTWORLD
 authors: [linqfy]
-description: Restaura dupes de pistones y ganchos de Paper y granjas de hilo con agua.
+description: Granjas de hilo con origen waterlogged y consulta de opciones nativas de Paper.
 commands:
   duperestore:
     description: Estado y configuración de los dupes
