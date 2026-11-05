@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Waterlogged;
 import org.bukkit.block.data.type.Tripwire;
 import org.bukkit.block.data.type.TripwireHook;
 import org.bukkit.event.EventHandler;
@@ -34,7 +35,8 @@ final class StringDupeListener implements Listener, AutoCloseable {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onWaterBreak(BlockBreakBlockEvent event) {
-        if (closed || event.getSource().getType() != Material.WATER || !hasString(event.getDrops())) return;
+        if (closed || !(event.getSource().getBlockData() instanceof Waterlogged source)
+                || !source.isWaterlogged() || !hasString(event.getDrops())) return;
         Block block = event.getBlock();
         if (!(block.getBlockData() instanceof Tripwire wire) || !wire.isAttached()) return;
         StringFarm.Pos position = position(block);
@@ -59,7 +61,7 @@ final class StringDupeListener implements Listener, AutoCloseable {
             StringFarm.View view = view(world);
             Map<StringFarm.Pos, StringFarm.Line> lines = new HashMap<>();
             candidates.forEach((pos, candidate) -> {
-                if (hasString(candidate.drops()) && view.cell(candidate.source()) == StringFarm.Cell.WATER) {
+                if (hasString(candidate.drops()) && view.cell(candidate.source()) == StringFarm.Cell.WATERLOGGED) {
                     lines.put(pos, candidate.line());
                 }
             });
@@ -96,6 +98,9 @@ final class StringDupeListener implements Listener, AutoCloseable {
                     case WEST -> StringFarm.Cell.HOOK_WEST;
                     default -> StringFarm.Cell.OTHER;
                 };
+            }
+            if (block.getBlockData() instanceof Waterlogged source && source.isWaterlogged()) {
+                return StringFarm.Cell.WATERLOGGED;
             }
             return StringFarm.Cell.OTHER;
         };

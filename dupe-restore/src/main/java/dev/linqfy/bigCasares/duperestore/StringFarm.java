@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 final class StringFarm {
-    enum Cell { AIR, WATER, WIRE, HOOK_NORTH, HOOK_SOUTH, HOOK_EAST, HOOK_WEST, OTHER, UNLOADED }
+    enum Cell { AIR, WATER, WATERLOGGED, WIRE, HOOK_NORTH, HOOK_SOUTH, HOOK_EAST, HOOK_WEST, OTHER, UNLOADED }
     record Pos(int x, int y, int z) {
         Pos offset(int dx, int dz) { return new Pos(x + dx, y, z + dz); }
     }

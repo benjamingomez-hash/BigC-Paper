@@ -2,6 +2,7 @@
 # false deja esa opción como estaba antes de activar el plugin.
 piston-duplication: true
 tripwire-hook-duplication: true
-# Restaura el hilo que destruye el agua en una línea válida entre dos ganchos.
+# Restaura hilo solo si el agua sale directamente de un bloque waterlogged.
+# La producción continúa mientras ese bloque siga anegado; agua común no activa el dupe.
 # No duplica roturas de jugadores, pistones ni explosiones.
 string-duplication: true

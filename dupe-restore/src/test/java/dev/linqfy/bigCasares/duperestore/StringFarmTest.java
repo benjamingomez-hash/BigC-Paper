@@ -61,6 +61,8 @@ class StringFarmTest {
         StringFarm.Pos wet = pos(1, 0);
         cells.put(wet, OTHER);
         assertTrue(StringFarm.restorable(view, Map.of(wet, line)).isEmpty());
+        cells.put(wet, WATERLOGGED);
+        assertTrue(StringFarm.restorable(view, Map.of(wet, line)).isEmpty());
         cells.put(wet, WIRE);
         assertTrue(StringFarm.restorable(view, Map.of(wet, line)).isEmpty());
     }

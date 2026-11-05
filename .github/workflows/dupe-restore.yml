@@ -62,8 +62,8 @@ jobs:
         shell: powershell
         run: |
           & ./dupe-restore/tools/Test-Defender.ps1 `
-            -JarPath dupe-restore/build/libs/DupeRestore-1.0.0.jar `
-            -DistributionZip dupe-restore/build/distributions/DupeRestore-1.0.0.zip `
+            -JarPath dupe-restore/build/libs/DupeRestore-1.0.1.jar `
+            -DistributionZip dupe-restore/build/distributions/DupeRestore-1.0.1.zip `
             -OutputDirectory "$env:RUNNER_TEMP/duperestore-defender-report"
 
       - name: Preserve scan report
@@ -81,8 +81,8 @@ jobs:
         with:
           name: DupeRestore-checked-${{ github.sha }}
           path: |
-            dupe-restore/build/libs/DupeRestore-1.0.0.jar
-            dupe-restore/build/distributions/DupeRestore-1.0.0.zip
+            dupe-restore/build/libs/DupeRestore-1.0.1.jar
+            dupe-restore/build/distributions/DupeRestore-1.0.1.zip
           if-no-files-found: error
           retention-days: 30
 

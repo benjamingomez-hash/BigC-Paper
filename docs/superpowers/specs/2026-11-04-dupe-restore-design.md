@@ -24,3 +24,12 @@ Verificación: pruebas unitarias de geometría, reposición y restauración de
 opciones; compilación limpia; prueba aislada con Paper 26.2 y mecanismos reales.
 La distribución contendrá solo JAR, configuración de referencia y LEEME. No se
 modificarán mundos existentes, datos de armas ni la rama de LegendaryWeapons.
+
+## Corrección 1.0.1 — 5 de noviembre
+
+El usuario precisó que el origen debe ser el bloque waterlogged, no agua común,
+y confirmó producción continua mientras salga agua de él. La detección y la
+revalidación al tick siguiente exigen `Waterlogged.isWaterlogged()` en el bloque
+que provoca la rotura. No se siguen corrientes hasta un origen lejano ni se
+agrega un límite de una activación. Pruebas nativas con trampilla, escalera,
+fuente ordinaria, flujo indirecto y origen vaciado antes de la reposición.
