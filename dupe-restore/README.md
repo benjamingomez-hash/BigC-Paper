@@ -3,7 +3,7 @@
 Plugin **independiente** para **Paper 26.2 / Java 25**. Restaura dupes sin necesitar
 BigCasares, LegendaryWeapons, BetterModel ni un mod en el cliente.
 
-**[Descargar ZIP](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/dupe-restore-plugin/dupe-restore/downloads/DupeRestore-1.0.0.zip)** · [Solo JAR](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/dupe-restore-plugin/dupe-restore/downloads/DupeRestore-1.0.0.jar) · [SHA-256](downloads/SHA256SUMS.txt).
+**[Descargar ZIP](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/dupe-restore-plugin/dupe-restore/downloads/DupeRestore-1.0.1.zip)** · [Solo JAR](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/dupe-restore-plugin/dupe-restore/downloads/DupeRestore-1.0.1.jar) · [SHA-256](downloads/SHA256SUMS.txt).
 
 Se distribuyen exactamente los archivos comprobados en Windows Defender.
 
@@ -12,7 +12,7 @@ Se distribuyen exactamente los archivos comprobados en Windows Defender.
 | TNT | Opción nativa de Paper `allowPistonDuplication`. |
 | Alfombras | La misma opción de pistones; también habilita raíles. |
 | Ganchos de cuerda | Opción nativa `skipTripwireHookPlacementValidation`. |
-| Hilo | El agua rompe un hilo conectado; cae su drop normal y se repone el bloque al tick siguiente. |
+| Hilo | Agua que sale directamente de un bloque `waterlogged`; cae su drop normal y se repone el hilo al tick siguiente. |
 
 Paper agrupa TNT, alfombras y raíles en una sola opción. Las máquinas tienen que
 ser compatibles con la física vanilla 26.2; no se recuperan todos los diseños de
@@ -20,7 +20,7 @@ bugs de versiones anteriores. El hilo usa el mecanismo descrito aquí.
 
 ## Instalar
 
-1. Detené Paper y copiá `DupeRestore-1.0.0.jar` a `plugins/`.
+1. Detené Paper y copiá `DupeRestore-1.0.1.jar` a `plugins/`.
 2. Iniciá el servidor: queda habilitado por defecto.
 3. Consultá `/duperestore status`. `/duperestore reload` aplica cambios de
    `plugins/DupeRestore/config.yml`. Permiso: `duperestore.admin`, operadores y consola.
@@ -34,12 +34,16 @@ Al quitar el JAR y reiniciar quedan los valores que configuraste en Paper.
 ## Granja de hilo
 
 Colocá dos ganchos enfrentados con uno o más hilos conectados entre ellos,
-con un máximo de 40 bloques de hilo. Llevá agua lateralmente hacia el hilo y
-**dejá una salida hacia abajo**, para que no arrastre los ganchos. Podés usar
-una línea de un solo hilo. Recogé los drops debajo con tolvas.
+con un máximo de 40 bloques de hilo. Colocá una trampilla, escalera u otro bloque
+**anegado (`waterlogged: true`) al lado del hilo**, de modo que el agua salga
+directamente de él hacia el hilo. **Dejá una salida hacia abajo**, para que no
+arrastre los ganchos. Podés usar una línea de un solo hilo y tolvas debajo.
 
-El plugin conserva el drop normal del agua y repone el hilo un tick después
-si los ganchos y el resto de la línea siguen siendo válidos. No requiere tijeras.
+El plugin conserva el drop normal y repone el hilo un tick después si los ganchos
+y el resto de la línea siguen siendo válidos y el bloque de origen continúa
+anegado. **Produce continuamente mientras salga agua de ese bloque**. El agua
+común y las corrientes intermedias no activan el dupe, aunque tengan más lejos
+un bloque anegado como origen. No requiere tijeras.
 No repone hilo suelto, roturas a mano, por pistones ni explosiones. Respeta flujos
 de agua cancelados y drops suprimidos; no pisa bloques nuevos ni carga chunks.
 Las reposiciones pendientes se descartan al desactivar o recargar el plugin.
@@ -50,7 +54,7 @@ Las reposiciones pendientes se descartan al desactivar o recargar el plugin.
 bash gradlew -p dupe-restore --no-daemon clean build
 ```
 
-Genera `dupe-restore/build/libs/DupeRestore-1.0.0.jar` y el ZIP con JAR,
+Genera `dupe-restore/build/libs/DupeRestore-1.0.1.jar` y el ZIP con JAR,
 configuración y LEEME en `dupe-restore/build/distributions/`.
 
 [Comprobaciones y alcance](VERIFY.md). El código de la prueba nativa vive en

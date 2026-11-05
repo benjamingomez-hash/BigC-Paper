@@ -1,4 +1,38 @@
-# Validación de DupeRestore 1.0.0
+# Validación de DupeRestore
+
+## 1.0.1 — origen directo waterlogged
+
+La fuente de la rotura debe ser un bloque con `Waterlogged.isWaterlogged()`;
+se vuelve a comprobar antes de reponer el hilo. El usuario confirmó producción
+continua mientras salga agua del bloque anegado.
+
+- **14 pruebas Java correctas** del plugin y **1.014** del proyecto principal,
+  con compilaciones limpias.
+- **19 casos correctos en Paper 26.2-133**: tanto una trampilla anegada como una
+  escalera anegada produjeron 20 ítems en 100 ticks desde una pieza de hilo.
+- Agua común y una corriente intermedia produjeron solo el drop original, sin
+  reponer el hilo. Si el origen se vacía entre la rotura y la tarea siguiente,
+  tampoco se repone. Pasaron los controles de flujos bloqueados, drops vacíos,
+  líneas desconectadas, rotura manual, recarga y desactivación.
+- Se reprodujo el error con el JAR publicado 1.0.0 usando el mismo mecanismo:
+  producía continuamente con agua común y no reponía desde los bloques anegados.
+
+[Prueba nativa](docs/native-verification-1.0.1.json) ·
+[Comparación antes/después](docs/waterlogged-regression-1.0.1.json).
+
+### Descargas 1.0.1 comprobadas en Windows
+
+[La ejecución 42128056854](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/42128056854)
+compiló y probó `2283de9bc0da97f9b6c9b710d38abb18f20a762c`: 14 pruebas correctas
+y cinco análisis Defender sin detecciones, motor `1.1.26100.4`, firmas
+`1.463.147.0`, protección en tiempo real y nube activas, sin exclusiones.
+Se distribuyen sus archivos exactos, sin reconstruirlos. El JAR coincide byte
+por byte con el probado en Paper para los 19 casos.
+
+[Informe Defender](docs/defender-verification-1.0.1.json) ·
+[SHA-256](downloads/SHA256SUMS.txt).
+
+## 1.0.0 — registro histórico
 
 - Compilación limpia del plugin: **14 pruebas Java correctas**. Validan opciones
   reversibles, rollback ante errores, valores originales, geometría y orientación
@@ -23,7 +57,7 @@ El servidor de prueba tuvo una advertencia de conexión a las claves públicas d
 Mojang; la prueba no usa autenticación ni jugadores y completó sus 15 casos.
 No se modificaron mundos, configuraciones ni datos de ningún servidor existente.
 
-## Descargas comprobadas en Windows
+### Descargas 1.0.0 comprobadas en Windows
 
 [La ejecución 41835451441](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/41835451441)
 compiló y comprobó `923204227cbc8e6a8f06f5aa501a94df8b449743`: las 14 pruebas Java
@@ -33,4 +67,4 @@ sin exclusiones. Se publican los binarios de esa ejecución sin reconstruirlos.
 El JAR coincide byte por byte con el ensayado en Paper 26.2-133.
 
 [Informe Defender](docs/defender-verification-1.0.0.json) ·
-[SHA-256 de descargas](downloads/SHA256SUMS.txt).
+[SHA-256 originales](https://github.com/benjamingomez-hash/BigC-Paper/blob/6de5a558da62d88dbfa39468ba5f5e2d28ad25b8/dupe-restore/downloads/SHA256SUMS.txt).
