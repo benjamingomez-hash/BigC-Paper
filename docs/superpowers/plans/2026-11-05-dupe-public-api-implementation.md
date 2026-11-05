@@ -11,5 +11,7 @@
    procedencia y límites. Reanalizar la referencia 1.0.1 solo como diagnóstico.
 
 Estado: 14 pruebas unitarias y 40 casos nativos correctos; compilación principal
-con 1.014 pruebas correctas. Inspección del JAR correcta. Windows en curso;
-los informes y límites se enlazan en `dupe-restore/VERIFY.md`.
+con 1.014 pruebas correctas. Inspección del JAR correcta. Windows 42130799179 completó
+cinco análisis nuevos sin detecciones y cuatro de la referencia 1.0.1. El resultado
+del runner no identifica la causa local. Se publicaron sus bytes exactos;
+informes y límites en `dupe-restore/VERIFY.md`.

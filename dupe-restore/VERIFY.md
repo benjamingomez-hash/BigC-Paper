@@ -21,8 +21,26 @@ pública y administra el hilo. No se ejecutó la versión reportada al investiga
 [Inspección de clases](docs/jar-audit-1.1.0.json).
 
 La detección local de 1.0.1 no tiene identificador ni archivo confirmados; no se
-ha determinado su causa. La comprobación Windows de esta versión se registra al
-terminar y no garantiza resultados en otro equipo.
+ha determinado su causa. Los resultados Windows registrados abajo
+no garantizan resultados en otro equipo.
+
+### Comprobación Windows y alerta local
+
+[La ejecución 42130799179](https://github.com/benjamingomez-hash/BigC-Paper/actions/runs/42130799179)
+compiló `c2ceeb5c30d2f3271263843d5d4d74dc06718c93` y pasó 14 pruebas, la inspección
+de clases y **cinco análisis Defender sin detecciones** del JAR y ZIP nuevos.
+Motor `1.1.26100.4`, firmas `1.463.147.0`, protección y nube activas,
+sin exclusiones. El JAR es idéntico al ensayado en los dos servidores Paper.
+Se distribuyen sus bytes exactos, sin recompilarlos.
+
+La referencia 1.0.1 tuvo cuatro análisis adicionales sin detecciones en ese
+runner; solo se descargó, extrajo y analizó, sin ejecutarse. No se reprodujo allí
+la alerta del usuario y su causa local permanece sin identificar. Esto no prueba
+que la alerta local sea falsa ni que otro equipo vaya a aceptar el archivo.
+
+[Informe Defender](docs/defender-verification-1.1.0.json) ·
+[Revisión y límites](docs/security-review-1.1.0.json) ·
+[SHA-256 de descargas](downloads/SHA256SUMS.txt).
 
 ## 1.0.1 — origen directo waterlogged (histórico; detección local informada)
 
@@ -50,7 +68,7 @@ continua mientras salga agua del bloque anegado.
 compiló y probó `2283de9bc0da97f9b6c9b710d38abb18f20a762c`: 14 pruebas correctas
 y cinco análisis Defender sin detecciones, motor `1.1.26100.4`, firmas
 `1.463.147.0`, protección en tiempo real y nube activas, sin exclusiones.
-Se distribuyen sus archivos exactos, sin reconstruirlos. El JAR coincide byte
+Se distribuyeron sus archivos exactos, sin reconstruirlos. El JAR coincide byte
 por byte con el probado en Paper para los 19 casos.
 
 [Informe Defender](docs/defender-verification-1.0.1.json) ·
@@ -87,7 +105,7 @@ No se modificaron mundos, configuraciones ni datos de ningún servidor existente
 compiló y comprobó `923204227cbc8e6a8f06f5aa501a94df8b449743`: las 14 pruebas Java
 pasaron y los **cinco análisis Defender terminaron sin detecciones**, motor
 `1.1.26100.4`, firmas `1.463.122.0`, protección en tiempo real y nube activas,
-sin exclusiones. Se publican los binarios de esa ejecución sin reconstruirlos.
+sin exclusiones. Se publicaron los binarios de esa ejecución sin reconstruirlos.
 El JAR coincide byte por byte con el ensayado en Paper 26.2-133.
 
 [Informe Defender](docs/defender-verification-1.0.0.json) ·

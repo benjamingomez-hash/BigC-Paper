@@ -5,7 +5,11 @@ de las fuentes 1.0.0 y conserva el hilo con origen directo `waterlogged`.
 El JAR administra el hilo mediante la API pública; TNT, alfombras, raíles y ganchos
 usan las opciones oficiales de Paper. El plugin solo consulta esas opciones.
 
-La descarga 1.1.0 se publicará después de sus comprobaciones de Windows.
+**[Descargar ZIP 1.1.0](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/dupe-restore-plugin/dupe-restore/downloads/DupeRestore-1.1.0.zip)** ·
+[Solo JAR](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/feat/dupe-restore-plugin/dupe-restore/downloads/DupeRestore-1.1.0.jar) ·
+[SHA-256](downloads/SHA256SUMS.txt).
+Se publican los archivos exactos comprobados en Windows; el JAR coincide con el
+probado en los dos servidores Paper.
 
 ## Instalación
 
