@@ -1,8 +1,0 @@
-# Reproducible text resources on Windows and Linux; preserve uploaded projects verbatim.
-* text=auto eol=lf
-*.jar -text
-*.zip -text
-*.png -text
-*.webp -text
-models/**/*.bbmodel -text
-specs/user-elemental-abilities.md -text whitespace=cr-at-eol

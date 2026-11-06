@@ -41,6 +41,8 @@ del servidor. Los generadores Python son pasos manuales, separados del build.
 - [Índice](docs/README.md): guías actuales y documentos históricos.
 - [Desarrollo](docs/development.md): arquitectura, dependencias, tests y CI.
 - [Operación](docs/operations.md): instalación, configuración, packs y recargas.
+- [Dimensiones custom](docs/dimensions/README.md) y [The Sift](docs/dimensions/the-sift.md)
+  (port del mod de Mielon; requiere reiniciar una vez tras instalar).
 - [Contribución](GUIDELINES.MD) y [guía de agentes](AGENTS.md).
 - [Modelado](docs/blockbench/00-bettermodel-setup.md),
   [Celular](docs/celular/README.md) y
@@ -48,7 +50,3 @@ del servidor. Los generadores Python son pasos manuales, separados del build.
 
 Los planes fechados describen decisiones históricas; para el comportamiento
 actual, verificá el código y la configuración versionada.
-
-Para probar únicamente las armas, hay una [distribución independiente](standalone/README.md) sin los otros módulos ni dependencias de BigCasares.
-
-Última publicación de las armas: [LegendaryWeapons 2.0.16-final.1](https://github.com/benjamingomez-hash/BigC-Paper/releases/tag/legendary-weapons-2.0.16-final.1), con una única descarga ZIP.
