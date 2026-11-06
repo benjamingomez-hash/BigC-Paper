@@ -38,9 +38,11 @@ class LegendaryModelAssetsTest {
             else historical += s.getAsJsonArray("regions").size();
         }
         assertEquals(112, historical);
+        var originals = json(Path.of("models/reference-study/model-overrides.json"));
         for (var weapon : LegendaryWeapon.available()) {
             assertTrue(singles.contains("bigcasares:item/user/" + weapon.id));
-            var original = json(Path.of("models/reference-study/" + weapon.id + ".bbmodel"));
+            var original = json(Path.of("models/reference-study").resolve(
+                    originals.getAsJsonObject(weapon.id).get("original").getAsString()));
             byte[] embedded =
                     Base64.getDecoder()
                             .decode(
@@ -213,7 +215,7 @@ class LegendaryModelAssetsTest {
 
     @Test
     void translucentShadowRetainsEveryOriginalCubeAndItsOrder() throws Exception {
-        try (var archive = new java.util.zip.ZipFile("models/archive/legendary-pack-2.0.15.zip")) {
+        try (var archive = new java.util.zip.ZipFile("src/test/resources/legendary-rest-baseline-2.0.15.zip")) {
             try (var input =
                     archive.getInputStream(
                             archive.getEntry("assets/bigcasares/models/item/shadow_blade.json"))) {

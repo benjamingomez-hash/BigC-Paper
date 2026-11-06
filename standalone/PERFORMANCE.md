@@ -65,7 +65,10 @@ quitado; el número de piezas por sí solo no demuestra la causa.
 [Informe geométrico](docs/model-optimization-2.0.16.json).
 El script `tools/optimize_legendary_pack.py` parte de la distribución original
 2.0.15 y comprueba las transformaciones de sus vértices antes de compartirlos.
-`models/archive/legendary-pack-2.0.15.zip` conserva una copia exacta del pack previo.
+`src/test/resources/legendary-rest-baseline-2.0.15.zip` conserva únicamente las
+cinco mallas de reposo y sus texturas, copiadas sin modificar del pack previo.
+El [pack histórico completo](https://raw.githubusercontent.com/benjamingomez-hash/BigC-Paper/e490fb522fbac86636c822ed891c7b7b015383d3/standalone/models/archive/legendary-pack-2.0.15.zip)
+permanece recuperable en Git; no se incluye como respaldo redundante en el PR.
 Las pruebas revisan caras ocultas, transparencia, texturas dibujadas, tiempos,
 rutas de modelos, compatibilidad de fotogramas y recuperación del pack.
 

@@ -10,6 +10,10 @@ on:
       - standalone/gradlew*
       - standalone/*.gradle
       - standalone/pack/**
+      - standalone/tools/model_sources.py
+      - standalone/tools/test_model_sources.py
+      - standalone/models/reference-study/user-sources/**
+      - standalone/models/reference-study/model-overrides.json
       - standalone/tools/Test-LegendaryDefender.ps1
       - standalone/tools/Test-LegendaryDefender.Tests.ps1
       - standalone/DOWNLOAD-README.txt
@@ -42,6 +46,13 @@ jobs:
         working-directory: standalone
         shell: cmd
         run: gradlew.bat --no-daemon --max-workers=2 clean build
+
+      - name: Validate original model loading without generated project copies
+        shell: powershell
+        run: |
+          python -m unittest discover -s standalone/tools -p test_model_sources.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m py_compile standalone/tools/export_user_animations.py standalone/tools/render_blockbench_review.py
 
       - name: Check Defender update recovery without changing protection settings
         shell: powershell

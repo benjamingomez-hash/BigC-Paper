@@ -8,11 +8,12 @@ from pathlib import Path
 import base64, hashlib, json, math
 import numpy as np
 from playwright.sync_api import sync_playwright
+from model_sources import MODEL_IDS, load_projects
 
 ROOT=Path(__file__).resolve().parents[1]
 SOURCES=ROOT/'models/reference-study'
 ASSETS=ROOT/'pack/assets/bigcasares'
-IDS=['bloodlust','shadow_blade','windweaver','earthbreaker','thunder_spear']
+IDS=MODEL_IDS
 FPS=20
 
 def rotation(values):
@@ -38,7 +39,7 @@ def write(path,data):
     path.write_text(json.dumps(data,ensure_ascii=False,separators=(',',':'))+'\n')
 
 def main():
-    projects={key:json.loads((SOURCES/(key+'.bbmodel')).read_text()) for key in IDS}
+    projects=load_projects(ROOT)
     mapping=json.loads((SOURCES/'model-overrides.json').read_text())
     with sync_playwright() as playwright:
         browser=playwright.chromium.connect_over_cdp('http://127.0.0.1:9224')

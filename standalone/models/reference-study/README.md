@@ -1,12 +1,8 @@
-# Armas legendarias — modelos proporcionados por el usuario
+# Modelos originales de las cinco armas
 
-Fuentes de los cinco modelos integrados en la versión 2.0.15.
-Los originales se conservan junto a los proyectos de revisión.
-Frost Scythe, Void Katana e Hyperion permanecen retiradas.
+Se conserva una sola copia de cada proyecto aportado, sin modificar sus bytes:
 
-## Fuentes vigentes
-
-| ID | Archivo original en `user-sources/` | Animaciones |
+| ID | Original en `user-sources/` | Animaciones |
 | --- | --- | --- |
 | bloodlust | `espada_rubi (3).bbmodel` | `idle_aura`, `ataque_tajo`, `estocada` |
 | shadow_blade | `espada_oscura_v3.bbmodel` | `aura_oscura`, `tira_particulas`, `idle_flotar`, `golpe_oscuro` |
@@ -14,55 +10,36 @@ Frost Scythe, Void Katana e Hyperion permanecen retiradas.
 | earthbreaker | `battle_axe_acostado.bbmodel` | Ninguna incluida |
 | thunder_spear | `cetro_cristal_rayo.bbmodel` | `rayo` |
 
-Los originales se conservan intactos. Los cuatro nuevos proyectos activos son
-copias exactas de sus archivos originales, incluidas coordenadas, pivotes, grupos,
-rotaciones, UV, textura incrustada y animaciones. Shadow conserva la normalización
-anterior: explicita como invisibles sus 50 caras ausentes para que Blockbench 5.2.2
-pueda abrir el proyecto; la geometría, caras existentes y animaciones no cambian.
-Los proyectos anteriores se guardan en `archive/`; Frost y las fotos anteriores
-se mantienen como fuentes históricas.
+`model-overrides.json` registra las rutas, SHA-256 y transformaciones de exportación.
+`../../tools/model_sources.py` valida los originales y los carga directamente.
+Para Shadow explicita **en memoria** sus 50 caras ausentes como invisibles,
+conservando las caras existentes, su orden, UV, textura, geometría y animaciones.
+No se almacena otro proyecto normalizado ni se reescriben los archivos aportados.
 
-`model-overrides.json` identifica los cinco proyectos vigentes y los hashes de
-los originales. `geometry.json` conserva las mallas generadas anteriores como
-referencias históricas y registra esas sustituciones en `sourceOverrides`.
-`../../tools/generate_reference_study.py` regenera ese registro sin editar píxeles
-ni sustituir los archivos proporcionados por el usuario.
+[Captura de los cinco proyectos en Blockbench](review-blockbench.png).
 
-## Vista y comprobación
+## Herramientas
 
-`review-blockbench.png` muestra los cinco archivos en el visor real de Blockbench.
-`review-gallery.bbmodel` es la composición estática editable utilizada para esa
-captura; las animaciones se conservan en cada proyecto individual, no en la galería.
-La orientación y la escala uniforme utilizadas para encuadrar las armas afectan
-únicamente a la composición; los proyectos individuales no se deforman ni giran.
-Cada proyecto utiliza su propia textura incrustada, sin repintado ni generación
-de imágenes.
+`python3 standalone/tools/model_sources.py` prepara las cinco copias compatibles
+para abrir individualmente en Blockbench en **`standalone/build/model-sources/`**.
+Conserva sus animaciones; la normalización de Shadow queda fuera de Git.
 
-Con Blockbench abierto y accesible por CDP, la galería se regenera ejecutando
-`python standalone/tools/render_blockbench_review.py --view gallery` desde la raíz
-del repositorio. `--view shadow` conserva la vista individual de Shadow.
+- `python3 standalone/tools/render_blockbench_review.py --view gallery` crea una
+  galería editable y captura en **`standalone/build/model-review/`**, que Git ignora.
+  También admite `--view shadow`.
+- `python3 standalone/tools/export_user_animations.py` exporta las once animaciones
+  a modelos Java 26.2 y copia las texturas incrustadas sin repintarlas. Requiere
+  NumPy, Playwright y Blockbench accesible por CDP en el puerto 9224.
+- La salida del exportador es la base previa a la optimización. La versión
+  optimizada comparte geometría entre poses: ver [PERFORMANCE.md](../../PERFORMANCE.md).
 
-`user-models-verification.json` registra la reapertura de los cinco proyectos en
-Blockbench 5.2.2, las referencias de textura, la conservación de los originales
-y la comprobación de las once animaciones en distintos tiempos de reproducción.
-Las auras de Bloodlust y Windweaver permanecen ocultas hasta los 4,2 segundos de
-sus ciclos de seis segundos; se muestrean también los tramos finales.
-El hacha no contiene animaciones y no se inventó ninguna.
+La galería transforma únicamente su composición; los originales siguen siendo
+los proyectos editables. Los archivos `.bbmodel` no se instalan en Minecraft.
 
-Los `.bbmodel` siguen siendo fuentes editables y no se instalan directamente en
-Minecraft. `../../tools/export_user_animations.py` abre los proyectos en Blockbench,
-muestrea las once animaciones a 20 Hz y verifica las ocho esquinas de cada cubo
-exportado contra la matriz original. Conserva los PNG incrustados sin repintarlos.
-Los modelos resultantes usan las rotaciones Euler admitidas en Minecraft 26.2;
-no añaden una dependencia de BetterModel ni un mod de cliente.
+## Historial
 
-Las auras de Bloodlust y Windweaver y la flotación de Shadow se reproducen al
-sostenerlas. Los ataques usan `ataque_tajo`/`estocada`, `golpe_oscuro` y
-`golpe_lateral`; el poder usa `estocada`, `aura_oscura` + `tira_particulas` y
-`golpe_martillo`, respectivamente. Thunder Spear usa `rayo` en mano al activar sus poderes. Earthbreaker no incluye clips inventados. Los iconos de inventario
-usan el reposo para no desplazarse mientras elegís un objeto.
-
-`legendary-animations.properties` contiene las secuencias de fotogramas y el
-informe `../../docs/user-models-export-2.0.15.json` registra la conservación de
-las fuentes, texturas y geometría. La comprobación real del cliente y los análisis
-Windows se documentan en `../../VERIFY.md`.
+Los borradores, diseños reemplazados, galerías generadas y respaldos completos
+se consultan en el [snapshot anterior a la limpieza](https://github.com/benjamingomez-hash/BigC-Paper/tree/e490fb522fbac86636c822ed891c7b7b015383d3/standalone/models).
+No forman parte del árbol actual del PR. La prueba de regresión conserva solo
+las cinco mallas de reposo y sus texturas necesarias, en
+`src/test/resources/legendary-rest-baseline-2.0.15.zip`, relativa a `standalone/`.

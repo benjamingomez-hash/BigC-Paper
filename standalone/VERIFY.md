@@ -1,5 +1,23 @@
 # Verificación de LegendaryWeapons
 
+## Limpieza del PR #20
+
+Se retiraron galerías generadas, diseños sustituidos, copias de proyectos y
+cuatro generadores obsoletos. Los cinco originales aportados siguen intactos;
+las herramientas los leen directamente y generan las copias compatibles y
+capturas en `build/`, fuera de Git. Los proyectos efectivos son equivalentes a
+los anteriores, incluidas las once animaciones y las 50 caras invisibles de Shadow.
+
+El pack, el código de juego y las descargas publicadas se conservaron **byte por
+byte**. La referencia de pruebas conserva diez entradas originales —cinco mallas
+y sus texturas— en 17.434 bytes, en lugar del respaldo completo de 3,8 MB.
+
+Compilaciones limpias correctas: **107 pruebas Java** del plugin, **1.014** del
+proyecto principal y **13 pruebas Python**. La comparación de superficies volvió
+a verificar 7.287 rayos, con 213 ambigüedades coplanares originales omitidas.
+[Comprobaciones de integridad](docs/pr-cleanup-2026-11-06.json) ·
+[Fuentes actuales e historial recuperable](models/reference-study/README.md).
+
 ## 2.0.16-final.1 — archivos terminados por el usuario
 
 Publicados sin modificaciones los cuatro originales: JAR, pack, configuración y

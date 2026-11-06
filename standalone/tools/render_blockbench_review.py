@@ -9,10 +9,12 @@ import json
 from pathlib import Path
 
 from playwright.sync_api import sync_playwright
+from model_sources import load_projects
 
 
-ROOT = Path(__file__).resolve().parents[1] / 'models/reference-study'
-IDS = ['bloodlust', 'shadow_blade', 'windweaver', 'earthbreaker', 'thunder_spear']
+PROJECT = Path(__file__).resolve().parents[1]
+ROOT = PROJECT / 'models/reference-study'
+OUTPUT = PROJECT / 'build/model-review'
 
 
 def main():
@@ -21,7 +23,7 @@ def main():
     parser.add_argument('--view', choices=['gallery', 'shadow'], default='gallery')
     args = parser.parse_args()
     payload = {
-        'projects': {key: json.loads((ROOT / f'{key}.bbmodel').read_text()) for key in IDS},
+        'projects': load_projects(PROJECT),
         'overrides': json.loads((ROOT / 'model-overrides.json').read_text()),
         'view': args.view,
     }
@@ -153,9 +155,10 @@ def main():
             preview.render();
             return {version: Blockbench.version, counts, project: Codecs.project.compile({raw:true,bitmaps:true,absolute_paths:false}), textures: Texture.all.map(t => ({name:t.name,width:t.width,height:t.height}))};
         }''', payload)
-        (ROOT / (stem + '.bbmodel')).write_text(json.dumps(result.pop('project'), ensure_ascii=False, indent=2) + '\n')
+        OUTPUT.mkdir(parents=True, exist_ok=True)
+        (OUTPUT / (stem + '.bbmodel')).write_text(json.dumps(result.pop('project'), ensure_ascii=False, indent=2) + '\n')
         page.wait_for_timeout(500)
-        page.locator('#model-review-stage').screenshot(path=str(ROOT / image))
+        page.locator('#model-review-stage').screenshot(path=str(OUTPUT / image))
         print(json.dumps(result, ensure_ascii=False))
 
 

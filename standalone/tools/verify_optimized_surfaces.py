@@ -78,7 +78,7 @@ def hit(data, materials, origin, direction):
 
 
 def main():
-    archive = zipfile.ZipFile(ROOT / "models/archive/legendary-pack-2.0.15.zip")
+    archive = zipfile.ZipFile(ROOT / "src/test/resources/legendary-rest-baseline-2.0.15.zip")
     random = np.random.default_rng(20316)
     report = {}
     for key in IDS:

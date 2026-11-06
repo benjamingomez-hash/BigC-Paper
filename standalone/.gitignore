@@ -1,0 +1,4 @@
+/build/
+/models/reference-study/archive/
+/models/reference-study/review-*.bbmodel
+/models/reference-study/geometry.json
