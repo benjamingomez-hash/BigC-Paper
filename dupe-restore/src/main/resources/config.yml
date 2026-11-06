@@ -1,5 +1,0 @@
-# El plugin se ocupa del hilo. TNT/alfombras/raíles y ganchos se configuran
-# directamente en config/paper-global.yml; consultá el LEEME.
-# Solo activa agua que sale directamente de un bloque waterlogged.
-# La producción continúa mientras ese bloque siga anegado.
-string-duplication: true

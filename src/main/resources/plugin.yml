@@ -12,6 +12,10 @@ libraries:
   - net.dv8tion:JDA:6.4.1
 
 commands:
+  duperestore:
+    description: Consulta los dupes de Paper y recarga la reposición de hilo
+    usage: /<command> [status|reload]
+    permission: duperestore.admin
   bigcasares:
     description: BigCasares management command
     usage: /<command> give <item_id> [player] [amount]
@@ -49,6 +53,11 @@ commands:
     usage: /<command> <start|stop|status> [world|all]
     aliases: [ blood-moon ]
     permission: bigcasares.bloodmoon.admin
+  donpollo:
+    description: Don Pollos (spawn, boss, ciudades, bailes e items)
+    usage: /<command> <spawn <variante>|remove|list|give <item> [cantidad]|bailar <1-5|parar> [todos]|ciudad <aqui|cerca>|boss [quitar]>
+    permission: bigcasares.donpollos.admin
+    aliases: [ donpollos ]
   jeremy:
     description: Manage the Jeremy hunter
     usage: /<command> <status|start [player]|stop|cooldown reset>
@@ -117,13 +126,32 @@ commands:
     description: Opens the warp menu or manages warps
     usage: /<command> [manage]
     aliases: [ warps ]
+  dimension:
+    description: Inspect and travel between BigCasares custom dimensions
+    usage: /<command> <list|info|tp|leave|locate|phase|pack|export>
+    aliases: [ dim ]
+  siftmodels:
+    description: Turns The Sift's block models over placed slabs, stairs and plants on or off for yourself
+    usage: /<command> [on|off] [player]
+  content:
+    description: List and give code-defined content items (e.g. The Sift)
+    usage: /<command> <list [namespace]|give <id> [player] [amount]>
+    permission: bigcasares.content.admin
 
 
 permissions:
+  duperestore.admin:
+    default: op
+  bigcasares.sift.models.others:
+    description: Switch The Sift's block models on or off for another player
+  bigcasares.donpollos.admin:
+    description: Manage Don Pollos (spawn, boss, cities, dances and items)
+    default: op
   bigcasares.*:
     description: Full access to BigCasares commands
     default: op
     children:
+      duperestore.admin: true
       bigcasares.command.give: true
       bigcasares.command.give.others: true
       bigcasares.missions.open: true
@@ -159,11 +187,15 @@ permissions:
       bigcasares.bloodmoon.start: true
       bigcasares.bloodmoon.stop: true
       bigcasares.jeremy.admin: true
+      bigcasares.donpollos.admin: true
       bigcasares.jeremy.start: true
       bigcasares.jeremy.stop: true
       bigcasares.celular.admin: true
       bigcasares.glider.admin: true
       bigcasares.glider.give: true
+      bigcasares.dimension.admin: true
+      bigcasares.dimension.leave: true
+      bigcasares.content.admin: true
 
   bigcasares.command.timer:
     description: Start a bossbar timer
@@ -358,3 +390,17 @@ permissions:
   bigcasares.danger.view.others:
     description: View other players' danger levels
     default: true
+
+  bigcasares.dimension.admin:
+    description: Inspect dimensions, teleport players and export the dimension datapack
+    default: op
+    children:
+      bigcasares.dimension.leave: true
+
+  bigcasares.dimension.leave:
+    description: Leave a custom dimension with /dimension leave
+    default: op
+
+  bigcasares.content.admin:
+    description: List and give code-defined content items
+    default: op

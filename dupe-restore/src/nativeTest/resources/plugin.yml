@@ -1,5 +1,0 @@
-name: DupeRestoreProbe
-version: '1.0.0'
-main: dev.linqfy.bigCasares.duperestore.probe.DupeRestoreProbe
-api-version: '26.2'
-depend: [DupeRestore]
