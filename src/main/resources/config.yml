@@ -17,6 +17,8 @@ modules:
     enabled: true
   celular:
     enabled: true
+  casino:
+    enabled: true
   grappling-hook:
     enabled: true
   glider:
@@ -53,6 +55,72 @@ modules:
     enabled: true
   elytra-failure:
     enabled: true
+
+# El Gran Casares. Las fichas son la moneda de Vault (hace falta Vault y un proveedor de economía).
+# Las atracciones se arman con /casino construir o /casino colocar <tipo>; se guardan en casino/installations.yml.
+casino:
+  chips: [10, 50, 100, 500, 1000, 5000]
+  # Radio en bloques para anuncios, sirenas del jackpot y animaciones activas.
+  ambient-radius: 48
+  blackjack:
+    min-bet: 10
+    max-bet: 5000
+    decks: 6
+    betting-seconds: 15
+    turn-seconds: 30
+  poker:
+    buy-in: 1000
+    small-blind: 10
+    big-blind: 20
+    turn-seconds: 35
+  roulette:
+    cycle-seconds: 60
+    spin-seconds: 11
+    max-bet: 10000
+  slots:
+    bets: [10, 50, 100, 500]
+    near-miss-chance: 0.35
+    jackpot-seed: 5000
+    jackpot-contribution: 0.03
+    # Probabilidad de cada resultado por tirada; el resto pierde. Retorno esperado ~92%.
+    chances:
+      emeralds: 0.13
+      gold: 0.03
+      diamonds: 0.004
+      coal: 0.025
+      jackpot: 0.0004
+    multipliers:
+      emeralds: 3
+      gold: 10
+      diamonds: 50
+  fight-pit:
+    entry-fee: 250
+    house-cut: 0.10
+    betting-seconds: 30
+    fight-seconds: 120
+  loans:
+    late-fee-per-hour: 0.10
+    max-multiplier: 3.0
+    # Nombre de una cuenta de Minecraft cuya skin usa el Cobrador de la AFIP (vacío = skin por defecto).
+    collector-skin: ""
+    seize-chests: true
+    chest-radius: 32
+    punch-surcharge: 0.05
+    seizure-cooldown-seconds: 60
+    offers:
+      chico: { amount: 1000, interest: 0.35, term-minutes: 120 }
+      mediano: { amount: 5000, interest: 0.50, term-minutes: 240 }
+      grande: { amount: 20000, interest: 0.80, term-minutes: 360 }
+  pawn-shop:
+    loan-ratio: 0.6
+    redeem-ratio: 1.25
+    sale-ratio: 0.85
+    hold-hours: 48
+  bar:
+    whisky_netherrack: 150
+    cerveza_caliente: 60
+    coctel_ruina: 300
+    vaso_polvo_blanco: 800
 
 celular:
   # Receta: 8 lingotes de hierro alrededor y 1 vidrio en el medio.
