@@ -27,7 +27,10 @@ class SchizophreniaPluginContractTest {
     }
 
     @Test
-    void lobotomizerRecipeIsAnIcePickOnAStick() {
+    void lobotomizerIsASpear() throws Exception {
+        String item = Files.readString(Path.of(
+            "src/main/java/dev/linqfy/bigCasares/modules/schizophrenia/LobotomizerItem.java"));
+        assertTrue(item.contains("new ItemStack(Material.IRON_SPEAR)"));
         assertEquals(3, LobotomizerItem.SHAPE.size());
         LobotomizerItem.SHAPE.forEach(row -> assertEquals(3, row.length()));
         assertEquals("lobotomizador", LobotomizerItem.ITEM_ID);

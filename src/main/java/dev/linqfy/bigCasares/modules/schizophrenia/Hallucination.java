@@ -4,43 +4,60 @@ import java.util.Locale;
 import java.util.Optional;
 
 /**
- * Everything the brain can invent. {@code minIntensity} gates the nastier ones behind a longer
- * untreated episode; {@code weight} is the relative chance once unlocked.
+ * Everything the brain can invent, grouped by the pacing beat it belongs to. {@code minIntensity}
+ * gates the nastier ones behind a longer untreated episode; {@code weight} is the relative chance.
  */
 public enum Hallucination {
-    FOOTSTEPS(1, 10),
-    CREEPER_HISS(1, 8),
-    DISTANT_ROAR(1, 6),
-    WHISPERS(1, 8),
-    PHANTOM_CLONE(1, 10),
-    SILHOUETTE(1, 6),
-    MINING_BEHIND(2, 5),
-    MOB_SOUNDS(2, 6),
-    DOOR_KNOCKING(2, 4),
-    HEARTBEAT(2, 5),
-    FAKE_HURT(2, 5),
-    FAKE_CHAT(2, 6),
-    DOPPELGANGER(2, 4),
-    BLOCK_ROT(3, 5),
-    LIGHTS_OUT(3, 4),
-    MASKED_PLAYERS(3, 5),
-    RED_VIGNETTE(3, 4),
-    STALKER(3, 6),
-    GLITCH_TITLE(3, 5),
-    FAKE_EXPLOSION(4, 3),
-    CAMERA_SNAP(4, 3),
-    ELDER_GUARDIAN(4, 2),
-    ETERNAL_NIGHT(4, 3),
-    FAKE_THUNDER(4, 3),
-    SWARM(5, 3),
-    FAKE_DEATH(5, 2);
+    // Ambient: background unease while things are "calm".
+    DISTANT_ROAR(Beat.AMBIENT, 1, 6),
+    WHISPERS(Beat.AMBIENT, 1, 8),
+    SILHOUETTE(Beat.AMBIENT, 1, 6),
+    MOB_SOUNDS(Beat.AMBIENT, 1, 5),
+    FAKE_CHAT(Beat.AMBIENT, 2, 5),
+    MUSIC_BOX(Beat.AMBIENT, 2, 4),
+    WALL_WRITING(Beat.AMBIENT, 2, 5),
+    // Dread: something is coming.
+    FOOTSTEPS(Beat.DREAD, 1, 10),
+    PHANTOM_CLONE(Beat.DREAD, 1, 10),
+    MINING_BEHIND(Beat.DREAD, 1, 5),
+    DOOR_KNOCKING(Beat.DREAD, 1, 5),
+    HEARTBEAT(Beat.DREAD, 2, 4),
+    DOPPELGANGER(Beat.DREAD, 2, 4),
+    LIGHTS_OUT(Beat.DREAD, 2, 5),
+    STALKER(Beat.DREAD, 2, 6),
+    BLOCK_ROT(Beat.DREAD, 3, 5),
+    MASKED_PLAYERS(Beat.DREAD, 3, 5),
+    RED_VIGNETTE(Beat.DREAD, 3, 4),
+    ETERNAL_NIGHT(Beat.DREAD, 4, 3),
+    // Scare: the payoff.
+    CREEPER_HISS(Beat.SCARE, 1, 8),
+    RIGHT_BEHIND_YOU(Beat.SCARE, 1, 10),
+    FAKE_HURT(Beat.SCARE, 2, 5),
+    THE_VISITOR(Beat.SCARE, 2, 6),
+    GLITCH_TITLE(Beat.SCARE, 2, 5),
+    CHASE(Beat.SCARE, 3, 7),
+    FAKE_EXPLOSION(Beat.SCARE, 3, 4),
+    CAMERA_SNAP(Beat.SCARE, 3, 4),
+    FAKE_THUNDER(Beat.SCARE, 3, 3),
+    ELDER_GUARDIAN(Beat.SCARE, 4, 2),
+    SWARM(Beat.SCARE, 5, 3),
+    FAKE_DEATH(Beat.SCARE, 5, 2);
 
+    /** Where a hallucination sits in the calm, dread, scare loop. */
+    public enum Beat { AMBIENT, DREAD, SCARE }
+
+    private final Beat beat;
     private final int minIntensity;
     private final int weight;
 
-    Hallucination(int minIntensity, int weight) {
+    Hallucination(Beat beat, int minIntensity, int weight) {
+        this.beat = beat;
         this.minIntensity = minIntensity;
         this.weight = weight;
+    }
+
+    public Beat beat() {
+        return beat;
     }
 
     public int minIntensity() {

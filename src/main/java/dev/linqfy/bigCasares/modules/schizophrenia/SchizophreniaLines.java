@@ -49,6 +49,18 @@ final class SchizophreniaLines {
         "no mires atrás"
     );
 
+    /** Up to four lines each, written in red on a sign only the victim sees. */
+    static final List<List<String>> WALL_MESSAGES = List.of(
+        List.of("", "DATE", "VUELTA", ""),
+        List.of("", "TE VEO", "", ""),
+        List.of("NO", "ESTÁS", "SOLO", ""),
+        List.of("", "ÉL ESTÁ", "ACÁ", ""),
+        List.of("", "CORRÉ", "", ""),
+        List.of("¿POR QUÉ", "NO ME", "MIRÁS?", ""),
+        List.of("", "AYUDA", "", ""),
+        List.of("NO", "DUERMAS", "", "")
+    );
+
     static final List<String> PHANTOM_NAMES = List.of(
         "Herobrine", "nadie", "???", "Él", "tu_sombra", "observador", "null"
     );
@@ -56,7 +68,7 @@ final class SchizophreniaLines {
     private SchizophreniaLines() {
     }
 
-    static String pick(List<String> lines, RandomGenerator random) {
+    static <T> T pick(List<T> lines, RandomGenerator random) {
         return lines.get(random.nextInt(lines.size()));
     }
 

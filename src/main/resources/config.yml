@@ -57,7 +57,8 @@ schizophrenia:
   # Lobotomizador. 0 = dura hasta la lobotomía; si no, termina solo a los N minutos.
   max-episode-minutes: 25
   minutes-per-intensity: 3
-  # Segundos entre alucinaciones: el más lento en intensidad 1, el más rápido en 5.
+  # Ritmo de terror: calma, tensión que crece, un susto, silencio. Segundos entre alucinaciones:
+  # el más lento con la tensión baja, el más rápido justo antes del susto.
   interval-seconds:
     slowest: 14
     fastest: 3
@@ -79,11 +80,12 @@ schizophrenia:
     vanish-distance: 3.5
     lifetime-seconds: 45
   lobotomizer:
+    # Lanza: todo jugador golpeado con ella por otro jugador queda lobotomizado (y curado).
     # Receta: lingote de hierro arriba a la derecha, fragmento de amatista al centro, palo abajo a la izquierda.
     recipe: true
     durability-cost: 40
     stun-seconds: 30
-  # Ids como footsteps, creeper-hiss, phantom-clone, fake-death... para apagar alguna.
+  # Ids como footsteps, creeper-hiss, chase, the-visitor, fake-death... para apagar alguna.
   disabled-hallucinations: []
 
 celular:

@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.random.RandomGenerator;
 
-/** Weighted choice among the hallucinations unlocked at the current intensity. */
+/** Weighted choice among the hallucinations of one beat unlocked at the current intensity. */
 final class HallucinationPicker {
 
     private final Set<Hallucination> disabled;
@@ -15,18 +15,19 @@ final class HallucinationPicker {
         this.disabled = Set.copyOf(disabled);
     }
 
-    List<Hallucination> eligible(int intensity) {
+    List<Hallucination> eligible(int intensity, Hallucination.Beat beat) {
         List<Hallucination> eligible = new ArrayList<>();
         for (Hallucination hallucination : Hallucination.values()) {
-            if (hallucination.minIntensity() <= intensity && !disabled.contains(hallucination)) {
+            if (hallucination.beat() == beat && hallucination.minIntensity() <= intensity
+                && !disabled.contains(hallucination)) {
                 eligible.add(hallucination);
             }
         }
         return eligible;
     }
 
-    Optional<Hallucination> pick(int intensity, Hallucination previous, RandomGenerator random) {
-        List<Hallucination> eligible = eligible(intensity);
+    Optional<Hallucination> pick(int intensity, Hallucination.Beat beat, Hallucination previous, RandomGenerator random) {
+        List<Hallucination> eligible = eligible(intensity, beat);
         if (eligible.size() > 1) {
             eligible.remove(previous);
         }

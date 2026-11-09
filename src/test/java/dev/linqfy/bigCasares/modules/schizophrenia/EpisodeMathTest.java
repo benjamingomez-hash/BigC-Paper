@@ -22,13 +22,19 @@ class EpisodeMathTest {
     }
 
     @Test
-    void hallucinationsComeFasterAsItGetsWorse() {
-        double calm = EpisodeMath.intervalSeconds(1, 14, 3, 0.5);
-        double breakdown = EpisodeMath.intervalSeconds(5, 14, 3, 0.5);
-        assertEquals(14.0, calm, 1.0E-9);
-        assertEquals(3.0, breakdown, 1.0E-9);
-        assertTrue(EpisodeMath.intervalSeconds(3, 14, 3, 0.0) < EpisodeMath.intervalSeconds(3, 14, 3, 1.0));
-        assertTrue(EpisodeMath.intervalSeconds(5, 1, 1, 0.0) >= 1.0);
+    void beatsComeFasterAsTensionBuilds() {
+        assertEquals(14.0, EpisodeMath.beatSeconds(0.0, 14, 3, 0.5), 1.0E-9);
+        assertEquals(3.0, EpisodeMath.beatSeconds(1.0, 14, 3, 0.5), 1.0E-9);
+        assertTrue(EpisodeMath.beatSeconds(0.5, 14, 3, 0.0) < EpisodeMath.beatSeconds(0.5, 14, 3, 1.0));
+        assertTrue(EpisodeMath.beatSeconds(9.0, 1, 1, 0.0) >= 1.0);
+    }
+
+    @Test
+    void sanityDrainsWithIntensityAndTension() {
+        assertEquals(1.0f, EpisodeMath.sanity(1, 0.0), 1.0E-6f);
+        assertTrue(EpisodeMath.sanity(3, 0.0) < EpisodeMath.sanity(1, 0.0));
+        assertTrue(EpisodeMath.sanity(3, 1.0) < EpisodeMath.sanity(3, 0.2));
+        assertTrue(EpisodeMath.sanity(5, 1.0) > 0f);
     }
 
     @Test

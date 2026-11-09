@@ -8,6 +8,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Color;
+import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -20,6 +21,7 @@ import org.bukkit.WorldBorder;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.type.WallSign;
 import org.bukkit.entity.Mannequin;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EntityEquipment;
@@ -113,6 +115,11 @@ final class HallucinationDirector {
         effects.put(Hallucination.FAKE_THUNDER, this::fakeThunder);
         effects.put(Hallucination.SWARM, this::swarm);
         effects.put(Hallucination.FAKE_DEATH, this::fakeDeath);
+        effects.put(Hallucination.MUSIC_BOX, this::musicBox);
+        effects.put(Hallucination.WALL_WRITING, this::wallWriting);
+        effects.put(Hallucination.RIGHT_BEHIND_YOU, this::rightBehindYou);
+        effects.put(Hallucination.THE_VISITOR, this::theVisitor);
+        effects.put(Hallucination.CHASE, this::chase);
     }
 
     /** Plays the hallucination; returns false when the surroundings could not support it. */
@@ -545,6 +552,245 @@ final class HallucinationDirector {
         return true;
     }
 
+    // ---------------------------------------------------------------- set pieces
+
+    private boolean rightBehindYou(Player player, Episode episode, long now, int intensity) {
+        PhantomClone clone = spawnPhantom(player, episode, now, PhantomClone.Behaviour.BEHIND,
+            behind(player, 1.7, 0.0), randomIdentity(player), 10 * 20L, true);
+        if (clone == null) {
+            return false;
+        }
+        player.playSound(player.getEyeLocation(), Sound.ENTITY_PLAYER_BREATH, SoundCategory.HOSTILE, 1f, 0.5f);
+        episode.timeline().at(now + 30, () -> whisperChat(player, "date vuelta"));
+        return true;
+    }
+
+    private boolean theVisitor(Player player, Episode episode, long now, int intensity) {
+        player.stopSound(SoundCategory.MUSIC);
+        lightsOut(player, episode, now, intensity);
+        Location door = around(player, 4 + random.nextInt(3));
+        for (int knock = 0; knock < 3; knock++) {
+            episode.timeline().at(now + 30 + knock * 16L, () ->
+                player.playSound(door, Sound.ENTITY_ZOMBIE_ATTACK_WOODEN_DOOR, SoundCategory.HOSTILE, 1f, 0.6f));
+        }
+        episode.timeline().at(now + 90, () ->
+            player.playSound(door, Sound.BLOCK_WOODEN_DOOR_OPEN, SoundCategory.BLOCKS, 1f, 0.7f));
+        for (int step = 0; step < 6; step++) {
+            double distance = 8 - step * 1.2;
+            episode.timeline().at(now + 110 + step * 12L, () -> playStepSound(player, behind(player, distance, 0.0)));
+        }
+        // Then nothing. Long enough to relax.
+        episode.timeline().at(now + 230, () -> {
+            if (player.isOnline()) {
+                rightBehindYou(player, episode, now + 230, intensity);
+            }
+        });
+        return true;
+    }
+
+    private boolean chase(Player player, Episode episode, long now, int intensity) {
+        long length = 15 * 20L;
+        PhantomClone chaser = spawnPhantom(player, episode, now, PhantomClone.Behaviour.CHASER,
+            behind(player, 13, 0.1), randomIdentity(player), length, true);
+        if (chaser == null) {
+            return false;
+        }
+        player.stopSound(SoundCategory.MUSIC);
+        player.playSound(chaser.entity().getLocation(), Sound.ENTITY_WARDEN_ROAR, SoundCategory.HOSTILE, 2f, 0.7f);
+        player.showTitle(Title.title(
+            Component.text("CORRÉ", NamedTextColor.DARK_RED, TextDecoration.BOLD),
+            Component.text("no mires atrás", NamedTextColor.GRAY),
+            Title.Times.times(Duration.ZERO, Duration.ofMillis(1200), Duration.ofMillis(300))));
+        for (long t = 10; t < length; t += 10) {
+            boolean accent = t % 40 == 0;
+            episode.timeline().at(now + t, () -> {
+                if (chaser.entity().isValid()) {
+                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASEDRUM, SoundCategory.RECORDS,
+                        accent ? 1.4f : 0.9f, 0.5f);
+                    if (accent) {
+                        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, SoundCategory.RECORDS, 1f, 0.5f);
+                        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, SoundCategory.RECORDS, 1f, 0.53f);
+                    }
+                }
+            });
+        }
+        episode.timeline().at(now + length - 2, () -> {
+            if (chaser.entity().isValid()) {
+                vanish(player, chaser, true);
+                whisperChat(player, "te dejé ir. esta vez.");
+            }
+        });
+        return true;
+    }
+
+    private boolean musicBox(Player player, Episode episode, long now, int intensity) {
+        Location box = ground(around(player, 12 + random.nextInt(5)));
+        if (box == null) {
+            return false;
+        }
+        Sound song = random.nextBoolean() ? Sound.MUSIC_DISC_11 : Sound.MUSIC_DISC_13;
+        player.playSound(box, song, SoundCategory.RECORDS, 1.2f, 0.9f);
+        long end = now + 200 + random.nextInt(200);
+        boolean[] stopped = {false};
+        for (long t = now + 20; t < end; t += 20) {
+            episode.timeline().at(t, () -> {
+                if (!stopped[0] && player.isOnline() && box.getWorld() == player.getWorld()
+                    && box.distanceSquared(player.getLocation()) < 25) {
+                    stopped[0] = true;
+                    player.stopSound(song, SoundCategory.RECORDS);
+                    whisperChat(player, "no toques eso");
+                }
+            });
+        }
+        episode.timeline().restoreAt(end, () -> {
+            if (player.isOnline()) {
+                player.stopSound(song, SoundCategory.RECORDS);
+            }
+        });
+        return true;
+    }
+
+    private boolean wallWriting(Player player, Episode episode, long now, int intensity) {
+        Location sign = findWritingSpot(player);
+        if (sign == null) {
+            return false;
+        }
+        BlockFace facing = facingTowards(sign, player);
+        WallSign data = (WallSign) Material.DARK_OAK_WALL_SIGN.createBlockData();
+        data.setFacing(facing);
+        List<Component> lines = SchizophreniaLines.pick(SchizophreniaLines.WALL_MESSAGES, random).stream()
+            .map(line -> (Component) Component.text(line)).toList();
+        player.sendBlockChange(sign, data);
+        player.sendSignChange(sign, lines, DyeColor.RED, true);
+        player.playSound(sign, Sound.BLOCK_CHAIN_HIT, SoundCategory.BLOCKS, 0.4f, 0.5f);
+        episode.timeline().restoreAt(now + 300 + random.nextInt(300), () -> restoreBlock(player, sign));
+        return true;
+    }
+
+    private Location findWritingSpot(Player player) {
+        Block eye = player.getEyeLocation().getBlock();
+        BlockFace forward = player.getFacing();
+        for (BlockFace face : List.of(forward, rotate(forward), rotate(rotate(rotate(forward))))) {
+            for (int distance = 2; distance <= 7; distance++) {
+                Block air = eye.getRelative(face, distance - 1);
+                Block wall = eye.getRelative(face, distance);
+                if (!air.getType().isAir()) {
+                    break;
+                }
+                if (wall.getType().isOccluding()) {
+                    return air.getLocation();
+                }
+            }
+        }
+        return null;
+    }
+
+    private static BlockFace facingTowards(Location sign, Player player) {
+        double dx = player.getX() - (sign.getX() + 0.5);
+        double dz = player.getZ() - (sign.getZ() + 0.5);
+        if (Math.abs(dx) > Math.abs(dz)) {
+            return dx > 0 ? BlockFace.EAST : BlockFace.WEST;
+        }
+        return dz > 0 ? BlockFace.SOUTH : BlockFace.NORTH;
+    }
+
+    private static BlockFace rotate(BlockFace face) {
+        return switch (face) {
+            case NORTH -> BlockFace.EAST;
+            case EAST -> BlockFace.SOUTH;
+            case SOUTH -> BlockFace.WEST;
+            default -> BlockFace.NORTH;
+        };
+    }
+
+    // ---------------------------------------------------------------- atmosphere
+
+    /** Played the moment the pacing moves to a new phase. */
+    void onPhase(Player player, Episode episode, long now, HorrorPacing.Phase phase) {
+        switch (phase) {
+            case DREAD -> {
+                player.stopSound(SoundCategory.MUSIC);
+                drone(player);
+            }
+            case SCARE -> {
+                // Dissonant stinger, like the cue before something lunges at the camera.
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, SoundCategory.RECORDS, 1.5f, 0.5f);
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, SoundCategory.RECORDS, 1.5f, 0.53f);
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BELL, SoundCategory.RECORDS, 0.7f, 0.5f);
+            }
+            case AFTERMATH -> {
+                // The world goes quiet. Only your own breathing.
+                player.stopAllSounds();
+                episode.timeline().at(now + 14, () ->
+                    player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_BREATH, SoundCategory.PLAYERS, 0.8f, 0.6f));
+                episode.timeline().at(now + 50, () ->
+                    player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_BREATH, SoundCategory.PLAYERS, 0.6f, 0.7f));
+            }
+            case CALM -> {
+            }
+        }
+    }
+
+    /** Continuous layer under the beats: sanity bar, music cut, drones, heartbeat, frost and darkness. */
+    void atmosphere(Player player, Episode episode, long now, int intensity) {
+        HorrorPacing.Phase phase = episode.pacing().phase();
+        double tension = episode.pacing().tension(now);
+        if (now % 20 == 0) {
+            updateSanity(player, episode, intensity, tension);
+        }
+        if (now % 200 == 0) {
+            player.stopSound(SoundCategory.MUSIC);
+        }
+        if (phase == HorrorPacing.Phase.CALM || phase == HorrorPacing.Phase.AFTERMATH) {
+            return;
+        }
+        if (now % 140 == 0) {
+            drone(player);
+        }
+        if (tension > 0.45 && now >= episode.nextHeartbeatTick()) {
+            player.playSound(player.getLocation(), Sound.ENTITY_WARDEN_HEARTBEAT, SoundCategory.PLAYERS,
+                (float) (0.6 + tension), 1f);
+            episode.nextHeartbeatTick(now + Math.round(40 - tension * 28));
+        }
+        int frost = (int) Math.round(Math.max(0.0, tension - 0.4) / 0.6 * 120);
+        if (frost > 0 && player.getFreezeTicks() < frost) {
+            player.setFreezeTicks(frost);
+        }
+        if (tension > 0.7 && now % 160 == 0) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.DARKNESS, 70, 0, false, false, false));
+        }
+    }
+
+    void showSanity(Player player, Episode episode) {
+        player.showBossBar(episode.sanity());
+    }
+
+    void clearAtmosphere(Player player, Episode episode) {
+        player.hideBossBar(episode.sanity());
+        if (player.getFreezeTicks() <= 120 && player.getLocation().getBlock().getType() != Material.POWDER_SNOW) {
+            player.setFreezeTicks(0);
+        }
+        player.stopSound(Sound.MUSIC_DISC_11, SoundCategory.RECORDS);
+        player.stopSound(Sound.MUSIC_DISC_13, SoundCategory.RECORDS);
+    }
+
+    private void updateSanity(Player player, Episode episode, int intensity, double tension) {
+        float sanity = EpisodeMath.sanity(intensity, tension);
+        episode.sanity().progress(sanity);
+        episode.sanity().color(sanity < 0.35f ? net.kyori.adventure.bossbar.BossBar.Color.RED
+            : net.kyori.adventure.bossbar.BossBar.Color.PURPLE);
+        Component name = Component.text("Cordura", sanity < 0.35f ? NamedTextColor.DARK_RED : NamedTextColor.DARK_PURPLE);
+        if (tension > 0.7 && random.nextDouble() < 0.35) {
+            name = name.decorate(TextDecoration.OBFUSCATED);
+        }
+        episode.sanity().name(name);
+    }
+
+    private void drone(Player player) {
+        Sound drone = random.nextBoolean() ? Sound.AMBIENT_SOUL_SAND_VALLEY_MOOD : Sound.AMBIENT_BASALT_DELTAS_MOOD;
+        player.playSound(player.getLocation(), drone, SoundCategory.AMBIENT, 1f, 0.5f + random.nextFloat() * 0.15f);
+    }
+
     // ---------------------------------------------------------------- phantoms
 
     record Identity(ResolvableProfile profile, String name) {
@@ -625,7 +871,51 @@ final class HallucinationDirector {
                 }
                 case STALKER -> stalk(player, episode, clone, watched, distance, now);
                 case SNAP -> face(entity, player);
+                case BEHIND -> lurkBehind(player, episode, clone, now);
+                case CHASER -> chaseStep(player, episode, clone, distance, now);
             }
+        }
+    }
+
+    private void lurkBehind(Player player, Episode episode, PhantomClone clone, long now) {
+        Location eye = clone.entity().getLocation().add(0, 1.6, 0);
+        if (looksAt(player, eye, 40.0)) {
+            jumpscare(player, episode, now);
+            vanish(player, clone, false);
+            return;
+        }
+        Location spot = ground(behind(player, 1.7, 0.0));
+        if (spot == null) {
+            return;
+        }
+        spot.setYaw(GazeMath.yawTowards(spot.getX(), spot.getZ(), player.getX(), player.getZ()));
+        clone.entity().teleport(spot);
+        clone.entity().setBodyYaw(spot.getYaw());
+    }
+
+    private void chaseStep(Player player, Episode episode, PhantomClone clone, double distance, long now) {
+        if (distance < 1.5) {
+            jumpscare(player, episode, now);
+            vanish(player, clone, false);
+            return;
+        }
+        Mannequin entity = clone.entity();
+        Vector step = player.getLocation().toVector().subtract(entity.getLocation().toVector()).setY(0);
+        if (step.lengthSquared() < 1.0E-4) {
+            return;
+        }
+        // 5.2 blocks per second: a sprinting player barely gets away.
+        step.normalize().multiply(0.52);
+        Location next = ground(entity.getLocation().add(step));
+        if (next == null) {
+            vanish(player, clone, true);
+            return;
+        }
+        next.setYaw(GazeMath.yawTowards(next.getX(), next.getZ(), player.getX(), player.getZ()));
+        entity.teleport(next);
+        entity.setBodyYaw(next.getYaw());
+        if (now % 6 == 0) {
+            player.playSound(next, Sound.ENTITY_RAVAGER_STEP, SoundCategory.HOSTILE, 1f, 0.7f);
         }
     }
 

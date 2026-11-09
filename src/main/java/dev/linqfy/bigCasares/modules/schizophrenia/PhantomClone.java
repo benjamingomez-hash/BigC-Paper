@@ -9,7 +9,7 @@ import org.bukkit.entity.Mannequin;
  */
 final class PhantomClone {
 
-    enum Behaviour { STARE, STALKER, MIRROR, SNAP }
+    enum Behaviour { STARE, STALKER, MIRROR, SNAP, BEHIND, CHASER }
 
     private final Mannequin entity;
     private final Behaviour behaviour;

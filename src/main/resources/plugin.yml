@@ -64,8 +64,8 @@ commands:
     permission: bigcasares.celular.admin
     aliases: [ celu ]
   esquizo:
-    description: Manage schizophrenia episodes and give the Lobotomizador
-    usage: /<command> <start <player> [1-5]|stop <player>|status|give [player]|provocar <player> <hallucination>>
+    description: Manage schizophrenia episodes and give the Lobotomizador spear
+    usage: /<command> <start <player> [1-5]|stop <player>|status|give [player]|provocar <player> [hallucination]>
     aliases: [ esquizofrenia, schizo ]
     permission: bigcasares.schizophrenia.admin
   glider:

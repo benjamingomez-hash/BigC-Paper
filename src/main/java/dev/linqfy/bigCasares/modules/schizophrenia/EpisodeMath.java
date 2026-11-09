@@ -21,9 +21,9 @@ final class EpisodeMath {
         return Math.max(1, Math.min(MAX_INTENSITY, intensity));
     }
 
-    /** Seconds until the next hallucination: slowest at intensity 1, fastest at 5, with jitter in [0,1). */
-    static double intervalSeconds(int intensity, int slowest, int fastest, double jitter) {
-        double progress = (clampIntensity(intensity) - 1) / (double) (MAX_INTENSITY - 1);
+    /** Seconds until the next beat: slowest when tension is 0, fastest at full tension, jitter in [0,1). */
+    static double beatSeconds(double tension, int slowest, int fastest, double jitter) {
+        double progress = Math.max(0.0, Math.min(1.0, tension));
         double base = slowest + (fastest - slowest) * progress;
         double spread = 0.6 + 0.8 * Math.max(0.0, Math.min(1.0, jitter));
         return Math.max(1.0, base * spread);
@@ -37,5 +37,11 @@ final class EpisodeMath {
         boolean alone, int lightLevel, double y, SchizophreniaSettings.Natural natural
     ) {
         return alone && (lightLevel <= natural.maxLightLevel() || y < natural.deepBelowY());
+    }
+
+    /** Sanity shown on the bar: drops with how long it has gone untreated and spikes down with tension. */
+    static float sanity(int intensity, double tension) {
+        double value = 1.0 - (clampIntensity(intensity) - 1) * 0.12 - Math.max(0.0, Math.min(1.0, tension)) * 0.4;
+        return (float) Math.max(0.02, Math.min(1.0, value));
     }
 }

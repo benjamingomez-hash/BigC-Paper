@@ -55,27 +55,29 @@ final class SchizophreniaCommand implements TabExecutor {
             });
             case "provocar" -> provoke(sender, args, label);
             default -> sender.sendMessage("§eUso: /" + label
-                + " <start <jugador> [1-5]|stop <jugador>|status|give [jugador]|provocar <jugador> <alucinación>>");
+                + " <start <jugador> [1-5]|stop <jugador>|status|give [jugador]|provocar <jugador> [alucinación]>");
         }
         return true;
     }
 
+    /** Without a hallucination: skip the quiet part and start the dread. With one: play it right now. */
     private void provoke(CommandSender sender, String[] args, String label) {
-        if (args.length < 3) {
-            sender.sendMessage("§eUso: /" + label + " provocar <jugador> <alucinación>");
-            return;
-        }
         Optional<Player> target = target(sender, args, 1);
-        Optional<Hallucination> hallucination = Hallucination.parse(args[2]);
         if (target.isEmpty()) {
-            return;
-        }
-        if (hallucination.isEmpty()) {
-            sender.sendMessage("§cAlucinación desconocida: " + args[2]);
             return;
         }
         Player player = target.get();
         runtime.start(player, 1);
+        if (args.length < 3) {
+            runtime.provoke(player);
+            sender.sendMessage("§5" + player.getName() + " siente que algo se acerca.");
+            return;
+        }
+        Optional<Hallucination> hallucination = Hallucination.parse(args[2]);
+        if (hallucination.isEmpty()) {
+            sender.sendMessage("§cAlucinación desconocida: " + args[2]);
+            return;
+        }
         sender.sendMessage(runtime.trigger(player, hallucination.get())
             ? "§5" + player.getName() + " vio algo: " + hallucination.get().id()
             : "§7No hubo lugar para " + hallucination.get().id() + " cerca de " + player.getName() + ".");

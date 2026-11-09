@@ -90,24 +90,48 @@ final class SchizophreniaRuntime {
         }
         episode.timeline().runDue(tick, this::logCueFailure);
         director.updatePhantoms(player, episode, tick);
-        if (tick < episode.nextHallucinationTick() || player.isDead()) {
+        if (player.isDead()) {
             return;
         }
         int intensity = episode.intensity(now, settings.minutesPerIntensity());
-        picker.pick(intensity, episode.previous(), random).ifPresent(hallucination -> {
-            boolean played = director.play(hallucination, player, episode, tick, intensity);
-            if (!played) {
-                director.play(Hallucination.WHISPERS, player, episode, tick, intensity);
+        HorrorPacing pacing = episode.pacing();
+        if (pacing.advance(tick, intensity, random)) {
+            director.onPhase(player, episode, tick, pacing.phase());
+            if (pacing.phase() == HorrorPacing.Phase.SCARE) {
+                scare(player, episode, intensity);
             }
-            episode.previous(hallucination);
-        });
-        scheduleNext(episode, intensity);
-    }
-
-    private void scheduleNext(Episode episode, int intensity) {
-        double seconds = EpisodeMath.intervalSeconds(intensity,
+        }
+        director.atmosphere(player, episode, tick, intensity);
+        if (tick < episode.nextHallucinationTick()) {
+            return;
+        }
+        Hallucination.Beat beat = switch (pacing.phase()) {
+            case CALM -> Hallucination.Beat.AMBIENT;
+            case DREAD -> random.nextDouble() < 0.7 ? Hallucination.Beat.DREAD : Hallucination.Beat.AMBIENT;
+            case SCARE, AFTERMATH -> null;
+        };
+        if (beat != null) {
+            picker.pick(intensity, beat, episode.previous(), random).ifPresent(hallucination -> {
+                if (!director.play(hallucination, player, episode, tick, intensity)) {
+                    director.play(Hallucination.WHISPERS, player, episode, tick, intensity);
+                }
+                episode.previous(hallucination);
+            });
+        }
+        double seconds = EpisodeMath.beatSeconds(pacing.tension(tick),
             settings.slowestIntervalSeconds(), settings.fastestIntervalSeconds(), random.nextDouble());
         episode.nextHallucinationTick(tick + Math.round(seconds * 20.0));
+    }
+
+    /** The payoff of a dread phase: one set piece, falling back to the simplest scare if it has no room. */
+    private void scare(Player player, Episode episode, int intensity) {
+        Hallucination chosen = picker.pick(intensity, Hallucination.Beat.SCARE, episode.previous(), random)
+            .orElse(Hallucination.CREEPER_HISS);
+        if (!director.play(chosen, player, episode, tick, intensity)
+            && !director.play(Hallucination.RIGHT_BEHIND_YOU, player, episode, tick, intensity)) {
+            director.play(Hallucination.CREEPER_HISS, player, episode, tick, intensity);
+        }
+        episode.previous(chosen);
     }
 
     void shutdown() {
@@ -136,7 +160,9 @@ final class SchizophreniaRuntime {
         data.set(startedKey, PersistentDataType.LONG, now);
         data.set(intensityKey, PersistentDataType.INTEGER, clamped);
         data.remove(immuneKey);
-        episodes.put(player.getUniqueId(), new Episode(player.getUniqueId(), now, clamped, tick + 40L));
+        Episode episode = new Episode(player.getUniqueId(), now, clamped, tick, random);
+        episodes.put(player.getUniqueId(), episode);
+        director.showSanity(player, episode);
         return true;
     }
 
@@ -153,7 +179,9 @@ final class SchizophreniaRuntime {
             return;
         }
         int intensity = data.getOrDefault(intensityKey, PersistentDataType.INTEGER, 1);
-        episodes.put(player.getUniqueId(), new Episode(player.getUniqueId(), started, intensity, tick + 200L));
+        Episode episode = new Episode(player.getUniqueId(), started, intensity, tick, random);
+        episodes.put(player.getUniqueId(), episode);
+        director.showSanity(player, episode);
     }
 
     void suspend(UUID playerId) {
@@ -161,6 +189,10 @@ final class SchizophreniaRuntime {
         if (episode != null) {
             episode.timeline().flush(this::logCueFailure);
             director.removeAllPhantoms(episode);
+            Player player = plugin.getServer().getPlayer(playerId);
+            if (player != null) {
+                director.clearAtmosphere(player, episode);
+            }
         }
     }
 
@@ -196,6 +228,16 @@ final class SchizophreniaRuntime {
         return director.play(hallucination, player, episode, tick, EpisodeMath.MAX_INTENSITY);
     }
 
+    /** Skips the quiet part: dread starts building now. */
+    void provoke(Player player) {
+        Episode episode = episodes.get(player.getUniqueId());
+        if (episode != null) {
+            int intensity = episode.intensity(clock.getAsLong(), settings.minutesPerIntensity());
+            episode.pacing().forceDread(tick, intensity, random);
+            director.onPhase(player, episode, tick, HorrorPacing.Phase.DREAD);
+        }
+    }
+
     boolean ownsPhantom(Entity entity) {
         return entity.getScoreboardTags().contains(HallucinationDirector.PHANTOM_TAG);
     }
@@ -226,20 +268,25 @@ final class SchizophreniaRuntime {
             String name = player == null ? episode.playerId().toString() : player.getName();
             long minutes = (now - episode.startedAtMillis()) / 60_000L;
             lines.add("§7- §f" + name + " §7intensidad §d" + episode.intensity(now, settings.minutesPerIntensity())
-                + "§7, hace §f" + minutes + " min§7, fantasmas §f" + episode.phantoms().size());
+                + "§7, hace §f" + minutes + " min§7, fase §f" + episode.pacing().phase().name().toLowerCase(java.util.Locale.ROOT)
+                + "§7, fantasmas §f" + episode.phantoms().size());
         }
         return lines;
     }
 
     // ---------------------------------------------------------------- Lobotomizador
 
+    /**
+     * Anyone speared by another player is lobotomized: the voices stop if there were any, the
+     * patient is left stunned and cannot relapse for a while.
+     */
     void lobotomize(Player surgeon, Player patient, LobotomizerItem item) {
-        if (!isAffected(patient)) {
-            surgeon.sendActionBar(Component.text("No había nada que lobotomizar... ¿o sí?", NamedTextColor.GRAY));
-            patient.addPotionEffect(new PotionEffect(PotionEffectType.NAUSEA, 80, 0, false, false, true));
-            return;
-        }
+        boolean wasSick = isAffected(patient);
         end(patient, true);
+        patient.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 40, 0, false, false, false));
+        patient.playSound(patient.getLocation(), Sound.ITEM_SPEAR_HIT, SoundCategory.PLAYERS, 1f, 0.6f);
+        // Tinnitus after the blow.
+        patient.playSound(patient.getLocation(), Sound.BLOCK_BEACON_AMBIENT, SoundCategory.PLAYERS, 1f, 2f);
         int stun = settings.lobotomizer().stunSeconds() * 20;
         if (stun > 0) {
             patient.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, stun, 1, false, false, true));
@@ -251,11 +298,13 @@ final class SchizophreniaRuntime {
         surgeon.playSound(surgeon.getLocation(), Sound.BLOCK_ANVIL_LAND, SoundCategory.PLAYERS, 0.7f, 0.5f);
         patient.showTitle(Title.title(
             Component.text("*bonk*", NamedTextColor.GRAY, TextDecoration.ITALIC),
-            Component.text("las voces se callaron", NamedTextColor.DARK_GRAY),
+            Component.text(wasSick ? "las voces se callaron" : "...", NamedTextColor.DARK_GRAY),
             Title.Times.times(Duration.ZERO, Duration.ofMillis(2500), Duration.ofMillis(1000))));
-        patient.sendMessage(Component.text(surgeon.getName() + " te hizo una lobotomía. Silencio, al fin.", NamedTextColor.GRAY));
-        surgeon.sendMessage(Component.text("Le hiciste una lobotomía a " + patient.getName() + ". Las voces se fueron.",
-            NamedTextColor.GREEN));
+        patient.sendMessage(Component.text(surgeon.getName() + " te hizo una lobotomía. "
+            + (wasSick ? "Silencio, al fin." : "No sentís... nada."), NamedTextColor.GRAY));
+        surgeon.sendMessage(Component.text("Le hiciste una lobotomía a " + patient.getName() + ". "
+            + (wasSick ? "Las voces se fueron." : "No tenía voces, pero ahora tampoco tiene ideas."),
+            wasSick ? NamedTextColor.GREEN : NamedTextColor.GRAY));
         int cost = settings.lobotomizer().durabilityCost();
         if (cost > 0 && item.isLobotomizer(surgeon.getInventory().getItemInMainHand())) {
             surgeon.damageItemStack(EquipmentSlot.HAND, cost);
