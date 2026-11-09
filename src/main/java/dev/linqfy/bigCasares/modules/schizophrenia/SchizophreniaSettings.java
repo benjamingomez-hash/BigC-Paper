@@ -28,7 +28,7 @@ public record SchizophreniaSettings(
     }
 
     public static SchizophreniaSettings defaults() {
-        return new SchizophreniaSettings(25, 3.0, 14, 3, 20,
+        return new SchizophreniaSettings(40, 1.5, 7, 1, 20,
             Natural.defaults(), Phantoms.defaults(), Lobotomizer.defaults(), Set.of());
     }
 
@@ -52,7 +52,7 @@ public record SchizophreniaSettings(
         }
 
         public static Natural defaults() {
-            return new Natural(true, 60, 0.025, 48, 4, 0, Set.of());
+            return new Natural(true, 60, 0.05, 48, 4, 0, Set.of());
         }
 
         boolean allowsWorld(String worldName) {
@@ -78,7 +78,7 @@ public record SchizophreniaSettings(
         }
 
         public static Phantoms defaults() {
-            return new Phantoms(8, 9.0, 22.0, 11.0, 3.5, 45);
+            return new Phantoms(32, 9.0, 22.0, 11.0, 3.5, 45);
         }
     }
 

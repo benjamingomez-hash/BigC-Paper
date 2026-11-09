@@ -26,7 +26,17 @@ final class SchizophreniaLines {
         "escuchá las paredes",
         "no es real. ¿o sí?",
         "te están siguiendo",
-        "mirá arriba"
+        "mirá arriba",
+        "nadie va a venir",
+        "ya es tarde",
+        "te dejaron solo",
+        "no pertenecés acá",
+        "¿escuchás cómo respiro?",
+        "abrí la puerta",
+        "estoy adentro",
+        "no despiertes",
+        "sigo acá. sigo acá. sigo acá.",
+        "cuántos somos ahora"
     );
 
     static final List<String> TITLES = List.of(

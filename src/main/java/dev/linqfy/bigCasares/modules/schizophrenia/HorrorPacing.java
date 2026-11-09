@@ -59,10 +59,10 @@ final class HorrorPacing {
     static long durationTicks(Phase phase, int intensity, double jitter) {
         int level = EpisodeMath.clampIntensity(intensity) - 1;
         double seconds = switch (phase) {
-            case CALM -> 45 - level * 8.5;
-            case DREAD -> 24 - level * 3.0;
-            case SCARE -> 5;
-            case AFTERMATH -> 12 - level * 1.5;
+            case CALM -> 20 - level * 3.5;
+            case DREAD -> 16 - level * 2.0;
+            case SCARE -> 6 + level * 1.5;
+            case AFTERMATH -> 6 - level;
         };
         double spread = phase == Phase.SCARE ? 1.0 : 0.75 + 0.5 * Math.max(0.0, Math.min(1.0, jitter));
         return Math.max(20L, Math.round(seconds * spread * 20.0));

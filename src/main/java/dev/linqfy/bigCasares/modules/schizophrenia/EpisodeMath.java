@@ -39,6 +39,18 @@ final class EpisodeMath {
         return alone && (lightLevel <= natural.maxLightLevel() || y < natural.deepBelowY());
     }
 
+    /** How many hallucinations pile up on one beat: more with tension, one extra once it is bad. */
+    static int stackedBeats(double tension, int intensity) {
+        int count = 1 + (int) Math.floor(Math.max(0.0, Math.min(1.0, tension)) * 2) + (clampIntensity(intensity) >= 4 ? 1 : 0);
+        return Math.min(4, count);
+    }
+
+    /** Set pieces played back to back when the dread pays off. */
+    static int scaresInCombo(int intensity) {
+        int level = clampIntensity(intensity);
+        return 1 + (level >= 3 ? 1 : 0) + (level >= 5 ? 1 : 0);
+    }
+
     /** Sanity shown on the bar: drops with how long it has gone untreated and spikes down with tension. */
     static float sanity(int intensity, double tension) {
         double value = 1.0 - (clampIntensity(intensity) - 1) * 0.12 - Math.max(0.0, Math.min(1.0, tension)) * 0.4;

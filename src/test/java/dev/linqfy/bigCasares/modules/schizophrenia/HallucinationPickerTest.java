@@ -32,7 +32,9 @@ class HallucinationPickerTest {
         HallucinationPicker picker = new HallucinationPicker(Set.of());
         assertFalse(picker.eligible(2, Hallucination.Beat.SCARE).contains(Hallucination.CHASE));
         assertTrue(picker.eligible(3, Hallucination.Beat.SCARE).contains(Hallucination.CHASE));
-        assertFalse(picker.eligible(4, Hallucination.Beat.SCARE).contains(Hallucination.FAKE_DEATH));
+        assertFalse(picker.eligible(3, Hallucination.Beat.SCARE).contains(Hallucination.FAKE_DEATH));
+        assertFalse(picker.eligible(4, Hallucination.Beat.SCARE).contains(Hallucination.BREAKDOWN));
+        assertTrue(picker.eligible(5, Hallucination.Beat.SCARE).contains(Hallucination.BREAKDOWN));
         int all = 0;
         for (Hallucination.Beat beat : Hallucination.Beat.values()) {
             all += picker.eligible(5, beat).size();

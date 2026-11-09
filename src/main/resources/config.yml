@@ -55,25 +55,25 @@ modules:
 schizophrenia:
   # Un episodio empeora solo (intensidad 1 a 5) hasta que alguien lo cura con un golpe del
   # Lobotomizador. 0 = dura hasta la lobotomía; si no, termina solo a los N minutos.
-  max-episode-minutes: 25
-  minutes-per-intensity: 3
+  max-episode-minutes: 40
+  minutes-per-intensity: 1.5
   # Ritmo de terror: calma, tensión que crece, un susto, silencio. Segundos entre alucinaciones:
   # el más lento con la tensión baja, el más rápido justo antes del susto.
   interval-seconds:
-    slowest: 14
-    fastest: 3
+    slowest: 7
+    fastest: 1
   immunity-minutes-after-cure: 20
   # Aparición natural: jugadores solos en la oscuridad o muy bajo tierra.
   natural:
     enabled: true
     check-interval-seconds: 60
-    chance: 0.025
+    chance: 0.05
     alone-radius: 48
     max-light-level: 4
     deep-below-y: 0
     worlds: []
   phantoms:
-    max-per-player: 8
+    max-per-player: 32
     min-distance: 9
     max-distance: 22
     gaze-threshold-degrees: 11

@@ -24,9 +24,21 @@ class EpisodeMathTest {
     @Test
     void beatsComeFasterAsTensionBuilds() {
         assertEquals(14.0, EpisodeMath.beatSeconds(0.0, 14, 3, 0.5), 1.0E-9);
+        assertEquals(1.0, EpisodeMath.beatSeconds(1.0, 7, 1, 0.5), 1.0E-9);
         assertEquals(3.0, EpisodeMath.beatSeconds(1.0, 14, 3, 0.5), 1.0E-9);
         assertTrue(EpisodeMath.beatSeconds(0.5, 14, 3, 0.0) < EpisodeMath.beatSeconds(0.5, 14, 3, 1.0));
         assertTrue(EpisodeMath.beatSeconds(9.0, 1, 1, 0.0) >= 1.0);
+    }
+
+    @Test
+    void hallucinationsPileUpAndScaresComboAsItGetsWorse() {
+        assertEquals(1, EpisodeMath.stackedBeats(0.0, 1));
+        assertEquals(2, EpisodeMath.stackedBeats(0.6, 1));
+        assertEquals(3, EpisodeMath.stackedBeats(1.0, 1));
+        assertEquals(4, EpisodeMath.stackedBeats(1.0, 5));
+        assertEquals(1, EpisodeMath.scaresInCombo(1));
+        assertEquals(2, EpisodeMath.scaresInCombo(3));
+        assertEquals(3, EpisodeMath.scaresInCombo(5));
     }
 
     @Test

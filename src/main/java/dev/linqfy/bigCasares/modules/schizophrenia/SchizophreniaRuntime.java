@@ -105,16 +105,25 @@ final class SchizophreniaRuntime {
         if (tick < episode.nextHallucinationTick()) {
             return;
         }
-        Hallucination.Beat beat = switch (pacing.phase()) {
-            case CALM -> Hallucination.Beat.AMBIENT;
-            case DREAD -> random.nextDouble() < 0.7 ? Hallucination.Beat.DREAD : Hallucination.Beat.AMBIENT;
-            case SCARE, AFTERMATH -> null;
-        };
-        if (beat != null) {
+        double tension = pacing.tension(tick);
+        int stacked = EpisodeMath.stackedBeats(tension, intensity);
+        for (int i = 0; i < stacked; i++) {
+            Hallucination.Beat beat = switch (pacing.phase()) {
+                case CALM -> intensity >= 3 && random.nextBoolean() ? Hallucination.Beat.DREAD : Hallucination.Beat.AMBIENT;
+                case DREAD -> random.nextDouble() < 0.75 ? Hallucination.Beat.DREAD : Hallucination.Beat.AMBIENT;
+                case SCARE -> null;
+                case AFTERMATH -> intensity >= 4 ? Hallucination.Beat.AMBIENT : null;
+            };
+            if (beat == null) {
+                break;
+            }
+            long at = tick + i * 15L;
             picker.pick(intensity, beat, episode.previous(), random).ifPresent(hallucination -> {
-                if (!director.play(hallucination, player, episode, tick, intensity)) {
-                    director.play(Hallucination.WHISPERS, player, episode, tick, intensity);
-                }
+                episode.timeline().at(at, () -> {
+                    if (!director.play(hallucination, player, episode, at, intensity)) {
+                        director.play(Hallucination.WHISPERS, player, episode, at, intensity);
+                    }
+                });
                 episode.previous(hallucination);
             });
         }
@@ -123,15 +132,24 @@ final class SchizophreniaRuntime {
         episode.nextHallucinationTick(tick + Math.round(seconds * 20.0));
     }
 
-    /** The payoff of a dread phase: one set piece, falling back to the simplest scare if it has no room. */
+    /**
+     * The payoff of a dread phase: a combo of set pieces that grows with intensity, each falling
+     * back to the simplest scare if it has no room.
+     */
     private void scare(Player player, Episode episode, int intensity) {
-        Hallucination chosen = picker.pick(intensity, Hallucination.Beat.SCARE, episode.previous(), random)
-            .orElse(Hallucination.CREEPER_HISS);
-        if (!director.play(chosen, player, episode, tick, intensity)
-            && !director.play(Hallucination.RIGHT_BEHIND_YOU, player, episode, tick, intensity)) {
-            director.play(Hallucination.CREEPER_HISS, player, episode, tick, intensity);
+        int combo = EpisodeMath.scaresInCombo(intensity);
+        for (int i = 0; i < combo; i++) {
+            Hallucination chosen = picker.pick(intensity, Hallucination.Beat.SCARE, episode.previous(), random)
+                .orElse(Hallucination.CREEPER_HISS);
+            episode.previous(chosen);
+            long at = tick + i * 50L;
+            episode.timeline().at(at, () -> {
+                if (!director.play(chosen, player, episode, at, intensity)
+                    && !director.play(Hallucination.RIGHT_BEHIND_YOU, player, episode, at, intensity)) {
+                    director.play(Hallucination.CREEPER_HISS, player, episode, at, intensity);
+                }
+            });
         }
-        episode.previous(chosen);
     }
 
     void shutdown() {
