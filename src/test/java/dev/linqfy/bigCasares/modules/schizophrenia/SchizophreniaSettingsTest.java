@@ -36,7 +36,7 @@ class SchizophreniaSettingsTest {
         YamlConfiguration yaml = new YamlConfiguration();
         yaml.loadFromString("""
             schizophrenia:
-              disabled-hallucinations: [fake-death, CAMERA_SNAP, nope]
+              disabled-hallucinations: [void-visit, CAMERA_SNAP, nope, chase]
               natural:
                 worlds: [World_Nether]
             """);
@@ -44,8 +44,8 @@ class SchizophreniaSettingsTest {
 
         SchizophreniaSettings settings = SchizophreniaSettingsLoader.load(yaml, warnings::add);
 
-        assertEquals(Set.of(Hallucination.FAKE_DEATH, Hallucination.CAMERA_SNAP), settings.disabledHallucinations());
-        assertEquals(1, warnings.size());
+        assertEquals(Set.of(Hallucination.VOID_VISIT, Hallucination.CAMERA_SNAP), settings.disabledHallucinations());
+        assertEquals(2, warnings.size());
         assertTrue(settings.natural().allowsWorld("world_nether"));
         assertEquals("bigcasares_void", settings.voidPlace().worldName());
         assertFalse(settings.natural().allowsWorld("world"));
@@ -62,6 +62,7 @@ class SchizophreniaSettingsTest {
               natural: {chance: 7, max-light-level: 99}
               phantoms: {max-distance: 1, gaze-threshold-degrees: 500}
               void: {world: "../escape"}
+              cleaver: {sight-range: 900, attack-players: false}
             """);
 
         SchizophreniaSettings settings = SchizophreniaSettingsLoader.load(yaml);
@@ -74,5 +75,8 @@ class SchizophreniaSettingsTest {
         assertTrue(settings.phantoms().maxDistance() >= settings.phantoms().minDistance());
         assertEquals(60.0, settings.phantoms().gazeThresholdDegrees());
         assertEquals("bigcasares_void", settings.voidPlace().worldName());
+        assertEquals(64.0, settings.cleaver().sightRange());
+        assertFalse(settings.cleaver().attackPlayers());
+        assertTrue(settings.cleaver().enabled());
     }
 }

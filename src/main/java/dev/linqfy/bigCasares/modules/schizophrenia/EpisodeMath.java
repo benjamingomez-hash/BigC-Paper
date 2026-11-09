@@ -33,16 +33,14 @@ final class EpisodeMath {
         return maxEpisodeMinutes > 0 && elapsedMillis >= maxEpisodeMinutes * 60_000L;
     }
 
-    /** How many hallucinations pile up on one beat: more with tension, one extra once it is bad. */
+    /** How many hallucinations land on one beat: one, a second only at peak tension late in an episode. */
     static int stackedBeats(double tension, int intensity) {
-        int count = 1 + (int) Math.floor(Math.max(0.0, Math.min(1.0, tension)) * 2) + (clampIntensity(intensity) >= 4 ? 1 : 0);
-        return Math.min(4, count);
+        return clampIntensity(intensity) >= 4 && tension >= 0.8 ? 2 : 1;
     }
 
-    /** Set pieces played back to back when the dread pays off. */
+    /** A dread phase pays off with exactly one scare: a slow burn, not a barrage. */
     static int scaresInCombo(int intensity) {
-        int level = clampIntensity(intensity);
-        return 1 + (level >= 3 ? 1 : 0) + (level >= 5 ? 1 : 0);
+        return 1;
     }
 
     /** Sanity shown on the bar: drops with how long it has gone untreated and spikes down with tension. */

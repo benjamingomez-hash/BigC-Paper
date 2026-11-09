@@ -40,6 +40,7 @@ final class SchizophreniaRuntime {
     private final SchizophreniaSettings settings;
     private final HallucinationPicker picker;
     private final HallucinationDirector director;
+    private final CleaverFrenzy frenzy;
     private final RandomGenerator random = new SplittableRandom();
     private final LongSupplier clock;
     private final Map<UUID, Episode> episodes = new HashMap<>();
@@ -61,6 +62,7 @@ final class SchizophreniaRuntime {
         this.clock = clock;
         this.picker = new HallucinationPicker(settings.disabledHallucinations());
         this.director = new HallucinationDirector(plugin, settings, random, voidRealm);
+        this.frenzy = new CleaverFrenzy(plugin, new CleaverItem(plugin), settings.cleaver(), random);
         this.startedKey = new NamespacedKey(plugin, "schizophrenia_started");
         this.intensityKey = new NamespacedKey(plugin, "schizophrenia_intensity");
         this.immuneKey = new NamespacedKey(plugin, "schizophrenia_immune_until");
@@ -108,6 +110,12 @@ final class SchizophreniaRuntime {
             return;
         }
         int intensity = episode.intensity(now, settings.minutesPerIntensity());
+        if (frenzy.enabled() && intensity >= EpisodeMath.MAX_INTENSITY) {
+            // The last stage is no longer about seeing things. It is about what you do to them.
+            frenzy.update(player, episode, tick);
+            director.atmosphere(player, episode, tick, intensity);
+            return;
+        }
         HorrorPacing pacing = episode.pacing();
         if (pacing.advance(tick, intensity, random)) {
             director.onPhase(player, episode, tick, pacing.phase());
@@ -123,10 +131,10 @@ final class SchizophreniaRuntime {
         int stacked = EpisodeMath.stackedBeats(tension, intensity);
         for (int i = 0; i < stacked; i++) {
             Hallucination.Beat beat = switch (pacing.phase()) {
-                case CALM -> intensity >= 3 && random.nextBoolean() ? Hallucination.Beat.DREAD : Hallucination.Beat.AMBIENT;
-                case DREAD -> random.nextDouble() < 0.75 ? Hallucination.Beat.DREAD : Hallucination.Beat.AMBIENT;
+                case CALM -> intensity >= 4 && random.nextDouble() < 0.25 ? Hallucination.Beat.DREAD : Hallucination.Beat.AMBIENT;
+                case DREAD -> random.nextDouble() < 0.6 ? Hallucination.Beat.DREAD : Hallucination.Beat.AMBIENT;
                 case SCARE -> null;
-                case AFTERMATH -> intensity >= 4 ? Hallucination.Beat.AMBIENT : null;
+                case AFTERMATH -> intensity >= 5 ? Hallucination.Beat.AMBIENT : null;
             };
             if (beat == null) {
                 break;
@@ -147,8 +155,8 @@ final class SchizophreniaRuntime {
     }
 
     /**
-     * The payoff of a dread phase: a combo of set pieces that grows with intensity, each falling
-     * back to the simplest scare if it has no room.
+     * The payoff of a dread phase: one set piece, falling back to the simplest scare if it has no
+     * room.
      */
     private void scare(Player player, Episode episode, int intensity) {
         int combo = EpisodeMath.scaresInCombo(intensity);
@@ -200,6 +208,8 @@ final class SchizophreniaRuntime {
 
     /** Re-attaches a persisted episode after a relog: logging out is not a cure. */
     void resume(Player player) {
+        // A cleaver is never kept across a logout or a crash; the frenzy hands a new one back.
+        frenzy.item().takeAway(player);
         if (voidRealm != null && voidRealm.isAway(player)) {
             voidRealm.bringBack(player);
         }
@@ -228,6 +238,7 @@ final class SchizophreniaRuntime {
             director.removeAllPhantoms(episode);
             Player player = plugin.getServer().getPlayer(playerId);
             if (player != null) {
+                frenzy.stop(player, episode);
                 director.clearAtmosphere(player, episode);
             }
         }
@@ -249,6 +260,15 @@ final class SchizophreniaRuntime {
 
     boolean isAffected(Player player) {
         return episodes.containsKey(player.getUniqueId());
+    }
+
+    boolean isFrenzied(Player player) {
+        Episode episode = episodes.get(player.getUniqueId());
+        return episode != null && episode.frenzied();
+    }
+
+    CleaverItem cleaver() {
+        return frenzy.item();
     }
 
     Optional<Integer> intensity(Player player) {
@@ -305,7 +325,8 @@ final class SchizophreniaRuntime {
             String name = player == null ? episode.playerId().toString() : player.getName();
             long minutes = (now - episode.startedAtMillis()) / 60_000L;
             lines.add("§7- §f" + name + " §7intensidad §d" + episode.intensity(now, settings.minutesPerIntensity())
-                + "§7, hace §f" + minutes + " min§7, fase §f" + episode.pacing().phase().name().toLowerCase(java.util.Locale.ROOT)
+                + "§7, hace §f" + minutes + " min§7, fase §f" + (episode.frenzied() ? "cuchilla"
+                : episode.pacing().phase().name().toLowerCase(java.util.Locale.ROOT))
                 + "§7, fantasmas §f" + episode.phantoms().size());
         }
         if (settings.natural().enabled() && !stress.isEmpty()) {

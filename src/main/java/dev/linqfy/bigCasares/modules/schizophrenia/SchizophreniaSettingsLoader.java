@@ -29,6 +29,7 @@ public final class SchizophreniaSettingsLoader {
         SchizophreniaSettings.Phantoms phantomDefaults = defaults.phantoms();
         SchizophreniaSettings.Lobotomizer lobotomizerDefaults = defaults.lobotomizer();
         SchizophreniaSettings.VoidPlace voidDefaults = defaults.voidPlace();
+        SchizophreniaSettings.Cleaver cleaverDefaults = defaults.cleaver();
 
         EnumSet<Hallucination> disabled = EnumSet.noneOf(Hallucination.class);
         for (String raw : section.getStringList("disabled-hallucinations")) {
@@ -74,6 +75,10 @@ public final class SchizophreniaSettingsLoader {
             new SchizophreniaSettings.VoidPlace(
                 section.getBoolean("void.enabled", voidDefaults.enabled()),
                 section.getString("void.world", voidDefaults.worldName())),
+            new SchizophreniaSettings.Cleaver(
+                section.getBoolean("cleaver.enabled", cleaverDefaults.enabled()),
+                section.getDouble("cleaver.sight-range", cleaverDefaults.sightRange()),
+                section.getBoolean("cleaver.attack-players", cleaverDefaults.attackPlayers())),
             disabled);
     }
 }

@@ -35,4 +35,13 @@ class SchizophreniaPluginContractTest {
         LobotomizerItem.SHAPE.forEach(row -> assertEquals(3, row.length()));
         assertEquals("lobotomizador", LobotomizerItem.ITEM_ID);
     }
+
+    @Test
+    void cleaverIsAnUnbreakableAxe() throws Exception {
+        String item = Files.readString(Path.of(
+            "src/main/java/dev/linqfy/bigCasares/modules/schizophrenia/CleaverItem.java"));
+        assertTrue(item.contains("new ItemStack(Material.IRON_AXE)"));
+        assertTrue(item.contains("setUnbreakable(true)"));
+        assertEquals("cuchilla", CleaverItem.ITEM_ID);
+    }
 }

@@ -31,14 +31,14 @@ class EpisodeMathTest {
     }
 
     @Test
-    void hallucinationsPileUpAndScaresComboAsItGetsWorse() {
+    void slowBurnNeverPilesHallucinationsOrScaresUp() {
         assertEquals(1, EpisodeMath.stackedBeats(0.0, 1));
-        assertEquals(2, EpisodeMath.stackedBeats(0.6, 1));
-        assertEquals(3, EpisodeMath.stackedBeats(1.0, 1));
-        assertEquals(4, EpisodeMath.stackedBeats(1.0, 5));
-        assertEquals(1, EpisodeMath.scaresInCombo(1));
-        assertEquals(2, EpisodeMath.scaresInCombo(3));
-        assertEquals(3, EpisodeMath.scaresInCombo(5));
+        assertEquals(1, EpisodeMath.stackedBeats(1.0, 3));
+        assertEquals(1, EpisodeMath.stackedBeats(0.5, 5));
+        assertEquals(2, EpisodeMath.stackedBeats(1.0, 4));
+        for (int intensity = 1; intensity <= 5; intensity++) {
+            assertEquals(1, EpisodeMath.scaresInCombo(intensity));
+        }
     }
 
     @Test

@@ -14,6 +14,7 @@ public record SchizophreniaSettings(
     Phantoms phantoms,
     Lobotomizer lobotomizer,
     VoidPlace voidPlace,
+    Cleaver cleaver,
     Set<Hallucination> disabledHallucinations
 ) {
     public SchizophreniaSettings {
@@ -26,12 +27,25 @@ public record SchizophreniaSettings(
         phantoms = phantoms == null ? Phantoms.defaults() : phantoms;
         lobotomizer = lobotomizer == null ? Lobotomizer.defaults() : lobotomizer;
         voidPlace = voidPlace == null ? VoidPlace.defaults() : voidPlace;
+        cleaver = cleaver == null ? Cleaver.defaults() : cleaver;
         disabledHallucinations = disabledHallucinations == null ? Set.of() : Set.copyOf(disabledHallucinations);
     }
 
     public static SchizophreniaSettings defaults() {
-        return new SchizophreniaSettings(40, 1.5, 7, 1, 20,
-            Natural.defaults(), Phantoms.defaults(), Lobotomizer.defaults(), VoidPlace.defaults(), Set.of());
+        return new SchizophreniaSettings(45, 6.0, 25, 6, 20,
+            Natural.defaults(), Phantoms.defaults(), Lobotomizer.defaults(), VoidPlace.defaults(),
+            Cleaver.defaults(), Set.of());
+    }
+
+    /** The last stage: the victim gets the Cuchilla and is made to kill whatever they can see. */
+    public record Cleaver(boolean enabled, double sightRange, boolean attackPlayers) {
+        public Cleaver {
+            sightRange = Double.isFinite(sightRange) ? Math.max(4.0, Math.min(64.0, sightRange)) : 32.0;
+        }
+
+        public static Cleaver defaults() {
+            return new Cleaver(true, 32.0, true);
+        }
     }
 
     /** The black place victims get taken to: an empty world owned by this module. */
@@ -101,7 +115,7 @@ public record SchizophreniaSettings(
         }
 
         public static Phantoms defaults() {
-            return new Phantoms(32, 9.0, 22.0, 11.0, 3.5, 45);
+            return new Phantoms(12, 12.0, 26.0, 11.0, 3.5, 30);
         }
     }
 

@@ -55,5 +55,9 @@ class HorrorPacingTest {
         for (HorrorPacing.Phase phase : HorrorPacing.Phase.values()) {
             assertTrue(HorrorPacing.durationTicks(phase, 5, 0.0) >= 20);
         }
+        // Even late on, the quiet lasts far longer than the scare.
+        assertTrue(HorrorPacing.durationTicks(HorrorPacing.Phase.CALM, 5, 0.0)
+            > 2 * HorrorPacing.durationTicks(HorrorPacing.Phase.SCARE, 5, 0.0));
+        assertTrue(HorrorPacing.durationTicks(HorrorPacing.Phase.CALM, 1, 0.0) >= 50 * 20);
     }
 }

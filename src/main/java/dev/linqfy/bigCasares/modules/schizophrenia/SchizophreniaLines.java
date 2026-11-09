@@ -72,6 +72,24 @@ final class SchizophreniaLines {
         "ahora sos mío"
     );
 
+    /** The last stage, while nothing living is in sight. */
+    static final List<String> FRENZY_SEARCHING = List.of(
+        "¿dónde se escondieron?",
+        "todavía quedan",
+        "los escucho respirar",
+        "no pares",
+        "buscalos"
+    );
+
+    /** The last stage, every few swings. */
+    static final List<String> FRENZY_KILLING = List.of(
+        "otra vez",
+        "más",
+        "no era real. ninguno era real.",
+        "así se callan",
+        "seguí"
+    );
+
     /** The face that flashes in front of your eyes. */
     static final String FACE = String.join("\n",
         "▓▓▓▓          ▓▓▓▓",

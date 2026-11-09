@@ -6,10 +6,16 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import net.kyori.adventure.text.Component;
@@ -53,6 +59,57 @@ final class SchizophreniaListener implements Listener {
             && lobotomizer.isLobotomizer(surgeon.getInventory().getItemInMainHand())) {
             runtime.lobotomize(surgeon, patient, lobotomizer);
         }
+    }
+
+    // ---------------------------------------------------------------- the Cuchilla never leaves your hand
+
+    @EventHandler(ignoreCancelled = true)
+    public void onCleaverDropped(PlayerDropItemEvent event) {
+        if (runtime.cleaver().isCleaver(event.getItemDrop().getItemStack())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onFrenziedInventory(InventoryClickEvent event) {
+        if (event.getWhoClicked() instanceof Player player && runtime.isFrenzied(player)) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onFrenziedDrag(InventoryDragEvent event) {
+        if (event.getWhoClicked() instanceof Player player && runtime.isFrenzied(player)) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onFrenziedSwap(PlayerSwapHandItemsEvent event) {
+        if (runtime.isFrenzied(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onFrenziedHotbar(PlayerItemHeldEvent event) {
+        if (runtime.isFrenzied(event.getPlayer())) {
+            event.setCancelled(true);
+        }
+    }
+
+    /** No hanging it in a frame or handing it to an armor stand. */
+    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+    public void onFrenziedInteract(PlayerInteractEntityEvent event) {
+        if (runtime.isFrenzied(event.getPlayer())
+            && runtime.cleaver().isCleaver(event.getPlayer().getInventory().getItemInMainHand())) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onCleaverOwnerDied(PlayerDeathEvent event) {
+        event.getDrops().removeIf(runtime.cleaver()::isCleaver);
     }
 
     @EventHandler(ignoreCancelled = true)
