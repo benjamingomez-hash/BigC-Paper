@@ -25,6 +25,8 @@ import dev.linqfy.bigCasares.modules.danger.DangerModule;
 import dev.linqfy.bigCasares.modules.dimension.DimensionModule;
 import dev.linqfy.bigCasares.modules.sift.SiftModule;
 import dev.linqfy.bigCasares.modules.tombstone.TombstoneModule;
+import dev.linqfy.bigCasares.modules.keepinventorytotem.KeepInventoryTotemModule;
+import dev.linqfy.bigCasares.modules.elytrafailure.ElytraFailureModule;
 import dev.linqfy.bigCasares.modules.specialitems.SpecialItemsModule;
 import dev.linqfy.bigCasares.modules.warp.WarpModule;
 
@@ -79,6 +81,7 @@ public final class BigCasares extends JavaPlugin {
     private SkillRatingModule skillRatingModule;
     private DangerModule dangerModule;
     private TombstoneModule tombstoneModule;
+    private KeepInventoryTotemModule keepInventoryTotemModule;
     private SpecialItemsModule specialItemsModule;
     private WarpModule warpModule;
 
@@ -390,8 +393,10 @@ public final class BigCasares extends JavaPlugin {
             this, moderationModule.audit(), moderationModule::acceptSignal, emojiAliasService
         );
         this.endEventModule = new EndEventModule(this);
+        this.keepInventoryTotemModule = new KeepInventoryTotemModule(this);
         this.tombstoneModule.setDeathCaptureEligibility(playerId ->
-            endEventModule == null || !endEventModule.bypassTombstone(playerId));
+            (endEventModule == null || !endEventModule.bypassTombstone(playerId))
+                && (keepInventoryTotemModule == null || !keepInventoryTotemModule.protectsDeath(playerId)));
         this.discordIntegrationModule = new DiscordIntegrationModule(
             this, moderationModule.audit(), serverControlModule, emojiAliasService
         );
@@ -415,6 +420,8 @@ public final class BigCasares extends JavaPlugin {
         moduleManager.register(skillRatingModule);
         moduleManager.register(dangerModule);
         moduleManager.register(tombstoneModule);
+        moduleManager.register(keepInventoryTotemModule);
+        moduleManager.register(new ElytraFailureModule(this));
         moduleManager.register(specialItemsModule);
         moduleManager.register(warpModule);
 
@@ -586,6 +593,7 @@ public final class BigCasares extends JavaPlugin {
         skillRatingModule = null;
         dangerModule = null;
         tombstoneModule = null;
+        keepInventoryTotemModule = null;
         specialItemsModule = null;
         warpModule = null;
 
