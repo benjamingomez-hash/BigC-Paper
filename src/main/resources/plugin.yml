@@ -63,6 +63,11 @@ commands:
     usage: /<command> give [player]
     permission: bigcasares.celular.admin
     aliases: [ celu ]
+  esquizo:
+    description: Manage schizophrenia episodes and give the Lobotomizador spear
+    usage: /<command> <start <player> [1-5]|stop <player>|status|give [player]|provocar <player> [hallucination]>
+    aliases: [ esquizofrenia, schizo ]
+    permission: bigcasares.schizophrenia.admin
   casino:
     description: El Gran Casares (deuda, jackpot; admins construyen y colocan atracciones)
     usage: /<command> [deuda|jackpot|construir|colocar|quitar|lista|trago]
@@ -187,6 +192,7 @@ permissions:
       bigcasares.jeremy.start: true
       bigcasares.jeremy.stop: true
       bigcasares.celular.admin: true
+      bigcasares.schizophrenia.admin: true
       bigcasares.casino.admin: true
       bigcasares.glider.admin: true
       bigcasares.glider.give: true
@@ -328,6 +334,10 @@ permissions:
 
   bigcasares.jeremy.stop:
     description: Stop the active Jeremy hunt
+    default: op
+
+  bigcasares.schizophrenia.admin:
+    description: Start, stop and provoke schizophrenia episodes; give the Lobotomizador
     default: op
 
   bigcasares.celular.admin:

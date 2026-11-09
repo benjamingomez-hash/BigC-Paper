@@ -17,6 +17,8 @@ modules:
     enabled: true
   celular:
     enabled: true
+  schizophrenia:
+    enabled: true
   casino:
     enabled: true
   grappling-hook:
@@ -121,6 +123,65 @@ casino:
     cerveza_caliente: 60
     coctel_ruina: 300
     vaso_polvo_blanco: 800
+
+schizophrenia:
+  # Un episodio empeora despacio (intensidad 1 a 5) hasta que alguien lo cura con un golpe del
+  # Lobotomizador. 0 = dura hasta la lobotomía; si no, termina solo a los N minutos.
+  max-episode-minutes: 45
+  minutes-per-intensity: 6
+  # Ritmo de terror lento: calma larga, tensión que crece, un solo susto, silencio. Segundos entre
+  # alucinaciones: el más lento con la tensión baja, el más rápido justo antes del susto.
+  interval-seconds:
+    slowest: 25
+    fastest: 6
+  immunity-minutes-after-cure: 20
+  # Aparición natural: un evento raro. Un estrés oculto sólo sube mientras el jugador está solo
+  # en la oscuridad o muy bajo tierra (más rápido de noche, herido o sin dormir) y baja apenas
+  # está con gente, en la luz o durmiendo. Aun con el estrés al máximo hace falta llevar días sin
+  # dormir, estar fuera de los enfriamientos y ganar una última tirada.
+  natural:
+    enabled: true
+    check-interval-seconds: 60
+    # Probabilidad por chequeo una vez cumplido todo lo demás.
+    chance: 0.1
+    alone-radius: 48
+    max-light-level: 4
+    deep-below-y: 0
+    # Días de Minecraft sin dormir (como los phantoms). 0 = no hace falta.
+    insomnia-days: 3
+    stress-threshold: 40
+    player-cooldown-hours: 48
+    server-cooldown-minutes: 180
+    # Episodios naturales a la vez en todo el servidor.
+    max-concurrent: 1
+    worlds: []
+  phantoms:
+    max-per-player: 12
+    min-distance: 12
+    max-distance: 26
+    gaze-threshold-degrees: 11
+    vanish-distance: 3.5
+    lifetime-seconds: 30
+  lobotomizer:
+    # Lanza: todo jugador golpeado con ella por otro jugador queda lobotomizado (y curado).
+    # Receta: lingote de hierro arriba a la derecha, fragmento de amatista al centro, palo abajo a la izquierda.
+    recipe: true
+    durability-cost: 40
+    stun-seconds: 30
+  # El lugar negro: un mundo vacío propio del módulo. La víctima es llevada ahí unos segundos,
+  # frente a una figura negra que se acerca cada vez que parpadea, y vuelve adonde estaba.
+  void:
+    enabled: true
+    world: bigcasares_void
+  # Última etapa (intensidad 5): la víctima recibe la Cuchilla, que no puede soltar, y su cuerpo
+  # va solo a matar todo ser vivo que vea a menos de sight-range bloques. Sólo la lobotomía la para.
+  cleaver:
+    enabled: true
+    sight-range: 32
+    # Si también va por otros jugadores en supervivencia/aventura.
+    attack-players: true
+  # Ids como footsteps, creeper-hiss, chase, the-visitor, fake-death... para apagar alguna.
+  disabled-hallucinations: []
 
 celular:
   # Receta: 8 lingotes de hierro alrededor y 1 vidrio en el medio.
