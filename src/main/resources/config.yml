@@ -108,7 +108,7 @@ schizophrenia:
     sight-range: 32
     # Si también va por otros jugadores en supervivencia/aventura.
     attack-players: true
-  # Ids como footsteps, creeper-hiss, stalker, the-visitor, void-visit... para apagar alguna.
+  # Ids como footsteps, creeper-hiss, chase, the-visitor, fake-death... para apagar alguna.
   disabled-hallucinations: []
 
 celular:

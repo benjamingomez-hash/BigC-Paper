@@ -36,7 +36,7 @@ class SchizophreniaSettingsTest {
         YamlConfiguration yaml = new YamlConfiguration();
         yaml.loadFromString("""
             schizophrenia:
-              disabled-hallucinations: [void-visit, CAMERA_SNAP, nope, chase]
+              disabled-hallucinations: [fake-death, CAMERA_SNAP, nope]
               natural:
                 worlds: [World_Nether]
             """);
@@ -44,8 +44,8 @@ class SchizophreniaSettingsTest {
 
         SchizophreniaSettings settings = SchizophreniaSettingsLoader.load(yaml, warnings::add);
 
-        assertEquals(Set.of(Hallucination.VOID_VISIT, Hallucination.CAMERA_SNAP), settings.disabledHallucinations());
-        assertEquals(2, warnings.size());
+        assertEquals(Set.of(Hallucination.FAKE_DEATH, Hallucination.CAMERA_SNAP), settings.disabledHallucinations());
+        assertEquals(1, warnings.size());
         assertTrue(settings.natural().allowsWorld("world_nether"));
         assertEquals("bigcasares_void", settings.voidPlace().worldName());
         assertFalse(settings.natural().allowsWorld("world"));

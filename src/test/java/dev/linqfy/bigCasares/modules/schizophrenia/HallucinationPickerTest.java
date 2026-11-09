@@ -35,6 +35,10 @@ class HallucinationPickerTest {
         assertFalse(picker.eligible(2, Hallucination.Beat.SCARE).contains(Hallucination.VOID_VISIT));
         assertFalse(picker.eligible(3, Hallucination.Beat.SCARE).contains(Hallucination.FLESH_ROOM));
         assertTrue(picker.eligible(4, Hallucination.Beat.SCARE).contains(Hallucination.FLESH_ROOM));
+        assertFalse(picker.eligible(2, Hallucination.Beat.SCARE).contains(Hallucination.CHASE));
+        assertTrue(picker.eligible(3, Hallucination.Beat.SCARE).contains(Hallucination.CHASE));
+        assertFalse(picker.eligible(4, Hallucination.Beat.SCARE).contains(Hallucination.BREAKDOWN));
+        assertTrue(picker.eligible(5, Hallucination.Beat.SCARE).contains(Hallucination.BREAKDOWN));
         int all = 0;
         for (Hallucination.Beat beat : Hallucination.Beat.values()) {
             all += picker.eligible(5, beat).size();
@@ -75,19 +79,5 @@ class HallucinationPickerTest {
             assertTrue(director.contains("effects.put(Hallucination." + hallucination.name() + ","), hallucination::id);
         }
         assertTrue(Hallucination.parse(" ").isEmpty());
-    }
-
-    @Test
-    void nothingPretendsToHurtTheVictimAndNothingRunsThemDown() throws Exception {
-        String director = Files.readString(Path.of(
-            "src/main/java/dev/linqfy/bigCasares/modules/schizophrenia/HallucinationDirector.java"));
-        assertFalse(director.contains("sendHurtAnimation"));
-        assertFalse(director.contains("sendHealthUpdate("));
-        assertFalse(director.contains("ENTITY_PLAYER_HURT"));
-        assertFalse(director.contains("ENTITY_PLAYER_DEATH"));
-        for (String gone : new String[] {"chase", "hunted", "swarm", "crowd", "fake-hurt", "fake-death",
-            "fake-explosion", "screen-shake", "camera-spin", "breakdown"}) {
-            assertTrue(Hallucination.parse(gone).isEmpty(), gone);
-        }
     }
 }

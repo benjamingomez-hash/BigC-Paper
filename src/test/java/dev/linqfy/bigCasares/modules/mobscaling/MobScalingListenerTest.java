@@ -32,7 +32,8 @@ class MobScalingListenerTest {
                 1.0,
                 0.0,
                 0.0,
-                0.0
+                0.0,
+                MobScalingSettings.DEFAULT_MAX_MULTIPLIER
         );
         listener = new MobScalingListener(null, settings, null);
     }

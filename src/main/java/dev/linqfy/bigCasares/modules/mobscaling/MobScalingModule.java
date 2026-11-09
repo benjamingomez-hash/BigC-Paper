@@ -82,7 +82,7 @@ public final class MobScalingModule implements PluginModule {
             long days = ChronoUnit.DAYS.between(settings.startDate(), LocalDate.now());
             if (days < 0) days = 0;
 
-            double multiplier = settings.formulaA() * Math.pow(settings.formulaB(), days) + settings.formulaC();
+            double multiplier = settings.multiplier(days);
             double chance = Math.min(settings.maxMutationChance(), settings.baseMutationChance() + (settings.mutationChancePerDay() * days));
 
             sender.sendMessage("§6--- Mob Scaling Info ---");

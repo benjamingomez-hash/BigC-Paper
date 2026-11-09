@@ -32,17 +32,27 @@ public enum Hallucination {
     MASKED_PLAYERS(Beat.DREAD, 3, 5),
     RED_VIGNETTE(Beat.DREAD, 4, 4),
     ETERNAL_NIGHT(Beat.DREAD, 3, 3),
+    SCREEN_SHAKE(Beat.DREAD, 2, 5),
     BLOOD_RAIN(Beat.DREAD, 4, 3),
+    CROWD(Beat.DREAD, 3, 4),
     ALTERNATE(Beat.DREAD, 3, 6),
-    // Scare: the payoff. Never anything that pretends to hurt you; the dread does the work.
+    // Scare: the payoff.
     CREEPER_HISS(Beat.SCARE, 1, 8),
     RIGHT_BEHIND_YOU(Beat.SCARE, 1, 10),
+    FAKE_HURT(Beat.SCARE, 2, 5),
     THE_VISITOR(Beat.SCARE, 2, 6),
     GLITCH_TITLE(Beat.SCARE, 2, 5),
+    CHASE(Beat.SCARE, 3, 7),
+    FAKE_EXPLOSION(Beat.SCARE, 3, 4),
     CAMERA_SNAP(Beat.SCARE, 3, 4),
     FAKE_THUNDER(Beat.SCARE, 3, 3),
     ELDER_GUARDIAN(Beat.SCARE, 3, 2),
+    HUNTED(Beat.SCARE, 3, 5),
+    SWARM(Beat.SCARE, 4, 4),
+    CAMERA_SPIN(Beat.SCARE, 4, 4),
     FLESH_ROOM(Beat.SCARE, 4, 4),
+    FAKE_DEATH(Beat.SCARE, 4, 3),
+    BREAKDOWN(Beat.SCARE, 5, 5),
     FACE_FLASH(Beat.SCARE, 3, 4),
     VOID_VISIT(Beat.SCARE, 3, 6);
 
