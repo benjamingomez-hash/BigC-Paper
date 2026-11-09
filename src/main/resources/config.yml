@@ -49,6 +49,10 @@ modules:
     enabled: true
   the-sift:
     enabled: true
+  keep-inventory-totem:
+    enabled: true
+  elytra-failure:
+    enabled: true
 
 celular:
   # Receta: 8 lingotes de hierro alrededor y 1 vidrio en el medio.
@@ -594,6 +598,27 @@ smoke-bomb:
   height: 5.0
   linger-ticks: 40
   smoke-burst-interval-ticks: 100
+
+keep-inventory-totem:
+  # Tiempo de recarga despues de usar un totem (4 horas).
+  cooldown-seconds: 14400
+  # Tambien conserva los niveles de experiencia.
+  keep-experience: true
+  # Cuantos totems puede llevar encima un jugador.
+  max-carried: 1
+
+elytra-failure:
+  # Cada cuanto se tira el dado mientras alguien planea con elytra.
+  check-interval-ticks: 20
+  # Probabilidad por tirada (0.0015 = una falla cada ~11 minutos de vuelo en promedio).
+  chance-per-check: 0.0015
+  # Tiempo minimo planeando antes de que pueda fallar.
+  min-flight-ticks: 100
+  # Ticks que el jugador se desvia hacia el ala rota antes de caer.
+  drift-ticks: 30
+  drift-strength: 0.12
+  # Durabilidad que pierde la elytra al romperse el ala (fraccion del maximo).
+  durability-loss-fraction: 0.25
 
 custom-crossbow:
   sonic:
