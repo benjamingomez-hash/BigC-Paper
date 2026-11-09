@@ -44,6 +44,9 @@ public final class PokerTable extends CardTable {
     private int button;
     private int countdown = -1;
     private int turnTicks;
+    /** Seat whose buttons are showing; the turn clock only runs for it, never while cards are flying. */
+    private int promptedSeat = -1;
+    private boolean settling;
     private int shownBoard;
     private TextDisplay potLabel;
 
@@ -106,7 +109,7 @@ public final class PokerTable extends CardTable {
     }
 
     @Override
-    protected void onTick(long tick) {
+    protected void tableTick(long tick) {
         if (countdown > 0) {
             if (countdown % 20 == 0) {
                 setStatus("§b§lNueva mano en §f" + countdown / 20 + "s");
@@ -118,7 +121,7 @@ public final class PokerTable extends CardTable {
         }
         if (hand != null && !hand.finished()) {
             OptionalInt acting = hand.actingSeat();
-            if (acting.isPresent()) {
+            if (acting.isPresent() && acting.getAsInt() == promptedSeat) {
                 if (turnTicks % 20 == 0) {
                     Player player = occupant(acting.getAsInt());
                     setStatus("§fHabla §e" + (player == null ? "?" : player.getName()) + " §7(" + turnTicks / 20 + "s)");
@@ -179,6 +182,8 @@ public final class PokerTable extends CardTable {
         }
         hand = new HoldemHand(participants, ready.indexOf(button), settings.smallBlind(), settings.bigBlind(), shoe);
         hand.start();
+        settling = false;
+        promptedSeat = -1;
         shownBoard = 0;
         tableMessage("Nueva mano. Botón: " + nameOf(button) + ".");
         int delay = 3;
@@ -209,6 +214,7 @@ public final class PokerTable extends CardTable {
             return;
         }
         long owed = hand.toCall(seat);
+        promptedSeat = -1;
         hand.act(seat, action);
         clearButtons(seat);
         String verb = switch (action) {
@@ -254,6 +260,7 @@ public final class PokerTable extends CardTable {
             return;
         }
         turnTicks = settings.turnSeconds() * 20;
+        promptedSeat = seat;
         Set<PokerAction> legal = hand.legalActions(seat);
         List<TableButton> actions = new ArrayList<>();
         if (legal.contains(PokerAction.CHECK)) {
@@ -286,7 +293,8 @@ public final class PokerTable extends CardTable {
         while (shownBoard < cards.size()) {
             final int n = shownBoard++;
             Card card = cards.get(n);
-            later(delay, () -> flyCard(board, frame.at(-0.84 + n * 0.42, TABLE_HEIGHT + 0.01, -0.1), card, null, false));
+            later(delay, () -> flyCard(board, frame.at(-1.0 + n * 0.5, TABLE_HEIGHT + 0.01, -0.15), card, null, false,
+                BIG_CARD_SCALE));
             delay += 6;
         }
     }
@@ -310,6 +318,11 @@ public final class PokerTable extends CardTable {
     }
 
     private void finishHand() {
+        if (settling) {
+            return;
+        }
+        settling = true;
+        promptedSeat = -1;
         HoldemHand finished = hand;
         for (int seat = 0; seat < SEATS; seat++) {
             clearButtons(seat);

@@ -39,6 +39,10 @@ public abstract class CardTable extends Attraction {
     protected static final double TABLE_HEIGHT = 0.95;
     private static final double[] SEAT_RIGHT = {-1.65, -0.55, 0.55, 1.65};
     private static final double[] SEAT_FORWARD = {1.45, 1.75, 1.75, 1.45};
+    /** Bet spot, between the cards and the rail so chips never cover the cards. */
+    private static final double CHIP_FORWARD = 0.9;
+    protected static final float CARD_SCALE = 0.42f;
+    protected static final float BIG_CARD_SCALE = 0.55f;
 
     protected final Seat[] seats = new Seat[SEATS];
     protected final EntityGroup dealerCards = new EntityGroup();
@@ -70,10 +74,10 @@ public abstract class CardTable extends Attraction {
         kit.block(props, frame.at(0, 0.885, 1.2), Material.DARK_OAK_PLANKS.createBlockData(), 4.6f, 0.1f, 0.25f);
         // Felt markings: a betting arc and the shoe.
         for (int seat = 0; seat < SEATS; seat++) {
-            kit.block(props, frame.at(SEAT_RIGHT[seat], 0.941, 0.62), Material.YELLOW_CONCRETE.createBlockData(),
-                0.42f, 0.005f, 0.42f);
-            kit.block(props, frame.at(SEAT_RIGHT[seat], 0.942, 0.62), Material.GREEN_WOOL.createBlockData(),
-                0.36f, 0.005f, 0.36f);
+            kit.block(props, frame.at(SEAT_RIGHT[seat], 0.941, CHIP_FORWARD), Material.YELLOW_CONCRETE.createBlockData(),
+                0.34f, 0.005f, 0.3f);
+            kit.block(props, frame.at(SEAT_RIGHT[seat], 0.942, CHIP_FORWARD), Material.GREEN_WOOL.createBlockData(),
+                0.28f, 0.005f, 0.24f);
         }
         kit.block(props, frame.at(1.75, 0.94, -0.7), Material.BLACK_CONCRETE.createBlockData(), 0.35f, 0.22f, 0.5f);
         kit.item(props, frame.at(1.75, 1.17, -0.7), CasinoItems.cardBack(), 0.3f, DisplayKit.FLAT);
@@ -100,8 +104,9 @@ public abstract class CardTable extends Attraction {
             final int seat = index;
             context.router().bind(box, player -> sit(seat, player));
             context.router().bind(stand, player -> sit(seat, player));
-            TextDisplay label = kit.text(props, frame.at(SEAT_RIGHT[index], 1.25, 0.85), CasinoText.legacy(""),
-                0.5f, true, 0x00000000);
+            // Above the seated player's head: everybody else reads it, the player gets the same line in the action bar.
+            TextDisplay label = kit.text(props, frame.at(SEAT_RIGHT[index], 2.45, SEAT_FORWARD[index]),
+                CasinoText.legacy(""), 0.5f, true, 0x66000000);
             seats[index] = new Seat(index, stand, label);
         }
     }
@@ -136,12 +141,16 @@ public abstract class CardTable extends Attraction {
             player.sendMessage("§cPrimero bajate de donde estás.");
             return;
         }
+        if (!seat.stand.addPassenger(player)) {
+            player.sendMessage("§cNo pudiste sentarte, probá de nuevo.");
+            return;
+        }
         seat.occupant = player.getUniqueId();
         if (!onSit(index, player)) {
             seat.occupant = null;
+            seat.stand.removePassenger(player);
             return;
         }
-        seat.stand.addPassenger(player);
         context.sound(seat.stand.getLocation(), Sound.BLOCK_WOOL_PLACE, 0.8f, 0.8f);
     }
 
@@ -159,6 +168,33 @@ public abstract class CardTable extends Attraction {
         }
         onLeave(index, occupant);
         seat.label.text(CasinoText.legacy(""));
+    }
+
+    @Override
+    protected final void onTick(long tick) {
+        if (tick % 20 == 0) {
+            releaseGhostSeats();
+        }
+        tableTick(tick);
+    }
+
+    protected void tableTick(long tick) {
+    }
+
+    /**
+     * Frees seats whose player is gone or no longer riding the stool (a teleport, a plugin or a lag spike can
+     * dismount without the usual event), so nobody keeps playing from across the casino.
+     */
+    private void releaseGhostSeats() {
+        for (Seat seat : seats) {
+            if (seat == null || seat.occupant == null) {
+                continue;
+            }
+            Player player = Bukkit.getPlayer(seat.occupant);
+            if (player == null || !seat.stand.getPassengers().contains(player)) {
+                stand(seat.index);
+            }
+        }
     }
 
     @Override
@@ -201,17 +237,17 @@ public abstract class CardTable extends Attraction {
             return;
         }
         Seat seat = seats[index];
-        double spacing = 0.5;
+        double spacing = 0.74;
         double start = -(buttons.size() - 1) * spacing / 2;
         for (int position = 0; position < buttons.size(); position++) {
             TableButton button = buttons.get(position);
             // Buttons are read by the seated player, who faces the dealer: their right is the frame's left.
             Location at = frame.at(SEAT_RIGHT[index] - (start + position * spacing), 1.08, 1.12);
-            TextDisplay label = context.kit().text(seat.buttons, at, CasinoText.legacy(button.label()), 0.38f, false,
+            TextDisplay label = context.kit().text(seat.buttons, at, CasinoText.legacy(button.label()), 0.32f, false,
                 button.backgroundArgb());
             label.setVisibleByDefault(false);
             context.kit().showOnlyTo(label, player);
-            Interaction hit = context.kit().interaction(seat.buttons, at.clone().subtract(0, 0.05, 0), 0.42f, 0.22f);
+            Interaction hit = context.kit().interaction(seat.buttons, at.clone().subtract(0, 0.05, 0), 0.66f, 0.22f);
             hit.setVisibleByDefault(false);
             context.kit().showOnlyTo(hit, player);
             context.router().bind(hit, clicker -> {
@@ -231,11 +267,11 @@ public abstract class CardTable extends Attraction {
 
     /** Where the {@code n}th card of a seat lies on the felt. */
     protected Location seatCardSpot(int index, int n) {
-        return frame.at(SEAT_RIGHT[index] - 0.12 + n * 0.17, TABLE_HEIGHT + 0.01 + n * 0.002, 0.45 - n * 0.04);
+        return frame.at(SEAT_RIGHT[index] - 0.15 + n * 0.19, TABLE_HEIGHT + 0.01 + n * 0.002, 0.4 - n * 0.03);
     }
 
     protected Location dealerCardSpot(int n) {
-        return frame.at(-0.45 + n * 0.3, TABLE_HEIGHT + 0.01, -0.6);
+        return frame.at(-0.55 + n * 0.36, TABLE_HEIGHT + 0.01 + n * 0.002, -0.3);
     }
 
     protected Location shoe() {
@@ -247,10 +283,15 @@ public abstract class CardTable extends Attraction {
      * that player sees (others get a separate face-down copy from the caller).
      */
     protected ItemDisplay flyCard(EntityGroup group, Location target, Card card, Player viewer, boolean hideFromViewer) {
+        return flyCard(group, target, card, viewer, hideFromViewer, group == dealerCards ? BIG_CARD_SCALE : CARD_SCALE);
+    }
+
+    protected ItemDisplay flyCard(EntityGroup group, Location target, Card card, Player viewer, boolean hideFromViewer,
+                                  float scale) {
         Location from = shoe();
         from.setYaw(frame.yaw());
         ItemDisplay display = context.kit().item(group, from, card == null ? CasinoItems.cardBack()
-            : CasinoItems.card(card), 0.42f, DisplayKit.FLAT);
+            : CasinoItems.card(card), scale, DisplayKit.FLAT);
         display.setTeleportDuration(6);
         if (viewer != null) {
             if (hideFromViewer) {
@@ -301,7 +342,7 @@ public abstract class CardTable extends Attraction {
         }
         int stack = (int) Math.min(6, Math.max(1, Math.round(Math.log10(amount))));
         for (int level = 0; level < stack; level++) {
-            Location at = frame.at(SEAT_RIGHT[index], TABLE_HEIGHT + 0.012 + level * 0.025, 0.62);
+            Location at = frame.at(SEAT_RIGHT[index], TABLE_HEIGHT + 0.012 + level * 0.025, CHIP_FORWARD);
             context.kit().item(seat.chips, at, CasinoItems.chip(amount), 0.32f, DisplayKit.FLAT);
         }
     }
@@ -316,6 +357,13 @@ public abstract class CardTable extends Attraction {
         TextDisplay label = seats[index].label;
         if (label.isValid()) {
             label.text(CasinoText.legacy(text));
+        }
+        Player player = occupant(index);
+        if (player != null && !text.isEmpty()) {
+            // The label floats over the player's own head, so they get it in the action bar instead.
+            int newline = text.indexOf('\n');
+            String own = newline < 0 ? text : text.substring(newline + 1).replace('\n', ' ');
+            player.sendActionBar(CasinoText.legacy(own));
         }
     }
 

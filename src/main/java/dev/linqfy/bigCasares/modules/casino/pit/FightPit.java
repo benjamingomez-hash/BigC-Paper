@@ -242,10 +242,17 @@ public final class FightPit extends Attraction {
                 : "No hay pelea anunciada todavía."));
             return;
         }
-        long chip = selectedChip.getOrDefault(player.getUniqueId(), context.settings().chips().getFirst());
         CasinoMenu menu = new CasinoMenu(3, "§eEl Corredor de Apuestas");
-        menu.set(11, corner(ParimutuelBook.Corner.RED, red, player), (clicker, click) -> bet(clicker, ParimutuelBook.Corner.RED));
-        menu.set(15, corner(ParimutuelBook.Corner.BLUE, blue, player), (clicker, click) -> bet(clicker, ParimutuelBook.Corner.BLUE));
+        renderBook(menu, player);
+        menu.open(player);
+    }
+
+    private void renderBook(CasinoMenu menu, Player player) {
+        long chip = selectedChip.getOrDefault(player.getUniqueId(), context.settings().chips().getFirst());
+        menu.set(11, corner(ParimutuelBook.Corner.RED, red, player),
+            (clicker, click) -> bet(menu, clicker, ParimutuelBook.Corner.RED));
+        menu.set(15, corner(ParimutuelBook.Corner.BLUE, blue, player),
+            (clicker, click) -> bet(menu, clicker, ParimutuelBook.Corner.BLUE));
         int slot = 19;
         for (long value : context.settings().chips()) {
             if (slot > 25) {
@@ -253,11 +260,10 @@ public final class FightPit extends Attraction {
             }
             menu.set(slot++, CasinoItems.chipButton(value, value == chip), (clicker, click) -> {
                 selectedChip.put(clicker.getUniqueId(), value);
-                openBook(clicker);
+                renderBook(menu, clicker);
             });
         }
         menu.fill(CasinoItems.filler());
-        menu.open(player);
     }
 
     private ItemStack corner(ParimutuelBook.Corner corner, UUID fighter, Player viewer) {
@@ -276,7 +282,7 @@ public final class FightPit extends Attraction {
         return head;
     }
 
-    private void bet(Player player, ParimutuelBook.Corner corner) {
+    private void bet(CasinoMenu menu, Player player, ParimutuelBook.Corner corner) {
         UUID id = player.getUniqueId();
         if (phase != Phase.BETTING) {
             return;
@@ -292,7 +298,7 @@ public final class FightPit extends Attraction {
         }
         book.bet(id, corner, chip);
         context.sound(player.getLocation(), Sound.BLOCK_AMETHYST_BLOCK_HIT, 0.8f, 1.5f);
-        openBook(player);
+        renderBook(menu, player);
         refreshBoard();
     }
 

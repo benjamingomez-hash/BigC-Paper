@@ -63,12 +63,12 @@ casino:
     max-bet: 5000
     decks: 6
     betting-seconds: 15
-    turn-seconds: 20
+    turn-seconds: 30
   poker:
     buy-in: 1000
     small-blind: 10
     big-blind: 20
-    turn-seconds: 25
+    turn-seconds: 35
   roulette:
     cycle-seconds: 60
     spin-seconds: 11

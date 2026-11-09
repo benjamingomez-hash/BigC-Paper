@@ -67,14 +67,14 @@ public record CasinoSettings(
             positive(bj.getLong("max-bet", 5000), "blackjack.max-bet"),
             Math.max(1, bj.getInt("decks", 6)),
             Math.max(5, bj.getInt("betting-seconds", 15)),
-            Math.max(5, bj.getInt("turn-seconds", 20)));
+            Math.max(5, bj.getInt("turn-seconds", 30)));
 
         ConfigurationSection pk = section(casino, "poker");
         Poker poker = new Poker(
             positive(pk.getLong("buy-in", 1000), "poker.buy-in"),
             positive(pk.getLong("small-blind", 10), "poker.small-blind"),
             positive(pk.getLong("big-blind", 20), "poker.big-blind"),
-            Math.max(5, pk.getInt("turn-seconds", 25)));
+            Math.max(5, pk.getInt("turn-seconds", 35)));
         if (poker.bigBlind() < poker.smallBlind()) {
             throw new IllegalArgumentException("casino.poker.big-blind must be at least the small blind");
         }

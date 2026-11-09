@@ -324,9 +324,15 @@ public final class RouletteTable extends Attraction {
     }
 
     private void openMenu(Player player) {
+        CasinoMenu menu = new CasinoMenu(6, "§6La Gran Ruleta · Apuestas");
+        renderMenu(menu, player);
+        menu.open(player);
+    }
+
+    /** Fills (or refreshes in place) the betting menu, so fast clicks never land on a closing window. */
+    private void renderMenu(CasinoMenu menu, Player player) {
         long chip = selectedChip.getOrDefault(player.getUniqueId(), context.settings().chips().getFirst());
         Map<RouletteBet, Long> mine = bets.getOrDefault(player.getUniqueId(), Map.of());
-        CasinoMenu menu = new CasinoMenu(6, "§6La Gran Ruleta · " + (phase == Phase.BETTING ? "Apuestas" : "¡No va más!"));
         for (int number = 0; number <= 36; number++) {
             RouletteBet bet = RouletteBet.straight(number);
             Material material = switch (RoulettePockets.color(number)) {
@@ -334,13 +340,13 @@ public final class RouletteTable extends Attraction {
                 case BLACK -> Material.BLACK_CONCRETE;
                 case GREEN -> Material.LIME_CONCRETE;
             };
-            menu.set(number, betButton(material, bet, mine), (clicker, click) -> clickBet(clicker, bet, click));
+            menu.set(number, betButton(material, bet, mine), (clicker, click) -> clickBet(menu, clicker, bet, click));
         }
         Material[] outsideIcons = {Material.RED_WOOL, Material.BLACK_WOOL, Material.WHITE_WOOL, Material.GRAY_WOOL,
             Material.LIGHT_BLUE_WOOL, Material.BLUE_WOOL, Material.YELLOW_WOOL, Material.ORANGE_WOOL, Material.BROWN_WOOL};
         for (int index = 0; index < OUTSIDE.size(); index++) {
             RouletteBet bet = OUTSIDE.get(index);
-            menu.set(37 + index, betButton(outsideIcons[index], bet, mine), (clicker, click) -> clickBet(clicker, bet, click));
+            menu.set(37 + index, betButton(outsideIcons[index], bet, mine), (clicker, click) -> clickBet(menu, clicker, bet, click));
         }
         long total = mine.values().stream().mapToLong(Long::longValue).sum();
         menu.set(46, CasinoItems.button(Material.GOLD_INGOT, "§6Tus fichas en la mesa: §e" + context.chips(total),
@@ -353,11 +359,10 @@ public final class RouletteTable extends Attraction {
             }
             menu.set(slot++, CasinoItems.chipButton(value, value == chip), (clicker, click) -> {
                 selectedChip.put(clicker.getUniqueId(), value);
-                openMenu(clicker);
+                renderMenu(menu, clicker);
             });
         }
         menu.fill(CasinoItems.filler());
-        menu.open(player);
     }
 
     private org.bukkit.inventory.ItemStack betButton(Material material, RouletteBet bet, Map<RouletteBet, Long> mine) {
@@ -373,7 +378,7 @@ public final class RouletteTable extends Attraction {
         return item;
     }
 
-    private void clickBet(Player player, RouletteBet bet, ClickType click) {
+    private void clickBet(CasinoMenu menu, Player player, RouletteBet bet, ClickType click) {
         if (phase != Phase.BETTING) {
             player.sendMessage("§c¡No va más! Esperá la próxima bola.");
             return;
@@ -411,7 +416,7 @@ public final class RouletteTable extends Attraction {
             bets.remove(id);
         }
         refreshChips();
-        openMenu(player);
+        renderMenu(menu, player);
     }
 
     private void refreshChips() {
@@ -495,7 +500,7 @@ public final class RouletteTable extends Attraction {
             int number = history.get(index);
             line.append(RoulettePockets.legacyColor(number)).append(number).append(' ');
         }
-        return line.toString().trim();
+        return line.toString().stripTrailing();
     }
 
     private void announce(String text) {

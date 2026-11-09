@@ -82,7 +82,7 @@ public final class BlackjackTable extends CardTable {
     }
 
     @Override
-    protected void onTick(long tick) {
+    protected void tableTick(long tick) {
         if (phase == Phase.BETTING) {
             if (countdown % 20 == 0) {
                 setStatus("§e§lApuestas abiertas\n§fCierran en §e" + countdown / 20 + "s");

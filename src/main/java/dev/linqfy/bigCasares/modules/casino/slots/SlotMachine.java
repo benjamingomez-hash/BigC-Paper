@@ -67,6 +67,8 @@ public final class SlotMachine extends Attraction {
     private long bet;
     private int spinTick = -1;
     private int lastStop;
+    /** Bet shown on the cabinet: the one last chosen or played here, until somebody picks another. */
+    private long shownBet = -1;
 
     public SlotMachine(CasinoContext context, Installation installation, Frame frame) {
         super(context, installation, frame);
@@ -377,8 +379,10 @@ public final class SlotMachine extends Attraction {
 
     private void refreshLabels(Player viewer) {
         jackpotLabel.text(CasinoText.legacy("§6§l★ JACKPOT ★\n§e" + context.chips(context.jackpot().value())));
-        long shown = viewer == null ? settings.bets().getFirst()
-            : settings.bets().get(betIndex.getOrDefault(viewer.getUniqueId(), 0) % settings.bets().size());
+        if (viewer != null) {
+            shownBet = settings.bets().get(betIndex.getOrDefault(viewer.getUniqueId(), 0) % settings.bets().size());
+        }
+        long shown = shownBet < 0 ? settings.bets().getFirst() : shownBet;
         betLabel.text(CasinoText.legacy("§fApuesta §e" + context.chips(shown)));
     }
 
