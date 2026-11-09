@@ -9,11 +9,12 @@ import org.bukkit.entity.Mannequin;
  * stares back until you blink; SNAP is pinned for a forced camera turn; BEHIND keeps standing
  * right at your back and screams when you turn around; CHASER runs you down whether you look or
  * not; WATCHER stands far away all episode long and relocates when stared at; CROWD creeps in
- * slowly while unwatched and never vanishes under your gaze.
+ * slowly while unwatched and never vanishes under your gaze; ALTERNATE wears a friend's face,
+ * walks right up to you insisting it is them, and then stops being them.
  */
 final class PhantomClone {
 
-    enum Behaviour { STARE, STALKER, MIRROR, SNAP, BEHIND, CHASER, WATCHER, CROWD }
+    enum Behaviour { STARE, STALKER, MIRROR, SNAP, BEHIND, CHASER, WATCHER, CROWD, ALTERNATE }
 
     private final Mannequin entity;
     private final Behaviour behaviour;

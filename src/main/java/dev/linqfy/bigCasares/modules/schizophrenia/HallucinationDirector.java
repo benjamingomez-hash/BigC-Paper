@@ -22,7 +22,9 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.WallSign;
+import org.bukkit.entity.Display;
 import org.bukkit.entity.Mannequin;
+import org.bukkit.entity.TextDisplay;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.EquipmentSlot;
@@ -76,14 +78,16 @@ final class HallucinationDirector {
     private final SchizophreniaSettings settings;
     private final RandomGenerator random;
     private final Map<Hallucination, Effect> effects = new EnumMap<>(Hallucination.class);
+    private final VoidRealm voidRealm;
 
     @FunctionalInterface
     private interface Effect {
         boolean play(Player player, Episode episode, long now, int intensity);
     }
 
-    HallucinationDirector(Plugin plugin, SchizophreniaSettings settings, RandomGenerator random) {
+    HallucinationDirector(Plugin plugin, SchizophreniaSettings settings, RandomGenerator random, VoidRealm voidRealm) {
         this.plugin = plugin;
+        this.voidRealm = voidRealm;
         this.settings = settings;
         this.random = random;
         effects.put(Hallucination.FOOTSTEPS, this::footsteps);
@@ -129,6 +133,10 @@ final class HallucinationDirector {
         effects.put(Hallucination.CAMERA_SPIN, this::cameraSpin);
         effects.put(Hallucination.FLESH_ROOM, this::fleshRoom);
         effects.put(Hallucination.BREAKDOWN, this::breakdown);
+        effects.put(Hallucination.VOID_VISIT, this::voidVisit);
+        effects.put(Hallucination.ALTERNATE, this::alternate);
+        effects.put(Hallucination.INTRUDER_ALERT, this::intruderAlert);
+        effects.put(Hallucination.FACE_FLASH, this::faceFlash);
     }
 
     /** Plays the hallucination; returns false when the surroundings could not support it. */
@@ -887,6 +895,154 @@ final class HallucinationDirector {
         return true;
     }
 
+    // ---------------------------------------------------------------- the black place
+
+    /**
+     * Taken away to the black place. A tall black figure waits in front of you and, every time
+     * your eyes close, it is closer. Then you are thrown back as if nothing happened.
+     */
+    private boolean voidVisit(Player player, Episode episode, long now, int intensity) {
+        if (voidRealm == null || episode.inVoid() || player.isInsideVehicle() || player.isDead()) {
+            return false;
+        }
+        episode.inVoid(true);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 30, 0, false, false, false));
+        player.playSound(player.getLocation(), Sound.WEATHER_RAIN, SoundCategory.MASTER, 1.5f, 2f);
+        player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, SoundCategory.MASTER, 1f, 0.5f);
+        episode.timeline().at(now + 12, () -> {
+            if (!player.isOnline() || voidRealm.takeAway(player) == null) {
+                episode.inVoid(false);
+                return;
+            }
+            player.stopAllSounds();
+            ShadowFigure[] figure = {null};
+            double[] distances = {10, 7.5, 5.5, 3.8, 2.4, 1.3};
+            long first = now + 80;
+            for (int i = 0; i < distances.length; i++) {
+                double distance = distances[i];
+                boolean blink = i > 0;
+                float pitch = 0.5f + i * 0.04f;
+                episode.timeline().at(first + i * 45L, () -> {
+                    if (!player.isOnline() || !voidRealm.contains(player)) {
+                        return;
+                    }
+                    if (blink) {
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 8, 0, false, false, false));
+                    }
+                    Location feet = inFront(player, distance);
+                    feet.setY(VoidRealm.FLOOR_Y + 1);
+                    if (figure[0] == null) {
+                        figure[0] = ShadowFigure.spawn(plugin, player, feet);
+                    }
+                    figure[0].moveTo(feet, player.getX(), player.getZ());
+                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, SoundCategory.HOSTILE, 1.4f, pitch);
+                    player.playSound(player.getLocation(), Sound.ENTITY_WARDEN_HEARTBEAT, SoundCategory.HOSTILE, 1.2f, 0.8f);
+                    if (distance < 4) {
+                        whisperChat(player, SchizophreniaLines.pick(SchizophreniaLines.VOID_LINES, random));
+                    }
+                });
+            }
+            long end = first + distances.length * 45L + 25;
+            episode.timeline().at(end - 12, () -> {
+                player.playSound(player.getLocation(), Sound.ENTITY_GHAST_SCREAM, SoundCategory.HOSTILE, 1.5f, 0.5f);
+                player.showTitle(Title.title(
+                    Component.text("NO ES QUIEN DICE SER", NamedTextColor.WHITE, TextDecoration.BOLD),
+                    Component.empty(),
+                    Title.Times.times(Duration.ZERO, Duration.ofMillis(700), Duration.ZERO)));
+            });
+            episode.timeline().restoreAt(end, () -> {
+                if (figure[0] != null) {
+                    figure[0].remove();
+                }
+                if (player.isOnline()) {
+                    voidRealm.bringBack(player);
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 20, 0, false, false, false));
+                    player.playSound(player.getLocation(), Sound.WEATHER_RAIN, SoundCategory.MASTER, 1.5f, 2f);
+                }
+                episode.inVoid(false);
+            });
+        });
+        return true;
+    }
+
+    /** Keeps a victim who walks off the black floor from falling forever. */
+    void guardVoid(Player player, Episode episode) {
+        if (voidRealm != null && episode.inVoid() && voidRealm.contains(player)
+            && player.getY() < VoidRealm.FLOOR_Y - 4) {
+            voidRealm.catchFall(player);
+        }
+    }
+
+    private boolean alternate(Player player, Episode episode, long now, int intensity) {
+        Identity identity = randomIdentity(player);
+        PhantomClone clone = spawnPhantom(player, episode, now, PhantomClone.Behaviour.ALTERNATE,
+            inFront(player, 16), identity, 45 * 20L, true);
+        if (clone == null) {
+            return false;
+        }
+        for (int i = 0; i < 3; i++) {
+            String line = SchizophreniaLines.pick(SchizophreniaLines.ALTERNATE_LINES, random);
+            episode.timeline().at(now + 20 + i * 45L, () -> {
+                if (clone.entity().isValid()) {
+                    player.sendMessage(Component.text(identity.name() + " te susurra: " + line,
+                        NamedTextColor.GRAY, TextDecoration.ITALIC));
+                }
+            });
+        }
+        return true;
+    }
+
+    private boolean intruderAlert(Player player, Episode episode, long now, int intensity) {
+        player.stopSound(SoundCategory.MUSIC);
+        for (int i = 0; i < 40; i++) {
+            float pitch = i % 2 == 0 ? 1.68f : 1.89f;
+            episode.timeline().at(now + i * 2L, () -> {
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, SoundCategory.MASTER, 0.9f, pitch);
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, SoundCategory.MASTER, 0.6f, pitch);
+            });
+        }
+        player.showTitle(Title.title(
+            Component.text("⚠ ALERTA DE INTRUSO ⚠", NamedTextColor.RED, TextDecoration.BOLD),
+            Component.text("permanezca en su hogar", NamedTextColor.WHITE),
+            Title.Times.times(Duration.ZERO, Duration.ofMillis(3500), Duration.ofMillis(500))));
+        episode.timeline().at(now + 82, () ->
+            player.sendMessage(Component.text("⚠ SISTEMA DE ALERTA DE EMERGENCIA ⚠", NamedTextColor.RED, TextDecoration.BOLD)));
+        List<String> broadcast = SchizophreniaLines.BROADCAST;
+        for (int i = 0; i < broadcast.size(); i++) {
+            String line = broadcast.get(i);
+            episode.timeline().at(now + 100 + i * 30L, () -> {
+                player.sendMessage(Component.text(line, NamedTextColor.WHITE));
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BIT, SoundCategory.MASTER, 0.4f, 0.5f);
+            });
+        }
+        episode.timeline().at(now + 100 + broadcast.size() * 30L + 40, () ->
+            player.playSound(player.getLocation(), Sound.WEATHER_RAIN, SoundCategory.MASTER, 1f, 2f));
+        return true;
+    }
+
+    private boolean faceFlash(Player player, Episode episode, long now, int intensity) {
+        Location at = player.getEyeLocation().add(player.getEyeLocation().getDirection().multiply(1.1));
+        TextDisplay face = at.getWorld().spawn(at, TextDisplay.class, display -> {
+            display.setVisibleByDefault(false);
+            display.setPersistent(false);
+            display.addScoreboardTag(PHANTOM_TAG);
+            display.text(Component.text(SchizophreniaLines.FACE, NamedTextColor.WHITE));
+            display.setBackgroundColor(Color.fromARGB(255, 0, 0, 0));
+            display.setBillboard(Display.Billboard.CENTER);
+            display.setBrightness(new Display.Brightness(15, 15));
+            display.setLineWidth(400);
+        });
+        player.showEntity(plugin, face);
+        player.playSound(player.getLocation(), Sound.ENTITY_GHAST_SCREAM, SoundCategory.HOSTILE, 1.5f, 0.5f);
+        player.playSound(player.getLocation(), Sound.WEATHER_RAIN, SoundCategory.MASTER, 1.5f, 2f);
+        episode.timeline().restoreAt(now + 10 + random.nextInt(6), () -> {
+            if (face.isValid()) {
+                face.remove();
+            }
+        });
+        return true;
+    }
+
     // ---------------------------------------------------------------- atmosphere
 
     /** Played the moment the pacing moves to a new phase. */
@@ -1099,6 +1255,7 @@ final class HallucinationDirector {
                     }
                 }
                 case CROWD -> creep(player, episode, clone, watched, distance, now);
+                case ALTERNATE -> approachAsFriend(player, clone, distance);
             }
         }
     }
@@ -1142,6 +1299,42 @@ final class HallucinationDirector {
         entity.setBodyYaw(next.getYaw());
         if (now % 6 == 0) {
             player.playSound(next, Sound.ENTITY_RAVAGER_STEP, SoundCategory.HOSTILE, 1f, 0.7f);
+        }
+    }
+
+    private void approachAsFriend(Player player, PhantomClone clone, double distance) {
+        Mannequin entity = clone.entity();
+        face(entity, player);
+        if (distance > 3.2 && clone.watchedFor() == 0) {
+            Vector step = player.getLocation().toVector().subtract(entity.getLocation().toVector()).setY(0);
+            if (step.lengthSquared() > 1.0E-4) {
+                Location next = ground(entity.getLocation().add(step.normalize().multiply(0.18)));
+                if (next != null) {
+                    next.setYaw(GazeMath.yawTowards(next.getX(), next.getZ(), player.getX(), player.getZ()));
+                    entity.teleport(next);
+                    entity.setBodyYaw(next.getYaw());
+                    if (random.nextInt(5) == 0) {
+                        playStepSound(player, next);
+                    }
+                }
+            }
+            return;
+        }
+        // Close enough. It stops pretending.
+        int stage = clone.watchedFor() + 2;
+        clone.watchedFor(stage);
+        if (stage == 30) {
+            String friend = entity.customName() == null ? "???" : net.kyori.adventure.text.serializer.plain
+                .PlainTextComponentSerializer.plainText().serialize(entity.customName());
+            entity.customName(Component.text("Dinnerbone"));
+            entity.setCustomNameVisible(false);
+            player.playSound(entity.getLocation(), Sound.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.HOSTILE, 1f, 0.5f);
+            player.sendMessage(Component.text(friend + " te susurra: ese no era yo. no le abras.",
+                NamedTextColor.GRAY, TextDecoration.ITALIC));
+        }
+        if (stage >= 70) {
+            player.playSound(entity.getLocation(), Sound.WEATHER_RAIN, SoundCategory.MASTER, 1.2f, 2f);
+            vanish(player, clone, true);
         }
     }
 
@@ -1287,6 +1480,11 @@ final class HallucinationDirector {
     private Location behind(Player player, double distance, double side) {
         double[] offset = GazeMath.offset(player.getLocation().getYaw(), side, random.nextBoolean(), distance);
         return player.getLocation().add(offset[0], 0, offset[1]);
+    }
+
+    private Location inFront(Player player, double distance) {
+        float yaw = player.getLocation().getYaw();
+        return player.getLocation().add(-Math.sin(Math.toRadians(yaw)) * distance, 0, Math.cos(Math.toRadians(yaw)) * distance);
     }
 
     private Location around(Player player, double distance) {

@@ -22,6 +22,7 @@ final class Episode {
         BossBar.Color.PURPLE, BossBar.Overlay.NOTCHED_10);
     private long nextHallucinationTick;
     private long nextHeartbeatTick;
+    private boolean inVoid;
     private Hallucination previous;
 
     Episode(UUID playerId, long startedAtMillis, int startIntensity, long tick, RandomGenerator random) {
@@ -66,6 +67,14 @@ final class Episode {
 
     void nextHallucinationTick(long tick) {
         this.nextHallucinationTick = tick;
+    }
+
+    boolean inVoid() {
+        return inVoid;
+    }
+
+    void inVoid(boolean inVoid) {
+        this.inVoid = inVoid;
     }
 
     long nextHeartbeatTick() {

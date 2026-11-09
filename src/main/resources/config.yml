@@ -85,6 +85,11 @@ schizophrenia:
     recipe: true
     durability-cost: 40
     stun-seconds: 30
+  # El lugar negro: un mundo vacío propio del módulo. La víctima es llevada ahí unos segundos,
+  # frente a una figura negra que se acerca cada vez que parpadea, y vuelve adonde estaba.
+  void:
+    enabled: true
+    world: bigcasares_void
   # Ids como footsteps, creeper-hiss, chase, the-visitor, fake-death... para apagar alguna.
   disabled-hallucinations: []
 

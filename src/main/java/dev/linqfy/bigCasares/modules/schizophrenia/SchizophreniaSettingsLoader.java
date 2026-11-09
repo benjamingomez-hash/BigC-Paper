@@ -28,6 +28,7 @@ public final class SchizophreniaSettingsLoader {
         SchizophreniaSettings.Natural naturalDefaults = defaults.natural();
         SchizophreniaSettings.Phantoms phantomDefaults = defaults.phantoms();
         SchizophreniaSettings.Lobotomizer lobotomizerDefaults = defaults.lobotomizer();
+        SchizophreniaSettings.VoidPlace voidDefaults = defaults.voidPlace();
 
         EnumSet<Hallucination> disabled = EnumSet.noneOf(Hallucination.class);
         for (String raw : section.getStringList("disabled-hallucinations")) {
@@ -65,6 +66,9 @@ public final class SchizophreniaSettingsLoader {
                 section.getBoolean("lobotomizer.recipe", lobotomizerDefaults.recipeEnabled()),
                 section.getInt("lobotomizer.durability-cost", lobotomizerDefaults.durabilityCost()),
                 section.getInt("lobotomizer.stun-seconds", lobotomizerDefaults.stunSeconds())),
+            new SchizophreniaSettings.VoidPlace(
+                section.getBoolean("void.enabled", voidDefaults.enabled()),
+                section.getString("void.world", voidDefaults.worldName())),
             disabled);
     }
 }

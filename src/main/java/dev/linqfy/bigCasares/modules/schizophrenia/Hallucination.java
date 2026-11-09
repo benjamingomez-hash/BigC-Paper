@@ -18,6 +18,7 @@ public enum Hallucination {
     WALL_WRITING(Beat.AMBIENT, 2, 5),
     YOUR_NAME(Beat.AMBIENT, 1, 5),
     CHAT_FLOOD(Beat.AMBIENT, 2, 4),
+    INTRUDER_ALERT(Beat.AMBIENT, 1, 4),
     // Dread: something is coming.
     FOOTSTEPS(Beat.DREAD, 1, 10),
     PHANTOM_CLONE(Beat.DREAD, 1, 10),
@@ -34,6 +35,7 @@ public enum Hallucination {
     SCREEN_SHAKE(Beat.DREAD, 2, 5),
     BLOOD_RAIN(Beat.DREAD, 3, 4),
     CROWD(Beat.DREAD, 3, 4),
+    ALTERNATE(Beat.DREAD, 2, 6),
     // Scare: the payoff.
     CREEPER_HISS(Beat.SCARE, 1, 8),
     RIGHT_BEHIND_YOU(Beat.SCARE, 1, 10),
@@ -50,7 +52,9 @@ public enum Hallucination {
     CAMERA_SPIN(Beat.SCARE, 4, 4),
     FLESH_ROOM(Beat.SCARE, 4, 4),
     FAKE_DEATH(Beat.SCARE, 4, 3),
-    BREAKDOWN(Beat.SCARE, 5, 5);
+    BREAKDOWN(Beat.SCARE, 5, 5),
+    FACE_FLASH(Beat.SCARE, 2, 5),
+    VOID_VISIT(Beat.SCARE, 2, 8);
 
     /** Where a hallucination sits in the calm, dread, scare loop. */
     public enum Beat { AMBIENT, DREAD, SCARE }

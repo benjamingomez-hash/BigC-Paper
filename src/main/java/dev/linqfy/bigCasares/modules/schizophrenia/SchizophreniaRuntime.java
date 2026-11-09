@@ -47,12 +47,15 @@ final class SchizophreniaRuntime {
     private long tick;
     private long nextNaturalCheck;
 
-    SchizophreniaRuntime(Plugin plugin, SchizophreniaSettings settings, LongSupplier clock) {
+    private final VoidRealm voidRealm;
+
+    SchizophreniaRuntime(Plugin plugin, SchizophreniaSettings settings, LongSupplier clock, VoidRealm voidRealm) {
         this.plugin = plugin;
+        this.voidRealm = voidRealm;
         this.settings = settings;
         this.clock = clock;
         this.picker = new HallucinationPicker(settings.disabledHallucinations());
-        this.director = new HallucinationDirector(plugin, settings, random);
+        this.director = new HallucinationDirector(plugin, settings, random, voidRealm);
         this.startedKey = new NamespacedKey(plugin, "schizophrenia_started");
         this.intensityKey = new NamespacedKey(plugin, "schizophrenia_intensity");
         this.immuneKey = new NamespacedKey(plugin, "schizophrenia_immune_until");
@@ -90,6 +93,11 @@ final class SchizophreniaRuntime {
         }
         episode.timeline().runDue(tick, this::logCueFailure);
         director.updatePhantoms(player, episode, tick);
+        if (episode.inVoid()) {
+            // Nothing else exists in the black place.
+            director.guardVoid(player, episode);
+            return;
+        }
         if (player.isDead()) {
             return;
         }
@@ -186,6 +194,9 @@ final class SchizophreniaRuntime {
 
     /** Re-attaches a persisted episode after a relog: logging out is not a cure. */
     void resume(Player player) {
+        if (voidRealm != null && voidRealm.isAway(player)) {
+            voidRealm.bringBack(player);
+        }
         PersistentDataContainer data = player.getPersistentDataContainer();
         Long started = data.get(startedKey, PersistentDataType.LONG);
         if (started == null || episodes.containsKey(player.getUniqueId())) {

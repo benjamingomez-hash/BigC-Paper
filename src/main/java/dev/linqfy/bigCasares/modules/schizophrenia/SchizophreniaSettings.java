@@ -13,6 +13,7 @@ public record SchizophreniaSettings(
     Natural natural,
     Phantoms phantoms,
     Lobotomizer lobotomizer,
+    VoidPlace voidPlace,
     Set<Hallucination> disabledHallucinations
 ) {
     public SchizophreniaSettings {
@@ -24,12 +25,24 @@ public record SchizophreniaSettings(
         natural = natural == null ? Natural.defaults() : natural;
         phantoms = phantoms == null ? Phantoms.defaults() : phantoms;
         lobotomizer = lobotomizer == null ? Lobotomizer.defaults() : lobotomizer;
+        voidPlace = voidPlace == null ? VoidPlace.defaults() : voidPlace;
         disabledHallucinations = disabledHallucinations == null ? Set.of() : Set.copyOf(disabledHallucinations);
     }
 
     public static SchizophreniaSettings defaults() {
         return new SchizophreniaSettings(40, 1.5, 7, 1, 20,
-            Natural.defaults(), Phantoms.defaults(), Lobotomizer.defaults(), Set.of());
+            Natural.defaults(), Phantoms.defaults(), Lobotomizer.defaults(), VoidPlace.defaults(), Set.of());
+    }
+
+    /** The black place victims get taken to: an empty world owned by this module. */
+    public record VoidPlace(boolean enabled, String worldName) {
+        public VoidPlace {
+            worldName = worldName == null || !worldName.matches("[a-z0-9_\\-]{1,48}") ? "bigcasares_void" : worldName;
+        }
+
+        public static VoidPlace defaults() {
+            return new VoidPlace(true, "bigcasares_void");
+        }
     }
 
     /** Natural onset: lonely players in the dark slowly lose it. */

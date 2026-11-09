@@ -43,7 +43,13 @@ public final class SchizophreniaModule implements PluginModule {
         }
         SchizophreniaSettings settings = SchizophreniaSettingsLoader.load(plugin.getConfig(),
             warning -> plugin.getLogger().warning("[Esquizofrenia] " + warning));
-        runtime = new SchizophreniaRuntime(plugin, settings, System::currentTimeMillis);
+        VoidRealm voidRealm = settings.voidPlace().enabled()
+            ? new VoidRealm(plugin, settings.voidPlace().worldName()) : null;
+        if (voidRealm != null && voidRealm.world() == null) {
+            plugin.getLogger().warning("[Esquizofrenia] No se pudo crear el mundo vacío; sin visitas al lugar negro.");
+            voidRealm = null;
+        }
+        runtime = new SchizophreniaRuntime(plugin, settings, System::currentTimeMillis, voidRealm);
         SchizophreniaRuntime ownedRuntime = runtime;
         LobotomizerItem lobotomizer = new LobotomizerItem(plugin);
         BukkitRuntimeRegistrations registrations = new BukkitRuntimeRegistrations(plugin, scope);

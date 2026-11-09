@@ -47,6 +47,7 @@ class SchizophreniaSettingsTest {
         assertEquals(Set.of(Hallucination.FAKE_DEATH, Hallucination.CAMERA_SNAP), settings.disabledHallucinations());
         assertEquals(1, warnings.size());
         assertTrue(settings.natural().allowsWorld("world_nether"));
+        assertEquals("bigcasares_void", settings.voidPlace().worldName());
         assertFalse(settings.natural().allowsWorld("world"));
     }
 
@@ -60,6 +61,7 @@ class SchizophreniaSettingsTest {
               interval-seconds: {slowest: 5, fastest: 50}
               natural: {chance: 7, max-light-level: 99}
               phantoms: {max-distance: 1, gaze-threshold-degrees: 500}
+              void: {world: "../escape"}
             """);
 
         SchizophreniaSettings settings = SchizophreniaSettingsLoader.load(yaml);
@@ -71,5 +73,6 @@ class SchizophreniaSettingsTest {
         assertEquals(15, settings.natural().maxLightLevel());
         assertTrue(settings.phantoms().maxDistance() >= settings.phantoms().minDistance());
         assertEquals(60.0, settings.phantoms().gazeThresholdDegrees());
+        assertEquals("bigcasares_void", settings.voidPlace().worldName());
     }
 }

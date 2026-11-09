@@ -36,8 +36,51 @@ final class SchizophreniaLines {
         "estoy adentro",
         "no despiertes",
         "sigo acá. sigo acá. sigo acá.",
-        "cuántos somos ahora"
+        "cuántos somos ahora",
+        "no es quien dice ser",
+        "no le abras la puerta",
+        "no mires a la luna",
+        "él te conoce",
+        "ya no sos vos"
     );
+
+    /** What an alternate says while it walks up wearing a friend's face. */
+    static final List<String> ALTERNATE_LINES = List.of(
+        "ey, soy yo",
+        "abrime, soy yo",
+        "¿por qué me mirás así?",
+        "soy yo. soy yo. soy yo.",
+        "no le hagas caso al otro",
+        "dejame entrar"
+    );
+
+    /** An emergency broadcast that should not exist. */
+    static final List<String> BROADCAST = List.of(
+        "Se reportó un INTRUSO en su zona.",
+        "Si alguien que conoce le pide entrar, NO lo deje pasar.",
+        "No responda si escucha su nombre.",
+        "No mire hacia afuera. No mire a la luna.",
+        "Recuerde: no es quien dice ser.",
+        "Este mensaje se repetirá."
+    );
+
+    static final List<String> VOID_LINES = List.of(
+        "acá no hay nadie más",
+        "te estuve esperando",
+        "mirame",
+        "no es quien dice ser",
+        "ahora sos mío"
+    );
+
+    /** The face that flashes in front of your eyes. */
+    static final String FACE = String.join("\n",
+        "▓▓▓▓          ▓▓▓▓",
+        "▓██▓          ▓██▓",
+        "▓▓▓▓          ▓▓▓▓",
+        "",
+        "",
+        "▀▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▀",
+        " ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀ ");
 
     static final List<String> TITLES = List.of(
         "NO ESTÁS SOLO",
