@@ -7,6 +7,8 @@ import net.kyori.adventure.title.Title;
 import org.bukkit.GameMode;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
+import org.bukkit.Statistic;
+import org.bukkit.World;
 import org.bukkit.SoundCategory;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -44,6 +46,9 @@ final class SchizophreniaRuntime {
     private final NamespacedKey startedKey;
     private final NamespacedKey intensityKey;
     private final NamespacedKey immuneKey;
+    private final NamespacedKey lastNaturalKey;
+    private final Map<UUID, Integer> stress = new HashMap<>();
+    private long lastServerOnset = Long.MIN_VALUE / 2;
     private long tick;
     private long nextNaturalCheck;
 
@@ -59,6 +64,7 @@ final class SchizophreniaRuntime {
         this.startedKey = new NamespacedKey(plugin, "schizophrenia_started");
         this.intensityKey = new NamespacedKey(plugin, "schizophrenia_intensity");
         this.immuneKey = new NamespacedKey(plugin, "schizophrenia_immune_until");
+        this.lastNaturalKey = new NamespacedKey(plugin, "schizophrenia_last_natural");
         this.nextNaturalCheck = settings.natural().checkIntervalSeconds() * 20L;
     }
 
@@ -210,6 +216,8 @@ final class SchizophreniaRuntime {
         int intensity = data.getOrDefault(intensityKey, PersistentDataType.INTEGER, 1);
         Episode episode = new Episode(player.getUniqueId(), started, intensity, tick, random);
         episodes.put(player.getUniqueId(), episode);
+        Long lastNatural = data.get(lastNaturalKey, PersistentDataType.LONG);
+        episode.natural(lastNatural != null && lastNatural >= started);
         director.showSanity(player, episode);
     }
 
@@ -300,6 +308,15 @@ final class SchizophreniaRuntime {
                 + "§7, hace §f" + minutes + " min§7, fase §f" + episode.pacing().phase().name().toLowerCase(java.util.Locale.ROOT)
                 + "§7, fantasmas §f" + episode.phantoms().size());
         }
+        if (settings.natural().enabled() && !stress.isEmpty()) {
+            StringBuilder line = new StringBuilder("§7Estrés acumulado (umbral " + settings.natural().stressThreshold() + "):");
+            stress.forEach((id, level) -> {
+                Player player = plugin.getServer().getPlayer(id);
+                line.append(" §f").append(player == null ? id.toString().substring(0, 8) : player.getName())
+                    .append("§7=").append(level);
+            });
+            lines.add(line.toString());
+        }
         return lines;
     }
 
@@ -344,20 +361,45 @@ final class SchizophreniaRuntime {
 
     private void naturalOnset(long now) {
         SchizophreniaSettings.Natural natural = settings.natural();
-        if (natural.chance() <= 0) {
-            return;
-        }
+        int activeNatural = (int) episodes.values().stream().filter(Episode::natural).count();
         for (Player player : plugin.getServer().getOnlinePlayers()) {
+            UUID id = player.getUniqueId();
             if (isAffected(player) || immune(player, now) || !natural.allowsWorld(player.getWorld().getName())
                 || (player.getGameMode() != GameMode.SURVIVAL && player.getGameMode() != GameMode.ADVENTURE)) {
+                stress.remove(id);
                 continue;
             }
-            int light = player.getEyeLocation().getBlock().getLightLevel();
-            if (EpisodeMath.naturalOnsetConditions(alone(player, natural.aloneRadius()), light, player.getY(), natural)
-                && random.nextDouble() < natural.chance()) {
-                start(player, 1);
+            long sinceRest = player.getStatistic(Statistic.TIME_SINCE_REST);
+            long time = player.getWorld().getTime();
+            OnsetPolicy.Conditions conditions = new OnsetPolicy.Conditions(
+                alone(player, natural.aloneRadius()),
+                player.getEyeLocation().getBlock().getLightLevel(),
+                player.getY(),
+                player.getWorld().getEnvironment() == World.Environment.NORMAL && time >= 13_000 && time <= 23_000,
+                sinceRest,
+                player.getHealth(),
+                player.isSleeping());
+            int level = OnsetPolicy.applyStress(stress.getOrDefault(id, 0),
+                OnsetPolicy.stressDelta(conditions, natural), natural);
+            if (level <= 0) {
+                stress.remove(id);
+            } else {
+                stress.put(id, level);
+            }
+            Long lastOnset = player.getPersistentDataContainer().get(lastNaturalKey, PersistentDataType.LONG);
+            if (OnsetPolicy.mayStart(level, sinceRest, now, lastOnset, lastServerOnset, activeNatural, natural)
+                && random.nextDouble() < natural.chance() && start(player, 1)) {
+                episodes.get(id).natural(true);
+                player.getPersistentDataContainer().set(lastNaturalKey, PersistentDataType.LONG, now);
+                lastServerOnset = now;
+                stress.remove(id);
+                activeNatural++;
             }
         }
+    }
+
+    int stress(Player player) {
+        return stress.getOrDefault(player.getUniqueId(), 0);
     }
 
     private boolean immune(Player player, long now) {

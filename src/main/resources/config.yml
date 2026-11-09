@@ -63,14 +63,25 @@ schizophrenia:
     slowest: 7
     fastest: 1
   immunity-minutes-after-cure: 20
-  # Aparición natural: jugadores solos en la oscuridad o muy bajo tierra.
+  # Aparición natural: un evento raro. Un estrés oculto sólo sube mientras el jugador está solo
+  # en la oscuridad o muy bajo tierra (más rápido de noche, herido o sin dormir) y baja apenas
+  # está con gente, en la luz o durmiendo. Aun con el estrés al máximo hace falta llevar días sin
+  # dormir, estar fuera de los enfriamientos y ganar una última tirada.
   natural:
     enabled: true
     check-interval-seconds: 60
-    chance: 0.05
+    # Probabilidad por chequeo una vez cumplido todo lo demás.
+    chance: 0.1
     alone-radius: 48
     max-light-level: 4
     deep-below-y: 0
+    # Días de Minecraft sin dormir (como los phantoms). 0 = no hace falta.
+    insomnia-days: 3
+    stress-threshold: 40
+    player-cooldown-hours: 48
+    server-cooldown-minutes: 180
+    # Episodios naturales a la vez en todo el servidor.
+    max-concurrent: 1
     worlds: []
   phantoms:
     max-per-player: 32

@@ -54,6 +54,11 @@ public final class SchizophreniaSettingsLoader {
                 section.getInt("natural.alone-radius", naturalDefaults.aloneRadius()),
                 section.getInt("natural.max-light-level", naturalDefaults.maxLightLevel()),
                 section.getInt("natural.deep-below-y", naturalDefaults.deepBelowY()),
+                section.getInt("natural.insomnia-days", naturalDefaults.insomniaDays()),
+                section.getInt("natural.stress-threshold", naturalDefaults.stressThreshold()),
+                section.getInt("natural.player-cooldown-hours", naturalDefaults.playerCooldownHours()),
+                section.getInt("natural.server-cooldown-minutes", naturalDefaults.serverCooldownMinutes()),
+                section.getInt("natural.max-concurrent", naturalDefaults.maxConcurrent()),
                 new HashSet<>(worlds)),
             new SchizophreniaSettings.Phantoms(
                 section.getInt("phantoms.max-per-player", phantomDefaults.maxPerPlayer()),

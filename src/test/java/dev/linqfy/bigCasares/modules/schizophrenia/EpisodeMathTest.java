@@ -56,12 +56,4 @@ class EpisodeMathTest {
         assertTrue(EpisodeMath.expired(25 * MINUTE, 25));
     }
 
-    @Test
-    void naturalOnsetNeedsSolitudeAndDarknessOrDepth() {
-        SchizophreniaSettings.Natural natural = SchizophreniaSettings.Natural.defaults();
-        assertTrue(EpisodeMath.naturalOnsetConditions(true, 0, 64, natural));
-        assertTrue(EpisodeMath.naturalOnsetConditions(true, 15, -30, natural));
-        assertFalse(EpisodeMath.naturalOnsetConditions(true, 15, 64, natural));
-        assertFalse(EpisodeMath.naturalOnsetConditions(false, 0, -30, natural));
-    }
 }

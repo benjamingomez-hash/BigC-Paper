@@ -45,7 +45,7 @@ public record SchizophreniaSettings(
         }
     }
 
-    /** Natural onset: lonely players in the dark slowly lose it. */
+    /** Natural onset: a rare event for sleepless players who spend far too long alone in the dark. */
     public record Natural(
         boolean enabled,
         int checkIntervalSeconds,
@@ -53,6 +53,11 @@ public record SchizophreniaSettings(
         int aloneRadius,
         int maxLightLevel,
         int deepBelowY,
+        int insomniaDays,
+        int stressThreshold,
+        int playerCooldownHours,
+        int serverCooldownMinutes,
+        int maxConcurrent,
         Set<String> worlds
     ) {
         public Natural {
@@ -60,12 +65,17 @@ public record SchizophreniaSettings(
             chance = Double.isFinite(chance) ? Math.max(0.0, Math.min(1.0, chance)) : 0.0;
             aloneRadius = Math.max(0, aloneRadius);
             maxLightLevel = Math.max(0, Math.min(15, maxLightLevel));
+            insomniaDays = Math.max(0, insomniaDays);
+            stressThreshold = Math.max(1, stressThreshold);
+            playerCooldownHours = Math.max(0, playerCooldownHours);
+            serverCooldownMinutes = Math.max(0, serverCooldownMinutes);
+            maxConcurrent = Math.max(0, maxConcurrent);
             worlds = worlds == null ? Set.of() : Set.copyOf(worlds.stream()
                 .map(world -> world.toLowerCase(Locale.ROOT)).toList());
         }
 
         public static Natural defaults() {
-            return new Natural(true, 60, 0.05, 48, 4, 0, Set.of());
+            return new Natural(true, 60, 0.1, 48, 4, 0, 3, 40, 48, 180, 1, Set.of());
         }
 
         boolean allowsWorld(String worldName) {

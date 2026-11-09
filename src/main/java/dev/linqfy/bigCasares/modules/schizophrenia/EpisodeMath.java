@@ -33,12 +33,6 @@ final class EpisodeMath {
         return maxEpisodeMinutes > 0 && elapsedMillis >= maxEpisodeMinutes * 60_000L;
     }
 
-    static boolean naturalOnsetConditions(
-        boolean alone, int lightLevel, double y, SchizophreniaSettings.Natural natural
-    ) {
-        return alone && (lightLevel <= natural.maxLightLevel() || y < natural.deepBelowY());
-    }
-
     /** How many hallucinations pile up on one beat: more with tension, one extra once it is bad. */
     static int stackedBeats(double tension, int intensity) {
         int count = 1 + (int) Math.floor(Math.max(0.0, Math.min(1.0, tension)) * 2) + (clampIntensity(intensity) >= 4 ? 1 : 0);

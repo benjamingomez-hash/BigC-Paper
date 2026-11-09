@@ -23,6 +23,7 @@ final class Episode {
     private long nextHallucinationTick;
     private long nextHeartbeatTick;
     private boolean inVoid;
+    private boolean natural;
     private Hallucination previous;
 
     Episode(UUID playerId, long startedAtMillis, int startIntensity, long tick, RandomGenerator random) {
@@ -67,6 +68,14 @@ final class Episode {
 
     void nextHallucinationTick(long tick) {
         this.nextHallucinationTick = tick;
+    }
+
+    boolean natural() {
+        return natural;
+    }
+
+    void natural(boolean natural) {
+        this.natural = natural;
     }
 
     boolean inVoid() {
