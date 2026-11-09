@@ -17,6 +17,8 @@ modules:
     enabled: true
   celular:
     enabled: true
+  schizophrenia:
+    enabled: true
   grappling-hook:
     enabled: true
   glider:
@@ -49,6 +51,40 @@ modules:
     enabled: true
   the-sift:
     enabled: true
+
+schizophrenia:
+  # Un episodio empeora solo (intensidad 1 a 5) hasta que alguien lo cura con un golpe del
+  # Lobotomizador. 0 = dura hasta la lobotomía; si no, termina solo a los N minutos.
+  max-episode-minutes: 25
+  minutes-per-intensity: 3
+  # Segundos entre alucinaciones: el más lento en intensidad 1, el más rápido en 5.
+  interval-seconds:
+    slowest: 14
+    fastest: 3
+  immunity-minutes-after-cure: 20
+  # Aparición natural: jugadores solos en la oscuridad o muy bajo tierra.
+  natural:
+    enabled: true
+    check-interval-seconds: 60
+    chance: 0.025
+    alone-radius: 48
+    max-light-level: 4
+    deep-below-y: 0
+    worlds: []
+  phantoms:
+    max-per-player: 8
+    min-distance: 9
+    max-distance: 22
+    gaze-threshold-degrees: 11
+    vanish-distance: 3.5
+    lifetime-seconds: 45
+  lobotomizer:
+    # Receta: lingote de hierro arriba a la derecha, fragmento de amatista al centro, palo abajo a la izquierda.
+    recipe: true
+    durability-cost: 40
+    stun-seconds: 30
+  # Ids como footsteps, creeper-hiss, phantom-clone, fake-death... para apagar alguna.
+  disabled-hallucinations: []
 
 celular:
   # Receta: 8 lingotes de hierro alrededor y 1 vidrio en el medio.

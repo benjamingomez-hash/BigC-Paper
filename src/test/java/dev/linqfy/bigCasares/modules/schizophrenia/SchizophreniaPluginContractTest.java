@@ -1,0 +1,35 @@
+package dev.linqfy.bigCasares.modules.schizophrenia;
+
+import org.junit.jupiter.api.Test;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+class SchizophreniaPluginContractTest {
+
+    @Test
+    void exposesStableModuleId() {
+        assertEquals("schizophrenia", new SchizophreniaModule(null).getId());
+    }
+
+    @Test
+    void pluginDeclaresCommandPermissionAndRegistration() throws Exception {
+        String pluginYml = Files.readString(Path.of("src/main/resources/plugin.yml"));
+        String main = Files.readString(Path.of("src/main/java/dev/linqfy/bigCasares/BigCasares.java"));
+
+        assertTrue(pluginYml.contains("\n  esquizo:\n"));
+        assertTrue(pluginYml.contains("permission: bigcasares.schizophrenia.admin"));
+        assertTrue(pluginYml.contains("\n  bigcasares.schizophrenia.admin:\n"));
+        assertTrue(main.contains("moduleManager.register(new SchizophreniaModule(this))"));
+    }
+
+    @Test
+    void lobotomizerRecipeIsAnIcePickOnAStick() {
+        assertEquals(3, LobotomizerItem.SHAPE.size());
+        LobotomizerItem.SHAPE.forEach(row -> assertEquals(3, row.length()));
+        assertEquals("lobotomizador", LobotomizerItem.ITEM_ID);
+    }
+}
