@@ -68,6 +68,9 @@ commands:
     usage: /<command> <start <player> [1-5]|stop <player>|status|give [player]|provocar <player> [hallucination]>
     aliases: [ esquizofrenia, schizo ]
     permission: bigcasares.schizophrenia.admin
+  casino:
+    description: El Gran Casares (deuda, jackpot; admins construyen y colocan atracciones)
+    usage: /<command> [deuda|jackpot|construir|colocar|quitar|lista|trago]
   glider:
     description: Give one of the six BigCasares Glider tiers
     usage: /<command> give <1-6> [player] [amount]
@@ -190,6 +193,7 @@ permissions:
       bigcasares.jeremy.stop: true
       bigcasares.celular.admin: true
       bigcasares.schizophrenia.admin: true
+      bigcasares.casino.admin: true
       bigcasares.glider.admin: true
       bigcasares.glider.give: true
       bigcasares.dimension.admin: true
@@ -338,6 +342,10 @@ permissions:
 
   bigcasares.celular.admin:
     description: Give Celular phones with /celular give
+    default: op
+
+  bigcasares.casino.admin:
+    description: Build the casino, place or remove attractions and give drinks with /casino
     default: op
 
   bigcasares.glider.admin:
