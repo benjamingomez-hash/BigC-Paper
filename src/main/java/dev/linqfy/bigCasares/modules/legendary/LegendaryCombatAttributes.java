@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/** Explicit per-weapon stats; native materials remain necessary for smash attacks and enchantment rules. */
+/** Explicit per-weapon stats, independent of the neutral carrier's default attributes. */
 final class LegendaryCombatAttributes {
     private static final NamespacedKey VERSION = new NamespacedKey("bigcasares", "legendary_combat_version");
     private static final int CURRENT_VERSION = 1;

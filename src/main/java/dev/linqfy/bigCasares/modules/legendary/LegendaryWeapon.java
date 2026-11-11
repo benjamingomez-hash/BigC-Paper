@@ -160,6 +160,11 @@ public enum LegendaryWeapon {
         return AVAILABLE;
     }
 
+    /** Neutral carrier; {@link #material} describes only recipes and the enchantment/mechanics family. */
+    public String itemMaterial() {
+        return "PAPER";
+    }
+
     public NamedTextColor nameColor() {
         return switch (this) {
             case BLOODLUST -> NamedTextColor.RED;

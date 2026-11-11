@@ -14,7 +14,7 @@ final class GeyserLegendaryItems {
 
     static GeyserCustomItemDefinition definition(LegendaryWeapon weapon) {
         return new GeyserCustomItemDefinition(
-                "minecraft:" + weapon.material.toLowerCase(Locale.ROOT), "bigcasares:" + weapon.id,
+                "minecraft:" + weapon.itemMaterial().toLowerCase(Locale.ROOT), "bigcasares:" + weapon.id,
                 "bigcasares:" + weapon.id, "bigcasares.legendary." + weapon.id, weapon.displayName);
     }
 }

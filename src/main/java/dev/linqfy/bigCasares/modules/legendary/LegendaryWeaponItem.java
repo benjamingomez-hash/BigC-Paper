@@ -39,6 +39,7 @@ final class LegendaryWeaponItem implements CustomItem {
         LegendaryCombatAttributes.initialize(meta, weapon);
         if (weapon == LegendaryWeapon.THUNDER_SPEAR) meta.addEnchant(Enchantment.LUNGE, 3, true);
         item.setItemMeta(meta);
+        LegendaryItemCarrier.upgrade(item, weapon);
         return item;
     }
 

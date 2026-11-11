@@ -36,6 +36,7 @@ final class LegendaryWeaponLore implements Runnable {
     }
 
     private void refresh(Player player) {
+        LegendaryItemCarrier.inventory(player);
         for (var item : player.getInventory().getContents()) {
             var weapon = plugin.getCustomItemRegistry().resolveItemId(item)
                     .flatMap(LegendaryWeapon::find).orElse(null);

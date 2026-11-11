@@ -15,6 +15,7 @@ class GeyserLegendaryItemsTest {
         var ids = new HashSet<String>();
         for (var weapon : LegendaryWeapon.available()) {
             var definition = GeyserLegendaryItems.definition(weapon);
+            assertEquals("minecraft:paper", definition.javaBaseIdentifier());
             assertTrue(ids.add(definition.bedrockIdentifier()));
             assertEquals("bigcasares:" + weapon.id, definition.javaModelIdentifier());
             assertEquals(definition.javaModelIdentifier(), definition.bedrockIdentifier());

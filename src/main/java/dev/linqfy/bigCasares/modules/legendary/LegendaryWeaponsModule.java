@@ -61,6 +61,15 @@ public final class LegendaryWeaponsModule implements PluginModule {
                     registrations.registerListener(
                             "legendary-pvp-progression",
                             new LegendaryPvpProgression(plugin, levels));
+            var carrier = registrations.registerListener("legendary-item-carrier", new LegendaryItemCarrier(registrations));
+            registrations.ownCloseable("legendary-carrier-state", carrier);
+            var vanilla = new LegendaryVanillaBridge();
+            var enchanting = registrations.registerListener("legendary-enchanting",
+                    new LegendaryEnchanting(vanilla, registrations));
+            registrations.ownCloseable("legendary-enchanting-state", enchanting);
+            var carrierCombat = registrations.registerListener("legendary-carrier-combat",
+                    new LegendaryCarrierCombat(vanilla, progression, registrations));
+            registrations.ownCloseable("legendary-carrier-combat-state", carrierCombat);
             animations =
                     registrations.registerListener(
                             "legendary-model-animations",
@@ -118,6 +127,7 @@ public final class LegendaryWeaponsModule implements PluginModule {
                 }
             }
             for (var player : plugin.getServer().getOnlinePlayers()) {
+                LegendaryItemCarrier.inventory(player);
                 events.recover(player);
                 events.discover(player);
                 runtime.recover(player);

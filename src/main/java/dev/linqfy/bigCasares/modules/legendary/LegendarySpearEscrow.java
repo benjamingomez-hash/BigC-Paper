@@ -45,12 +45,12 @@ final class LegendarySpearEscrow {
             throw new IllegalStateException("La lanza anterior todavía está regresando.");
         }
         ItemStack original = player.getInventory().getItem(slot);
-        if (original == null || original.getAmount() != 1 || original.getType() != Material.NETHERITE_SPEAR
-            || !original.hasItemMeta() || !"thunder_spear".equals(original.getItemMeta().getPersistentDataContainer()
-                .get(new NamespacedKey("bigcasares", "item_id"), PersistentDataType.STRING))) {
+        if (original == null || original.getAmount() != 1
+            || LegendaryItemIdentity.weapon(original).orElse(null) != LegendaryWeapon.THUNDER_SPEAR) {
             throw new IllegalStateException("La lanza debe ocupar un único espacio.");
         }
         original = original.clone();
+        LegendaryItemCarrier.upgrade(original, LegendaryWeapon.THUNDER_SPEAR);
         String transaction = UUID.randomUUID().toString();
         var meta = original.getItemMeta();
         meta.getPersistentDataContainer().set(instance, PersistentDataType.STRING, transaction);
@@ -77,6 +77,7 @@ final class LegendarySpearEscrow {
             return true;
         }
         ItemStack original = ItemStack.deserializeBytes(Base64.getDecoder().decode(raw));
+        LegendaryItemCarrier.upgrade(original, LegendaryWeapon.THUNDER_SPEAR);
         String transaction = original.getItemMeta().getPersistentDataContainer().get(instance, PersistentDataType.STRING);
         int reserved = -1;
         boolean alreadyOwned = false;
