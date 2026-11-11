@@ -12,7 +12,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.List;
 
 final class LegendaryWeaponItem implements CustomItem {
-    private static final NamespacedKey ID = new NamespacedKey("bigcasares", "item_id");
+    private static final NamespacedKey ID = LegendaryItemIdentity.ITEM_ID;
     private final LegendaryWeapon weapon;
 
     LegendaryWeaponItem(LegendaryWeapon weapon) {
@@ -31,11 +31,12 @@ final class LegendaryWeaponItem implements CustomItem {
         ItemStack item = new ItemStack(Material.valueOf(weapon.material), 1);
         var meta = item.getItemMeta();
         meta.getPersistentDataContainer().set(ID, PersistentDataType.STRING, weapon.id);
-        meta.displayName(Component.text(weapon.displayName));
+        meta.displayName(weapon.itemName());
         meta.lore(List.of(Component.text(weapon.abilityName),
                 Component.text("/weapons info " + weapon.id + " · niveles 0-5 por bajas PvP")));
         meta.setMaxStackSize(1);
         meta.setItemModel(new NamespacedKey("bigcasares", weapon.id));
+        LegendaryCombatAttributes.initialize(meta, weapon);
         if (weapon == LegendaryWeapon.THUNDER_SPEAR) meta.addEnchant(Enchantment.LUNGE, 3, true);
         item.setItemMeta(meta);
         return item;

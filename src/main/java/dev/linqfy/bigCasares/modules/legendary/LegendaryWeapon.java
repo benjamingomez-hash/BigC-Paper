@@ -1,5 +1,9 @@
 package dev.linqfy.bigCasares.modules.legendary;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -154,6 +158,26 @@ public enum LegendaryWeapon {
 
     public static List<LegendaryWeapon> available() {
         return AVAILABLE;
+    }
+
+    public NamedTextColor nameColor() {
+        return switch (this) {
+            case BLOODLUST -> NamedTextColor.RED;
+            case SHADOW_BLADE -> NamedTextColor.BLACK;
+            case WINDWEAVER -> NamedTextColor.AQUA;
+            case THUNDER_SPEAR -> NamedTextColor.YELLOW;
+            case EARTHBREAKER -> NamedTextColor.GOLD;
+            default -> NamedTextColor.GRAY;
+        };
+    }
+
+    public Component itemName() {
+        return coloredName(null);
+    }
+
+    Component coloredName(Component existing) {
+        return (existing == null ? Component.text(displayName) : existing)
+                .color(nameColor()).decoration(TextDecoration.ITALIC, false);
     }
 
     public boolean isAvailable() {

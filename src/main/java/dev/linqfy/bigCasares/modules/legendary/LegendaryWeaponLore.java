@@ -41,11 +41,18 @@ final class LegendaryWeaponLore implements Runnable {
                     .flatMap(LegendaryWeapon::find).orElse(null);
             if (weapon == null) continue;
             var meta = item.getItemMeta();
+            boolean changed = LegendaryCombatAttributes.initialize(meta, weapon);
+            var name = weapon.coloredName(meta.displayName());
+            if (!name.equals(meta.displayName())) {
+                meta.displayName(name);
+                changed = true;
+            }
             var lore = describe(weapon, levels.level(player.getUniqueId(), weapon));
             if (!lore.equals(meta.getLore())) {
                 meta.setLore(lore);
-                item.setItemMeta(meta);
+                changed = true;
             }
+            if (changed) item.setItemMeta(meta);
         }
     }
 
