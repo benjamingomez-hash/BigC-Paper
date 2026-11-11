@@ -85,7 +85,7 @@ public final class DupeRestoreModule implements PluginModule, CommandExecutor, T
     }
 
     @Override public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!sender.hasPermission("duperestore.admin")) return true;
+        if (!sender.hasPermission("bigcasares.duperestore.admin")) return true;
         if (args.length == 0 || (args.length == 1 && args[0].equalsIgnoreCase("status"))) {
             sender.sendMessage("DupeRestore: hilo=" + stringsEnabled);
             sender.sendMessage(nativeStatus());
@@ -106,7 +106,7 @@ public final class DupeRestoreModule implements PluginModule, CommandExecutor, T
     }
 
     @Override public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (!sender.hasPermission("duperestore.admin") || args.length != 1) return List.of();
+        if (!sender.hasPermission("bigcasares.duperestore.admin") || args.length != 1) return List.of();
         return List.of("status", "reload").stream()
                 .filter(option -> option.startsWith(args[0].toLowerCase(Locale.ROOT))).toList();
     }
