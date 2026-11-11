@@ -108,7 +108,8 @@ public final class LegendaryWeaponsModule implements PluginModule {
             var command = plugin.getCommand("weapons");
             if (command == null)
                 throw new IllegalStateException("Falta el comando weapons en plugin.yml.");
-            var executor = new LegendaryWeaponsCommand(plugin, store, events, levels);
+            var menu = new LegendaryAbilityMenu(plugin, levels, altar, elemental, scope);
+            var executor = new LegendaryWeaponsCommand(plugin, store, events, levels, menu);
             registrations.bindCommand("legendary-command", command, executor, executor);
             for (var world : plugin.getServer().getWorlds()) {
                 for (var chunk : world.getLoadedChunks()) {

@@ -52,7 +52,7 @@ public final class ResourcePackBuilder {
         copyTree(javaSource, javaRoot);
         copyTree(bedrockSource, bedrockRoot);
         new SharedResourcePackAssembler().assemble(sourceRoot, javaRoot, bedrockRoot, registry);
-        new LegendaryItemModels().compile(sourceRoot, javaRoot);
+        new LegendaryItemModels().compile(sourceRoot, javaRoot, bedrockRoot);
         new ResourcePackValidator().validate(registry, javaRoot, bedrockRoot);
         new JavaResourcePackBuilder().build(javaRoot, outputDirectory);
         new BedrockResourcePackBuilder().build(bedrockRoot, outputDirectory);

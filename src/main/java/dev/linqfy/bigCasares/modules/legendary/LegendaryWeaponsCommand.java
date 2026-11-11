@@ -15,16 +15,18 @@ final class LegendaryWeaponsCommand implements CommandExecutor, TabCompleter {
     private final LegendaryStateStore store;
     private final LegendaryCraftingEvents events;
     private final LegendaryPvpLevels levels;
+    private final LegendaryAbilityMenu abilities;
 
     LegendaryWeaponsCommand(
             BigCasares plugin,
             LegendaryStateStore store,
             LegendaryCraftingEvents events,
-            LegendaryPvpLevels levels) {
+            LegendaryPvpLevels levels, LegendaryAbilityMenu abilities) {
         this.plugin = plugin;
         this.store = store;
         this.events = events;
         this.levels = levels;
+        this.abilities = abilities;
     }
 
     @Override
@@ -32,8 +34,16 @@ final class LegendaryWeaponsCommand implements CommandExecutor, TabCompleter {
         try {
             String action = args.length == 0 ? "help" : args[0].toLowerCase(Locale.ROOT);
             switch (action) {
+                case "abilities", "cast" -> {
+                    if (!(sender instanceof org.bukkit.entity.Player player))
+                        throw new IllegalArgumentException("Este comando es para jugadores.");
+                    if (action.equals("abilities") && args.length == 1) abilities.show(player);
+                    else if (action.equals("cast") && args.length == 2) abilities.cast(player, args[1]);
+                    else throw new IllegalArgumentException("Uso: /weapons abilities | cast <habilidad>");
+                }
                 case "help" -> {
                     sender.sendMessage("§6/weapons list | info <arma> | events");
+                    sender.sendMessage("§6/weapons abilities — menú de habilidades para celular y consola");
                     sender.sendMessage(
                             "§eColoca los nueve ingredientes en una mesa vanilla: comenzará un"
                                 + " evento PvP de 20 minutos.");
@@ -162,7 +172,10 @@ final class LegendaryWeaponsCommand implements CommandExecutor, TabCompleter {
             CommandSender sender, Command command, String alias, String[] args) {
         List<String> options =
                 args.length == 1
-                        ? List.of("help", "list", "info", "events", "reload", "cooldown", "level")
+                        ? List.of("help", "list", "info", "events", "abilities", "cast", "reload", "cooldown", "level")
+                        : args.length == 2 && args[0].equalsIgnoreCase("cast")
+                                ? LegendaryWeapon.available().stream().flatMap(w -> LegendaryAbilityMenu.actions(w).stream())
+                                        .map(LegendaryAbilityMenu.Action::id).toList()
                         : args.length == 2 && args[0].equalsIgnoreCase("info")
                                 ? LegendaryWeapon.available().stream().map(w -> w.id).toList()
                                 : args.length == 3 && args[0].equalsIgnoreCase("level")

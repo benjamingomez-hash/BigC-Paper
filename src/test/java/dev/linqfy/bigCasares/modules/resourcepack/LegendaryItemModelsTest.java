@@ -75,7 +75,7 @@ class LegendaryItemModelsTest {
                "child":{"keyframes":[{"channel":"rotation","time":0,"data_points":[{"z":90}]}]}
              }}]}
             """);
-        var original = json(Files.readString(Path.of("resourcepack/legendary/espada_rubi (3).bbmodel")));
+        var original = json(Files.readString(Path.of("resourcepack/legendary/espada_rubi.bbmodel")));
         source.add("textures", original.getAsJsonArray("textures").deepCopy());
         Path inputs = directory.resolve("legendary");
         Files.createDirectories(inputs);

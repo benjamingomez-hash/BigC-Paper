@@ -14,6 +14,7 @@ import dev.linqfy.bigCasares.module.runtime.RuntimeCleanupOutcome;
 import dev.linqfy.bigCasares.module.runtime.RuntimeCleanupReport;
 import dev.linqfy.bigCasares.module.runtime.RuntimeGeneration;
 import dev.linqfy.bigCasares.modules.bounties.BountyModule;
+import dev.linqfy.bigCasares.modules.casino.CasinoModule;
 import dev.linqfy.bigCasares.modules.copperapple.CopperAppleModule;
 import dev.linqfy.bigCasares.modules.customcrossbow.CustomCrossbowModule;
 import dev.linqfy.bigCasares.modules.inventorylimit.InventoryLimitModule;
@@ -25,6 +26,8 @@ import dev.linqfy.bigCasares.modules.danger.DangerModule;
 import dev.linqfy.bigCasares.modules.dimension.DimensionModule;
 import dev.linqfy.bigCasares.modules.sift.SiftModule;
 import dev.linqfy.bigCasares.modules.tombstone.TombstoneModule;
+import dev.linqfy.bigCasares.modules.keepinventorytotem.KeepInventoryTotemModule;
+import dev.linqfy.bigCasares.modules.elytrafailure.ElytraFailureModule;
 import dev.linqfy.bigCasares.modules.specialitems.SpecialItemsModule;
 import dev.linqfy.bigCasares.modules.warp.WarpModule;
 
@@ -34,6 +37,7 @@ import dev.linqfy.bigCasares.modules.acidrain.AcidRainModule;
 import dev.linqfy.bigCasares.modules.bloodmoon.BloodMoonModule;
 import dev.linqfy.bigCasares.modules.jeremy.JeremyModule;
 import dev.linqfy.bigCasares.modules.donpollos.DonPollosModule;
+import dev.linqfy.bigCasares.modules.mutango.MutangoModule;
 import dev.linqfy.bigCasares.modules.celular.CelularModule;
 import dev.linqfy.bigCasares.modules.mobscaling.MobScalingModule;
 import dev.linqfy.bigCasares.modules.grapplinghook.GrapplingHookModule;
@@ -44,6 +48,7 @@ import dev.linqfy.bigCasares.modules.nexus.NexusModule;
 import dev.linqfy.bigCasares.modules.pveboss.PveBossModule;
 import dev.linqfy.bigCasares.modules.resourcepack.ResourcePackModule;
 import dev.linqfy.bigCasares.modules.legendary.LegendaryWeaponsModule;
+import dev.linqfy.bigCasares.modules.schizophrenia.SchizophreniaModule;
 import dev.linqfy.bigCasares.modules.shop.ShopModule;
 import dev.linqfy.bigCasares.modules.skillrating.SkillRatingModule;
 import dev.linqfy.bigCasares.modules.smokebomb.SmokeBombModule;
@@ -80,6 +85,7 @@ public final class BigCasares extends JavaPlugin {
     private SkillRatingModule skillRatingModule;
     private DangerModule dangerModule;
     private TombstoneModule tombstoneModule;
+    private KeepInventoryTotemModule keepInventoryTotemModule;
     private SpecialItemsModule specialItemsModule;
     private WarpModule warpModule;
 
@@ -94,7 +100,9 @@ public final class BigCasares extends JavaPlugin {
     private BloodMoonModule bloodMoonModule;
     private JeremyModule jeremyModule;
     private DonPollosModule donPollosModule;
+    private MutangoModule mutangoModule;
     private CelularModule celularModule;
+    private CasinoModule casinoModule;
     private GrapplingHookModule grapplingHookModule;
     private GliderModule gliderModule;
     private MobScalingModule mobScalingModule;
@@ -226,8 +234,16 @@ public final class BigCasares extends JavaPlugin {
         return donPollosModule;
     }
 
+    public MutangoModule getMutangoModule() {
+        return mutangoModule;
+    }
+
     public CelularModule getCelularModule() {
         return celularModule;
+    }
+
+    public CasinoModule getCasinoModule() {
+        return casinoModule;
     }
 
     public MobScalingModule getMobScalingModule() {
@@ -367,7 +383,9 @@ public final class BigCasares extends JavaPlugin {
         this.bloodMoonModule = new BloodMoonModule(this, this::acidRainEventActive);
         this.jeremyModule = new JeremyModule(this);
         this.donPollosModule = new DonPollosModule(this);
+        this.mutangoModule = new MutangoModule(this);
         this.celularModule = new CelularModule(this);
+        this.casinoModule = new CasinoModule(this);
         this.grapplingHookModule = new GrapplingHookModule(this, javaModels);
         this.gliderModule = new GliderModule(this);
         this.mobScalingModule = new MobScalingModule(this);
@@ -391,8 +409,10 @@ public final class BigCasares extends JavaPlugin {
             this, moderationModule.audit(), moderationModule::acceptSignal, emojiAliasService
         );
         this.endEventModule = new EndEventModule(this);
+        this.keepInventoryTotemModule = new KeepInventoryTotemModule(this);
         this.tombstoneModule.setDeathCaptureEligibility(playerId ->
-            endEventModule == null || !endEventModule.bypassTombstone(playerId));
+            (endEventModule == null || !endEventModule.bypassTombstone(playerId))
+                && (keepInventoryTotemModule == null || !keepInventoryTotemModule.protectsDeath(playerId)));
         this.discordIntegrationModule = new DiscordIntegrationModule(
             this, moderationModule.audit(), serverControlModule, emojiAliasService
         );
@@ -417,6 +437,8 @@ public final class BigCasares extends JavaPlugin {
         moduleManager.register(skillRatingModule);
         moduleManager.register(dangerModule);
         moduleManager.register(tombstoneModule);
+        moduleManager.register(keepInventoryTotemModule);
+        moduleManager.register(new ElytraFailureModule(this));
         moduleManager.register(specialItemsModule);
         moduleManager.register(warpModule);
 
@@ -431,8 +453,11 @@ public final class BigCasares extends JavaPlugin {
         moduleManager.register(bloodMoonModule);
         moduleManager.register(jeremyModule);
         moduleManager.register(donPollosModule);
+        moduleManager.register(mutangoModule);
         moduleManager.register(celularModule);
+        moduleManager.register(new SchizophreniaModule(this));
         moduleManager.register(shopModule);
+        moduleManager.register(casinoModule);
         moduleManager.register(pveBossModule);
         moduleManager.register(geyserIntegrationModule);
         moduleManager.register(moderationModule);
@@ -588,6 +613,7 @@ public final class BigCasares extends JavaPlugin {
         skillRatingModule = null;
         dangerModule = null;
         tombstoneModule = null;
+        keepInventoryTotemModule = null;
         specialItemsModule = null;
         warpModule = null;
 
@@ -599,6 +625,7 @@ public final class BigCasares extends JavaPlugin {
         geyserIntegrationModule = null;
         airdropModule = null;
         acidRainModule = null;
+        casinoModule = null;
         grapplingHookModule = null;
         mobScalingModule = null;
         moderationModule = null;

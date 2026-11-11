@@ -172,6 +172,11 @@ final class LegendaryElementalAbilities implements Listener, Runnable {
         }
     }
 
+    void cast(Player player, LegendaryElementalSkill skill) {
+        if (stopped || blocked.test(player) || held(player) != skill.weapon) return;
+        activate(player, skill);
+    }
+
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void melee(EntityDamageByEntityEvent event) {
         if (context.progression.inAbilityDamage()

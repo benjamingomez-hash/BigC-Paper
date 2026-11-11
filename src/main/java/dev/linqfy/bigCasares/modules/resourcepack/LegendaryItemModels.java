@@ -29,7 +29,7 @@ import java.util.Set;
 
 /** Compiles editable Blockbench cuboids into native 26.2 item models. */
 public final class LegendaryItemModels {
-    static final String VERSION = "legendary-bbmodel-1";
+    static final String VERSION = "legendary-bbmodel-2";
     private static final Gson JSON = new Gson();
     private static final double SCALE = .45;
     private static final String[][] SIDES = {{"west", "east"}, {"down", "up"}, {"north", "south"}};
@@ -62,6 +62,13 @@ public final class LegendaryItemModels {
             if (resources.add(texture)) atlasSources.add(object("type", "minecraft:single", "resource", texture));
         }
         write(atlas, atlasJson);
+    }
+
+    public void compile(Path sourceRoot, Path javaRoot, Path bedrockRoot) throws IOException {
+        compile(sourceRoot, javaRoot);
+        for (Source source : sources(sourceRoot)) {
+            new LegendaryBedrockModels().compile(source.id(), javaRoot, bedrockRoot);
+        }
     }
 
     /** The same deterministic frame IDs are used by the pack and server timeline. */
@@ -476,17 +483,17 @@ public final class LegendaryItemModels {
 
     private static JsonObject reference(String path) { return object("type", "minecraft:model", "model", "bigcasares:" + path); }
 
-    private static JsonObject object(Object... fields) {
+    static JsonObject object(Object... fields) {
         JsonObject o = new JsonObject();
         for (int i = 0; i < fields.length; i += 2) o.add((String) fields[i], JSON.toJsonTree(fields[i + 1]));
         return o;
     }
 
-    private static JsonObject read(Path path) throws IOException {
+    static JsonObject read(Path path) throws IOException {
         try (var reader = Files.newBufferedReader(path)) { return JsonParser.parseReader(reader).getAsJsonObject(); }
     }
 
-    private static void write(Path path, JsonObject value) throws IOException {
+    static void write(Path path, JsonObject value) throws IOException {
         Files.createDirectories(path.getParent());
         Files.writeString(path, JSON.toJson(value) + "\n");
     }

@@ -153,7 +153,18 @@ final class LegendaryAltarAbilities implements Listener, Runnable {
                 && weapon != LegendaryWeapon.SHADOW_BLADE
                 && weapon != LegendaryWeapon.EARTHBREAKER) return;
         event.setCancelled(true);
-        activate(event.getPlayer(), weapon, event.getPlayer().isSneaking());
+        cast(event.getPlayer(), weapon, event.getPlayer().isSneaking());
+    }
+
+    void cast(Player player, LegendaryWeapon weapon, boolean secondary) {
+        if (stopped || blocked.test(player) || held(player) != weapon || player.isDead()
+                || player.getGameMode() == org.bukkit.GameMode.SPECTATOR) return;
+        activate(player, weapon, secondary);
+    }
+
+    static int requiredLevel(LegendaryWeapon weapon, boolean secondary) {
+        return weapon == LegendaryWeapon.BLOODLUST ? (secondary ? 3 : 5)
+                : secondary ? (weapon == LegendaryWeapon.EARTHBREAKER ? 3 : 2) : 1;
     }
 
     private void activate(Player player, LegendaryWeapon weapon, boolean secondary) {
@@ -164,11 +175,7 @@ final class LegendaryAltarAbilities implements Listener, Runnable {
             if (weapon == LegendaryWeapon.BLOODLUST && secondary) finish(existing);
             return;
         }
-        int level = levels.level(player.getUniqueId(), weapon),
-                required =
-                        weapon == LegendaryWeapon.BLOODLUST
-                                ? (secondary ? 3 : 5)
-                                : secondary ? (weapon == LegendaryWeapon.EARTHBREAKER ? 3 : 2) : 1;
+        int level = levels.level(player.getUniqueId(), weapon), required = requiredLevel(weapon, secondary);
         if (level < required) {
             player.sendActionBar(
                     Component.text("Necesitas nivel " + required + " de " + weapon.displayName));
