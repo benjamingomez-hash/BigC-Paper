@@ -84,7 +84,6 @@ final class LegendaryCraftingEvents implements Listener, Runnable {
     private final Map<NamespacedKey, LegendaryWeapon> recipes = new HashMap<>();
     private final Map<UUID, Visual> visuals = new HashMap<>();
     private final Set<UUID> queued = new HashSet<>();
-    private int ticks;
     private boolean failed;
 
     LegendaryCraftingEvents(BigCasares plugin, LegendaryStateStore store, BukkitRuntimeRegistrations registrations) {
@@ -133,6 +132,10 @@ final class LegendaryCraftingEvents implements Listener, Runnable {
         if (weapon == null) return;
         event.setCancelled(true); // The result is a GUI preview, never a transferable item.
         if (!(event.getWhoClicked() instanceof Player player) || pending(player.getUniqueId()) || failed) return;
+        if (!emptyCursor(event.getCursor())) {
+            player.sendMessage("§eDeja el cursor vacío antes de iniciar la fabricación.");
+            return;
+        }
         if (ledger.find(weapon).isPresent()) { player.sendMessage("§cEsta arma ya fue reservada."); return; }
         if (store.get("spear." + player.getUniqueId()) != null) {
             player.sendMessage("§eRecupera tu lanza antes de iniciar otra fabricación."); return;
@@ -145,6 +148,7 @@ final class LegendaryCraftingEvents implements Listener, Runnable {
         registrations.scheduleImmediate("legendary-event-start", () -> {
             try {
                 if (!player.isOnline() || player.getOpenInventory().getTopInventory() != inventory
+                    || !emptyCursor(player.getItemOnCursor())
                     || !Arrays.equals(matrix, inventory.getMatrix()) || !validTable(player, table)) return;
                 if (ledger.find(weapon).isPresent()) throw new IllegalArgumentException("Esta arma ya fue reservada.");
                 var plan = LegendaryCraftingPlan.create(weapon, Arrays.asList(copy(player.getInventory().getStorageContents())),
@@ -185,6 +189,10 @@ final class LegendaryCraftingEvents implements Listener, Runnable {
             && table.clone().add(0, 1, 0).getBlock().getType().isAir()
             && policy.allowed(player, table, null, LegendaryProtectionEvent.Action.ALTAR)
             && policy.allowed(player, table.clone().add(0, 1, 0), null, LegendaryProtectionEvent.Action.ALTAR);
+    }
+
+    static boolean emptyCursor(ItemStack cursor) {
+        return cursor == null || cursor.getType() == Material.AIR || cursor.getAmount() == 0;
     }
 
     private static LegendaryCraftingSession.Pending transaction(Player player, ItemStack[] after, LegendaryCraftingSession.TransactionKind kind) {
@@ -273,7 +281,7 @@ final class LegendaryCraftingEvents implements Listener, Runnable {
                 if (notice.index() == 4) render(notice.session());
                 for (String message : LegendaryCraftingMessages.notice(notice, notice.session().dimension())) plugin.getServer().broadcastMessage(message);
             }
-            if (++ticks % 10 == 0) for (var session : ledger.all()) render(session);
+            for (var session : ledger.all()) render(session);
         } catch (IOException | RuntimeException failure) {
             failed = true;
             plugin.getLogger().log(Level.SEVERE, "Eventos legendarios detenidos por un fallo persistente; reinicia tras recuperar el diario.", failure);

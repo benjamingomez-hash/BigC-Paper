@@ -33,8 +33,7 @@ final class LegendaryWindAbilities {
     static final class Flight extends LegendaryAbilityCast {
         final boolean heaven;
         final double startY;
-        final boolean previousGravity;
-        boolean airborne, descending, hovering, gravityOwned, impacted;
+        boolean airborne, descending, hovering, impacted;
         int hoverAge;
         Location destination;
 
@@ -44,8 +43,7 @@ final class LegendaryWindAbilities {
                 LegendaryElementalSkill.Settings settings) {
             super(player, skill, settings);
             heaven = skill == LegendaryElementalSkill.HEAVENS_FALL;
-            startY = player.getY();
-            previousGravity = player.hasGravity();
+            startY = player.getLocation().getY();
         }
 
         void tick(Player player, LegendaryElementalContext context) {
@@ -71,24 +69,21 @@ final class LegendaryWindAbilities {
             }
             player.setFallDistance(0);
             if (age % 2 == 0) context.dust(player.getLocation(), Color.WHITE, 5);
-            if (!descending && !hovering && player.getY() - startY >= settings.range())
+            if (!descending && !hovering && player.getLocation().getY() - startY >= settings.range())
                 player.setVelocity(player.getVelocity().setY(0));
             if (heaven
                     && !descending
                     && airborne
                     && (player.getVelocity().getY() <= .05
-                            || player.getY() - startY >= settings.range())) {
+                            || player.getLocation().getY() - startY >= settings.range())) {
                 hovering = true;
-                if (!gravityOwned) {
-                    player.setGravity(false);
-                    gravityOwned = true;
-                }
+                // Only counter current motion. NoGravity is saved in player data,
+                // so toggling it here could leave a player floating after a crash.
                 player.setVelocity(player.getVelocity().setY(0));
-                context.ring(player.getLocation(), 1.5, Color.AQUA);
+                if (age % 4 == 0) context.ring(player.getLocation(), 1.5, Color.AQUA);
                 if (++hoverAge >= 40) descending = true;
             }
             if (descending) {
-                restoreGravity(player);
                 if (destination == null) {
                     destination = context.groundAim(player, settings.range());
                     if (destination == null) destination = player.getLocation().subtract(0, 1, 0);
@@ -122,7 +117,6 @@ final class LegendaryWindAbilities {
         private void impact(Player player, LegendaryElementalContext context) {
             if (impacted) return;
             impacted = true;
-            restoreGravity(player);
             player.setFallDistance(0);
             Location center = player.getLocation();
             double radius = settings.radius();
@@ -148,15 +142,6 @@ final class LegendaryWindAbilities {
             endAt = age + (heaven ? 22 : 2);
         }
 
-        private void restoreGravity(Player player) {
-            if (gravityOwned && !player.hasGravity()) player.setGravity(previousGravity);
-            gravityOwned = false;
-        }
-
-        void close(Player player) {
-            if (player != null) restoreGravity(player);
-            super.close(player);
-        }
     }
 
     private static final class Tornado extends LegendaryAbilityCast {

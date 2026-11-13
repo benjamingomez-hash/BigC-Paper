@@ -15,6 +15,28 @@ class LegendaryElementalAbilitiesTest {
     @TempDir Path directory;
 
     @Test
+    void spearRightClickPreservesNativeChargeAndOtherSkillsConsumeItemUse() {
+        var event = new org.bukkit.event.player.PlayerInteractEvent(null,
+                org.bukkit.event.block.Action.RIGHT_CLICK_AIR, null, null, org.bukkit.block.BlockFace.SELF,
+                org.bukkit.inventory.EquipmentSlot.HAND);
+        assertTrue(LegendaryElementalSkill.claimInput(event, LegendaryElementalSkill.THUNDER_MARK));
+        assertEquals(org.bukkit.event.Event.Result.DEFAULT, event.useItemInHand());
+        assertEquals(org.bukkit.event.Event.Result.DENY, event.useInteractedBlock());
+        assertTrue(LegendaryElementalSkill.claimInput(event, LegendaryElementalSkill.SKYBREAKER));
+        assertEquals(org.bukkit.event.Event.Result.DENY, event.useItemInHand());
+    }
+
+    @Test
+    void explicitItemDenialFromAnotherPluginCannotActivateAnAirSkill() {
+        var event = new org.bukkit.event.player.PlayerInteractEvent(null,
+                org.bukkit.event.block.Action.RIGHT_CLICK_AIR, null, null, org.bukkit.block.BlockFace.SELF,
+                org.bukkit.inventory.EquipmentSlot.HAND);
+        event.setUseItemInHand(org.bukkit.event.Event.Result.DENY);
+        assertFalse(LegendaryElementalSkill.claimInput(event, LegendaryElementalSkill.THUNDER_MARK));
+        assertEquals(org.bukkit.event.Event.Result.DENY, event.useItemInHand());
+    }
+
+    @Test
     void gesturesKeepLowerLevelAbilitiesAvailableAndNativeMeleeUnassigned() {
         var thunder = LegendaryWeapon.THUNDER_SPEAR;
         var wind = LegendaryWeapon.WINDWEAVER;

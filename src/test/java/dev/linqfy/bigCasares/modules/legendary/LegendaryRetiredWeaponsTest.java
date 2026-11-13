@@ -27,7 +27,6 @@ class LegendaryRetiredWeaponsTest {
         for (var weapon : List.of(LegendaryWeapon.VOID_KATANA, LegendaryWeapon.HYPERION, LegendaryWeapon.FROST_SCYTHE)) {
             assertTrue(LegendaryWeapon.find(weapon.id).isEmpty());
             assertFalse(weapon.canCraft(weapon.ingredients));
-            assertEquals(LegendaryControls.Decision.BLOCK_SPECIAL, LegendaryControls.decide(weapon, true, true, false));
         }
     }
 

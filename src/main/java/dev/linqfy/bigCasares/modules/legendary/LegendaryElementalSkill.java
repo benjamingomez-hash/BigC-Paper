@@ -1,6 +1,9 @@
 package dev.linqfy.bigCasares.modules.legendary;
 
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.Event;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.Map;
 
@@ -101,5 +104,18 @@ enum LegendaryElementalSkill {
 
     static double chainDamage(double initial, int jump) {
         return initial * Math.pow(.75, jump);
+    }
+
+    static boolean claimInput(PlayerInteractEvent event, LegendaryElementalSkill skill) {
+        if (event.useItemInHand() == Event.Result.DENY
+                || (event.getClickedBlock() != null
+                    && event.useInteractedBlock() == Event.Result.DENY)) return false;
+        boolean right = event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK;
+        event.setUseInteractedBlock(Event.Result.DENY);
+        // The neutral spear still has native kinetic-use components. Consuming
+        // its right click would disable charging even with a locked ability.
+        if (skill.weapon != LegendaryWeapon.THUNDER_SPEAR || !right)
+            event.setUseItemInHand(Event.Result.DENY);
+        return true;
     }
 }

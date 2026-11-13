@@ -36,6 +36,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Predicate;
+import java.util.function.IntSupplier;
 import java.util.logging.Level;
 
 /** Independently implemented mechanics inspired by public Altar SMP ability descriptions. */
@@ -88,6 +89,7 @@ final class LegendaryAltarAbilities implements Listener, Runnable {
     private final LegendaryPvpProgression progression;
     private final LegendaryModelAnimations animations;
     private final Predicate<Player> blocked;
+    private final IntSupplier activeEffects;
     private final LegendaryElementalContext context;
     private final LegendaryEarthShock shock;
     private final LegendaryPaladinGuard guard;
@@ -105,6 +107,7 @@ final class LegendaryAltarAbilities implements Listener, Runnable {
             LegendaryPvpProgression progression,
             LegendaryModelAnimations animations,
             Predicate<Player> blocked,
+            IntSupplier activeEffects,
             BukkitRuntimeRegistrations registrations) {
         this.plugin = plugin;
         this.store = store;
@@ -112,6 +115,7 @@ final class LegendaryAltarAbilities implements Listener, Runnable {
         this.progression = progression;
         this.animations = animations;
         this.blocked = blocked;
+        this.activeEffects = activeEffects;
         context =
                 registrations.registerListener(
                         "legendary-altar-damage",
@@ -181,7 +185,8 @@ final class LegendaryAltarAbilities implements Listener, Runnable {
                     Component.text("Necesitas nivel " + required + " de " + weapon.displayName));
             return;
         }
-        if (sessions.size() >= 32
+        if (activeEffects.getAsInt() >= Math.clamp(
+                    plugin.getConfig().getInt("legendary-weapons.max-active-effects", 32), 1, 32)
                 || !context.policy.allowed(
                         player, player.getLocation(), null, LegendaryProtectionEvent.Action.MOVE))
             return;
@@ -491,7 +496,7 @@ final class LegendaryAltarAbilities implements Listener, Runnable {
                     shock.pulse(
                             player,
                             session.center,
-                            12,
+                            Math.clamp(plugin.getConfig().getInt("legendary-weapons.max-targets-per-pulse", 12), 1, 12),
                             target ->
                                     context.allowed(player, target)
                                             && target.getLocation().distanceSquared(session.center)
@@ -597,12 +602,11 @@ final class LegendaryAltarAbilities implements Listener, Runnable {
         if (weapon == LegendaryWeapon.BLOODLUST && level >= 4)
             previous.effects().apply(player, PotionEffectType.STRENGTH, 30, 0, tick);
         if (weapon == LegendaryWeapon.BLOODLUST && level >= 2 && tick % 40 == 0) {
-            int targets = 0;
-            for (Player target : player.getWorld().getPlayers()) {
-                if (++targets > 16) break;
-                if (!context.allowed(player, target)
-                        || player.getLocation().distanceSquared(target.getLocation()) > 24 * 24)
-                    continue;
+            Location origin = player.getLocation();
+            for (Player target : LegendaryTargets.select(player.getWorld().getPlayers(), Player::getUniqueId,
+                    candidate -> origin.distanceSquared(candidate.getLocation()),
+                    candidate -> origin.distanceSquared(candidate.getLocation()) <= 24 * 24
+                            && context.allowed(player, candidate), 16)) {
                 Vector line =
                         target.getEyeLocation()
                                 .toVector()
@@ -645,6 +649,17 @@ final class LegendaryAltarAbilities implements Listener, Runnable {
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void teleport(org.bukkit.event.player.PlayerTeleportEvent event) {
+        clear(event.getPlayer());
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void gameMode(org.bukkit.event.player.PlayerGameModeChangeEvent event) {
+        if (event.getNewGameMode() == org.bukkit.GameMode.CREATIVE
+                || event.getNewGameMode() == org.bukkit.GameMode.SPECTATOR) clear(event.getPlayer());
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void milk(org.bukkit.event.player.PlayerItemConsumeEvent event) {
         if (event.getItem().getType() == org.bukkit.Material.MILK_BUCKET) {
             sessions.values().forEach(s -> s.effects.forget(event.getPlayer().getUniqueId()));
@@ -675,4 +690,6 @@ final class LegendaryAltarAbilities implements Listener, Runnable {
         infectionCooldown.clear();
         context.close();
     }
+
+    int activeEffects() { return sessions.size(); }
 }

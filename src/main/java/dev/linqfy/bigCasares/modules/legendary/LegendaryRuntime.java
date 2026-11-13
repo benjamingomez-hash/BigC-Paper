@@ -33,7 +33,6 @@ final class LegendaryRuntime implements Listener, Runnable {
     private final BukkitRuntimeRegistrations registrations;
     private final NamespacedKey temporary = new NamespacedKey("bigcasares", "legendary_temporary");
     private final java.util.function.Predicate<UUID> eventTransaction;
-    private int tick;
     private boolean stopped;
 
     LegendaryRuntime(
@@ -72,7 +71,7 @@ final class LegendaryRuntime implements Listener, Runnable {
 
     @Override
     public void run() {
-        if (stopped || ++tick % 20 != 0) return;
+        if (stopped) return;
         for (Player player : plugin.getServer().getOnlinePlayers())
             if (!player.isDead()) recover(player);
     }

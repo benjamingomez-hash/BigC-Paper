@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.function.IntSupplier;
 import java.util.logging.Level;
 
 /** Input and lifecycle only. Each weapon's mechanics live in its own class. */
@@ -34,6 +35,7 @@ final class LegendaryElementalAbilities implements Listener, Runnable {
     private final LegendaryModelAnimations animations;
     private final LegendaryElementalContext context;
     private final Predicate<Player> blocked;
+    private final IntSupplier activeEffects;
     private final List<LegendaryAbilityCast> casts = new ArrayList<>();
     private boolean stopped;
 
@@ -44,12 +46,14 @@ final class LegendaryElementalAbilities implements Listener, Runnable {
             LegendaryPvpProgression progression,
             LegendaryModelAnimations animations,
             Predicate<Player> blocked,
+            IntSupplier activeEffects,
             BukkitRuntimeRegistrations registrations) {
         this.plugin = plugin;
         this.store = store;
         this.levels = levels;
         this.animations = animations;
         this.blocked = blocked;
+        this.activeEffects = activeEffects;
         context =
                 registrations.registerListener(
                         "legendary-elemental-damage",
@@ -84,9 +88,7 @@ final class LegendaryElementalAbilities implements Listener, Runnable {
         if (skill == null) return;
         // Paper reports LEFT/RIGHT_CLICK_AIR as cancelled when vanilla has no item use.
         // Region protections are checked independently before every activation and hit.
-        if (event.useInteractedBlock() == org.bukkit.event.Event.Result.DENY
-                && event.getClickedBlock() != null) return;
-        event.setCancelled(true);
+        if (!LegendaryElementalSkill.claimInput(event, skill)) return;
         activate(player, skill);
     }
 
@@ -130,7 +132,8 @@ final class LegendaryElementalAbilities implements Listener, Runnable {
                     Component.text(skill.id + " — " + ((remaining + 999) / 1000) + " s"));
             return;
         }
-        if (casts.size() >= 32
+        if (activeEffects.getAsInt() >= Math.clamp(
+                    plugin.getConfig().getInt("legendary-weapons.max-active-effects", 32), 1, 32)
                 || !context.policy.allowed(
                         player, player.getLocation(), null, LegendaryProtectionEvent.Action.MOVE))
             return;
@@ -193,7 +196,8 @@ final class LegendaryElementalAbilities implements Listener, Runnable {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void movement(org.bukkit.event.player.PlayerMoveEvent event) {
-        if (event.getTo() == null || event.getFrom().getWorld() != event.getTo().getWorld()) return;
+        if (event instanceof org.bukkit.event.player.PlayerTeleportEvent || !event.hasChangedPosition()
+                || event.getTo() == null || event.getFrom().getWorld() != event.getTo().getWorld()) return;
         Player player = event.getPlayer();
         if (casts.stream()
                 .noneMatch(c -> c.owner.equals(player.getUniqueId()) && c.fallProtected())) return;
@@ -224,6 +228,17 @@ final class LegendaryElementalAbilities implements Listener, Runnable {
     @EventHandler
     public void death(PlayerDeathEvent event) {
         clear(event.getEntity());
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void teleport(org.bukkit.event.player.PlayerTeleportEvent event) {
+        clear(event.getPlayer());
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void gameMode(org.bukkit.event.player.PlayerGameModeChangeEvent event) {
+        if (event.getNewGameMode() == GameMode.CREATIVE || event.getNewGameMode() == GameMode.SPECTATOR)
+            clear(event.getPlayer());
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -276,4 +291,6 @@ final class LegendaryElementalAbilities implements Listener, Runnable {
         casts.clear();
         context.close();
     }
+
+    int activeEffects() { return casts.size(); }
 }

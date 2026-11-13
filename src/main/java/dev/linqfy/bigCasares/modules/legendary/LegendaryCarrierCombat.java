@@ -15,6 +15,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.List;
+import java.util.function.Consumer;
 
 /** Only item-class/tag mechanics are adapted; damage, enchantment effects and protection events stay native. */
 final class LegendaryCarrierCombat implements Listener, AutoCloseable {
@@ -23,20 +25,29 @@ final class LegendaryCarrierCombat implements Listener, AutoCloseable {
 
     private final LegendaryVanillaBridge vanilla;
     private final LegendaryPvpProgression progression;
-    private final BukkitRuntimeRegistrations registrations;
+    private final Consumer<Runnable> afterAttack;
     private final Map<UUID, Attack> attacks = new HashMap<>();
+    private final Map<UUID, Runnable> smashFinishes = new HashMap<>();
 
     LegendaryCarrierCombat(LegendaryVanillaBridge vanilla, LegendaryPvpProgression progression,
                            BukkitRuntimeRegistrations registrations) {
+        this(vanilla, progression, callback -> registrations.scheduleImmediate("legendary-smash-finish", callback));
+    }
+
+    LegendaryCarrierCombat(LegendaryVanillaBridge vanilla, LegendaryPvpProgression progression,
+                           Consumer<Runnable> afterAttack) {
         this.vanilla = vanilla;
         this.progression = progression;
-        this.registrations = registrations;
+        this.afterAttack = afterAttack;
     }
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void beforeAttack(PrePlayerAttackEntityEvent event) {
         if (!event.willAttack()) return;
         Player player = event.getPlayer();
+        // The previous attack's native enchantment pass has finished. Complete
+        // its fall reset before another packet can reuse the same smash bonus.
+        finishSmash(player.getUniqueId());
         LegendaryItemCarrier.inventory(player);
         var weapon = LegendaryItemIdentity.weapon(player.getInventory().getItemInMainHand()).orElse(null);
         if (weapon == null) return;
@@ -70,7 +81,7 @@ final class LegendaryCarrierCombat implements Listener, AutoCloseable {
             var original = held.clone();
             vanilla.smashEffects(original, victim, player);
             // Keep fall distance through the native post-attack enchantment pass (Wind Burst uses it).
-            registrations.scheduleImmediate("legendary-smash-finish", () -> {
+            deferSmash(player.getUniqueId(), () -> {
                 if (player.isOnline()) vanilla.finishSmash(original, victim, player);
             });
         } else if (attack != null && attack.weapon() == weapon && attack.target().equals(victim.getUniqueId())
@@ -94,6 +105,26 @@ final class LegendaryCarrierCombat implements Listener, AutoCloseable {
                 && strength > 0.9F && !critical && !sprinting && onGround;
     }
 
-    @EventHandler public void quit(PlayerQuitEvent event) { attacks.remove(event.getPlayer().getUniqueId()); }
-    @Override public void close() { attacks.clear(); }
+    void deferSmash(UUID player, Runnable completion) {
+        finishSmash(player);
+        smashFinishes.put(player, completion);
+        afterAttack.accept(() -> {
+            if (smashFinishes.remove(player, completion)) completion.run();
+        });
+    }
+
+    void finishSmash(UUID player) {
+        Runnable completion = smashFinishes.remove(player);
+        if (completion != null) completion.run();
+    }
+
+    @EventHandler public void quit(PlayerQuitEvent event) {
+        finishSmash(event.getPlayer().getUniqueId());
+        attacks.remove(event.getPlayer().getUniqueId());
+    }
+
+    @Override public void close() {
+        for (UUID player : List.copyOf(smashFinishes.keySet())) finishSmash(player);
+        attacks.clear();
+    }
 }

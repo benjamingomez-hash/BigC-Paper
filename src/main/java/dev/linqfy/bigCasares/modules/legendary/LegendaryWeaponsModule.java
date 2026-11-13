@@ -95,6 +95,7 @@ public final class LegendaryWeaponsModule implements PluginModule {
                                     progression,
                                     animations,
                                     runtime::blocked,
+                                    this::activeEffects,
                                     registrations));
             altar =
                     registrations.registerListener(
@@ -106,14 +107,15 @@ public final class LegendaryWeaponsModule implements PluginModule {
                                     progression,
                                     animations,
                                     runtime::blocked,
+                                    this::activeEffects,
                                     registrations));
             scope.register("legendary-elemental-state", elemental::shutdown);
             scope.register("legendary-altar-state", altar::shutdown);
             registrations.scheduleRepeating("legendary-elemental-tick", elemental, 1, 1);
             registrations.scheduleRepeating("legendary-altar-tick", altar, 1, 1);
-            registrations.scheduleRepeating("legendary-effects-tick", runtime, 1, 1);
+            registrations.scheduleRepeating("legendary-effects-tick", runtime, 20, 20);
             registrations.scheduleRepeating("legendary-model-animation-tick", animations, 1, 1);
-            registrations.scheduleRepeating("legendary-event-tick", events, 1, 1);
+            registrations.scheduleRepeating("legendary-event-tick", events, 10, 10);
             var command = plugin.getCommand("weapons");
             if (command == null)
                 throw new IllegalStateException("Falta el comando weapons en plugin.yml.");
@@ -151,5 +153,9 @@ public final class LegendaryWeaponsModule implements PluginModule {
         if (events != null) events.shutdown();
         runtime = null;
         events = null;
+    }
+
+    private int activeEffects() {
+        return (elemental == null ? 0 : elemental.activeEffects()) + (altar == null ? 0 : altar.activeEffects());
     }
 }

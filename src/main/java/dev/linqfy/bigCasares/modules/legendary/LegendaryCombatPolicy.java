@@ -1,12 +1,15 @@
 package dev.linqfy.bigCasares.modules.legendary;
 
 import dev.linqfy.bigCasares.BigCasares;
+import dev.linqfy.bigCasares.modules.teams.Team;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Tameable;
+import java.util.Optional;
+import java.util.UUID;
 
 final class LegendaryCombatPolicy {
     private final BigCasares plugin;
@@ -33,14 +36,22 @@ final class LegendaryCombatPolicy {
                 || player.getGameMode() == GameMode.SPECTATOR || player.isInvulnerable()) {
                 return false;
             }
-            if (!plugin.getConfig().getBoolean("legendary-weapons.friendly-fire", false)) {
-                var team = source.getScoreboard().getEntryTeam(source.getName());
-                if (team != null && !team.allowFriendlyFire() && team.hasEntry(player.getName())) {
-                    return false;
-                }
-            }
+            var teams = plugin.getTeamModule();
+            Optional<Team> team = teams == null ? Optional.empty()
+                    : teams.service().flatMap(service -> service.findByMember(source.getUniqueId()));
+            if (!teamDamageAllowed(plugin.getConfig().getBoolean("legendary-weapons.friendly-fire", false),
+                    team, player.getUniqueId())) return false;
+            // Preserve independent vanilla scoreboard protection too. BigCasares
+            // presentation boards are not authoritative domain membership.
+            var scoreboardTeam = source.getScoreboard().getEntryTeam(source.getName());
+            if (scoreboardTeam != null && !scoreboardTeam.allowFriendlyFire()
+                    && scoreboardTeam.hasEntry(player.getName())) return false;
         }
         return allowed(source, target.getLocation(), target, LegendaryProtectionEvent.Action.DAMAGE);
+    }
+
+    static boolean teamDamageAllowed(boolean friendlyFire, Optional<Team> sourceTeam, UUID target) {
+        return friendlyFire || sourceTeam.filter(team -> team.containsMember(target)).isEmpty();
     }
 
     boolean allowed(Player player, Location location, LivingEntity target, LegendaryProtectionEvent.Action action) {

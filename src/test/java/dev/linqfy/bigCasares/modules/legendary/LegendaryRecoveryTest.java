@@ -6,7 +6,6 @@ import org.junit.jupiter.api.io.TempDir;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -14,15 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class LegendaryRecoveryTest {
     @TempDir Path directory;
-
-    @Test
-    void stormLastsExactlyTenSecondsWithFiveDistinctTwoSecondPulses() {
-        assertEquals(200, LegendaryWeapon.STORM_TICKS);
-        assertEquals(40, LegendaryWeapon.LIGHTNING_INTERVAL_TICKS);
-        assertEquals(List.of(0, 40, 80, 120, 160),
-            IntStream.rangeClosed(-10, 240).filter(LegendaryStormTiming::pulse).boxed().toList());
-        assertFalse(LegendaryStormTiming.pulse(200));
-    }
 
     @Test
     void deliveredSpearWinsOverReceiptAfterCrashAndNeverCreatesSecondCopy() {

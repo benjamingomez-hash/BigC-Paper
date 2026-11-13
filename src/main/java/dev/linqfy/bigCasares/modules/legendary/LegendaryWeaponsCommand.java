@@ -53,7 +53,7 @@ final class LegendaryWeaponsCommand implements CommandExecutor, TabCompleter {
                     sender.sendMessage(
                             "§eConsulta /weapons info <arma> para los controles. Cada baja de"
                                 + " jugador con un arma suma un nivel, hasta 5; se conserva al"
-                                + " morir.");
+                                + " morir. El mismo rival cuenta una vez cada 10 minutos, entre todas las armas.");
                     sender.sendMessage(
                             "§7Administración: /weapons level <jugador> <arma> <0-5> | cooldown"
                                 + " reset <jugador> | reload");

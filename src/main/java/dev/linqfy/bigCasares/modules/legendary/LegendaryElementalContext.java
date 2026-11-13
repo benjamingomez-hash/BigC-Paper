@@ -47,7 +47,7 @@ final class LegendaryElementalContext implements Listener {
     }
 
     boolean clear(Location from, Location to) {
-        if (!from.getWorld().equals(to.getWorld())) return false;
+        if (!validPath(from, to)) return false;
         Vector delta = to.toVector().subtract(from.toVector());
         double distance = delta.length();
         for (int step = 0; step <= Math.ceil(distance * 2); step++) {
@@ -72,7 +72,7 @@ final class LegendaryElementalContext implements Listener {
 
     boolean pathAllowed(
             Player owner, Location from, Location to, LegendaryProtectionEvent.Action action) {
-        if (!from.getWorld().equals(to.getWorld())) return false;
+        if (!validPath(from, to)) return false;
         Vector delta = to.toVector().subtract(from.toVector());
         int steps = Math.max(1, (int) Math.ceil(delta.length() * 2));
         for (int step = 0; step <= steps; step++) {
@@ -82,6 +82,14 @@ final class LegendaryElementalContext implements Listener {
                     || !policy.allowed(owner, point, null, action)) return false;
         }
         return true;
+    }
+
+    private static boolean validPath(Location from, Location to) {
+        if (from.getWorld() == null || !from.getWorld().equals(to.getWorld())) return false;
+        double distance = from.distanceSquared(to);
+        // Abilities have at most 64 blocks of configured reach. Teleports and
+        // invalid coordinates must never turn a movement event into a long scan.
+        return Double.isFinite(distance) && distance <= 128 * 128;
     }
 
     List<LivingEntity> targets(Player owner, Location center, double radius) {
@@ -105,7 +113,7 @@ final class LegendaryElementalContext implements Listener {
                                         center,
                                         e.getLocation(),
                                         LegendaryProtectionEvent.Action.DAMAGE),
-                16);
+                Math.clamp(plugin.getConfig().getInt("legendary-weapons.max-targets-per-pulse", 12), 1, 16));
     }
 
     org.bukkit.util.RayTraceResult ray(Player owner, double range) {
@@ -195,8 +203,9 @@ final class LegendaryElementalContext implements Listener {
     }
 
     void ring(Location center, double radius, Color color) {
-        for (int index = 0; index < 32; index++) {
-            double angle = index * Math.PI / 16;
+        int points = Math.clamp(plugin.getConfig().getInt("legendary-weapons.particles-per-ring", 24), 0, 64);
+        for (int index = 0; index < points; index++) {
+            double angle = index * Math.PI * 2 / points;
             dust(
                     center.clone().add(Math.cos(angle) * radius, .1, Math.sin(angle) * radius),
                     color,

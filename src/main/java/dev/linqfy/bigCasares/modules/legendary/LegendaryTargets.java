@@ -15,7 +15,9 @@ public final class LegendaryTargets {
                                      ToDoubleFunction<T> distance, Predicate<T> allowed, int limit) {
         if (limit < 1) throw new IllegalArgumentException("El límite de objetivos debe ser positivo.");
         var seen = new HashSet<UUID>();
-        return candidates.stream().filter(allowed).sorted(java.util.Comparator.comparingDouble(distance))
-            .filter(target -> seen.add(identity.apply(target))).limit(limit).toList();
+        // Protection queries and ray traces are much more expensive than ordering
+        // nearby entities. Stop querying as soon as the nearest valid targets fit.
+        return candidates.stream().sorted(java.util.Comparator.comparingDouble(distance))
+            .filter(target -> seen.add(identity.apply(target))).filter(allowed).limit(limit).toList();
     }
 }

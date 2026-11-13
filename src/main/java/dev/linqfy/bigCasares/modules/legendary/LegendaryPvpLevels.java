@@ -2,14 +2,23 @@ package dev.linqfy.bigCasares.modules.legendary;
 
 import java.io.IOException;
 import java.util.UUID;
+import java.util.Map;
+import java.util.function.LongSupplier;
 
 /** Separate player/weapon progress; death and item transfer never reset it. */
 final class LegendaryPvpLevels {
     static final int MAX_LEVEL = 5;
+    static final long REPEAT_VICTIM_MILLIS = 600_000;
     private final LegendaryStateStore store;
+    private final LongSupplier clock;
 
     LegendaryPvpLevels(LegendaryStateStore store) {
+        this(store, System::currentTimeMillis);
+    }
+
+    LegendaryPvpLevels(LegendaryStateStore store, LongSupplier clock) {
         this.store = store;
+        this.clock = clock;
     }
 
     int level(UUID player, LegendaryWeapon weapon) {
@@ -19,9 +28,17 @@ final class LegendaryPvpLevels {
     }
 
     int kill(UUID killer, UUID victim, LegendaryWeapon weapon) throws IOException {
-        if (killer.equals(victim) || !weapon.isAvailable()) return level(killer, weapon);
-        int next = Math.min(MAX_LEVEL, level(killer, weapon) + 1);
-        set(killer, weapon, next);
+        int current = level(killer, weapon);
+        if (killer.equals(victim) || !weapon.isAvailable() || current == MAX_LEVEL) return current;
+        long now = clock.getAsLong();
+        String rewardKey = "reward." + killer + "." + victim;
+        String previous = store.get(rewardKey);
+        if (previous != null && now < Long.parseLong(previous)) return current;
+        int next = current + 1;
+        // Shared across weapons and durable across reconnect/reload. The level
+        // and anti-farming deadline must never commit independently.
+        store.putAll(Map.of(key(killer, weapon), Integer.toString(next),
+                rewardKey, Long.toString(Math.addExact(now, REPEAT_VICTIM_MILLIS))));
         return next;
     }
 

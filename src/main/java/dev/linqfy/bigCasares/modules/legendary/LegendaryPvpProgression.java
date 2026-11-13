@@ -115,6 +115,8 @@ final class LegendaryPvpProgression implements Listener {
                 killer.sendMessage(
                         Component.text(
                                 "✦ " + earned.weapon().displayName + " — nivel " + next + "/5"));
+            else if (old < LegendaryPvpLevels.MAX_LEVEL && killer != null)
+                killer.sendActionBar(Component.text("El mismo rival cuenta una vez cada 10 minutos, entre todas las armas."));
         } catch (IOException failure) {
             plugin.getLogger()
                     .log(

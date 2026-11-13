@@ -119,8 +119,6 @@ public enum LegendaryWeapon {
     // Keep historical enum names readable by the persisted journal and inventory recovery.
     private static final List<LegendaryWeapon> AVAILABLE =
             Arrays.stream(values()).filter(LegendaryWeapon::isAvailable).toList();
-    public static final int STORM_TICKS = 200;
-    public static final int LIGHTNING_INTERVAL_TICKS = 40;
     public final String id;
     public final String displayName;
     public final String material;

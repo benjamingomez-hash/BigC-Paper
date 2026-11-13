@@ -39,16 +39,21 @@ public final class LegendaryStateStore {
     }
 
     public void put(String key, String value) throws IOException {
+        if (!writeFailed && java.util.Objects.equals(values.get(key), value)) return;
+        putAll(java.util.Collections.singletonMap(key, value));
+    }
+
+    /** Related progress changes commit together, including removals represented by null. */
+    void putAll(Map<String, String> changes) throws IOException {
         if (writeFailed)
             throw new IOException(
                     "El diario necesita recuperarse antes de aceptar nuevas transacciones.");
-        if (java.util.Objects.equals(values.get(key), value)) return;
         Map<String, String> next = new LinkedHashMap<>(values);
-        if (value == null) {
-            next.remove(key);
-        } else {
-            next.put(key, value);
-        }
+        changes.forEach((key, value) -> {
+            if (value == null) next.remove(key);
+            else next.put(key, value);
+        });
+        if (next.equals(values)) return;
         try {
             persist(next);
         } catch (IOException failure) {
@@ -91,8 +96,10 @@ public final class LegendaryStateStore {
     }
 
     public void resetCooldowns(UUID player) throws IOException {
+        Map<String, String> removals = new LinkedHashMap<>();
         for (String key : snapshot().keySet())
-            if (key.startsWith("cooldown." + player + ".")) put(key, null);
+            if (key.startsWith("cooldown." + player + ".")) removals.put(key, null);
+        putAll(removals);
     }
 
     long abilityRemaining(UUID player, LegendaryElementalSkill skill, long now) {

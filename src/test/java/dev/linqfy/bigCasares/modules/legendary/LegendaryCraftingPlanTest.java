@@ -1,12 +1,22 @@
 package dev.linqfy.bigCasares.modules.legendary;
 
 import org.junit.jupiter.api.Test;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class LegendaryCraftingPlanTest {
+    @Test
+    void craftingRequiresAnEmptyCursorSoClosingTheMenuCannotOverwriteCarriedItems() {
+        assertTrue(LegendaryCraftingEvents.emptyCursor(null));
+        assertTrue(LegendaryCraftingEvents.emptyCursor(new ItemStack(Material.AIR)));
+        assertFalse(LegendaryCraftingEvents.emptyCursor(new ItemStack(Material.DIAMOND, 64)));
+    }
     @Test void removedRecipesRejectBeforeMovingOrConsumingIngredients() {
         for (var weapon : List.of(LegendaryWeapon.VOID_KATANA, LegendaryWeapon.HYPERION)) {
             var storage = new ArrayList<Item>(java.util.Collections.nCopies(36, null));

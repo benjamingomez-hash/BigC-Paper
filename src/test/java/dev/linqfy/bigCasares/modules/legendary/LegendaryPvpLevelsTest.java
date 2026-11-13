@@ -14,6 +14,48 @@ class LegendaryPvpLevelsTest {
     @TempDir Path directory;
 
     @Test
+    void repeatedlyKillingTheSamePlayerCannotFarmUnlocksOrSwitchWeaponsToBypassTheLimit() throws Exception {
+        var file = directory.resolve("farm.properties");
+        var levels = new LegendaryPvpLevels(new LegendaryStateStore(file));
+        var killer = UUID.randomUUID();
+        var victim = UUID.randomUUID();
+        assertEquals(1, levels.kill(killer, victim, LegendaryWeapon.BLOODLUST));
+        assertEquals(1, levels.kill(killer, victim, LegendaryWeapon.BLOODLUST));
+        assertEquals(0, levels.kill(killer, victim, LegendaryWeapon.SHADOW_BLADE));
+        var restored = new LegendaryPvpLevels(new LegendaryStateStore(file));
+        assertEquals(1, restored.kill(killer, victim, LegendaryWeapon.BLOODLUST));
+        assertEquals(2, restored.kill(killer, UUID.randomUUID(), LegendaryWeapon.BLOODLUST));
+    }
+
+    @Test
+    void repeatVictimWindowExpiresAtTenMinutesAndClockRollbackDoesNotClearIt() throws Exception {
+        var now = new java.util.concurrent.atomic.AtomicLong(1_000_000);
+        var levels = new LegendaryPvpLevels(new LegendaryStateStore(directory.resolve("clock.properties")), now::get);
+        var killer = UUID.randomUUID();
+        var victim = UUID.randomUUID();
+        assertEquals(1, levels.kill(killer, victim, LegendaryWeapon.BLOODLUST));
+        now.set(999_000);
+        assertEquals(1, levels.kill(killer, victim, LegendaryWeapon.BLOODLUST));
+        now.set(1_599_999);
+        assertEquals(1, levels.kill(killer, victim, LegendaryWeapon.BLOODLUST));
+        now.set(1_600_000);
+        assertEquals(2, levels.kill(killer, victim, LegendaryWeapon.BLOODLUST));
+    }
+
+    @Test
+    void failedProgressWriteCannotCommitTheLevelOrConsumeTheVictimReward() throws Exception {
+        var path = directory.resolve("failed.properties");
+        var store = new LegendaryStateStore(path);
+        java.nio.file.Files.createDirectory(path);
+        var levels = new LegendaryPvpLevels(store);
+        var killer = UUID.randomUUID();
+        assertThrows(java.io.IOException.class,
+                () -> levels.kill(killer, UUID.randomUUID(), LegendaryWeapon.BLOODLUST));
+        assertEquals(0, levels.level(killer, LegendaryWeapon.BLOODLUST));
+        assertTrue(store.snapshot().isEmpty());
+    }
+
+    @Test
     void onePlayerKillAddsOneLevelUpToFiveAndSurvivesRestartPerPlayerAndWeapon() throws Exception {
         var file = directory.resolve("state.properties");
         var store = new LegendaryStateStore(file);
@@ -23,7 +65,7 @@ class LegendaryPvpLevelsTest {
         store.put("unrelated.journal", "keep");
         assertEquals(0, levels.level(owner, LegendaryWeapon.BLOODLUST));
         for (int kill = 1; kill <= 8; kill++)
-            assertEquals(Math.min(5, kill), levels.kill(owner, victim, LegendaryWeapon.BLOODLUST));
+            assertEquals(Math.min(5, kill), levels.kill(owner, UUID.randomUUID(), LegendaryWeapon.BLOODLUST));
         var restored = new LegendaryPvpLevels(new LegendaryStateStore(file));
         assertEquals(5, restored.level(owner, LegendaryWeapon.BLOODLUST));
         assertEquals(0, restored.level(victim, LegendaryWeapon.BLOODLUST));
