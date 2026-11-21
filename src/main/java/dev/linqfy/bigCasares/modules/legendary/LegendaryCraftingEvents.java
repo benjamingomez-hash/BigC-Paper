@@ -2,6 +2,7 @@ package dev.linqfy.bigCasares.modules.legendary;
 
 import dev.linqfy.bigCasares.BigCasares;
 import dev.linqfy.bigCasares.module.runtime.BukkitRuntimeRegistrations;
+import dev.linqfy.bigCasares.modules.quadrants.FullPvpPolicy;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -45,6 +46,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.plugin.ServicesManager;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -95,6 +97,7 @@ final class LegendaryCraftingEvents implements Listener, Runnable {
             ItemStack preview = new ItemStack(Material.BARRIER);
             var meta = preview.getItemMeta();
             meta.displayName(Component.text("Iniciar fabricación: " + weapon.displayName + " · 20 minutos"));
+            meta.lore(java.util.List.of(Component.text("Solo en un cuadrante de PvP libre.")));
             meta.getPersistentDataContainer().set(PREVIEW, PersistentDataType.STRING, weapon.id);
             preview.setItemMeta(meta);
             var recipe = new ShapelessRecipe(key, preview);
@@ -117,7 +120,10 @@ final class LegendaryCraftingEvents implements Listener, Runnable {
     @EventHandler public void prepare(PrepareItemCraftEvent event) {
         var weapon = recipe(event.getRecipe());
         if (weapon == null) return;
-        if (failed || ledger.find(weapon).isPresent() || event.getInventory().getMatrix().length != 9) {
+        var services = plugin.getServer().getServicesManager();
+        if (failed || ledger.find(weapon).isPresent() || event.getInventory().getMatrix().length != 9
+            || !fullPvp(services, event.getInventory().getLocation())
+            || !fullPvp(services, event.getView().getPlayer().getLocation())) {
             event.getInventory().setResult(null);
             return;
         }
@@ -142,6 +148,11 @@ final class LegendaryCraftingEvents implements Listener, Runnable {
         }
         CraftingInventory inventory = event.getInventory();
         Location table = inventory.getLocation();
+        var services = plugin.getServer().getServicesManager();
+        if (!fullPvp(services, table) || !fullPvp(services, player.getLocation())) {
+            player.sendMessage("§eLas armas legendarias solo se fabrican en un cuadrante de PvP libre.");
+            return;
+        }
         if (!validTable(player, table)) return;
         ItemStack[] matrix = copy(inventory.getMatrix());
         queued.add(player.getUniqueId());
@@ -183,12 +194,23 @@ final class LegendaryCraftingEvents implements Listener, Runnable {
     }
 
     private boolean validTable(Player player, Location table) {
+        var position = player.getLocation();
+        var services = plugin.getServer().getServicesManager();
         return table != null && player.getWorld().equals(table.getWorld())
-            && player.getLocation().distanceSquared(table.clone().add(0.5, 0.5, 0.5)) <= 64
+            && fullPvp(services, table) && fullPvp(services, position)
+            && position.distanceSquared(table.clone().add(0.5, 0.5, 0.5)) <= 64
             && table.getBlock().getType() == Material.CRAFTING_TABLE
             && table.clone().add(0, 1, 0).getBlock().getType().isAir()
             && policy.allowed(player, table, null, LegendaryProtectionEvent.Action.ALTAR)
             && policy.allowed(player, table.clone().add(0, 1, 0), null, LegendaryProtectionEvent.Action.ALTAR);
+    }
+
+    static boolean fullPvp(ServicesManager services, Location table) {
+        if (table == null) {
+            return false;
+        }
+        FullPvpPolicy policy = services.load(FullPvpPolicy.class);
+        return policy != null && policy.isFullPvp(table);
     }
 
     static boolean emptyCursor(ItemStack cursor) {

@@ -1,7 +1,11 @@
 package dev.linqfy.bigCasares.modules.legendary;
 
+import dev.linqfy.bigCasares.modules.quadrants.FullPvpPolicy;
+import org.bukkit.Location;
+import org.bukkit.plugin.ServicesManager;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import java.lang.reflect.Proxy;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Random;
@@ -29,6 +33,27 @@ class LegendaryCraftingEventTest {
         var session = ledger.start(weapon, WORLD, "Overworld (world)", x, 84, -623, START, tx);
         ledger.confirm(weapon, tx.nonce());
         return session;
+    }
+
+    @Test
+    void craftingRequiresTheQuadrantServiceAndAFullPvpTable() {
+        Location fullPvp = new Location(null, 5, 64, 5);
+        Location protectedTable = new Location(null, -5, 64, -5);
+        FullPvpPolicy policy = location -> location.getZ() >= 0;
+
+        assertTrue(LegendaryCraftingEvents.fullPvp(services(policy), fullPvp));
+        assertFalse(LegendaryCraftingEvents.fullPvp(services(policy), protectedTable));
+        assertFalse(LegendaryCraftingEvents.fullPvp(services(null), fullPvp));
+        assertFalse(LegendaryCraftingEvents.fullPvp(services(policy), null));
+    }
+
+    private static ServicesManager services(FullPvpPolicy policy) {
+        return (ServicesManager) Proxy.newProxyInstance(ServicesManager.class.getClassLoader(),
+            new Class<?>[] {ServicesManager.class}, (proxy, method, arguments) -> {
+                assertEquals("load", method.getName());
+                assertEquals(FullPvpPolicy.class, arguments[0]);
+                return policy;
+            });
     }
 
     @Test void nestedInclusiveSquaresContainNegativePositiveAndBoundaryCoordinatesWithoutFixedCenter() {
